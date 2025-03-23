@@ -26,7 +26,7 @@ O **Sistema de Controle de Manutenção de Equipamentos** tem como objetivo gere
 
 ## Tecnologias Utilizadas
 
-- Angular 19.2.4
+- Angular 17.0.0
 - Nodejs v22.14.0
 
 [Adicionar as tecnologias utilizadas no projeto, como linguagens, frameworks, etc.]
