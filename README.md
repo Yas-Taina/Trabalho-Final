@@ -5,16 +5,16 @@ Este repositório contém o código e os materiais referentes ao **Trabalho Fina
 ## Integrantes do Grupo
 
 - **Christian dos Santos Eurinidio**  
-  GRR: 20206127
+  GRR20206127
   
 - **João Alberto François**  
-  GRR: 20211640
+  GRR20211640
   
 - **Mateus De Vita Tassote**  
-  GRR: 20193889
+  GRR20193889
   
 - **Yasmin Tainá da Silva**  
-  GRR: 20211612
+  GRR20211612
 
 ## Descrição do Projeto
 
