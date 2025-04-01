@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { MenuComponent } from './components/menu/menu.component';
 import { CepService } from './services/cep/cep.service';
+import { LoginComponent } from "./components/telas/login/login.component";
+import { HomeComponent } from "./components/telas/home/home.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, MenuComponent],
+  imports: [CommonModule, RouterOutlet, MenuComponent, RouterModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
