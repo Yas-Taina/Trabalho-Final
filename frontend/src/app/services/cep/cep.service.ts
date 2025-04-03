@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Endereco } from '../../models/endereco';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { lastValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class CepService {
 
   constructor(private http: HttpClient) { }
 
-  ObterEndereco(cep: string): Observable<Endereco> {
-    return this.http.get<Endereco>(`${this.baseUrl}${cep}/json/`);
+  async ObterEndereco(cep: string): Promise<Endereco> {
+    return await lastValueFrom(this.http.get<Endereco>(`${this.baseUrl}${cep}/json/`));
   }
 }
