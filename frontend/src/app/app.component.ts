@@ -16,18 +16,17 @@ import { CadastroComponent } from "./components/telas/cadastro/cadastro.componen
 })
 export class AppComponent {
   title = 'Trabalho-Final';
+  CepService: CepService;
 
   constructor(cepService: CepService) {
-    cepService.ObterEndereco('01001-000').subscribe({
-      next: (endereco) => {
+    this.CepService = cepService;
+
+    this.carregarEndereco();
+  }
+
+  async carregarEndereco() {
+    const endereco = await this.CepService.ObterEndereco('01001-000');
+
         console.log(endereco);
-      },
-      error: (error) => {
-        console.error('Erro ao obter endereço:', error);
-      },
-      complete: () => {
-        console.log('Requisição concluída');
-      }
-    });
   }
 }
