@@ -27,8 +27,8 @@ export class MenuComponent {
 
   private getSectionFromUrl(url: string): string {
     if (url.includes('public') || url.includes('auth')) return 'auth';
-    if (url.includes('cliente')) return 'cliente';
-    if (url.includes('empregado')) return 'empregado';
+    if (url.includes('client')) return 'cliente';
+    if (url.includes('adm')) return 'empregado';
     return 'desconhecido';
   }
 }

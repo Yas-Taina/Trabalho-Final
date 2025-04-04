@@ -31,7 +31,7 @@
     <h1 class="m-0">Sistema de Controle de Manutenção de Equipamentos</h1>
 
     <ng-container *ngIf="(currentSection$ | async) === 'auth'; else logoutButton">
-        <div>
+        <div class="log">
             <button routerLink="/auth/login" class="btn btn-primary">Login</button>
             <button routerLink="/auth/cadastro" class="btn btn-primary">Cadastro</button>
         </div>
