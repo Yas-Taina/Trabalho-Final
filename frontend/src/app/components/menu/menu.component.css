@@ -72,6 +72,12 @@
     margin: 10px 0;
 }
 
+button{
+    margin-left: 15px;
+    margin-right: 5px;
+}
+
+
 @media (max-width: 768px) {
     .menu-col {
         width: 100vw;

@@ -1,29 +1,43 @@
 <div id="menu" class="menu-col p-3" [class.show]="isMenuOpen">
     <div class="menu-itens">
         <div class="menu1">
-            <p>Placeholder</p>
-            <p>Placeholder</p>
-            <p>Placeholder</p>
-            <p>Placeholder</p>
-            <p>Placeholder</p>
+            <ng-container *ngIf="(currentSection$ | async) === 'cliente'">
+                <p>Placeholder Cliente</p>
+                <p>Placeholder Cliente</p>
+            </ng-container>
+
+            <ng-container *ngIf="(currentSection$ | async) === 'empregado'">
+                <p>Placeholder Empregado</p>
+                <p>Placeholder Empregado</p>
+            </ng-container>
         </div>
+
         <hr>
+
         <div class="menu2">
-            <p>Placeholder</p>
-            <p>Placeholder</p>
-            <p>Placeholder</p>
-            <p>Placeholder</p>
-            <p>Placeholder</p>
+            <p>Placeholder perfil</p>
         </div>
+
     </div>
 </div>
 
 <header class="d-flex justify-content-between align-items-center p-3 bg-light shadow" id="compmenu">
-    <button class="burgue" (click)="toggleMenu()">
+    <button class="burgue" (click)="toggleMenu()" *ngIf="(currentSection$ | async) !== 'auth'">
         <span></span>
         <span></span>
         <span></span>
     </button>
+
     <h1 class="m-0">Sistema de Controle de Manutenção de Equipamentos</h1>
-    <button class="btn btn-primary">Login</button>
+
+    <ng-container *ngIf="(currentSection$ | async) === 'auth'; else logoutButton">
+        <div class="log">
+            <button routerLink="/auth/login" class="btn btn-primary">Login</button>
+            <button routerLink="/auth/cadastro" class="btn btn-primary">Cadastro</button>
+        </div>
+    </ng-container>
+
+    <ng-template #logoutButton>
+        <button class="btn btn-danger">Logout</button>
+    </ng-template>
 </header>
