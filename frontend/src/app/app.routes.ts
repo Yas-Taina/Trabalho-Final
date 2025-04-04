@@ -3,8 +3,8 @@ import { LoginComponent } from './pages/auth/login/login.component';
 import { HomeComponent } from './pages/public/home/home.component';
 import { CadastroComponent } from './pages/auth/cadastro/cadastro.component';
 export const routes: Routes = [
-    { path: 'home', component: HomeComponent },
-    { path: 'login', component: LoginComponent },
-    { path: 'cadastro', component: CadastroComponent },
-    { path: '',   redirectTo: '/home', pathMatch: 'full' }
+    { path: 'public/home', component: HomeComponent },
+    { path: 'auth/login', component: LoginComponent },
+    { path: 'auth/cadastro', component: CadastroComponent },
+    { path: '',   redirectTo: '/public/home', pathMatch: 'full' }
 ];
