@@ -7,6 +7,9 @@ import { EmpregadoInicioComponent } from './pages/empregado/inicio/inicio.compon
 import { ListarEquipamentoComponent } from './pages/empregado/equipamento/listar-equipamento/listar-equipamento.component';
 import { InserirEquipamentoComponent } from './pages/empregado/equipamento/inserir-equipamento/inserir-equipamento.component';
 import { EditarEquipamentoComponent } from './pages/empregado/equipamento/editar-equipamento/editar-equipamento.component';
+import { ListarFuncionarioComponent } from './pages/empregado/funcionario/listar-funcionario/listar-funcionario.component';
+import { InserirFuncionarioComponent } from './pages/empregado/funcionario/inserir-funcionario/inserir-funcionario.component';
+import { EditarFuncionarioComponent } from './pages/empregado/funcionario/editar-funcionario/editar-funcionario.component';
 
 export const routes: Routes = [
     { path: 'public/home', component: HomeComponent },
@@ -17,5 +20,8 @@ export const routes: Routes = [
     { path: 'adm/equipamentos', component: ListarEquipamentoComponent},
     { path: 'adm/equipamentos/novo', component: InserirEquipamentoComponent},
     { path: 'adm/equipamentos/editar/:id', component: EditarEquipamentoComponent},
+    { path: 'adm/funcionarios', component: ListarFuncionarioComponent},
+    { path: 'adm/funcionarios/novo', component: InserirFuncionarioComponent},
+    { path: 'adm/funcionarios/editar/:id', component: EditarFuncionarioComponent},
     { path: '',   redirectTo: '/public/home', pathMatch: 'full' }
 ];
