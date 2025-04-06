@@ -7,7 +7,7 @@
             </ng-container>
 
             <ng-container *ngIf="(currentSection$ | async) === 'empregado'">
-                <p>Placeholder Empregado</p>
+                <a routerLink="/adm/equipamentos/listar">Equipamentos</a>
                 <p>Placeholder Empregado</p>
             </ng-container>
         </div>
@@ -15,7 +15,10 @@
         <hr>
 
         <div class="menu2">
-            <p>Placeholder perfil</p>
+            <ng-container *ngIf="(currentSection$ | async) === 'cliente'">
+                <p>Placeholder Perfil</p>
+                <p>Placeholder Perfil</p>
+            </ng-container>
         </div>
 
     </div>
