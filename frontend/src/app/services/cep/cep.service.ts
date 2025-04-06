@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Endereco } from '../../models/endereco';
+import { Endereco } from '../../shared/models/endereco';
 import { HttpClient } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 

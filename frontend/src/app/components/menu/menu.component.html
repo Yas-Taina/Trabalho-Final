@@ -2,20 +2,31 @@
     <div class="menu-itens">
         <div class="menu1">
             <ng-container *ngIf="(currentSection$ | async) === 'cliente'">
-                <p>Placeholder Cliente</p>
+                <br>
+                <a routerLink="/client/home">Inicio</a>
+                <br>
                 <p>Placeholder Cliente</p>
             </ng-container>
 
             <ng-container *ngIf="(currentSection$ | async) === 'empregado'">
-                <p>Placeholder Empregado</p>
-                <p>Placeholder Empregado</p>
+                <br>
+                <a routerLink="/adm/home">Inicio</a>
+                <br>
+                <a routerLink="/adm/equipamentos">Equipamentos</a>
+                <br>
+                <a routerLink="/adm/funcionarios">Funcionários</a>
             </ng-container>
         </div>
 
         <hr>
 
         <div class="menu2">
-            <p>Placeholder perfil</p>
+            <ng-container *ngIf="(currentSection$ | async) === 'cliente'">
+                <br>
+                <p>Placeholder Perfil</p>
+                <br>
+                <p>Placeholder Perfil</p>
+            </ng-container>
         </div>
 
     </div>
