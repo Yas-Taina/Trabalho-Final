@@ -16,10 +16,10 @@
             <td> {{ equipamento.nome }} </td>
             <td> {{ equipamento.descricao }} </td>
             <td class="text-center" style="width: 300px">
-                <a href="#" title="Editar" alt="Editar" class="btn btn-xs btn-info">
+                <a href="#" title="Editar" alt="Editar" class="btn btn-xs btn-info" [routerLink]="['/adm/equipamentos/editar', equipamento.id]">
                     <i class="fa fa-edit" aria-hidden="true"></i> Editar
                 </a>
-                <a href="#" title="Remover" alt="Remover" class="btn btn-xs btn-danger">
+                <a href="#" title="Remover" alt="Remover" class="btn btn-xs btn-danger" (click)="remover($event, equipamento)">
                     <i class="fa fa-times" aria-hidden="true"></i> Remover
                 </a>
             </td>
