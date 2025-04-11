@@ -1,6 +1,6 @@
 import { EntidadeBase } from "./entidade-base.model";
 
-export class Funcionario extends EntidadeBase {
+export class Cliente extends EntidadeBase {
     constructor(
         public override id: number = 0,
         public nome: string = "",
