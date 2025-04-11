@@ -5,7 +5,7 @@
             <label for="nome">Nome</label>
             <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="funcionario.nome" #nome="ngModel"
                 minlength="2" required>
-            <div *ngIf="nome.errors $$ (nome.dirty || nome.touched)" class="alert alert-danger">
+            <div *ngIf="nome.errors && (nome.dirty || nome.touched)" class="alert alert-danger">
                 <div [hidden]="!nome.errors['required']">Digite um nome para o funcionario.</div>
                 <div [hidden]="!nome.errors['minlength']">O nome deve conter ao menos 2 caracteres</div>
             </div>
@@ -14,7 +14,7 @@
             <label for="email">Email</label>
             <input type="email" class="form-control" id="email" name="email" [(ngModel)]="funcionario.email"
                 #email="ngModel" required email>
-            <div *ngIf="email.errors $$ (email.dirty || email.touched)" class="alert alert-danger">
+            <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
                 <div [hidden]="!email.errors['required']">Digite um email para o funcionario.</div>
                 <div [hidden]="!email.errors['email']">Digite um email válido para o funcionario.</div>
             </div>
@@ -23,7 +23,7 @@
             <label for="login">Login</label>
             <input type="text" class="form-control" id="login" name="login" [(ngModel)]="funcionario.login"
                 #login="ngModel" minlength="5" required>
-            <div *ngIf="login.errors $$ (login.dirty || login.touched)" class="alert alert-danger">
+            <div *ngIf="login.errors && (login.dirty || login.touched)" class="alert alert-danger">
                 <div [hidden]="!login.errors['required']">Digite um login para o funcionario.</div>
                 <div [hidden]="!login.errors['minlength']">O login deve conter ao menos 5 caracteres</div>
             </div>
@@ -37,7 +37,7 @@
                 <option value="GERENTE">GERENTE</option>
                 <option value="ADMIN">ADMIN</option>
             </select>
-            <div *ngIf="perfil.errors $$ (perfil.dirty || perfil.touched)" class="alert alert-danger">
+            <div *ngIf="perfil.errors && (perfil.dirty || perfil.touched)" class="alert alert-danger">
                 <div [hidden]="!perfil.errors['required']">Selecione um perfil válido.</div>
             </div>
         </div>
