@@ -1,33 +1,37 @@
-<h1>Funcionarios</h1>
+<div class="p-4">
+    <h1>Funcionários</h1>
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Login</th>
+                <th>Perfil</th>
+                <th class="text-center">
+                    <a routerLink="/adm/funcionarios/novo" title="Novo" alt="Novo" class="btn btn-xs btn-success">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Novo
+                    </a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let funcionario of funcionarios">
+                <td>{{ funcionario.nome }}</td>
+                <td>{{ funcionario.email }}</td>
+                <td>{{ funcionario.login }}</td>
+                <td>{{ funcionario.perfil }}</td>
+                <td class="text-center" style="width: 300px">
+                    <a class="btn btn-xs btn-info" [routerLink]="['/adm/funcionarios/editar', funcionario.id]"
+                        title="Editar">
+                        <i class="fa fa-edit" aria-hidden="true"></i> Editar
+                    </a>
+                    <a class="btn btn-xs btn-danger" (click)="remover($event, funcionario)" title="Remover">
+                        <i class="fa fa-times" aria-hidden="true"></i> Remover
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
-<table class="table table-striped table-bordered table-hover">
-    <tbody>
-        <tr>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Login</th>
-            <th>Perfil</th>
-            <th class="text-center">
-                <a routerLink="/adm/funcionarios/novo" title="Novo" alt="Novo" class="btn btn-xs btn-success">
-                    <i class="fa fa-plus" aria-hidden="true"></i> Novo
-                </a>
-            </th>
-        </tr>
-
-        <tr *ngFor="let funcionario of funcionarios">
-            <td> {{ funcionario.nome }} </td>
-            <td> {{ funcionario.email }} </td>
-            <td> {{ funcionario.login }} </td>
-            <td> {{ funcionario.perfil }} </td>
-            <td class="text-center" style="width: 300px">
-                <a href="#" title="Editar" alt="Editar" class="btn btn-xs btn-info" [routerLink]="['/adm/funcionarios/editar', funcionario.id]">
-                    <i class="fa fa-edit" aria-hidden="true"></i> Editar
-                </a>
-                <a href="#" title="Remover" alt="Remover" class="btn btn-xs btn-danger" (click)="remover($event, funcionario)">
-                    <i class="fa fa-times" aria-hidden="true"></i> Remover
-                </a>
-            </td>
-        </tr>
-    </tbody>
-</table>
-<p *ngIf="funcionarios.length===0">Nenhum Funcionario Cadastrado.</p>
+    <p *ngIf="funcionarios.length === 0">Nenhum Funcionário Cadastrado.</p>
+</div>

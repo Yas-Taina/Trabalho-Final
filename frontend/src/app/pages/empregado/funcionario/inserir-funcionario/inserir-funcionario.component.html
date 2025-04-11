@@ -1,64 +1,71 @@
-<h1>Novo Funcionario</h1>
-
-<form #formFuncionario="ngForm">
-    <div class="form-group">
-        <label for="nome">Nome</label>
-        <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="funcionario.nome" #nome="ngModel" minlength="2" required>
-        <div *ngIf="nome.errors && (nome.dirty || nome.touched)" class="alert alert-danger">
-            <div [hidden]="!nome.errors['required']">Digite um nome para o funcionario.</div>
-            <div [hidden]="!nome.errors['minlength']">O nome deve conter ao menos 2 caracteres</div>
+<div class="p-4">
+    <h1>Novo Funcionario</h1>
+    <form #formFuncionario="ngForm">
+        <div class="form-group">
+            <label for="nome">Nome</label>
+            <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="funcionario.nome" #nome="ngModel"
+                minlength="2" required>
+            <div *ngIf="nome.errors && (nome.dirty || nome.touched)" class="alert alert-danger">
+                <div [hidden]="!nome.errors['required']">Digite um nome para o funcionario.</div>
+                <div [hidden]="!nome.errors['minlength']">O nome deve conter ao menos 2 caracteres</div>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" name="email" [(ngModel)]="funcionario.email" #email="ngModel" required email>
-        <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
-            <div [hidden]="!email.errors['required']">Digite um email para o funcionario.</div>
-            <div [hidden]="!email.errors['email']">Digite um email válido para o funcionario.</div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" [(ngModel)]="funcionario.email"
+                #email="ngModel" required email>
+            <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
+                <div [hidden]="!email.errors['required']">Digite um email para o funcionario.</div>
+                <div [hidden]="!email.errors['email']">Digite um email válido para o funcionario.</div>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label for="login">Login</label>
-        <input type="text" class="form-control" id="login" name="login" [(ngModel)]="funcionario.login" #login="ngModel" minlength="5" required>
-        <div *ngIf="login.errors && (login.dirty || login.touched)" class="alert alert-danger">
-            <div [hidden]="!login.errors['required']">Digite um login para o funcionario.</div>
-            <div [hidden]="!login.errors['minlength']">O login deve conter ao menos 5 caracteres</div>
+        <div class="form-group">
+            <label for="login">Login</label>
+            <input type="text" class="form-control" id="login" name="login" [(ngModel)]="funcionario.login"
+                #login="ngModel" minlength="5" required>
+            <div *ngIf="login.errors && (login.dirty || login.touched)" class="alert alert-danger">
+                <div [hidden]="!login.errors['required']">Digite um login para o funcionario.</div>
+                <div [hidden]="!login.errors['minlength']">O login deve conter ao menos 5 caracteres</div>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label for="perfil">Perfil</label>
-        <select id="perfil" class="form-control" name="perfil" [(ngModel)]="funcionario.perfil" #perfil="ngModel" required> 
-            <option value="" disabled selected>Selecione um perfil</option>
-            <option value="FUNC">FUNC</option>
-            <option value="GERENTE">GERENTE</option>
-            <option value="ADMIN">ADMIN</option>
-        </select>
-        <div *ngIf="perfil.errors && (perfil.dirty || perfil.touched)" class="alert alert-danger">
-            <div [hidden]="!perfil.errors['required']">Selecione um perfil válido.</div>
+        <div class="form-group">
+            <label for="perfil">Perfil</label>
+            <select id="perfil" class="form-control" name="perfil" [(ngModel)]="funcionario.perfil" #perfil="ngModel"
+                required>
+                <option value="" disabled selected>Selecione um perfil</option>
+                <option value="FUNC">FUNC</option>
+                <option value="GERENTE">GERENTE</option>
+                <option value="ADMIN">ADMIN</option>
+            </select>
+            <div *ngIf="perfil.errors && (perfil.dirty || perfil.touched)" class="alert alert-danger">
+                <div [hidden]="!perfil.errors['required']">Selecione um perfil válido.</div>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label for="senha">Senha</label>
-        <input type="password" class="form-control" id="senha" name="senha" [(ngModel)]="funcionario.senha" #senha="ngModel" minlength="6" required>    
-        <div *ngIf="senha.invalid && (senha.dirty || senha.touched)" class="alert alert-danger">
-            <div *ngIf="senha.errors?.['required']">Digite uma senha para o funcionário.</div>
-            <div *ngIf="senha.errors?.['minlength']">A senha deve conter ao menos 6 caracteres.</div>
+        <div class="form-group">
+            <label for="senha">Senha</label>
+            <input type="password" class="form-control" id="senha" name="senha" [(ngModel)]="funcionario.senha"
+                #senha="ngModel" minlength="6" required>
+            <div *ngIf="senha.invalid && (senha.dirty || senha.touched)" class="alert alert-danger">
+                <div *ngIf="senha.errors?.['required']">Digite uma senha para o funcionário.</div>
+                <div *ngIf="senha.errors?.['minlength']">A senha deve conter ao menos 6 caracteres.</div>
+            </div>
         </div>
-    </div>      
-    <div class="form-group">
-        <label for="confirmarsenha">Confirmar Senha</label>
-        <input type="password" class="form-control" id="confirmarsenha" name="confirmarsenha" [(ngModel)]="confirmarsenhamodel" #confirmarsenha="ngModel" required>     
-        <div *ngIf="(confirmarsenha.dirty || confirmarsenha.touched)" class="alert alert-danger">
-            <div *ngIf="confirmarsenha.errors?.['required']">Confirme a senha.</div>
-            <div *ngIf="funcionario.senha !== confirmarsenhamodel">As senhas devem ser iguais.</div>
+        <div class="form-group">
+            <label for="confirmarsenha">Confirmar Senha</label>
+            <input type="password" class="form-control" id="confirmarsenha" name="confirmarsenha"
+                [(ngModel)]="confirmarsenhamodel" #confirmarsenha="ngModel" required>
+            <div *ngIf="(confirmarsenha.dirty || confirmarsenha.touched)" class="alert alert-danger">
+                <div *ngIf="confirmarsenha.errors?.['required']">Confirme a senha.</div>
+                <div *ngIf="funcionario.senha !== confirmarsenhamodel">As senhas devem ser iguais.</div>
+            </div>
         </div>
-    </div>      
-    <div class="form-group">
-        <button type="button" class="btn btn-primary" (click)="inserir()" [disabled]="!formFuncionario.form.valid">
-            <i class="fa fa-save" aria-hidden="true"></i> Salvar
-        </button>
-        <a class="btn btn-secondary" routerLink="/adm/funcionarios">
-            <i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar
-        </a>
-    </div>
-</form>
+        <div class="form-group">
+            <button type="button" class="btn btn-primary" (click)="inserir()" [disabled]="!formFuncionario.form.valid">
+                <i class="fa fa-save" aria-hidden="true"></i> Salvar
+            </button>
+            <a class="btn btn-secondary" routerLink="/adm/funcionarios">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar
+            </a>
+        </div>
+    </form>
+</div>
