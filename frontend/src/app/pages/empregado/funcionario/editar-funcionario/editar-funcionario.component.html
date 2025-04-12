@@ -53,7 +53,7 @@
             <label for="confirmarsenha">Confirmar Senha</label>
             <input type="password" class="form-control" id="confirmarsenha" name="confirmarsenha"
                 [(ngModel)]="confirmarsenhamodel" #confirmarsenha="ngModel">
-            <div *ngIf="(confirmarsenha.dirty || confirmarsenha.touched)" class="alert alert-danger">
+            <div *ngIf="((funcionario.senha !== confirmarsenhamodel)||(confirmarsenha.errors?.['required'])) && (confirmarsenha.dirty || confirmarsenha.touched)" class="alert alert-danger">
                 <div *ngIf="funcionario.senha && funcionario.senha !== confirmarsenhamodel">As senhas devem ser iguais.
                 </div>
             </div>
