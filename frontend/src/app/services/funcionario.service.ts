@@ -12,4 +12,9 @@ export class FuncionarioService extends ServiceCrudBase<Funcionario> {
   constructor() {
     super(LS_CHAVE);
   }
+
+  getFuncionarioByEmail(email: string): Funcionario | undefined {
+    const funcionarios = this.listarTodos();
+    return funcionarios.find(funcionario => funcionario.email === email);
+  }
 }

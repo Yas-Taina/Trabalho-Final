@@ -12,4 +12,9 @@ export class ClienteService extends ServiceCrudBase<Cliente> {
 	constructor() {
 		super(LS_CHAVE);
 	}
+
+	getClienteByEmail(email: string): Cliente | undefined {
+		const clientes = this.listarTodos();
+		return clientes.find(cliente => cliente.email === email);
+	  }
 }
