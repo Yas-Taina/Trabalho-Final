@@ -28,10 +28,7 @@ export class LoginComponent {
       return;
     }
 
-    debugger;
     const sessao = this.loginService.login(this.emailModel, this.senhaModel);
-
-    console.log(sessao);
 
     if (!sessao) {
       // Placeholder
