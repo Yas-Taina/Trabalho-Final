@@ -1,0 +1,57 @@
+/* Fundo geral da tela */
+body, .container {
+    color: #ffffff;
+  }
+  
+  /* Cartão central */
+  .card {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 1rem;
+  }
+  
+  /* Título */
+  h3 {
+    color: #8B3A4D;
+  }
+  
+  /* Subtítulo */
+  .text-muted {
+    color: #b68a9a !important; /* tom claro da paleta */
+  }
+  
+  /* Labels */
+  .form-label {
+    color: #8B3A4D;
+    font-weight: 600;
+  }
+  
+  /* Inputs */
+  .form-control {
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+  }
+  
+  /* Botão principal */
+  .btn-primary {
+    background-color: #e8c3d8; /* rosa claro da paleta */
+    color: #8B3A4D;
+    border: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-primary:hover {
+    background-color: #d19bb3;
+    color: #fff;
+  }
+  
+  /* Link de recuperação de senha */
+  a.text-decoration-none {
+    color: #ffffff;
+  }
+  
+  a.text-decoration-none:hover {
+    color: #f0cce2;
+  }
+  

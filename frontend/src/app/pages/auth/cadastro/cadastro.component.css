@@ -1,0 +1,51 @@
+/* Fundo geral */
+body, .container {
+    color: #ffffff; /* texto padrão branco */
+  }
+  
+  /* Cartão central */
+  .card {
+    background-color: #ffffff; /* branco para destacar */
+    border: none;
+  }
+  
+  /* Título */
+  h3 {
+    color: #8B3A4D;
+  }
+  
+  /* Labels */
+  .form-label {
+    color: #8B3A4D;
+    font-weight: 600;
+  }
+  
+  /* Inputs */
+  .form-control {
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+  }
+  
+  /* Botão principal */
+  .btn-success {
+    background-color: #e8c3d8;
+    color: #8B3A4D;
+    border: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-success:hover {
+    background-color: #d19bb3;
+    color: #fff;
+  }
+  
+  /* Link para login */
+  a.text-decoration-none {
+    color: #f0cce2;
+  }
+  
+  a.text-decoration-none:hover {
+    color: #d19bb3;
+  }
+  
