@@ -1,0 +1,23 @@
+<h1>Detalhes da Solicitação</h1>
+<h2>Data da Solicitação:</h2>
+<p> {{ solicitacao.data }} </p>
+<h2>Tipo de equipamento:</h2>
+<p>{{ solicitacao.equipamento }}</p>
+<h2>Descrição do equipamento:</h2>
+<p>{{ solicitacao.descricao}}</p>
+<h2>Descrição do defeito:</h2>
+<p>{{ solicitacao.defeito}}</p>
+<h2>Estado da Solicitação:</h2>
+<p>{{ solicitacao.estado}}</p>
+<div class="column">
+    <a class="btn btn-secondary" title="Voltar" routerLink="/client/home">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+    </a>
+    <!--Adicionar JQuery para carregar botões dinamicamente de acordo com o estado-->
+    <a class="btn btn-secondary" title="Alterar Estado">
+        <i class="fa fa-pen-nib" aria-hidden="true"></i>
+    </a>
+    <a class="btn btn-secondary" title="Cadastrar Orçamento">
+        <i class="fa fa-money-bills" aria-hidden="true"></i>
+    </a>
+</div>

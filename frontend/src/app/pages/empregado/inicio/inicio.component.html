@@ -1,1 +1,37 @@
-<p>inicio funcionario works!</p>
+<div class="p-4">
+    <h1>Solicitações</h1>
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <!--Substituir por nome do cliente depois-->
+                <th>ID do Cliente <br> (placeholder)</th>
+                <th>Data</th>
+                <th>Categoria</th>
+                <th>Descrição do equipamento</th>
+                <th>Descrição do defeito</th>
+                <th>Estado da Solicitação</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let solicitacao of solicitacoes">
+                <td>{{ solicitacao.idCliente }}</td>
+                <td>{{ solicitacao.data }}</td>
+                <td>{{ solicitacao.equipamento }}</td>
+                <td>{{ solicitacao.descricao}}</td>
+                <td>{{ solicitacao.defeito}}</td>
+                <td>{{ solicitacao.estado}}</td>
+                <td class="text-center" style="width: 300px">
+                    <a class="btn btn-xs btn-info" [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]" title="Visualizar">
+                        <i class="fa-solid fa-eye" aria aria-hidden="true"></i>
+                    </a>
+                    <a class="btn btn-xs btn-info" title="Redirecionar">
+                        <i class="fa-solid fa-arrows-turn-to-dots" aria aria-hidden="true"></i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p *ngIf="solicitacoes.length === 0">Nenhuma Solicitação Cadastrada.</p>
+</div>

@@ -5,7 +5,7 @@
                 <br>
                 <a routerLink="/client/home">Inicio</a>
                 <br>
-                <p>Placeholder Cliente</p>
+                <a routerLink="/client/solicitacao/novo">Fazer Solicitação</a>
             </ng-container>
 
             <ng-container *ngIf="(currentSection$ | async) === 'empregado'">
@@ -43,12 +43,12 @@
 
     <ng-container *ngIf="(currentSection$ | async) === 'auth'; else logoutButton">
         <div class="log">
-            <button routerLink="/auth/login" class="btn btn-primary">Login</button>
-            <button routerLink="/auth/cadastro" class="btn btn-primary">Cadastro</button>
+            <button routerLink="/auth/login" class="btn btn-primary"><i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i>&nbsp;&nbsp;Login</button>
+            <button routerLink="/auth/cadastro" class="btn btn-primary"><i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;&nbsp;Cadastro</button>
         </div>
     </ng-container>
 
     <ng-template #logoutButton>
-        <button routerLink="/public/home"  class="btn btn-danger">Logout</button>
+        <button routerLink="/public/home"  class="btn btn-danger"><i class="fa-solid fa-right-from-bracket"></i>&nbsp;&nbsp;Logout</button>
     </ng-template>
 </header>
