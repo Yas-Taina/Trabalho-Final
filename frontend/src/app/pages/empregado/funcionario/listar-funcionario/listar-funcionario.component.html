@@ -6,10 +6,9 @@
                 <th>Nome</th>
                 <th>Email</th>
                 <th>Login</th>
-                <th>Perfil</th>
                 <th class="text-center">
                     <a routerLink="/adm/funcionarios/novo" title="Novo" alt="Novo" class="btn btn-xs btn-success">
-                        <i class="fa fa-plus" aria-hidden="true"></i> Novo
+                        <i class="fa fa-plus" aria-hidden="true"></i>
                     </a>
                 </th>
             </tr>
@@ -19,14 +18,13 @@
                 <td>{{ funcionario.nome }}</td>
                 <td>{{ funcionario.email }}</td>
                 <td>{{ funcionario.login }}</td>
-                <td>{{ funcionario.perfil }}</td>
                 <td class="text-center" style="width: 300px">
                     <a class="btn btn-xs btn-info" [routerLink]="['/adm/funcionarios/editar', funcionario.id]"
                         title="Editar">
-                        <i class="fa fa-edit" aria-hidden="true"></i> Editar
+                        <i class="fa fa-edit" aria-hidden="true"></i>
                     </a>
                     <a class="btn btn-xs btn-danger" (click)="remover($event, funcionario)" title="Remover">
-                        <i class="fa fa-times" aria-hidden="true"></i> Remover
+                        <i class="fa fa-times" aria-hidden="true"></i>
                     </a>
                 </td>
             </tr>

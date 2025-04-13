@@ -7,7 +7,7 @@
                 <th>Descrição</th>
                 <th class="text-center">
                     <a routerLink="/adm/equipamentos/novo" title="Novo" alt="Novo" class="btn btn-xs btn-success">
-                        <i class="fa fa-plus" aria-hidden="true"></i> Novo
+                        <i class="fa fa-plus" aria-hidden="true"></i>
                     </a>
                 </th>
             </tr>
@@ -18,11 +18,11 @@
                 <td class="text-center" style="width: 300px">
                     <a href="#" title="Editar" alt="Editar" class="btn btn-xs btn-info"
                         [routerLink]="['/adm/equipamentos/editar', equipamento.id]">
-                        <i class="fa fa-edit" aria-hidden="true"></i> Editar
+                        <i class="fa fa-edit" aria-hidden="true"></i>
                     </a>
                     <a href="#" title="Remover" alt="Remover" class="btn btn-xs btn-danger"
                         (click)="remover($event, equipamento)">
-                        <i class="fa fa-times" aria-hidden="true"></i> Remover
+                        <i class="fa fa-trash" aria-hidden="true"></i>
                     </a>
                 </td>
             </tr>
