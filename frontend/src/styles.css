@@ -74,3 +74,8 @@ button:secondary {
     color: white;   
     font-family: 'Times New Roman','Times','serif';
 }
+
+
+.btn {
+    margin: 5px;
+}

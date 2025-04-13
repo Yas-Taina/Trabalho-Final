@@ -29,19 +29,6 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="perfil">Perfil</label>
-            <select id="perfil" class="form-control" name="perfil" [(ngModel)]="funcionario.perfil" #perfil="ngModel"
-                required>
-                <option value="" disabled selected>Selecione um perfil</option>
-                <option value="FUNC">FUNC</option>
-                <option value="GERENTE">GERENTE</option>
-                <option value="ADMIN">ADMIN</option>
-            </select>
-            <div *ngIf="perfil.errors && (perfil.dirty || perfil.touched)" class="alert alert-danger">
-                <div [hidden]="!perfil.errors['required']">Selecione um perfil válido.</div>
-            </div>
-        </div>
-        <div class="form-group">
             <label for="senha">Senha</label>
             <input type="password" class="form-control" id="senha" name="senha" [(ngModel)]="funcionario.senha"
                 #senha="ngModel" minlength="6" required>
@@ -56,15 +43,15 @@
                 [(ngModel)]="confirmarsenhamodel" #confirmarsenha="ngModel" required>
             <div *ngIf="((funcionario.senha !== confirmarsenhamodel)||(confirmarsenha.errors?.['required'])) && (confirmarsenha.dirty || confirmarsenha.touched)" class="alert alert-danger">
                 <div *ngIf="confirmarsenha.errors?.['required']">Confirme a senha.</div>
-                <div *ngIf="confirmarsenhamodel && funcionario.senha && (funcionario.senha !== confirmarsenhamodel)">As senhas devem ser iguais.</div>
+                <div *ngIf="funcionario.senha !== confirmarsenhamodel">As senhas devem ser iguais.</div>
             </div>
         </div>
         <div class="form-group">
-            <button type="button" class="btn btn-primary" (click)="inserir()" [disabled]="!formFuncionario.form.valid">
-                <i class="fa fa-save" aria-hidden="true"></i> Salvar
+            <button type="button" title="Salvar" class="btn btn-primary" (click)="inserir()" [disabled]="!formFuncionario.form.valid">
+                <i class="fa fa-save" aria-hidden="true"></i>
             </button>
-            <a class="btn btn-secondary" routerLink="/adm/funcionarios">
-                <i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar
+            <a class="btn btn-secondary" title="Voltar" routerLink="/adm/funcionarios">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
             </a>
         </div>
     </form>
