@@ -10,6 +10,7 @@ import { filter, map, Observable, Subscription } from 'rxjs';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
+
 export class MenuComponent implements OnInit, OnDestroy {
   isMenuOpen = false;
   currentSection$: Observable<string>;
