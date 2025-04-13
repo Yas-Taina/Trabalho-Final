@@ -19,7 +19,7 @@
 
           <div class="mb-3">
             <label for="senha" class="form-label">Senha</label>
-            <input type="password" class="form-control" id="senha" name="senha" minlength="6" [(ngModel)]="senhaModel" #senha="ngModel"
+            <input type="password" class="form-control" id="senha" name="senha" minlength="4" [(ngModel)]="senhaModel" #senha="ngModel"
               required>
             <div *ngIf="senha.invalid && (senha.dirty || senha.touched)" class="alert alert-danger">
               <div *ngIf="senha.errors?.['required']">Digite uma senha.</div>
