@@ -1,0 +1,57 @@
+/* Fundo geral */
+body, .container {
+    color: #ffffff;
+  }
+  
+  /* Cartão de login */
+  .card {
+    background-color: #ffffff;
+    border: none;
+  }
+  
+  /* Título */
+  h3 {
+    color: #8B3A4D;
+  }
+  
+  /* Texto auxiliar */
+  .text-muted {
+    color: #8B3A4D !important;
+    font-weight: 500;
+  }
+  
+  /* Labels */
+  .form-label {
+    color: #8B3A4D;
+    font-weight: 600;
+  }
+  
+  /* Inputs */
+  .form-control {
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+  }
+  
+  /* Botão de login */
+  .btn-primary {
+    background-color: #e8c3d8;
+    color: #8B3A4D;
+    border: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-primary:hover {
+    background-color: #d19bb3;
+    color: #ffffff;
+  }
+  
+  /* Link "Esqueceu a senha?" */
+  a.text-decoration-none {
+    color: #ffffff;
+  }
+  
+  a.text-decoration-none:hover {
+    color: #f0cce2;
+  }
+  
