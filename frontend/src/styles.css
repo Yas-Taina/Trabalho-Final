@@ -1,8 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 main {
     min-height: 50vw;
+    padding: 3vw;
     background-color: rgb(162, 57, 83);
-    color: white
+    color: white;
 }
 
 :root
