@@ -1,43 +1,3 @@
-<<<<<<< HEAD
-/* Fundo da tela */
-body, .container {
-  color: #ffffff;
-}
-
-/* Título principal */
-h1 {
-  color: #ffffff;
-  font-weight: bold;
-}
-
-/* Botão Login (preenchido) */
-.botaook {
-  background-color: #e8c3d8;
-  color: #8B3A4D;
-  font-weight: bold;
-  border: none;
-  transition: background-color 0.3s ease;
-}
-
-.botaook:hover {
-  background-color: #d19bb3;
-  color: #fff;
-}
-
-/* Botão Cadastrar (borda) */
-.botaocadastrar {
-  border: 2px solid #ffffff;
-  color: #ffffff;
-  font-weight: bold;
-  background-color: transparent;
-  transition: all 0.3s ease;
-}
-
-.botaocadastrar:hover {
-  background-color: #ffffff;
-  color: #8B3A4D;
-}
-=======
 #smalldecor {
     max-width:200px;
     width: 200px;  
@@ -46,4 +6,3 @@ h1 {
 #bigdecor {
     max-width: 100%;
 }
->>>>>>> origin/main
