@@ -50,9 +50,6 @@
     transform: translateY(50%) rotate(-45deg);
 }
 
-#compmenu {
-}
-
 .menu-col {
     position: fixed;
     top: 0;
@@ -73,8 +70,7 @@
 }
 
 button{
-    margin-left: 15px;
-    margin-right: 5px;
+    margin: 5px;
 }
 
 

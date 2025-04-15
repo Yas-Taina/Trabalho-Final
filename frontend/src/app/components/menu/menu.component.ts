@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, NavigationEnd, RouterModule} from '@angular/router';
-import { filter, map, Observable } from 'rxjs';
+import { Router, NavigationEnd, RouterModule, NavigationStart } from '@angular/router';
+import { filter, map, Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-menu',
@@ -10,19 +10,46 @@ import { filter, map, Observable } from 'rxjs';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
-export class MenuComponent {
+
+export class MenuComponent implements OnInit, OnDestroy {
   isMenuOpen = false;
   currentSection$: Observable<string>;
+  private routerSubscription!: Subscription;
 
-  constructor(private router: Router) {
-    this.currentSection$ = this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd),
-      map(() => this.getSectionFromUrl(this.router.url))
-    );
+  constructor(private router: Router, private elementRef: ElementRef) {
+    this.currentSection$ = this.router.events.pipe(filter(event => event instanceof NavigationEnd), map(() => this.getSectionFromUrl(this.router.url)));
+  }
+
+  ngOnInit() {
+    this.routerSubscription = this.router.events.subscribe(event => {
+      if (event instanceof NavigationStart && this.isMenuOpen) {
+        this.closeMenu();
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
+    }
   }
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  closeMenu() {
+    this.isMenuOpen = false;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClick(event: MouseEvent) {
+    const menucont = this.elementRef.nativeElement.querySelector('#compmenu');
+    const burgue = this.elementRef.nativeElement.querySelector('.burgue');
+    
+    if (menucont && !menucont.contains(event.target) && (!burgue || !burgue.contains(event.target))) {
+      this.closeMenu();
+    }
   }
 
   private getSectionFromUrl(url: string): string {

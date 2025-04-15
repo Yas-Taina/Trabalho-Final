@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Fundo da tela */
 body, .container {
   color: #ffffff;
@@ -36,3 +37,13 @@ h1 {
   background-color: #ffffff;
   color: #8B3A4D;
 }
+=======
+#smalldecor {
+    max-width:200px;
+    width: 200px;  
+}
+
+#bigdecor {
+    max-width: 100%;
+}
+>>>>>>> origin/main

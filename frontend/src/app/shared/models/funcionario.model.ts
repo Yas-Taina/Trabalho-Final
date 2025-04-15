@@ -7,7 +7,6 @@ export class Funcionario extends EntidadeBase {
         public email: string = "",
         public login: string = "",
         public senha: string = "",
-        public perfil: string = ""
     ){
         super(id);
     }
