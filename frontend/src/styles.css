@@ -148,11 +148,3 @@ button:secondary {
     width: 80%;
 }
 
-#smalldecor {
-    max-width: 300px;
-    width: 10vw;  
-}
-
-#bigdecor {
-    max-width: 100%;
-}
