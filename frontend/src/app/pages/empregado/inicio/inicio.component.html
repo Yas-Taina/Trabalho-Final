@@ -1,1 +1,86 @@
-<p>inicio funcionario works!</p>
+<div class="row">
+
+    <div class="col-md-4">
+        <img src="../../../../assets/images/backgroundTitle.png" class="backgroundimg">
+    </div>
+
+    <div class="col-md-8">
+        <table class="table table-striped table-bordered table-hover">
+
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Cliente</th>
+                    <th>Estado da Solicitação</th>
+                    <th colspan="2">Ações</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let solicitacao of solicitacoes">
+                    <td>{{ solicitacao.data }}</td>
+                    <td>{{ solicitacao.idCliente}}</td>
+                    <td>{{ solicitacao.estado}}</td>
+                    <td class="text-center">
+                        <a class="btn btn-xs btn-info" title="Orçar">Efetuar Orçamento</a>
+                    </td>
+                    <td class="text-center">
+                        <a class="btn btn-xs btn-info" [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]" title="Visualizar">
+                            <i class="fa-solid fa-eye" aria aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+
+        <p *ngIf="solicitacoes.length === 0">Nenhuma Solicitação Cadastrada.</p>
+    </div>
+    <div class="row" id="relatorio">
+        <div class="col-auto">
+            <h1 style="text-align: right;">EMITIR<br>RELATÓRIO<br>FINANCEIRO</h1>
+        </div>
+        <div class="col-auto">
+            <a class="btn btn-xs btn-info" title="Data">
+                Selecionar Data
+            </a>
+        </div>
+        <div class="col-auto">
+            <a class="btn btn-xs btn-info" title="Categoria">
+                Selecionar Categoria
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 d-flex flex-column">
+            <h2>Solicitações</h2>
+            <i class="fa-solid fa-screwdriver-wrench" id="iconhome"></i>
+            <a class="btn btn-xs btn-info" title="Categoria">
+                Minhas Atribuições
+            </a>
+            <a class="btn btn-xs btn-info" title="Categoria">
+                Visualizar Todas
+            </a>
+        </div>
+        <div class="col-md-4 d-flex flex-column">
+            <h2>Equipamentos</h2>
+            <i class="fa-solid fa-computer" id="iconhome"></i>
+            <a class="btn btn-xs btn-info" [routerLink]="['/adm/equipamentos']" title="Visualizar Equipamentos">
+                Visualizar
+            </a>
+            <a class="btn btn-xs btn-info" [routerLink]="['/adm/equipamentos/novo']"  title="Novo Equipamento">
+                Cadastrar Novo
+            </a>
+        </div>
+        <div class="col-md-4 d-flex flex-column">
+            <h2>Funcionários</h2>
+            <i class="fa-solid fa-users" id="iconhome"></i>
+            <a class="btn btn-xs btn-info" [routerLink]="['/adm/funcionarios']" title="Visualizar Funcionários">
+                Visualizar
+            </a>
+            <a class="btn btn-xs btn-info" [routerLink]="['/adm/funcionarios/novo']"  title="Novo Funcionário">
+                Cadastrar Novo
+            </a>
+        </div>
+    </div>
+</div>

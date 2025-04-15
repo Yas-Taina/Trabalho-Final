@@ -1,31 +1,37 @@
-<div class="p-4">
-    <h1>Novo Equipamento</h1>
-    <form #formEquipamento="ngForm">
-        <div class="form-group">
-            <label for="nome">Nome</label>
-            <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="equipamento.nome" #nome="ngModel"
-                minlength="2" required>
-            <div *ngIf="nome.errors && (nome.dirty || nome.touched)" class="alert alert-danger">
-                <div [hidden]="!nome.errors['required']">Digite um nome para o equipamento.</div>
-                <div [hidden]="!nome.errors['minlength']">O nome deve conter ao menos 2 caracteres</div>
+<div class="row">
+
+    <div class="col-md-6">
+        <img src="../../../../assets/images/backgroundTitle.png" class="backgroundimg">
+    </div>
+
+    <div class="col-md-6">
+        <form #formEquipamento="ngForm">
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="equipamento.nome" #nome="ngModel"
+                    minlength="2" required>
+                <div *ngIf="nome.errors && (nome.dirty || nome.touched)" class="alert alert-danger">
+                    <div [hidden]="!nome.errors['required']">Digite um nome para o equipamento.</div>
+                    <div [hidden]="!nome.errors['minlength']">O nome deve conter ao menos 2 caracteres</div>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="descricao">Descrição</label>
-            <input type="text" class="form-control" id="descricao" name="descricao" [(ngModel)]="equipamento.descricao"
-                #descricao="ngModel" minlength="5" required>
-            <div *ngIf="descricao.errors && (descricao.dirty || descricao.touched)" class="alert alert-danger">
-                <div [hidden]="!descricao.errors['required']">Digite uma descrição para o equipamento.</div>
-                <div [hidden]="!descricao.errors['minlength']">A descrição deve conter ao menos 5 caracteres</div>
+            <div class="form-group">
+                <label for="descricao">Descrição</label>
+                <input type="text" class="form-control" id="descricao" name="descricao" [(ngModel)]="equipamento.descricao"
+                    #descricao="ngModel" minlength="5" required>
+                <div *ngIf="descricao.errors && (descricao.dirty || descricao.touched)" class="alert alert-danger">
+                    <div [hidden]="!descricao.errors['required']">Digite uma descrição para o equipamento.</div>
+                    <div [hidden]="!descricao.errors['minlength']">A descrição deve conter ao menos 5 caracteres</div>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <button type="button" class="btn btn-primary" (click)="inserir()" [disabled]="!formEquipamento.form.valid">
-                <i class="fa fa-save" aria-hidden="true"></i> Salvar
-            </button>
-            <a class="btn btn-secondary" routerLink="/adm/equipamentos">
-                <i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar
-            </a>
-        </div>
-    </form>
+            <div class="form-group">
+                <button type="button" class="btn btn-primary" title="Salvar" (click)="inserir()" [disabled]="!formEquipamento.form.valid">
+                    <i class="fa fa-save" aria-hidden="true"></i>
+                </button>
+                <a class="btn btn-secondary" title="Voltar" routerLink="/adm/equipamentos">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                </a>
+            </div>
+        </form>
+    </div>
 </div>

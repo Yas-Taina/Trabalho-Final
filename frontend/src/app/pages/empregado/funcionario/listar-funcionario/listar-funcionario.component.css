@@ -27,6 +27,11 @@ body {
   th {
     background-color: #e8c3d8;
     color: #8B3A4D;
+    text-align: center;
+  }
+
+  td {
+    text-align: center;
   }
   
   /* Linhas alternadas */
