@@ -1,37 +1,45 @@
-<div class="p-4">
-    <h1>Solicitações</h1>
-    <table class="table table-striped table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>Data</th>
-                <th>Categoria</th>
-                <th>Descrição do equipamento</th>
-                <th>Descrição do defeito</th>
-                <th>Estado da Solicitação</th>
-                <th class="text-center">
-                    <a routerLink="/client/solicitacao/novo" title="Novo" alt="Novo" class="btn btn-xs btn-success">
-                        <i class="fa fa-plus" aria-hidden="true"></i>
-                    </a>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let solicitacao of solicitacoes">
-                <td>{{ solicitacao.data }}</td>
-                <td>{{ solicitacao.equipamento }}</td>
-                <td>{{ solicitacao.descricao}}</td>
-                <td>{{ solicitacao.defeito}}</td>
-                <td>{{ solicitacao.estado}}</td>
-                <td class="text-center" style="width: 300px">
-                    <a class="btn btn-xs btn-info" [routerLink]="['/client/solicitacao/visualizar', solicitacao.id]"
-                        title="Visualizar">
-                        <i class="fa-solid fa-eye" aria aria-hidden="true"></i>
-                    </a>
+<div class="row">
 
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="col-md-4">
+        <img src="../../../../assets/images/backgroundTitle.png" class="backgroundimg">
+    </div>
 
-    <p *ngIf="solicitacoes.length === 0">Nenhuma Solicitação Cadastrada.</p>
+    <div class="col-md-8">
+
+        <a class="btn btn-xs btn-info" [routerLink]="['/client/solicitacao/novo']" title="Nova Solicitação">
+            <i class="fa-solid fa-plus" aria aria-hidden="true"></i>&nbsp;&nbsp;Nova Solicitação
+        </a>
+        
+        <table class="table table-striped table-bordered table-hover">
+
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Descrição do defeito</th>
+                    <th>Estado da Solicitação</th>
+                    <th colspan="2">Ações</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let solicitacao of solicitacoes">
+                    <td>{{ solicitacao.data }}</td>
+                    <td>{{ solicitacao.descricao}}</td>
+                    <td>{{ solicitacao.estado}}</td>
+                    <td class="text-center">
+                        <a class="btn btn-xs btn-info" title="Visualizar">Botão de Ação</a>
+                    </td>
+                    <td class="text-center">
+                        <a class="btn btn-xs btn-info" [routerLink]="['/client/solicitacao/visualizar', solicitacao.id]" title="Visualizar">
+                            <i class="fa-solid fa-eye" aria aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+
+        <p *ngIf="solicitacoes.length === 0">Nenhuma Solicitação Cadastrada.</p>
+
+    </div>
 </div>

@@ -1,36 +1,48 @@
-<div class="p-4">
-    <h1>Nova Solicitacao</h1>
-    <form #formSolicitacao="ngForm">
-        <div class="form-group">
-            <label for="equipamento">Categoria do Equipamento</label>
-            <input type="text" class="form-control" id="equipamento" name="equipamento" [(ngModel)]="solicitacao.equipamento" #equipamento="ngModel" required>
-            <div *ngIf="equipamento.errors && (equipamento.dirty || equipamento.touched)" class="alert alert-danger">
-                <div [hidden]="!equipamento.errors['required']">Digite uma categoria de equipamento para a solicitacao.</div>
+<div class="row">
+
+    <div class="col-md-6">
+        <img src="../../../../assets/images/backgroundTitle.png" class="backgroundimg">
+    </div>
+
+    <div class="col-md-6">
+
+        <form #formSolicitacao="ngForm">
+
+            <div class="form-group">
+                <label for="equipamento">Categoria do Equipamento</label>
+                <input type="text" class="form-control" id="equipamento" name="equipamento" [(ngModel)]="solicitacao.equipamento" #equipamento="ngModel" required>
+                <div *ngIf="equipamento.errors && (equipamento.dirty || equipamento.touched)" class="alert alert-danger">
+                    <div [hidden]="!equipamento.errors['required']">Digite uma categoria de equipamento para a solicitacao.</div>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="descricao">Descrição do seu Equipamento</label>
-            <input type="text" class="form-control" id="descricao" name="descricao" [(ngModel)]="solicitacao.descricao"
-                #descricao="ngModel" required descricao>
-            <div *ngIf="descricao.errors && (descricao.dirty || descricao.touched)" class="alert alert-danger">
-                <div [hidden]="!descricao.errors['required']">Digite uma descricao para a solicitação.</div>
+
+            <div class="form-group">
+                <label for="descricao">Descrição do seu Equipamento</label>
+                <input type="text" class="form-control" id="descricao" name="descricao" [(ngModel)]="solicitacao.descricao"
+                    #descricao="ngModel" required descricao>
+                <div *ngIf="descricao.errors && (descricao.dirty || descricao.touched)" class="alert alert-danger">
+                    <div [hidden]="!descricao.errors['required']">Digite uma descricao para a solicitação.</div>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="defeito">Descreva o defeito do seu equipamento:</label>
-            <input type="text" class="form-control" id="defeito" name="defeito" [(ngModel)]="solicitacao.defeito"
-                #defeito="ngModel" required>
-            <div *ngIf="defeito.errors && (defeito.dirty || defeito.touched)" class="alert alert-danger">
-                <div [hidden]="!defeito.errors['required']">Diga o defeito do seu equipamento.</div>
+
+            <div class="form-group">
+                <label for="defeito">Descreva o defeito do seu equipamento:</label>
+                <input type="text" class="form-control" id="defeito" name="defeito" [(ngModel)]="solicitacao.defeito"
+                    #defeito="ngModel" required>
+                <div *ngIf="defeito.errors && (defeito.dirty || defeito.touched)" class="alert alert-danger">
+                    <div [hidden]="!defeito.errors['required']">Diga o defeito do seu equipamento.</div>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <button type="button" title="Salvar" class="btn btn-primary" (click)="inserir()" [disabled]="!formSolicitacao.form.valid">
-                <i class="fa fa-save" aria-hidden="true"></i>
-            </button>
-            <a class="btn btn-secondary" title="Voltar" routerLink="/client/home">
-                <i class="fa fa-arrow-left" aria-hidden="true"></i>
-            </a>
-        </div>
-    </form>
+
+            <div class="form-group">
+                <button type="button" title="Salvar" class="btn btn-primary" (click)="inserir()" [disabled]="!formSolicitacao.form.valid">
+                    <i class="fa fa-save" aria-hidden="true"></i>
+                </button>
+                <a class="btn btn-secondary" title="Voltar" routerLink="/client/home">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                </a>
+            </div>
+            
+        </form>
+    </div>
 </div>
