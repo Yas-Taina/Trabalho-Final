@@ -8,6 +8,12 @@ export abstract class ServiceCrudBase<T extends EntidadeBase> {
 
   constructor(private chaveLocalstorage: string) {}
 
+  protected inserirDefaultCompleto(cliente: T): void {
+    const lista = this.listarTodos();
+    lista.push(cliente);
+    localStorage[this.chaveLocalstorage] = JSON.stringify(lista);
+  }
+
   listarTodos(): T[] {
     const lista = localStorage[this.chaveLocalstorage];
     return lista ? JSON.parse(lista) : [];
