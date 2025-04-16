@@ -8,9 +8,9 @@ export abstract class ServiceCrudBase<T extends EntidadeBase> {
 
   constructor(private chaveLocalstorage: string) {}
 
-  protected inserirDefaultCompleto(cliente: T): void {
+  protected inserirDefaultCompleto(entidade: T): void {
     const lista = this.listarTodos();
-    lista.push(cliente);
+    lista.push(entidade);
     localStorage[this.chaveLocalstorage] = JSON.stringify(lista);
   }
 
@@ -19,31 +19,31 @@ export abstract class ServiceCrudBase<T extends EntidadeBase> {
     return lista ? JSON.parse(lista) : [];
   } 
 
-  inserir(cliente: T): void {
+  inserir(entidade: T): void {
     const lista = this.listarTodos();
-    cliente.id = new Date().getTime();
-    lista.push(cliente);
+    entidade.id = new Date().getTime();
+    lista.push(entidade);
     localStorage[this.chaveLocalstorage] = JSON.stringify(lista);
   }
 
   buscarPorId(id: number): T | undefined {
     const lista = this.listarTodos();
-    return lista.find(cliente => cliente.id === id);
+    return lista.find(entidade => entidade.id === id);
   }
 
-  atualizar(cliente: T): void {
+  atualizar(entidade: T): void {
     const lista = this.listarTodos();
     lista.forEach( (obj, index, objs) => {
-      if (cliente.id === obj.id) {
-        objs[index] = cliente
+      if (entidade.id === obj.id) {
+        objs[index] = entidade
       }
     });
     localStorage[this.chaveLocalstorage] = JSON.stringify(lista);
   }
 
   remover(id: number): void {
-    let clientes = this.listarTodos();
-    clientes = clientes.filter(cliente => cliente.id !== id);
-    localStorage[this.chaveLocalstorage] = JSON.stringify(clientes);
+    let entidades = this.listarTodos();
+    entidades = entidades.filter(entidade => entidade.id !== id);
+    localStorage[this.chaveLocalstorage] = JSON.stringify(entidades);
   }
 }
