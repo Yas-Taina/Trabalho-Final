@@ -2,6 +2,7 @@ import { Component, HostListener, ElementRef, OnInit, OnDestroy } from '@angular
 import { CommonModule } from '@angular/common';
 import { Router, NavigationEnd, RouterModule, NavigationStart } from '@angular/router';
 import { filter, map, Observable, Subscription } from 'rxjs';
+import { LoginService } from '../../services/login/login.service';
 
 @Component({
   selector: 'app-menu',
@@ -16,7 +17,10 @@ export class MenuComponent implements OnInit, OnDestroy {
   currentSection$: Observable<string>;
   private routerSubscription!: Subscription;
 
-  constructor(private router: Router, private elementRef: ElementRef) {
+  constructor(
+    private router: Router,
+    private elementRef: ElementRef,
+    private loginService: LoginService) {
     this.currentSection$ = this.router.events.pipe(filter(event => event instanceof NavigationEnd), map(() => this.getSectionFromUrl(this.router.url)));
   }
 
@@ -40,6 +44,16 @@ export class MenuComponent implements OnInit, OnDestroy {
 
   closeMenu() {
     this.isMenuOpen = false;
+  }
+
+  logout() {
+    const sessao = this.loginService.obterDadosDaSessao();
+    if (sessao) {
+      this.loginService.logout();
+      
+    }
+
+    this.router.navigate(['/auth/login']);
   }
 
   @HostListener('document:click', ['$event'])
