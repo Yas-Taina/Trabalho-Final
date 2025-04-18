@@ -7,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { NumberUtils } from '../../../shared/utils/number-utils';
 import { Endereco } from '../../../shared/models/endereco';
+import { CepService } from '../../../services/cep/cep.service';
+import { EnderecoUtils } from '../../../shared/utils/endereco-utils';
 
 @Component({
   selector: 'app-cadastro',
@@ -23,13 +25,26 @@ export class CadastroComponent {
 
   constructor(
     private clienteService: ClienteService,
-    private router: Router
+    private router: Router,
+    private cepService: CepService
   ) { }
+
+  async buscarEnderecoPorCep() {
+    if (this.enderecoModel.cep && this.enderecoModel.cep.length == 8) {
+      try {
+        this.enderecoModel = await this.cepService.ObterEndereco(this.enderecoModel.cep);
+      } catch {
+        alert("Erro ao buscar o endereço. Verifique o CEP informado.");
+      }
+    }
+  }
 
   inserir(): void {
     if (this.formCliente.form.valid) {
       const senha = NumberUtils.obterNumeroAleatorio(1000, 9999).toString();
       this.cliente.senha = senha;
+
+      this.cliente.endereco = EnderecoUtils.getEnderecoCompleto(this.enderecoModel);
 
       this.clienteService.inserir(this.cliente);
       alert("Senha gerada: " + senha);
