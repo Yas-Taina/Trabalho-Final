@@ -11,6 +11,24 @@ export class ClienteService extends ServiceCrudBase<Cliente> {
 
 	constructor() {
 		super(LS_CHAVE);
+		this.inserirClientePadrao();
+	}
+
+	// Função temporária, para permitir acesso agora que as rotas estão protegidas
+	private inserirClientePadrao(): void {
+		const clientePadrao: Cliente = {
+			id: 1,
+			cpf: '000.000.000-00',
+			nome: 'Cliente Padrão',
+			email: 'cli@cli',
+			telefone: '(00) 90000-0000',
+			endereco: 'Endereço Padrão',
+			senha: '1234',
+		};
+
+		if (!this.getClienteByEmail(clientePadrao.email)) {
+			this.inserirDefaultCompleto(clientePadrao);
+		}
 	}
 
 	getClienteByEmail(email: string): Cliente | undefined {
