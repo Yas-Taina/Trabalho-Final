@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { MenuComponent } from './components/menu/menu.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { CepService } from './services/cep/cep.service';
 
 @Component({
   selector: 'app-root',
@@ -14,17 +13,7 @@ import { CepService } from './services/cep/cep.service';
 })
 export class AppComponent {
   title = 'Trabalho-Final';
-  CepService: CepService;
 
-  constructor(cepService: CepService) {
-    this.CepService = cepService;
-
-    this.carregarEndereco();
-  }
-
-  async carregarEndereco() {
-    const endereco = await this.CepService.ObterEndereco('01001-000');
-
-    console.log(endereco);
+  constructor() {
   }
 }
