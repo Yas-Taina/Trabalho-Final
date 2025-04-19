@@ -1,0 +1,15 @@
+import { EntidadeBase } from "./entidade-base.model";
+
+export class Orcamento extends EntidadeBase {
+    constructor(
+        public override id: number = 0,
+        public idEmpregado: number = 0,
+        public idSolicitacao: number = 0,
+        public data: string = "",
+        public valor: number = 0,
+        public historico: string[]
+    ){
+        super(id);
+    }
+
+}

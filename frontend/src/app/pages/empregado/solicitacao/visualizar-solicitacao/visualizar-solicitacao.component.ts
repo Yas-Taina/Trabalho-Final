@@ -16,6 +16,8 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     @ViewChild('formSolicitacao') formSolicitacao! : NgForm;
     solicitacao: Solicitacao = new Solicitacao();
     id: string = '';
+    isEquipOpen = false;
+    isClientOpen = false;
 
   constructor(
     private solicitacaoService: SolicitacaoService,
@@ -31,6 +33,38 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     } else {
       throw new Error("Erro ao buscar solicitacao, id = " + id);
     }
+  }
+
+  toggleEquipView() {
+    this.isEquipOpen = !this.isEquipOpen;
+  }
+
+  toggleClientView() {
+    this.isClientOpen = !this.isClientOpen;
+  }
+
+  atualizar(): void {
+    this.solicitacaoService.atualizar(this.solicitacao);
+  }
+
+  orcar(){
+    this.solicitacao.estado = 'ORÇADA';
+    this.atualizar();
+  }
+
+  redirecionar(){
+    this.solicitacao.estado = 'REDIRECIONADA';
+    this.atualizar();
+  }
+
+  consertar(){
+    this.solicitacao.estado = 'ARRUMADA';
+    this.atualizar();
+  }
+
+  finalizar(){
+    this.solicitacao.estado = 'FINALIZADA';
+    this.atualizar();
   }
 
 }
