@@ -1,13 +1,14 @@
 #relatorio {
-  border: 2px solid #e4a18f;
-  border-radius: 30px;
-  margin: 1vw;
-  padding-left: 100px;
-  padding-right: 100px;
-  justify-content: space-between;
+    border: 2px solid #e4a18f;
+    border-radius: 30px;
+    margin: 1vw;
+    padding-left: 100px;
+    padding-right: 100px;
+    justify-content: space-between;
 }
 
-#iconhome {
-  font-size: 150px;
-  color: #e4a18f;
+#iconhome{
+    font-size: 150px;
+    color: #e4a18f;
 }
+

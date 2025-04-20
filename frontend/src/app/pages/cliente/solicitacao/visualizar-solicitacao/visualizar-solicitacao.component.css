@@ -1,13 +1,13 @@
-#boxServico {
-  border: 1px solid #e4a18f;
-  border-radius: 50px;
-  padding: 30px;
-  margin: 5px;
+#boxServico{
+    border: 1px solid #e4a18f;
+    border-radius: 50px;
+    padding: 30px;
+    margin: 5px;
 }
 
-#boxOrcamento {
-  border: 1px solid #e4a18f;
-  border-radius: 50px;
-  padding: 30px;
-  margin: 5px;
+#boxOrcamento{
+    border: 1px solid #e4a18f;
+    border-radius: 50px;
+    padding: 30px;
+    margin: 5px;
 }

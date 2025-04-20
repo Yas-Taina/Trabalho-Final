@@ -1,3 +1,6 @@
 export abstract class EntidadeBase {
-  constructor(public id: number = 0) {}
+    constructor(
+        public id: number = 0,
+    ){
+    }
 }

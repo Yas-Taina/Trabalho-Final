@@ -1,8 +1,8 @@
 #smalldecor {
-  max-width: 200px;
-  width: 200px;
+    max-width:200px;
+    width: 200px;  
 }
 
 #bigdecor {
-  max-width: 100%;
+    max-width: 100%;
 }

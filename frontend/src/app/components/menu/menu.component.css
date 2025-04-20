@@ -1,80 +1,81 @@
 .burgue {
-  background: none;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 35px;
-  width: 35px;
-  padding: 0;
-  position: relative;
-  z-index: 1000;
-  min-width: 35px;
-  min-height: 35px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 35px;
+    width: 35px;
+    padding: 0;
+    position: relative;
+    z-index: 1000;
+    min-width: 35px;
+    min-height: 35px;
 }
 
 .burgue span {
-  position: absolute;
-  width: 24px;
-  height: 3px;
-  background-color: #1d1d1d;
-  border-radius: 2px;
-  transition: all 0.3s ease-in-out;
+    position: absolute;
+    width: 24px;
+    height: 3px;
+    background-color: #1d1d1d;
+    border-radius: 2px;
+    transition: all 0.3s ease-in-out;
 }
 
 .burgue span:nth-child(1) {
-  top: 6px;
+    top: 6px;
 }
 
 .burgue span:nth-child(2) {
-  top: 50%;
-  transform: translateY(-50%);
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .burgue span:nth-child(3) {
-  bottom: 6px;
+    bottom: 6px;
 }
 
 .menu-col.show ~ header .burgue span:nth-child(1) {
-  top: 50%;
-  transform: translateY(-50%) rotate(45deg);
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
 }
 
 .menu-col.show ~ header .burgue span:nth-child(2) {
-  opacity: 0;
+    opacity: 0;
 }
 
 .menu-col.show ~ header .burgue span:nth-child(3) {
-  bottom: 50%;
-  transform: translateY(50%) rotate(-45deg);
+    bottom: 50%;
+    transform: translateY(50%) rotate(-45deg);
 }
 
 .menu-col {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 250px;
-  background-color: #f8f9fa;
-  text-align: end;
-  transform: translateX(-100%);
-  transition: transform 0.3s ease-in-out;
-  z-index: 999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 250px;
+    background-color: #f8f9fa;
+    text-align: end;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 999;
 }
 .menu-col.show {
-  transform: translateX(0);
+    transform: translateX(0);
 }
 .menu-itens div {
-  margin: 10px 0;
+    margin: 10px 0;
 }
 
-button {
-  margin: 5px;
+button{
+    margin: 5px;
 }
+
 
 @media (max-width: 768px) {
-  .menu-col {
-    width: 100vw;
-  }
+    .menu-col {
+        width: 100vw;
+    }
 }

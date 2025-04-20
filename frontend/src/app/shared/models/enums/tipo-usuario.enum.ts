@@ -1,4 +1,4 @@
 export enum TipoUsuario {
-  Cliente,
-  Funcionario,
+    Cliente,
+    Funcionario,
 }
