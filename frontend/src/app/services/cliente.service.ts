@@ -17,7 +17,7 @@ export class ClienteService extends ServiceCrudBase<Cliente> {
 	// Função temporária, para permitir acesso agora que as rotas estão protegidas
 	private inserirClientePadrao(): void {
 		const clientePadrao: Cliente = {
-			id: 1,
+			id: 1000,
 			cpf: '000.000.000-00',
 			nome: 'Cliente Padrão',
 			email: 'cli@cli',

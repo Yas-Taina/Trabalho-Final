@@ -1,0 +1,15 @@
+<ng-template #modalTemplate let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">{{ modalTitle }}</h4>
+    <button type="button" class="btn-close" (click)="close()"></button>
+  </div>
+  <div class="modal-body">
+    <ng-container 
+      *ngTemplateOutlet="contentTemplate; context: templateContext">
+    </ng-container>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-secondary" (click)="close()">Cancelar</button>
+    <button class="btn btn-primary" (click)="confirm()">Confirmar</button>
+  </div>
+</ng-template>

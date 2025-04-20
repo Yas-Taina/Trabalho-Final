@@ -17,10 +17,9 @@ export class FuncionarioService extends ServiceCrudBase<Funcionario> {
   // Função temporária, para permitir acesso agora que as rotas estão protegidas
   private inserirFuncionarioPadrao(): void {
     const funcionarioPadrao: Funcionario = {
-      id: 2,
+      id: 1010,
       nome: 'Funcionário Padrão',
       email: 'func@func',
-      login: 'funcionario', // Essa propriedade vai ser removida, o login é feito pelo e-mail
       senha: '1234',
     };
 

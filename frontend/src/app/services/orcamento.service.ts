@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Equipamento } from '../shared/models/equipamento.model';
+import { Orcamento } from '../shared/models/orcamento.model';
 import { ServiceCrudBase } from './service-crud-base/service-crud-base';
 
-const LS_CHAVE = "equipamentos";
+const LS_CHAVE = "orcamentos";
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class EquipamentoService extends ServiceCrudBase<Equipamento> {
-
+export class OrcamentoService extends ServiceCrudBase<Orcamento> {
 
   constructor() {
     super(LS_CHAVE);
   }
+
 }
