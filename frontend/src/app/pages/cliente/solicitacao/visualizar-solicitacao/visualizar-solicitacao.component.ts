@@ -16,7 +16,8 @@ export class VisualizarSolicitacaoComponent implements OnInit {
     @ViewChild('formSolicitacao') formSolicitacao! : NgForm;
     solicitacao: Solicitacao = new Solicitacao();
     id: string = '';
-    isDivOpen = false;
+    isEquipOpen = false;
+    isHistOpen = false;
 
   constructor(
     private solicitacaoService: SolicitacaoService,
@@ -34,32 +35,63 @@ export class VisualizarSolicitacaoComponent implements OnInit {
     }
   }
 
-  toggleView() {
-    this.isDivOpen = !this.isDivOpen;
+  toggleEquip() {
+    this.isEquipOpen = !this.isEquipOpen;
+  }
+
+  toggleHist() {
+    this.isHistOpen = !this.isHistOpen;
+  }
+
+  atualizarHistorico(): void {
+    const dataAtual = new Date();
+    const dia = dataAtual.getDate().toString().padStart(2, '0');
+    const mes = (dataAtual.getMonth() + 1).toString().padStart(2, '0');
+    const ano = dataAtual.getFullYear();
+    const horas = dataAtual.getHours().toString().padStart(2, '0');
+    const minutos = dataAtual.getMinutes().toString().padStart(2, '0');
+    const estado = this.solicitacao.estado;
+    const add = `Alteração: ${estado}, Data: ${dia}/${mes}/${ano} - ${horas}:${minutos} \n`;    
+    this.solicitacao.historico += add;
   }
 
   atualizar(): void {
     this.solicitacaoService.atualizar(this.solicitacao);
   }
 
-  aprovar(){
-    this.solicitacao.estado = 'APROVADA';
-    this.atualizar();
+  aprovar($event: any): void{
+    $event.preventDefault();
+    if (confirm('Deseja aprovar o orçamento? Essa ação não pode ser revertida')){
+      this.solicitacao.estado = 'APROVADA';
+      this.atualizarHistorico();
+      this.atualizar();
+      alert('Serviço aprovado no valor de R$XXXX,XX');
+    }
   }
 
   recusar(){
     this.solicitacao.estado = 'REJEITADA';
+    this.atualizarHistorico();
     this.atualizar();
   }
 
-  resgatar(){
-    this.solicitacao.estado = 'ORÇADA';
-    this.atualizar();
+  resgatar($event: any): void{
+    $event.preventDefault();
+    if (confirm('Deseja resgatar a solicitação? Ela irá retornar para ser reavaliada pelos nossos especialistas')){
+      this.solicitacao.estado = 'APROVADA';
+      this.atualizarHistorico();
+      this.atualizar();
+      alert('Solicitação resgatada');
+    }
   }
 
-  pagar(){
-    this.solicitacao.estado = 'PAGA';
-    this.atualizar();
+  pagar($event: any): void{
+    $event.preventDefault();
+    if (confirm('Deseja realizar o pagamento? Essa ação não pode ser revertida')){
+      this.solicitacao.estado = 'PAGA';
+      this.atualizarHistorico();
+      this.atualizar();
+    }
   }
 
 }

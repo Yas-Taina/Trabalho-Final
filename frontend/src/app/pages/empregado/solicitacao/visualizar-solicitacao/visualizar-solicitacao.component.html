@@ -1,10 +1,10 @@
 <div class="row">
 
     <div class="col-md-6">
-        <div id="boxOrçamento">
-            <h3>Orçamento:</h3>
+        <div *ngIf="solicitacao.estado !== 'ABERTA'" id="boxOrçamento">
+            <h3>Valor</h3>
             <h4>R$</h4>
-            <p>Orçamento feito por fulano</p>
+            <p>Orçamento feito por funcionario placeholder</p>
         </div>
         <div class="d-flex flex-column">
             <a *ngIf="solicitacao.estado === 'ABERTA'" class="btn btn-xs btn-info" title="Orçar" (click)="orcar()">
@@ -19,10 +19,15 @@
             <a *ngIf="solicitacao.estado === 'PAGA'" class="btn btn-xs btn-info" title="Finalizar" (click)="finalizar()">
                 <i class="fa-solid fa-check-to-slot"></i>&nbsp;&nbsp;Finalizar Solicitação
             </a>
-            <a class="btn btn-xs btn-info" title="Histórico">
-                <i class="fa-solid fa-book-open"></i>&nbsp;&nbsp;Histórico
-            </a>
-        </div>
+            <div>
+                <a class="btn btn-xs btn-info" title="Histórico" (click)="toggleHist()">
+                    <i class="fa-solid fa-book-open"></i>&nbsp;&nbsp;Histórico
+                </a>
+                <div *ngIf="isHistOpen">
+                    <p style="white-space: pre-line;"> {{solicitacao.historico}} </p>
+                </div>
+                </div>
+            </div>
     </div>
 
     <div class="col-md-6">
@@ -32,7 +37,7 @@
         <div class="row">
             <div class="col-auto">
                 <h4>Cliente</h4>
-                <p>{{ solicitacao.idCliente}}</p>
+                <p>{{ cliente?.nome }}</p>
             </div>
             <div class="col-auto">
                 <a class="btn btn-xs btn-info" title="Visualizar" (click)="toggleClientView()">
@@ -42,7 +47,10 @@
         </div>
         <div *ngIf="isClientOpen">
             <h5>Detalhes</h5>
-            <p>Teste</p>
+            <p>CPF: {{cliente?.cpf}}</p>
+            <p>Email: {{cliente?.email}}</p>
+            <p>Telefone: {{cliente?.telefone}}</p>
+            <p>Endereço: {{cliente?.endereco}}</p>
         </div>
         <hr>
         <h4>Data da Solicitação</h4>
@@ -51,7 +59,7 @@
         <div class="row">
             <div class="col-auto">
                 <h4>Equipamento</h4>
-                <p>{{ solicitacao.equipamento }}</p>
+                <p>{{ equipamento?.nome }}</p>
             </div>
             <div class="col-auto">
                 <a class="btn btn-xs btn-info" title="Visualizar" (click)="toggleEquipView()">
@@ -61,7 +69,8 @@
         </div>
         <div *ngIf="isEquipOpen">
             <h5>Detalhes</h5>
-            <p>Teste</p>
+            <p><strong>Descrição da categoria do equipamento:</strong> {{equipamento?.descricao}}</p>
+            <p><strong>Descrição deste equipamento:</strong> {{solicitacao.descricao}}</p>
         </div>
         <hr>
         <h4>Descrição do defeito</h4>

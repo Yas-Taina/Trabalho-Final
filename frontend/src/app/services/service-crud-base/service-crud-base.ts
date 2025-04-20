@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
 import { EntidadeBase } from '../../shared/models/entidade-base.model';
+import { IdBaseService } from '../id-base.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export abstract class ServiceCrudBase<T extends EntidadeBase> {
 
-  constructor(private chaveLocalstorage: string) {}
+  protected chaveLocalstorage: string;
+
+  constructor(chaveLocalstorage: string) {
+    this.chaveLocalstorage = chaveLocalstorage;
+  }
 
   protected inserirDefaultCompleto(entidade: T): void {
     const lista = this.listarTodos();
@@ -21,7 +26,7 @@ export abstract class ServiceCrudBase<T extends EntidadeBase> {
 
   inserir(entidade: T): void {
     const lista = this.listarTodos();
-    entidade.id = new Date().getTime();
+    entidade.id = IdBaseService.gerarProximoId(this.chaveLocalstorage);
     lista.push(entidade);
     localStorage[this.chaveLocalstorage] = JSON.stringify(lista);
   }

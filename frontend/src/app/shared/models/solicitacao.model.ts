@@ -8,9 +8,10 @@ export class Solicitacao extends EntidadeBase {
         public orcamento: number = 0,
         public data: string = "",
         public estado: string = "",
-        public equipamento: string = "",
+        public equipamento: number = 0,
         public defeito: string = "",
-        public descricao: string = ""
+        public descricao: string = "",
+        public historico: string = ""
     ){
         super(id);
     }

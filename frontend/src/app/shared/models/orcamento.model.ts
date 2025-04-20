@@ -6,8 +6,7 @@ export class Orcamento extends EntidadeBase {
         public idEmpregado: number = 0,
         public idSolicitacao: number = 0,
         public data: string = "",
-        public valor: number = 0,
-        public historico: string[]
+        public valor: number = 0.00
     ){
         super(id);
     }
