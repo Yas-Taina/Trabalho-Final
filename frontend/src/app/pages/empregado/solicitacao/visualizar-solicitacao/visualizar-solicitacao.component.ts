@@ -62,35 +62,25 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
   ngOnInit(): void {
     this.id = +this.route.snapshot.params['id'];
     const res = this.solicitacaoService.buscarPorId(this.id);
-    if (res !== undefined) {
-      this.solicitacao = res;
-    } else {
-      throw new Error("Erro ao buscar solicitacao, id = " + this.id);
+    if (!res){
+      throw new Error("Erro ao buscar solicitação, id = " + this.id);
     }
+    this.solicitacao = res;
     this.getId();
     this.carregarNomeFuncionario();
     this.carregarCliente();
     this.carregarEquipamento();
     this.carregarOrcamento();
-    this.listarFunc();
+    this.funcionarios = this.listarFunc();
   }
 
   getId() {
     const sessao = this.loginService.obterDadosDaSessao();    
-    if (!sessao) {
-      throw new Error('Usuário não está logado');
-    }
-    this.usuario = sessao.usuarioId;
+    this.usuario = sessao!.usuarioId;
   }
 
   listarFunc() {
-    try {
-      const dados = localStorage.getItem('funcionarios');
-      this.funcionarios = dados ? JSON.parse(dados) : [];
-    } catch (e) {
-      console.error('Erro ao carregar funcionários:', e);
-      this.funcionarios = [];
-    }
+    return this.funcionarioService.listarTodos();
   }
 
   carregarNomeFuncionario() {
@@ -100,12 +90,12 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
   
   carregarCliente(): void{
     const clienteEncontrado = this.clienteService.buscarPorId(this.solicitacao.idCliente);
-    this.cliente = clienteEncontrado ?? undefined;
+    this.cliente = clienteEncontrado;
   }
 
   carregarEquipamento(): void{
     const equipamentoEncontrado = this.equipamentoService.buscarPorId(this.solicitacao.equipamento);
-    this.equipamento = equipamentoEncontrado ?? undefined;
+    this.equipamento = equipamentoEncontrado;
   }
 
   carregarOrcamento(): void {
@@ -115,7 +105,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
   
     if (this.orcamento?.idEmpregado) {
       const funcionario = this.funcionarioService.buscarPorId(this.orcamento.idEmpregado);
-      this.nomeFuncionarioOrc = funcionario?.nome ?? 'Funcionário não encontrado';
+      this.nomeFuncionarioOrc = funcionario ? funcionario.nome : 'Funcionário não encontrado';
     }
   }
   

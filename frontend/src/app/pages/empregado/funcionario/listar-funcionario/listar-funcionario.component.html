@@ -15,7 +15,6 @@
                 <tr>
                     <th>Nome</th>
                     <th>Email</th>
-                    <th>Login</th>
                     <th colspan="2">Ações</th>
                 </tr>
             </thead>
@@ -23,7 +22,6 @@
                 <tr *ngFor="let funcionario of funcionarios">
                     <td>{{ funcionario.nome }}</td>
                     <td>{{ funcionario.email }}</td>
-                    <td>{{ funcionario.login }}</td>
                     <td class="text-center">
                         <a class="btn btn-xs btn-info" [routerLink]="['/adm/funcionarios/editar', funcionario.id]"
                             title="Editar">

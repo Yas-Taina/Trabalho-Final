@@ -25,18 +25,9 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="login">Login</label>
-                <input type="text" class="form-control" id="login" name="login" [(ngModel)]="funcionario.login"
-                    #login="ngModel" minlength="5" required>
-                <div *ngIf="login.errors && (login.dirty || login.touched)" class="alert alert-danger">
-                    <div [hidden]="!login.errors['required']">Digite um login para o funcionario.</div>
-                    <div [hidden]="!login.errors['minlength']">O login deve conter ao menos 5 caracteres</div>
-                </div>
-            </div>
-            <div class="form-group">
                 <label for="senha">Senha</label>
                 <input type="password" class="form-control" id="senha" name="senha" [(ngModel)]="funcionario.senha"
-                    #senha="ngModel" minlength="6" required>
+                    #senha="ngModel" minlength="4" required>
                 <div *ngIf="senha.invalid && (senha.dirty || senha.touched)" class="alert alert-danger">
                     <div *ngIf="senha.errors?.['required']">Digite uma senha para o funcionário.</div>
                     <div *ngIf="senha.errors?.['minlength']">A senha deve conter ao menos 6 caracteres.</div>

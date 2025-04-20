@@ -45,11 +45,10 @@ export class VisualizarSolicitacaoComponent implements OnInit {
   ngOnInit(): void {
     this.id = +this.route.snapshot.params['id'];
     const res = this.solicitacaoService.buscarPorId(this.id);
-    if (res !== undefined) {
-      this.solicitacao = res;
-    } else {
-      throw new Error("Erro ao buscar solicitacao, id = " + this.id);
+    if (!res){
+      throw new Error("Erro ao buscar solicitação, id = " + this.id);
     }
+    this.solicitacao = res;
     this.carregarEquipamento();
     this.carregarOrcamento();
   }
@@ -65,13 +64,13 @@ export class VisualizarSolicitacaoComponent implements OnInit {
   carregarEquipamento(): void{
     const idEquip = this.solicitacao.equipamento;
     const equipamentoEncontrado = this.equipamentoService.buscarPorId(idEquip);
-    this.equipamento = equipamentoEncontrado ?? undefined;
+    this.equipamento = equipamentoEncontrado;
   }
 
   carregarOrcamento(): void{
     const orcamentoEncontrado = this.orcamentoService.listarTodos()
     .find(o => o.idSolicitacao === this.solicitacao.id);
-    this.orcamento = orcamentoEncontrado ?? undefined;
+    this.orcamento = orcamentoEncontrado;
   }
 
   atualizarHistorico(): void {
@@ -96,17 +95,17 @@ export class VisualizarSolicitacaoComponent implements OnInit {
       this.solicitacao.estado = 'APROVADA';
       this.atualizarHistorico();
       this.atualizar();
-      alert('Serviço aprovado no valor de R$XXXX,XX');
+      alert(`Serviço aprovado no valor de R$ ${this.orcamento!.valor}`);
     }
   }
 
   resgatar($event: any): void{
     $event.preventDefault();
-    if (confirm('Deseja resgatar a solicitação? Ela irá retornar para ser reavaliada pelos nossos especialistas')){
+    if (confirm('Deseja resgatar a solicitação? Ela será automaticamente aprovada no valor orçado')){
       this.solicitacao.estado = 'APROVADA';
       this.atualizarHistorico();
       this.atualizar();
-      alert('Solicitação resgatada');
+      alert(`Solicitação resgatada. Serviço aprovado no valor de R$ ${this.orcamento!.valor}`);
     }
   }
 
@@ -127,7 +126,10 @@ export class VisualizarSolicitacaoComponent implements OnInit {
   }
 
   handleConfirmation(formData: any) {
-    if (formData?.reason) {
+    if (!formData.reason) {
+      alert('Digiteo motivo de sua recusa:');
+      return;
+    }
       this.solicitacao.estado = 'REJEITADA';
       const motivo = formData.reason;
       const dataAtual = new Date();
@@ -140,7 +142,7 @@ export class VisualizarSolicitacaoComponent implements OnInit {
       const add = `• ${estado}, Data: ${dia}/${mes}/${ano} - ${horas}:${minutos}, Motivo: ${motivo} \n`;    
       this.solicitacao.historico += add;
       this.atualizar();
-    }
+    
   }
 
 }

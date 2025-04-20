@@ -51,7 +51,7 @@
                   </div>
                 </form>
             </ng-template>
-            <a *ngIf="solicitacao.estado === 'APROVADA'" class="btn btn-xs btn-info" title="Redirecionar" (click)="abrirModalRedirecionar()">
+            <a *ngIf="solicitacao.estado === 'APROVADA' || solicitacao.estado === 'REDIRECIONADA'" class="btn btn-xs btn-info" title="Redirecionar" (click)="abrirModalRedirecionar()">
                 <i class="fa-solid fa-user-gear"></i>&nbsp;&nbsp;Redirecionar Solicitação
             </a>
             <ng-template #redirecionarTemplate let-formData="formData">

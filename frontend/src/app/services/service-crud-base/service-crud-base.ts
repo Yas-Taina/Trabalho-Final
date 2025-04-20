@@ -23,6 +23,7 @@ export abstract class ServiceCrudBase<T extends EntidadeBase> {
     const lista = localStorage[this.chaveLocalstorage];
     return lista ? JSON.parse(lista) : [];
   } 
+  
 
   inserir(entidade: T): void {
     const lista = this.listarTodos();

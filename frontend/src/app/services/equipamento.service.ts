@@ -7,7 +7,9 @@ const LS_CHAVE = "equipamentos";
 @Injectable({
   providedIn: 'root'
 })
+
 export class EquipamentoService extends ServiceCrudBase<Equipamento> {
+
 
   constructor() {
     super(LS_CHAVE);
