@@ -18,6 +18,7 @@ export class FuncionarioService extends ServiceCrudBase<Funcionario> {
     const funcionarioPadrao: Funcionario = {
       id: 1010,
       nome: "Funcionário Padrão",
+      data: "2001-02-05",
       email: "func@func",
       senha: "1234",
     };

@@ -5,7 +5,6 @@ export class Solicitacao extends EntidadeBase {
     public override id: number = 0,
     public idCliente: number = 0,
     public idEmpregado: number = 0,
-    public orcamento: number = 0,
     public data: string = "",
     public estado: string = "",
     public equipamento: number = 0,
