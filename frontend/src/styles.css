@@ -1,150 +1,152 @@
 /* You can add global styles to this file, and also import other style files */
 @font-face {
-    font-family: 'Blackest';
-    font-style: normal;
-    font-weight: normal;
-    src: url('./assets/fonts/Blackest\ Regular.woff') format('woff');
+  font-family: "Blackest";
+  font-style: normal;
+  font-weight: normal;
+  src: url("./assets/fonts/Blackest\ Regular.woff") format("woff");
 }
 
 @font-face {
-    font-family: 'Blackest Text';
-    font-style: normal;
-    font-weight: normal;
-    src: url('./assets/fonts/Blackest\ Text\ Regular.woff') format('woff');
+  font-family: "Blackest Text";
+  font-style: normal;
+  font-weight: normal;
+  src: url("./assets/fonts/Blackest\ Text\ Regular.woff") format("woff");
 }
 
 @font-face {
-    font-family: 'DM Sans';
-    font-style: normal;
-    font-weight: normal;
-    src: url('./assets/fonts/DMSans-Regular.woff') format('woff');
-}   
-
-@font-face {
-    font-family: 'DM Sans';
-    font-style: italic;
-    font-weight: normal;
-    src: url('./assets/fonts/DMSans-Italic.woff') format('woff');
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: normal;
+  src: url("./assets/fonts/DMSans-Regular.woff") format("woff");
 }
 
 @font-face {
-    font-family: 'DM Sans';
-    font-style: normal;
-    font-weight: bold;
-    src: url('./assets/fonts/DMSans-Bold.woff') format('woff');
+  font-family: "DM Sans";
+  font-style: italic;
+  font-weight: normal;
+  src: url("./assets/fonts/DMSans-Italic.woff") format("woff");
 }
 
 @font-face {
-    font-family: 'DM Sans';
-    font-style: italic;
-    font-weight: bold;
-    src: url('./assets/fonts/DMSans-BoldItalic.woff') format('woff');
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: bold;
+  src: url("./assets/fonts/DMSans-Bold.woff") format("woff");
 }
 
 @font-face {
-    font-family: 'DejaVu Serif';
-    font-style: normal;
-    font-weight: normal;
-    src: url('./assets/fonts/DejaVuSerif.woff') format('woff');
-}   
-
-@font-face {
-    font-family: 'DejaVu Serif';
-    font-style: italic;
-    font-weight: normal;
-    src: url('./assets/fonts/DejaVuSerif-Italic.woff') format('woff');
+  font-family: "DM Sans";
+  font-style: italic;
+  font-weight: bold;
+  src: url("./assets/fonts/DMSans-BoldItalic.woff") format("woff");
 }
 
 @font-face {
-    font-family: 'DejaVu Serif';
-    font-style: normal;
-    font-weight: bold;
-    src: url('./assets/fonts/DejaVuSerif-Bold.woff') format('woff');
+  font-family: "DejaVu Serif";
+  font-style: normal;
+  font-weight: normal;
+  src: url("./assets/fonts/DejaVuSerif.woff") format("woff");
 }
 
 @font-face {
-    font-family: 'DejaVu Serif';
-    font-style: italic;
-    font-weight: bold;
-    src: url('./assets/fonts/DejaVuSerif-BoldItalic.woff') format('woff');
+  font-family: "DejaVu Serif";
+  font-style: italic;
+  font-weight: normal;
+  src: url("./assets/fonts/DejaVuSerif-Italic.woff") format("woff");
+}
+
+@font-face {
+  font-family: "DejaVu Serif";
+  font-style: normal;
+  font-weight: bold;
+  src: url("./assets/fonts/DejaVuSerif-Bold.woff") format("woff");
+}
+
+@font-face {
+  font-family: "DejaVu Serif";
+  font-style: italic;
+  font-weight: bold;
+  src: url("./assets/fonts/DejaVuSerif-BoldItalic.woff") format("woff");
 }
 
 main {
-    min-height: 50vw;
-    padding: 3vw;
-    background-color: rgb(162, 57, 83);
-    color: white;
+  min-height: 50vw;
+  padding: 3vw;
+  background-color: rgb(162, 57, 83);
+  color: white;
 }
 
-:root
-{
-    /*cores principais*/
-    --primary-color: #f7c5dd;
-    --primary-color-dark: #e4a9c2;
-    --accent-color: #f9e3ec;
-    /*cores de apoio*/
-    --background-color: #fffafc;
-    --secondary-color: #f1f1f1;
-    --text-color: #4b4b4b;
-    /*cores de botões*/
-    --button-hover: #f3bcd2;
-    --border-color: #e0d4da;
-    --font-family: 'Poppins', sans-serif;
+:root {
+  /*cores principais*/
+  --primary-color: #f7c5dd;
+  --primary-color-dark: #e4a9c2;
+  --accent-color: #f9e3ec;
+  /*cores de apoio*/
+  --background-color: #fffafc;
+  --secondary-color: #f1f1f1;
+  --text-color: #4b4b4b;
+  /*cores de botões*/
+  --button-hover: #f3bcd2;
+  --border-color: #e0d4da;
+  --font-family: "Poppins", sans-serif;
 }
 
 body {
-    font-family: 'DM Sans', sans-serif;
-    background-color: var(--secondary-color);
-    color: var(--text-color);
+  font-family: "DM Sans", sans-serif;
+  background-color: var(--secondary-color);
+  color: var(--text-color);
 }
 
 header {
-    background-color: white;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  background-color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.botaook{
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
-    border: none;
-    background-color: var(--primary-color);
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+.botaook {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  background-color: var(--primary-color);
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
 }
 
-.botaocadastrar{
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
-    border: none;
-    background-color: var(--background-color);
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    color: var(--text-color);
+.botaocadastrar {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  background-color: var(--background-color);
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+  color: var(--text-color);
 }
 
 .botaook:hover {
-    background-color: var(--button-hover);
-    transform: scale(1.05);
+  background-color: var(--button-hover);
+  transform: scale(1.05);
 }
 
 button:secondary {
-    background-color: transparent;
-    border: 2px solid var(--primary-color);
-    color: var(--primary-color);
+  background-color: transparent;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
 }
 
 .btn {
-    margin: 5px;
-    border-radius: 15px;
+  margin: 5px;
+  border-radius: 15px;
 }
 
 .backgroundimg {
-    max-width: 600px;
-    width: 80%;
+  max-width: 600px;
+  width: 80%;
 }
-
