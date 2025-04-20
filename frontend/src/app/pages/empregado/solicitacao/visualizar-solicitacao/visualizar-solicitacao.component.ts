@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef  } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Solicitacao } from '../../../../shared/models/solicitacao.model';
 import { Orcamento } from '../../../../shared/models/orcamento.model';
 import { Cliente } from '../../../../shared/models/cliente.model';
 import { Equipamento } from '../../../../shared/models/equipamento.model';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { SolicitacaoService } from '../../../../services/solicitacao.service';
 import { EquipamentoService } from '../../../../services/equipamento.service';
 import { FuncionarioService } from '../../../../services/funcionario.service';
@@ -12,27 +12,37 @@ import { OrcamentoService } from '../../../../services/orcamento.service';
 import { ClienteService } from '../../../../services/cliente.service';
 import { CommonModule } from '@angular/common';
 import { LoginService } from '../../../../services/login/login.service';
+import { ModalComponent } from '../../../../components/modal/modal.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-visualizar-solicitacao',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, ModalComponent, NgbModule],
   templateUrl: './visualizar-solicitacao.component.html',
   styleUrl: './visualizar-solicitacao.component.css'
 })
 
 export class VisualizarSolicitacaoComponentAdm implements OnInit {
     @ViewChild('formSolicitacao') formSolicitacao! : NgForm;
+    @ViewChild(ModalComponent) modal!: ModalComponent; 
+    @ViewChild('orcarTemplate') orcarTemplate!: TemplateRef<any>;
+
     solicitacao: Solicitacao = new Solicitacao();
     orcamento: Orcamento = new Orcamento();
     id: number = 0;
     usuario: number = 0;
     nomeFuncionario: string = '';
+    nomeFuncionarioOrc: string = '';
     cliente?: Cliente | null;
     equipamento?: Equipamento | null;
     isEquipOpen = false;
     isClientOpen = false;
     isHistOpen = false;
+
+    currentModalTitle: string = '';
+    currentContentTemplate!: TemplateRef<any>;
+    currentFormData: any = {};
     
 
   constructor(
@@ -57,6 +67,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     this.carregarNomeFuncionario();
     this.carregarCliente();
     this.carregarEquipamento();
+    this.carregarOrcamento();
   }
 
   getId() {
@@ -81,6 +92,18 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     const equipamentoEncontrado = this.equipamentoService.buscarPorId(this.solicitacao.equipamento);
     this.equipamento = equipamentoEncontrado ?? undefined;
   }
+
+  carregarOrcamento(): void {
+    const orcamentoEncontrado = this.orcamentoService.listarTodos()
+      .find(o => o.idSolicitacao === this.solicitacao.id);
+    this.orcamento = orcamentoEncontrado ?? new Orcamento();
+  
+    if (this.orcamento?.idEmpregado) {
+      const funcionario = this.funcionarioService.buscarPorId(this.orcamento.idEmpregado);
+      this.nomeFuncionarioOrc = funcionario?.nome ?? 'Funcionário não encontrado';
+    }
+  }
+  
 
   atualizarHistorico(): void {
     const dataAtual = new Date();
@@ -108,12 +131,20 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
       this.orcamento.data = `${dia}/${mes}/${ano} - ${horas}:${minutos}`;    
       this.orcamento.idEmpregado = this.usuario;
       this.orcamento.idSolicitacao = this.id;       
-      this.orcamento.valor = 1000.00;
       this.orcamentoService.inserir(this.orcamento);
   }
 
-  orcar(){
+  orcar(formData: any){
+    const valorForm = Number(formData.valor);
+    
+    if (isNaN(valorForm)) {
+        alert('Por favor, insira um valor numérico válido');
+        return;
+    }
+
+    this.orcamento.valor = valorForm;
     this.inserirOrcamento();
+    this.carregarOrcamento();
     this.solicitacao.estado = 'ORÇADA';
     this.atualizarHistorico();
     this.atualizar();
@@ -141,6 +172,13 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
       this.atualizar();
       alert('Manutenção finalizada');
     }
+  }
+
+  abrirModalOrcar() {
+    this.currentModalTitle = 'Realizar Orçamento';
+    this.currentContentTemplate = this.orcarTemplate;
+    this.currentFormData = { valor: 0 };
+    this.modal.open();
   }
 
   toggleEquipView() {

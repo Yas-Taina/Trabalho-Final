@@ -3,13 +3,33 @@
     <div class="col-md-6">
         <div *ngIf="solicitacao.estado !== 'ABERTA'" id="boxOrçamento">
             <h3>Valor</h3>
-            <h4>R$</h4>
-            <p>Orçamento feito por funcionario placeholder</p>
+            <h4>{{ orcamento.valor | currency:'BRL'}}</h4>
+            <p>Orçamento feito por funcionario {{ nomeFuncionarioOrc }}</p>
         </div>
         <div class="d-flex flex-column">
-            <a *ngIf="solicitacao.estado === 'ABERTA'" class="btn btn-xs btn-info" title="Orçar" (click)="orcar()">
+            <a *ngIf="solicitacao.estado === 'ABERTA'" class="btn btn-xs btn-info" title="Orçar" (click)="abrirModalOrcar()">
                 <i class="fa-solid fa-hand-holding-dollar"></i>&nbsp;&nbsp;Realizar Orçamento
             </a>
+            <app-modal 
+                #Modal
+                [modalTitle]="currentModalTitle"
+                [contentTemplate]="currentContentTemplate"
+                [templateContext]="{ formData: currentFormData }"
+                (confirmed)="orcar($event)">
+            </app-modal>
+            <ng-template #orcarTemplate let-formData="formData">
+                <form #form="ngForm">
+                  <div class="mb-3">
+                    <label>Valor do Serviço</label>
+                    <textarea 
+                      class="form-control" 
+                      [(ngModel)]="formData.valor" 
+                      name="valor"  
+                      required>
+                    </textarea>
+                  </div>
+                </form>
+            </ng-template>
             <a *ngIf="solicitacao.estado === 'APROVADA' || solicitacao.estado === 'REDIRECIONADA'" class="btn btn-xs btn-info" title="Consertar" (click)="consertar()">
                 <i class="fa-solid fa-gears"></i>&nbsp;&nbsp;Efetuar Manutenção
             </a>
