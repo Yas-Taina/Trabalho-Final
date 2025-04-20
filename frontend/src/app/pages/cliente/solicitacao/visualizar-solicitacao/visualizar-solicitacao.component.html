@@ -1,9 +1,15 @@
 <div class="row">
 
     <div class="col-md-6">
-        <div *ngIf="solicitacao.estado !== 'ABERTA'" id="boxOrçamento">
+        <div *ngIf="solicitacao.estado !== 'ABERTA'" id="boxOrcamento">
             <h3>Valor</h3>
             <h4>{{ orcamento?.valor | currency:'BRL' }}</h4>
+        </div>
+        <div *ngIf="solicitacao.manutencao !== ''" id="boxServico">
+            <h4>Serviços Realizados</h4>
+            <p>{{ solicitacao.manutencao }}</p>
+            <h4>Orientações</h4>
+            <p>{{ solicitacao.mensagem }}</p>
         </div>
         <div class="d-flex flex-column">
             <a *ngIf="solicitacao.estado === 'ORÇADA'" class="btn btn-xs btn-info" title="Aprovar" (click)="aprovar($event)">

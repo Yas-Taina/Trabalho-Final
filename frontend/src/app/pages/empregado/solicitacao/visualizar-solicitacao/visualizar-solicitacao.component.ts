@@ -27,6 +27,8 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     @ViewChild('formSolicitacao') formSolicitacao! : NgForm;
     @ViewChild(ModalComponent) modal!: ModalComponent; 
     @ViewChild('orcarTemplate') orcarTemplate!: TemplateRef<any>;
+    @ViewChild('redirecionarTemplate') redirecionarTemplate!: TemplateRef<any>;
+    @ViewChild('consertarTemplate') consertarTemplate!: TemplateRef<any>;
 
     solicitacao: Solicitacao = new Solicitacao();
     orcamento: Orcamento = new Orcamento();
@@ -39,6 +41,8 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     isEquipOpen = false;
     isClientOpen = false;
     isHistOpen = false;
+    funcionarios: any[] = [];
+    confirmada!: (formData: any) => void;
 
     currentModalTitle: string = '';
     currentContentTemplate!: TemplateRef<any>;
@@ -53,7 +57,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     private clienteService: ClienteService,
     private equipamentoService: EquipamentoService,
     private orcamentoService: OrcamentoService
-  ) {  }
+  ) { }
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.params['id'];
@@ -68,6 +72,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     this.carregarCliente();
     this.carregarEquipamento();
     this.carregarOrcamento();
+    this.listarFunc();
   }
 
   getId() {
@@ -76,6 +81,16 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
       throw new Error('Usuário não está logado');
     }
     this.usuario = sessao.usuarioId;
+  }
+
+  listarFunc() {
+    try {
+      const dados = localStorage.getItem('funcionarios');
+      this.funcionarios = dados ? JSON.parse(dados) : [];
+    } catch (e) {
+      console.error('Erro ao carregar funcionários:', e);
+      this.funcionarios = [];
+    }
   }
 
   carregarNomeFuncionario() {
@@ -113,7 +128,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     const horas = dataAtual.getHours().toString().padStart(2, '0');
     const minutos = dataAtual.getMinutes().toString().padStart(2, '0');
     const estado = this.solicitacao.estado;
-    const add = `Alteração: ${estado}, Data: ${dia}/${mes}/${ano} - ${horas}:${minutos}, Responsável: ${this.nomeFuncionario} \n`;    
+    const add = `• ${estado}, Data: ${dia}/${mes}/${ano} - ${horas}:${minutos}, Responsável: ${this.nomeFuncionario} \n`;    
     this.solicitacao.historico += add;
   }
 
@@ -137,9 +152,9 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
   orcar(formData: any){
     const valorForm = Number(formData.valor);
     
-    if (isNaN(valorForm)) {
-        alert('Por favor, insira um valor numérico válido');
-        return;
+    if (isNaN(valorForm) || valorForm < 0) {
+      alert('Insira um valor numérico válido e positivo.');
+      return;
     }
 
     this.orcamento.valor = valorForm;
@@ -150,19 +165,30 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     this.atualizar();
   }
 
-  redirecionar(){
+  redirecionar(formData: any){
+    if (!formData.idEmpregado) {
+      alert('Selecione um funcionário.');
+      return;
+    }
+  
+    this.solicitacao.idEmpregado = formData.idEmpregado;
     this.solicitacao.estado = 'REDIRECIONADA';
     this.atualizarHistorico();
     this.atualizar();
   }
 
-  consertar(){
-    if (confirm('Deseja confirmar a realização da manutenção? Essa ação não pode ser revertida')){
-      this.solicitacao.estado = 'ARRUMADA';
-      this.atualizarHistorico();
-      this.atualizar();
-      alert('Manutenção realizada');
+  consertar(formData: any){
+    if (!formData.mensagem || !formData.manutencao) {
+      alert('Preencha todos os campos.');
+      return;
     }
+  
+    this.solicitacao.mensagem = formData.mensagem;
+    this.solicitacao.manutencao = formData.manutencao;
+    this.solicitacao.estado = 'ARRUMADA';
+    this.atualizarHistorico();
+    this.atualizar();
+    alert('Manutenção realizada');
   }
 
   finalizar(){
@@ -178,8 +204,34 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     this.currentModalTitle = 'Realizar Orçamento';
     this.currentContentTemplate = this.orcarTemplate;
     this.currentFormData = { valor: 0 };
+    this.confirmada = this.orcar.bind(this);
     this.modal.open();
   }
+  
+  abrirModalRedirecionar() {
+    this.currentModalTitle = 'Redirecionar Solicitação';
+    this.currentContentTemplate = this.redirecionarTemplate;
+    this.currentFormData = { idEmpregado: null };
+    this.confirmada = this.redirecionar.bind(this);
+    this.modal.open();
+  }
+  
+  abrirModalConsertar() {
+    this.currentModalTitle = 'Realizar Manutenção';
+    this.currentContentTemplate = this.consertarTemplate;
+    this.currentFormData = { mensagem: '', manutencao: '' };
+    this.confirmada = this.consertar.bind(this);
+    this.modal.open();
+  }
+  
+
+  confirmar(formData: any) {
+    if (this.confirmada) {
+      this.confirmada(formData);
+    }
+  }
+  
+
 
   toggleEquipView() {
     this.isEquipOpen = !this.isEquipOpen;

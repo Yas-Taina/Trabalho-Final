@@ -11,6 +11,8 @@ export class Solicitacao extends EntidadeBase {
         public equipamento: number = 0,
         public defeito: string = "",
         public descricao: string = "",
+        public manutencao: string = "",
+        public mensagem: string = "",
         public historico: string = ""
     ){
         super(id);

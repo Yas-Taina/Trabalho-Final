@@ -82,7 +82,7 @@ export class VisualizarSolicitacaoComponent implements OnInit {
     const horas = dataAtual.getHours().toString().padStart(2, '0');
     const minutos = dataAtual.getMinutes().toString().padStart(2, '0');
     const estado = this.solicitacao.estado;
-    const add = `${estado}, Data: ${dia}/${mes}/${ano} - ${horas}:${minutos} \n`;    
+    const add = `• ${estado}, Data: ${dia}/${mes}/${ano} - ${horas}:${minutos} \n`;    
     this.solicitacao.historico += add;
   }
 
@@ -137,7 +137,7 @@ export class VisualizarSolicitacaoComponent implements OnInit {
       const horas = dataAtual.getHours().toString().padStart(2, '0');
       const minutos = dataAtual.getMinutes().toString().padStart(2, '0');
       const estado = this.solicitacao.estado;
-      const add = `${estado}, Data: ${dia}/${mes}/${ano} - ${horas}:${minutos}, Motivo: ${motivo} \n`;    
+      const add = `• ${estado}, Data: ${dia}/${mes}/${ano} - ${horas}:${minutos}, Motivo: ${motivo} \n`;    
       this.solicitacao.historico += add;
       this.atualizar();
     }
