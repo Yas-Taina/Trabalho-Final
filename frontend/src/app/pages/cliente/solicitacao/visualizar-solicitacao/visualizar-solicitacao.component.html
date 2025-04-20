@@ -5,7 +5,7 @@
             <h3>Valor</h3>
             <h4>{{ orcamento?.valor | currency:'BRL' }}</h4>
         </div>
-        <div *ngIf="solicitacao.manutencao !== ''" id="boxServico">
+        <div *ngIf="solicitacao.manutencao && solicitacao.manutencao.trim() !== ''" id="boxServico">
             <h4>Serviços Realizados</h4>
             <p>{{ solicitacao.manutencao }}</p>
             <h4>Orientações</h4>
