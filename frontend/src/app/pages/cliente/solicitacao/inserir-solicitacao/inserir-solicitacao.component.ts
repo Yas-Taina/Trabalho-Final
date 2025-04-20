@@ -45,7 +45,6 @@ export class InserirSolicitacaoComponent {
       }
       this.solicitacao.idCliente = sessao.usuarioId;
       this.solicitacao.idEmpregado = 0;
-      this.solicitacao.orcamento = 0;
       this.solicitacao.manutencao = "";
       const add = `Aberta em: ${dia}/${mes}/${ano} - ${horas}:${minutos} \n`;
       this.solicitacao.historico += add;
