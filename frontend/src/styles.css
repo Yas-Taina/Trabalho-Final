@@ -86,9 +86,10 @@ main {
   --secondary-color: #f1f1f1;
   --text-color: #4b4b4b;
   /*cores de botões*/
-  --button-hover: #f3bcd2;
-  --border-color: #e0d4da;
-  --font-family: "Poppins", sans-serif;
+  --button-hover1: #f1f1f1;
+  --button-hover2: #f3bcd2;
+  --border-color: #e4a9c2;
+  --font-family: 'Poppins', sans-serif;
 }
 
 body {
@@ -105,33 +106,35 @@ header {
   align-items: center;
 }
 
-.botaook {
+.botaorosa {
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
   border: none;
   background-color: var(--primary-color);
   font-weight: 600;
   cursor: pointer;
-  transition:
-    background-color 0.3s ease,
-    transform 0.2s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.botaocadastrar {
+.botaobranco {
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
   border: none;
   background-color: var(--background-color);
   font-weight: 600;
   cursor: pointer;
-  transition:
-    background-color 0.3s ease,
-    transform 0.2s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
   color: var(--text-color);
 }
 
-.botaook:hover {
-  background-color: var(--button-hover);
+.botaorosa:hover {
+  color: var(--text-color);
+  background-color: var(--button-hover1);
+  transform: scale(1.05);
+}
+
+.botaobranco:hover {
+  background-color: var(--button-hover2);
   transform: scale(1.05);
 }
 
