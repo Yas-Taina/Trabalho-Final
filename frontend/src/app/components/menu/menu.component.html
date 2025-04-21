@@ -12,22 +12,16 @@
         <br />
         <a routerLink="/adm/home">Inicio</a>
         <br />
+        <a routerLink="/adm/solicitacoes">Solicitações</a>
+        <br />
+        <a routerLink="/adm/atribuicoes">Minhas Atribuições</a>
+        <br />
         <a routerLink="/adm/equipamentos">Equipamentos</a>
         <br />
         <a routerLink="/adm/funcionarios">Funcionários</a>
       </ng-container>
     </div>
-
     <hr />
-
-    <div class="menu2">
-      <ng-container *ngIf="(currentSection$ | async) === 'cliente'">
-        <br />
-        <p>Placeholder Perfil</p>
-        <br />
-        <p>Placeholder Perfil</p>
-      </ng-container>
-    </div>
   </div>
 </div>
 

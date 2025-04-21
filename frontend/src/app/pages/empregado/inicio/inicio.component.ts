@@ -1,6 +1,8 @@
 import { Component } from "@angular/core";
 import { SolicitacaoService } from "../../../services/solicitacao.service";
 import { Solicitacao } from "../../../shared/models/solicitacao.model";
+import { Cliente } from "../../../shared/models/cliente.model";
+import { ClienteService } from "../../../services/cliente.service";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 
@@ -13,13 +15,22 @@ import { RouterModule } from "@angular/router";
 })
 export class EmpregadoInicioComponent {
   solicitacoes: Solicitacao[] = [];
+  clientes: Cliente[] = [];
 
-  constructor(private solicitacaoService: SolicitacaoService) {}
+  constructor(
+    private solicitacaoService: SolicitacaoService,
+    private clienteService: ClienteService,
+  ) {}
 
   ngOnInit(): void {
-    this.solicitacoes = this.listarTodos();
+    this.clientes = this.clienteService.listarTodos();
+    this.solicitacoes = this.solicitacaoService
+      .listarTodos()
+      .filter((item) => item.estado === "ABERTA");
   }
-  listarTodos(): Solicitacao[] {
-    return this.solicitacaoService.listarTodos();
+
+  buscarNomeCliente(id: number): string {
+    const cliente = this.clientes.find((c) => c.id === id);
+    return cliente ? cliente.nome : "Cliente não encontrado";
   }
 }

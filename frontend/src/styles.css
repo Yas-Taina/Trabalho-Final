@@ -89,7 +89,7 @@ main {
   --button-hover1: #f1f1f1;
   --button-hover2: #f3bcd2;
   --border-color: #e4a9c2;
-  --font-family: 'Poppins', sans-serif;
+  --font-family: "Poppins", sans-serif;
 }
 
 body {
@@ -113,7 +113,9 @@ header {
   background-color: var(--primary-color);
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
 }
 
 .botaobranco {
@@ -123,7 +125,9 @@ header {
   background-color: var(--background-color);
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
   color: var(--text-color);
 }
 
