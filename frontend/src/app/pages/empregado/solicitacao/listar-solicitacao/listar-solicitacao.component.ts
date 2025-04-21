@@ -5,7 +5,6 @@ import { Solicitacao } from "../../../../shared/models/solicitacao.model";
 import { Cliente } from "../../../../shared/models/cliente.model";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
-import $ from "jquery";
 
 @Component({
   selector: "app-listar-solicitacao",
