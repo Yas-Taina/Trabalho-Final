@@ -1,22 +1,29 @@
 .footer {
-    background-color: #333;
-    color: #fff;
-    padding: 20px 0;
+  background-color: #333;
+  color: #fff;
+  padding: 20px 0;
 }
 
 .footer-container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    text-align: center;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .footer-mensagem {
+<<<<<<< HEAD
     margin: 0;
     font-size: 14px;
   }
+=======
+  font-family: "Times New Roman", Times, serif;
+  margin: 0;
+  font-size: 14px;
+}
+>>>>>>> 02b64c3647866796ee256d499e8a91480885faaa
 
-  #kitty {
-    max-width: 150px;
-    border-radius: 10px;
-  }
+#kitty {
+  max-width: 150px;
+  border-radius: 10px;
+}

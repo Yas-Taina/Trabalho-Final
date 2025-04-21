@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Fundo geral */
 body, .container {
     color: #ffffff;
@@ -55,3 +56,8 @@ body, .container {
     color: #f0cce2;
   }
   
+=======
+.texto {
+    color: #e4e4e4;  
+}
+>>>>>>> 02b64c3647866796ee256d499e8a91480885faaa

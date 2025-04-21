@@ -1,54 +1,75 @@
 <div id="menu" class="menu-col p-3" [class.show]="isMenuOpen">
-    <div class="menu-itens">
-        <div class="menu1">
-            <ng-container *ngIf="(currentSection$ | async) === 'cliente'">
-                <br>
-                <a routerLink="/client/home">Inicio</a>
-                <br>
-                <a routerLink="/client/solicitacao/novo">Fazer Solicitação</a>
-            </ng-container>
+  <div class="menu-itens">
+    <div class="menu1">
+      <ng-container *ngIf="(currentSection$ | async) === 'cliente'">
+        <br />
+        <a routerLink="/client/home">Inicio</a>
+        <br />
+        <a routerLink="/client/solicitacao/novo">Fazer Solicitação</a>
+      </ng-container>
 
-            <ng-container *ngIf="(currentSection$ | async) === 'empregado'">
-                <br>
-                <a routerLink="/adm/home">Inicio</a>
-                <br>
-                <a routerLink="/adm/equipamentos">Equipamentos</a>
-                <br>
-                <a routerLink="/adm/funcionarios">Funcionários</a>
-            </ng-container>
-        </div>
-
-        <hr>
-
-        <div class="menu2">
-            <ng-container *ngIf="(currentSection$ | async) === 'cliente'">
-                <br>
-                <p>Placeholder Perfil</p>
-                <br>
-                <p>Placeholder Perfil</p>
-            </ng-container>
-        </div>
-
+      <ng-container *ngIf="(currentSection$ | async) === 'empregado'">
+        <br />
+        <a routerLink="/adm/home">Inicio</a>
+        <br />
+        <a routerLink="/adm/equipamentos">Equipamentos</a>
+        <br />
+        <a routerLink="/adm/funcionarios">Funcionários</a>
+      </ng-container>
     </div>
+
+    <hr />
+
+    <div class="menu2">
+      <ng-container *ngIf="(currentSection$ | async) === 'cliente'">
+        <br />
+        <p>Placeholder Perfil</p>
+        <br />
+        <p>Placeholder Perfil</p>
+      </ng-container>
+    </div>
+  </div>
 </div>
 
-<header class="d-flex justify-content-between align-items-center p-3 bg-light shadow" id="compmenu">
-    <button class="burgue" (click)="toggleMenu()" *ngIf="(currentSection$ | async) !== 'auth'">
-        <span></span>
-        <span></span>
-        <span></span>
+<header
+  class="d-flex justify-content-between align-items-center p-3 bg-light shadow"
+  id="compmenu"
+>
+  <button
+    class="burgue"
+    (click)="toggleMenu()"
+    *ngIf="(currentSection$ | async) !== 'auth'"
+  >
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <h1 class="m-0">Sistema de Controle de Manutenção de Equipamentos</h1>
+
+  <ng-container *ngIf="(currentSection$ | async) === 'auth'; else logoutButton">
+    <div class="log">
+      <button routerLink="/auth/login" class="btn btn-primary" title="Login">
+        <i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i>
+      </button>
+      <button
+        routerLink="/auth/cadastro"
+        class="btn btn-primary"
+        title="Cadastro"
+      >
+        <i class="fa fa-user-plus" aria-hidden="true"></i>
+      </button>
+    </div>
+  </ng-container>
+
+  <ng-template #logoutButton>
+    <button
+      type="button"
+      class="btn btn-danger"
+      title="Logout"
+      (click)="logout()"
+    >
+      <i class="fa-solid fa-right-from-bracket"></i>
     </button>
-
-    <h1 class="m-0">Sistema de Controle de Manutenção de Equipamentos</h1>
-
-    <ng-container *ngIf="(currentSection$ | async) === 'auth'; else logoutButton">
-        <div class="log">
-            <button routerLink="/auth/login" class="btn btn-primary" title="Login"><i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i></button>
-            <button routerLink="/auth/cadastro" class="btn btn-primary" title="Cadastro"><i class="fa fa-user-plus" aria-hidden="true"></i></button>
-        </div>
-    </ng-container>
-
-    <ng-template #logoutButton>
-        <button type="button" class="btn btn-danger" title="Logout" (click)="logout()"><i class="fa-solid fa-right-from-bracket"></i></button>
-    </ng-template>
+  </ng-template>
 </header>
