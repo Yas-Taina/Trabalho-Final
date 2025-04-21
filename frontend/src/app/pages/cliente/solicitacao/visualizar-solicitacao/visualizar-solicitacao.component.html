@@ -1,43 +1,39 @@
-<div class="row">
-  <div class="col-md-6">
-    <div *ngIf="solicitacao.estado !== 'ABERTA'" id="boxOrcamento">
-      <h3>Valor</h3>
-      <h4>{{ orcamento?.valor | currency: "BRL" }}</h4>
+<div class="row bg-creme">
+  <div class="col-md-6 d-flex flex-column align-items-center text-center gap-3">
+    <div *ngIf="solicitacao.estado !== 'ABERTA'" id="boxOrcamento" class="border-rosa-salmao">
+      <h3 class="titulo-box">Valor</h3>
+      <h4 class="valor-box">{{ orcamento?.valor | currency: "BRL" }}</h4>
+      <!-- <p class ="detalhe-box">{{orcamento?.ultimaatualizacao }}</p> -->
     </div>
-    <div
-      *ngIf="solicitacao.manutencao && solicitacao.manutencao.trim() !== ''"
-      id="boxServico"
-    >
+
+    <div *ngIf="solicitacao.manutencao && solicitacao.manutencao.trim() !== ''" id="boxServico" >
       <h4>Serviços Realizados</h4>
       <p>{{ solicitacao.manutencao }}</p>
       <h4>Orientações</h4>
       <p>{{ solicitacao.mensagem }}</p>
     </div>
-    <div class="d-flex flex-column">
-      <a
-        *ngIf="solicitacao.estado === 'ORÇADA'"
-        class="btn btn-xs btn-info"
-        title="Aprovar"
-        (click)="aprovar($event)"
-      >
-        <i class="fa-solid fa-circle-check"></i>&nbsp;&nbsp;Aprovar Serviço
-      </a>
-      <a
-        *ngIf="solicitacao.estado === 'ORÇADA'"
-        class="btn btn-xs btn-info"
-        title="Recusar"
-        (click)="abrirModal()"
-      >
-        <i class="fa-solid fa-circle-xmark"></i>&nbsp;&nbsp;Recusar Serviço
-      </a>
+
+    <div class="d-flex flex-column w-100 gap-2">
+      <div *ngIf="solicitacao.estado === 'ORÇADA'">
+        <a class="btn btn-xs btn-rosa-salmao w-100" title="Aprovar" (click)="aprovar($event)">
+          <i class="fa-solid fa-circle-check"></i>&nbsp;&nbsp;Aprovar Serviço
+        </a>
+      </div>
+
+      <div *ngIf="solicitacao.estado === 'ORÇADA'">
+        <a class="btn btn-xs btn-creme w-100" title="Recusar" (click)="abrirModal()">
+          <i class="fa-solid fa-circle-xmark"></i>&nbsp;&nbsp;Recusar Serviço
+        </a>
+      </div>
+
       <app-modal
         #Modal
         [modalTitle]="currentModalTitle"
         [contentTemplate]="currentContentTemplate"
         [templateContext]="{ formData: currentFormData }"
-        (confirmed)="handleConfirmation($event)"
-      >
+        (confirmed)="handleConfirmation($event)">
       </app-modal>
+
       <ng-template #rejectTemplate let-formData="formData">
         <form #form="ngForm">
           <div class="mb-3">
@@ -46,30 +42,26 @@
               class="form-control"
               [(ngModel)]="formData.reason"
               name="reason"
-              required
-            >
+              required>
             </textarea>
           </div>
         </form>
       </ng-template>
-      <a
-        *ngIf="solicitacao.estado === 'REJEITADA'"
-        class="btn btn-xs btn-info"
-        title="Resgatar"
-        (click)="resgatar($event)"
-      >
-        <i class="fa-solid fa-trash-arrow-up"></i>&nbsp;&nbsp;Resgatar Serviço
-      </a>
-      <a
-        *ngIf="solicitacao.estado === 'ARRUMADA'"
-        class="btn btn-xs btn-info"
-        title="Pagar"
-        (click)="pagar($event)"
-      >
-        <i class="fa-solid fa-money-check-dollar"></i>&nbsp;&nbsp;Pagar Serviço
-      </a>
-      <div>
-        <a class="btn btn-xs btn-info" title="Histórico" (click)="toggleHist()">
+
+      <div *ngIf="solicitacao.estado === 'REJEITADA'" class="w-100">
+        <a class="btn btn-xs btn-creme  btn-info w-100" title="Resgatar" (click)="resgatar($event)">
+          <i class="fa-solid fa-trash-arrow-up"></i>&nbsp;&nbsp;Resgatar Serviço
+        </a>
+      </div>
+
+      <div *ngIf="solicitacao.estado === 'ARRUMADA'" class="w-100">
+        <a class="btn btn-xs btn-info w-100" title="Pagar" (click)="pagar($event)">
+          <i class="fa-solid fa-money-check-dollar"></i>&nbsp;&nbsp;Pagar Serviço
+        </a>
+      </div>
+
+      <div class="w-100">
+        <a class="btn btn-xs btn-rosa-salmao w-100" title="Histórico" (click)="toggleHist()">
           <i class="fa-solid fa-book-open"></i>&nbsp;&nbsp;Histórico
         </a>
         <div *ngIf="isHistOpen">
@@ -79,30 +71,32 @@
     </div>
   </div>
 
-  <div class="col-md-6">
-    <h1>Detalhes da Solicitação</h1>
+  <!-- Coluna da direita permanece igual -->
+  <div class="col-md-6 detalhes-solicitacao text-center boxOrcamento" id="boxOrcamento">
+    <h1>DETALHES DA<br>SOLICITAÇÃO</h1>
+    <hr>
 
-    <hr />
-    <h4>Data da Solicitação</h4>
-    <p>{{ solicitacao.data }}</p>
-    <hr />
-    <div class="row">
-      <div class="col-auto">
-        <h4>Equipamento</h4>
-        <p>{{ equipamento?.nome }}</p>
-      </div>
-      <div class="col-auto">
-        <a
-          class="btn btn-xs btn-info"
-          title="Visualizar"
-          (click)="toggleEquip()"
-        >
-          <i class="fa-solid fa-eye" aria aria-hidden="true"></i>
-        </a>
-      </div>
+    <div>
+      <h6 class="titulo">ESTADO</h6>
+      <p>{{ solicitacao.estado }}</p>
     </div>
-    <div *ngIf="isEquipOpen">
-      <h5>Detalhes</h5>
+    <hr>
+
+    <div>
+      <h6 class="titulo">DATA E HORA</h6>
+      <p>{{ solicitacao.data }}</p>
+    </div>
+    <hr>
+
+    <div class="equipamento-box position-relative w-100">
+      <h6 class="titulo">EQUIPAMENTO</h6>
+      <p class="equipamento-nome">{{ equipamento?.nome }}</p>
+      <button class="btn btn-xs btn-rosa-cha icon-olho" (click)="toggleEquip()" title="Visualizar">
+        <i class="fa-solid fa-eye"></i>
+      </button>
+    </div>
+
+    <div *ngIf="isEquipOpen" class="mt-3">
       <p>
         <strong>Descrição da categoria do equipamento:</strong>
         {{ equipamento?.descricao }}
@@ -112,15 +106,15 @@
         {{ solicitacao.descricao }}
       </p>
     </div>
-    <hr />
-    <h4>Descrição do defeito</h4>
-    <p>{{ solicitacao.defeito }}</p>
-    <hr />
-    <h4>Estado da Solicitação</h4>
-    <p>{{ solicitacao.estado }}</p>
-    <hr />
+    <hr>
 
-    <a class="btn btn-secondary" title="Voltar" routerLink="/client/home">
+    <div>
+      <h6 class="titulo">DEFEITO</h6>
+      <p>{{ solicitacao.defeito }}</p>
+    </div>
+    <hr>
+
+    <a class="btn btn-voltar" routerLink="/client/home">
       <i class="fa fa-arrow-left" aria-hidden="true"></i>
     </a>
   </div>

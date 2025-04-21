@@ -1,37 +1,21 @@
-<div class="row">
-  <div class="col-md-6">
-    <div
-      class="container d-flex flex-column justify-content-center align-items-center min-vh-100"
-    >
-      <h1>Manutenção de Equipamentos</h1>
-      <img
-        src="../../../../assets/images/smalldecor.png"
-        alt="decor"
-        id="smalldecor"
-      />
-      <p>
-        Faça login ou cadastre-se gratuitamente para solicitar sua manutenção
+<div class="container-fluid p-0">
+  <div class="row g-0 min-vh-90">
+    <!-- Lado esquerdo -->
+    <div class="col-md-6 d-flex flex-column justify-content-center align-items-center text-center bg-creme px-4">
+      <h1 class="titulo azul2">MANUTENÇÃO<br>DE<br>EQUIPAMENTOS</h1>
+      <img src="../../../../assets/images/smalldecor.png" alt="decor" class="my-3" id="smalldecor">
+      <p class="texto-descricao azul2" > 
+        Faça login ou cadastre-se <br> gratuitamente para solicitar sua manutenção
       </p>
-      <div class="d-grid gap-3" style="width: 100%; max-width: 300px">
-        <a
-          routerLink="/auth/login"
-          class="btn btn-primary btn-lg botaorosa"
-          routerLinkActive="active"
-          >Login</a
-        >
-        <a
-          routerLink="/auth/cadastro"
-          class="btn btn-outline-primary btn-lg botaobranco"
-          >Cadastrar</a
-        >
+      <div class="d-grid gap-3 mt-4" style="width: 100%; max-width: 300px;">
+        <a routerLink="/auth/login" class="btn btn-login btn-lg botaorosa" routerLinkActive="active">LOGIN</a>
+        <a routerLink="/auth/cadastro" class="btn btn-cadastro btn-lg botaobranco" routerLinkActive="active">CADASTRO</a>
       </div>
     </div>
-  </div>
-  <div class="col-md-6">
-    <img
-      src="../../../../assets/images/bigdecor.png"
-      alt="decor"
-      id="bigdecor"
-    />
+    <!-- Lado direito -->
+    <div class="col-md-6 p-0 d-flex align-items-center justify-content-center bg-rosa-salmao">
+      <img src="../../../../assets/images/bigdecor.png" alt="decor" class="img-fluid"
+        style="max-height: 100vh; object-fit: contain;">
+    </div>
   </div>
 </div>
