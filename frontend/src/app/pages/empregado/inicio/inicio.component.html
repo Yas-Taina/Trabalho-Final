@@ -45,12 +45,10 @@
       <h1 style="text-align: right">EMITIR<br />RELATÓRIO<br />FINANCEIRO</h1>
     </div>
     <div class="col-auto">
-      <a class="btn btn-xs btn-info" title="Data"> Selecionar Data </a>
+      <a class="btn btn-xs btn-info" title="Data" (click)="abrirModalRelatorioReceitas()"> Receitas </a>
     </div>
     <div class="col-auto">
-      <a class="btn btn-xs btn-info" title="Categoria">
-        Selecionar Categoria
-      </a>
+      <a class="btn btn-xs btn-info" title="Data" (click)="gerarRelatorioReceitasPorCategoria()"> Receitas por Categoria </a>
     </div>
   </div>
   <div class="row">

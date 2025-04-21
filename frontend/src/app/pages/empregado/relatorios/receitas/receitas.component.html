@@ -1,0 +1,48 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Gerar Relatório de Receitas</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.close()"></button>
+</div>
+
+<div class="modal-body">
+  <form #formLogin="ngForm">
+    <div class="form-group">
+      <label for="dataInicial">Data de Início (opcional):</label>
+      <input type="date" id="dataInicial" class="form-control" [(ngModel)]="dataInicial" />
+    </div>
+    <div class="form-group">
+      <label for="dataFinal">Data Final (opcional):</label>
+      <input type="date" id="dataFinal" class="form-control" [(ngModel)]="dataFinal">
+    </div>
+    <!-- Talvez seja possível/interessante unificar a geração dos relatórios, e de bônus permitir filtrar por período mesmo no agrupamento de categorias. -->
+    <!-- <div class="form-group">
+      <label>Agrupar por:</label><br>
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="agrupamento"
+          id="agrupamentoDias"
+          value="dias"
+          [(ngModel)]="agrupamentoSelecionado"
+        />
+        <label class="form-check-label" for="agrupamentoDias">Dias</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="agrupamento"
+          id="agrupamentoCategorias"
+          value="categorias"
+          [(ngModel)]="agrupamentoSelecionado"
+        />
+        <label class="form-check-label" for="agrupamentoCategorias">Categorias</label>
+      </div>
+    </div> -->
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" (click)="gerarRelatorio()">Gerar Relatório</button>
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.close()">Fechar</button>
+</div>
