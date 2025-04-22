@@ -8,7 +8,7 @@
 
   <div class="col-md-8">
     <a
-      class="btn btn-xs btn-info"
+      class="btn btn-xs btn-rosa-cha"
       [routerLink]="['/adm/equipamentos/novo']"
       title="Novo Cadastro"
     >
@@ -17,13 +17,14 @@
     </a>
 
     <table class="table table-striped table-bordered table-hover">
-      <tbody>
+      <thead>
         <tr>
           <th>Nome</th>
           <th>Descrição</th>
           <th colspan="2">Ações</th>
         </tr>
-
+      </thead>
+        <tbody>
         <tr *ngFor="let equipamento of equipamentos">
           <td>{{ equipamento.nome }}</td>
           <td>{{ equipamento.descricao }}</td>
@@ -32,7 +33,7 @@
               href="#"
               title="Editar"
               alt="Editar"
-              class="btn btn-xs btn-info"
+              class="btn btn-xs btn-rosa-cha"
               [routerLink]="['/adm/equipamentos/editar', equipamento.id]"
             >
               <i class="fa fa-edit" aria-hidden="true"></i>
@@ -41,7 +42,7 @@
               href="#"
               title="Remover"
               alt="Remover"
-              class="btn btn-xs btn-danger"
+              class="btn btn-xs btn-rosa-cha"
               (click)="remover($event, equipamento)"
             >
               <i class="fa fa-trash" aria-hidden="true"></i>
