@@ -1,9 +1,6 @@
 <div class="row">
   <div class="col-md-6 d-flex justify-content-center">
-    <img
-      src="../../../../assets/images/backgroundTitle.png"
-      class="backgroundimg"
-    />
+    <img src="../../../../assets/images/backgroundTitle.png" class="backgroundimg" />
   </div>
 
   <div class="col-md-6 d-flex justify-content-center">
@@ -15,21 +12,10 @@
 
             <form #formLogin="ngForm">
               <div class="mb-3">
-                <label for="email" class="form-label">E-mail</label>
-                <input
-                  type="email"
-                  class="form-control"
-                  id="email"
-                  name="email"
-                  [(ngModel)]="emailModel"
-                  #email="ngModel"
-                  required
-                  email
-                />
-                <div
-                  *ngIf="email.errors && (email.dirty || email.touched)"
-                  class="alert alert-danger"
-                >
+                <label for="email" class="form-label text-light ">E-mail</label>
+                <input type="email" class="form-control" id="email" name="email" [(ngModel)]="emailModel"
+                  #email="ngModel" required email />
+                <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
                   <div [hidden]="!email.errors['required']">
                     Digite um email.
                   </div>
@@ -40,22 +26,10 @@
               </div>
 
               <div class="mb-3">
-                <label for="senha" class="form-label">Senha</label>
-                <input
-                  type="password"
-                  class="form-control"
-                  id="senha"
-                  name="senha"
-                  minlength="4"
-                  [(ngModel)]="senhaModel"
-                  #senha="ngModel"
-                  required
-                  (keydown.enter)="login()"
-                />
-                <div
-                  *ngIf="senha.invalid && (senha.dirty || senha.touched)"
-                  class="alert alert-danger"
-                >
+                <label for="senha" class="form-label text-light ">Senha</label>
+                <input type="password" class="form-control" id="senha" name="senha" minlength="4"
+                  [(ngModel)]="senhaModel" #senha="ngModel" required (keydown.enter)="login()" />
+                <div *ngIf="senha.invalid && (senha.dirty || senha.touched)" class="alert alert-danger">
                   <div *ngIf="senha.errors?.['required']">
                     Digite uma senha.
                   </div>
@@ -66,20 +40,14 @@
               </div>
 
               <div class="d-grid mb-3">
-                <button
-                  type="button"
-                  class="btn btn-primary botaorosa"
-                  (click)="login()"
-                  [disabled]="!formLogin.form.valid"
-                >
+                <button type="button" class="btn btn-primary botaorosa" (click)="login()"
+                  [disabled]="!formLogin.form.valid">
                   Entrar
                 </button>
               </div>
 
               <div class="text-center">
-                <a href="#" class="text-decoration-none small texto"
-                  >Esqueceu a senha?</a
-                >
+                <a href="#" class="text-decoration-none small texto">Esqueceu a senha?</a>
               </div>
             </form>
           </div>
