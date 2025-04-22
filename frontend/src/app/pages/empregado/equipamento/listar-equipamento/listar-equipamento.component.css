@@ -1,24 +1,16 @@
+/* Garante largura de 90% apenas na horizontal */
+.w-90 {
+  width: 90%;
+}
 
-  .btn-info {
-    background-color: #8B3A4D;
-    border: none;
-    color: #ffffff;
-    font-weight: bold;
-    margin-right: 0.5rem;
-  }
-  
-  .btn-info:hover {
-    background-color: #732c3e;
-  }
-  
-  .btn-danger {
-    background-color: #b34d4d;
-    border: none;
-    color: #ffffff;
-    font-weight: bold;
-  }
-  
-  .btn-danger:hover {
-    background-color: #912f2f;
-  }
-  
+/* Zera margens e espaçamentos entre colunas */
+#relatorio {
+  margin: 0;
+  padding: 0;
+}
+
+/* Remove gaps horizontais do grid (g-0 já cuida, mas reforço se necessário) */
+.row.g-0 > [class*="col-"] {
+  padding-left: 0;
+  padding-right: 0;
+}

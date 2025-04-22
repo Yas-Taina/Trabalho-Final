@@ -34,17 +34,20 @@
 
     <p *ngIf="solicitacoes.length === 0">Nenhuma Solicitação Cadastrada.</p>
   </div>
-  <div class="row d-flex justify-content-center align-items-center text-center" id="relatorio" >
-    <div class="col-auto">
-      <h2 class="text-end">EMITIR<br />RELATÓRIO<br />FINANCEIRO</h2>
-    </div>
-    <div class="col-auto">
-      <a class="btn btn-lg btn-creme" title="Data">Selecionar Data</a>
-    </div>
-    <div class="col-auto">
-      <a class="btn btn-lg btn-azul2" title="Categoria">Selecionar Categoria</a>
-    </div>
-  </div>  
+
+  <div class="row text-center mt-4" id="relatorio">
+      <div class="col-md-4 d-flex flex-column justify-content-center align-items-center">
+        <h2>EMITIR<br />RELATÓRIO<br />FINANCEIRO</h2>
+      </div>
+      <div class="col-md-4 d-flex justify-content-center align-items-center">
+        <a class="btn btn-lg btn-creme w-75" title="Data">Selecionar Data</a>
+      </div>
+      <div class="col-md-4 d-flex justify-content-center align-items-center">
+        <a class="btn btn-lg btn-azul2 w-75" title="Categoria">Selecionar Categoria</a>
+      </div>
+    
+</div>
+
   <div class="row text-center">
     <div class="col-md-4 d-flex flex-column">
       <h2>Solicitações</h2>

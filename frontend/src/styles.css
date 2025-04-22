@@ -197,12 +197,15 @@ header {
 .btn-creme{
   border-color: var(--rosa-cha);
   background-color: var(--creme);
+  color: var(--rosa-salmao)
 }
 
 .btn-creme:hover {
-  background-color: var(--rosa-cha);
+  background-color: var(--azul2);
   color: var(--creme) ;
   transform: scale(1.05);
+  border: 2px solid var(--creme);
+
 }
 
 .btn-azul2{
@@ -267,6 +270,7 @@ button:secondary {
 .table thead th {
   background-color: var(--rosa-salmao);
   color: var(--creme);
+  font-size:1.2rem;
   text-align: center;
   padding: 0.75rem;
   border: 1px solid var(--rosa-cha);

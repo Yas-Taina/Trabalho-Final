@@ -6,8 +6,14 @@
 }
 
 #boxOrcamento {
-  border: 1px solid #e4a18f;
+  background-color: var(--creme);
   border-radius: 50px;
   padding: 30px;
   margin: 5px;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: var(--font-family);
 }
