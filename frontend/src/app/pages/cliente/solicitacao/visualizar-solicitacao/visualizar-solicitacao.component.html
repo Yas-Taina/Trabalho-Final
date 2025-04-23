@@ -21,7 +21,7 @@
       </div>
 
       <div *ngIf="solicitacao.estado === 'ORÇADA'">
-        <a class="btn btn-xs btn-creme w-100" title="Recusar" (click)="abrirModal()">
+        <a class="btn btn-xs btn-rosa-salmao w-100" title="Recusar" (click)="abrirModal()">
           <i class="fa-solid fa-circle-xmark"></i>&nbsp;&nbsp;Recusar Serviço
         </a>
       </div>
@@ -49,13 +49,13 @@
       </ng-template>
 
       <div *ngIf="solicitacao.estado === 'REJEITADA'" class="w-100">
-        <a class="btn btn-xs btn-creme  btn-info w-100" title="Resgatar" (click)="resgatar($event)">
+        <a class="btn btn-xs btn-rosa-salmao  w-100" title="Resgatar" (click)="resgatar($event)">
           <i class="fa-solid fa-trash-arrow-up"></i>&nbsp;&nbsp;Resgatar Serviço
         </a>
       </div>
 
       <div *ngIf="solicitacao.estado === 'ARRUMADA'" class="w-100">
-        <a class="btn btn-xs btn-info w-100" title="Pagar" (click)="pagar($event)">
+        <a class="btn btn-xs btn-rosa-salmao w-100" title="Pagar" (click)="pagar($event)">
           <i class="fa-solid fa-money-check-dollar"></i>&nbsp;&nbsp;Pagar Serviço
         </a>
       </div>

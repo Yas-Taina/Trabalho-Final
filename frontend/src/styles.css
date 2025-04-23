@@ -82,11 +82,6 @@
   border: var(--rosa-salmao) solid 2px;
 }
 
-#boxOrcamento hr {
-  border-top: 2px solid var(--azul2); /* cor rosa-salmão */
-}
-
-
 
 main {
   min-height: 50vw;

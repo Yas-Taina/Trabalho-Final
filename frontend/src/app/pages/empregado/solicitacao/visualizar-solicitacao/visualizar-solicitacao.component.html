@@ -90,6 +90,13 @@
     <h1 class="titulo">DETALHES DA SOLICITAÇÃO</h1>
     <hr />
 
+    <!-- Estado solicitação -->
+    <div class="linha-detalhe">
+      <h6 class="titulo">Estado da Solicitação </h6>
+      <p>{{ solicitacao.estado }}</p>
+    </div>
+    <hr />
+
     <!-- Cliente -->
     <div class="linha-detalhe position-relative">
       <div class="text-center">
@@ -131,8 +138,8 @@
     </div>
     <div *ngIf="isEquipOpen" class="texto-expandido text-start">
       <p class="text-center">
-        <strong>Descrição:</strong> {{ equipamento?.descricao }}<br />
-        <strong>Solicitação:</strong> {{ solicitacao.descricao }}
+        <strong>Descrição da categoria do equipamento:</strong> {{ equipamento?.descricao }}<br />
+        <strong>Descrição deste equipamento:</strong> {{ solicitacao.descricao }}
       </p>
     </div>
     <hr />
@@ -142,6 +149,5 @@
       <h6 class="titulo">DEFEITO</h6>
       <p>{{ solicitacao.defeito }}</p>
     </div>
-
 
   </div>
