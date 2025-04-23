@@ -76,7 +76,8 @@
 
 #boxOrcamento {
   border-radius: 20px;
-  padding: 15px 3rem;  
+  padding: 15px 3rem;
+  border: var(--rosa-cha) solid 2px;
 }
 
 #boxOrcamento hr {
@@ -134,10 +135,19 @@ header {
 
 .bg-creme {
   background-color: var(--creme);
+  color: var(--azul1);
 }
 
 .rosa-cha {
   color: var(--rosa-cha);
+}
+
+.rosa-salmao {
+  color: var(--rosa-salmao);
+}
+.rosa-salmao a {
+  color: var(--rosa-salmao);
+  text-decoration: underline;
 }
 
 .botaorosa {
@@ -197,7 +207,7 @@ header {
 .btn-creme{
   border-color: var(--rosa-cha);
   background-color: var(--creme);
-  color: var(--rosa-salmao)
+  color: var(--azul1)
 }
 
 .btn-creme:hover {
@@ -207,6 +217,23 @@ header {
   border: 2px solid var(--creme);
 
 }
+
+.btn-rosa-cha[disabled] {
+  background-color: var(--rosa-cha) !important; /* cor alternativa mais clara */
+  border-color: var(--rosa-cha) !important;
+  color: var(--creme) !important;
+  cursor: not-allowed !important;
+  opacity: 0.7;
+}
+
+.btn-rosa-salmao[disabled] {
+  background-color: var(--rosa-salmao) !important; /* cor alternativa mais clara */
+  border-color: var(--rosa-salmao) !important;
+  color: var(--creme) !important;
+  cursor: not-allowed !important;
+  opacity: 0.7;
+}
+
 
 .btn-azul2{
   border-color: var(--creme);
@@ -433,4 +460,9 @@ button {
   .menu-col {
     width: 100vw;
   }
+}
+
+.bold-creme{
+  font-weight: bold;
+  color: var(--creme);
 }

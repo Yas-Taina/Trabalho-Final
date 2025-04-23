@@ -1,5 +1,6 @@
 <div class="row align-items-start bg-creme">
   <div class="col-md-6 text-center">
+    <br>
     <div *ngIf="solicitacao.estado !== 'ABERTA'" id="boxOrcamento">
       <h5 class="titulo-box">VALOR</h5>
       <h2 class="valor-box">{{ orcamento.valor | currency: "BRL" }}</h2>
@@ -13,7 +14,8 @@
       <p>{{ solicitacao.manutencao }}</p>
     </div>
     <div class="d-flex flex-column">
-      <a *ngIf="solicitacao.estado === 'ABERTA'" class="btn btn-xs btn-rosa-salmao" title="Orçar" (click)="abrirModalOrcar()">
+      <a *ngIf="solicitacao.estado === 'ABERTA'" class="btn btn-xs btn-rosa-salmao" title="Orçar"
+        (click)="abrirModalOrcar()">
         <i class="fa-solid fa-hand-holding-dollar"></i>&nbsp;&nbsp;Realizar
         Orçamento
       </a>
@@ -66,7 +68,8 @@
           </div>
         </form>
       </ng-template>
-      <a *ngIf="solicitacao.estado === 'PAGA'" class="btn btn-xs btn-rosa-salmao" title="Finalizar" (click)="finalizar()">
+      <a *ngIf="solicitacao.estado === 'PAGA'" class="btn btn-xs btn-rosa-salmao" title="Finalizar"
+        (click)="finalizar()">
         <i class="fa-solid fa-check-to-slot"></i>&nbsp;&nbsp;Finalizar
         Solicitação
       </a>
@@ -81,63 +84,64 @@
     </div>
   </div>
 
-  <div class="col-md-6 detalhes-solicitacao center">
-    <h1>Detalhes da Solicitação</h1>
 
+  <div class="col-md-6 detalhes-solicitacao text-center mx-auto">
+    <br /><br />
+    <h1 class="titulo">DETALHES DA SOLICITAÇÃO</h1>
     <hr />
-    <div class="row">
-      <div class="col-auto">
-        <h4 class="titulo">Cliente</h4>
+
+    <!-- Cliente -->
+    <div class="linha-detalhe position-relative">
+      <div class="text-center">
+        <h6 class="titulo">CLIENTE</h6>
         <p>{{ cliente?.nome }}</p>
       </div>
-      <div class="col-auto">
-        <a class="btn btn-xs icon-olho" title="Visualizar" (click)="toggleClientView()">
-          <i class="fa-solid fa-eye" aria aria-hidden="true"></i>
-        </a>
-      </div>
+      <button class="btn icon-olho position-absolute end-0 top-50 translate-middle-y" (click)="toggleClientView()"
+        title="Visualizar">
+        <i class="fa-solid fa-eye"></i>
+      </button>
     </div>
-    <div *ngIf="isClientOpen">
-      <p>
-        CPF: {{ cliente?.cpf }}<br>
-        Email: {{ cliente?.email }} <br>
-        Telefone: {{ cliente?.telefone }}<br>
+    <div *ngIf="isClientOpen" class="texto-expandido text-start">
+      <p class="text-center">
+        CPF: {{ cliente?.cpf }}<br />
+        Email: {{ cliente?.email }}<br />
+        Telefone: {{ cliente?.telefone }}<br />
         Endereço: {{ cliente?.endereco }}
       </p>
     </div>
     <hr />
-    <h4 class="titulo">Data da Solicitação</h4>
-    <p>{{ solicitacao.data }}</p>
+
+    <!-- Data e Hora -->
+    <div class="linha-detalhe">
+      <h6 class="titulo">DATA E HORA</h6>
+      <p>{{ solicitacao.data }}</p>
+    </div>
     <hr />
-    <div class="row">
-      <div class="col-auto">
-        <h4 class="titulo">Equipamento</h4>
+
+    <!-- Equipamento -->
+    <div class="linha-detalhe position-relative">
+      <div class="text-center">
+        <h6 class="titulo">EQUIPAMENTO</h6>
         <p>{{ equipamento?.nome }}</p>
       </div>
-      <div class="col-auto">
-        <a class="btn btn-xs icon-olho" title="Visualizar" (click)="toggleEquipView()">
-          <i class="fa-solid fa-eye" aria aria-hidden="true"></i>
-        </a>
-      </div>
+      <button class="btn icon-olho position-absolute end-0 top-50 translate-middle-y" (click)="toggleEquipView()"
+        title="Visualizar">
+        <i class="fa-solid fa-eye"></i>
+      </button>
     </div>
-    <div *ngIf="isEquipOpen">
-      <p>
-        <strong>Descrição:</strong>
-        {{ equipamento?.descricao }}
-        <br>
-        <strong>Solicitação:</strong>
-        {{ solicitacao.descricao }}
+    <div *ngIf="isEquipOpen" class="texto-expandido text-start">
+      <p class="text-center">
+        <strong>Descrição:</strong> {{ equipamento?.descricao }}<br />
+        <strong>Solicitação:</strong> {{ solicitacao.descricao }}
       </p>
     </div>
     <hr />
-    <h4 class="titulo">Descrição do defeito</h4>
-    <p>{{ solicitacao.defeito }}</p>
-    <hr />
-    <h4 class="titulo">Estado da Solicitação</h4>
-    <p>{{ solicitacao.estado }}</p>
-    <hr />
 
-    <a class="btn btn-voltar" title="Voltar" routerLink="/adm/home">
-      <i class="fa fa-arrow-left" aria-hidden="true"></i>
-    </a>
+    <!-- Defeito -->
+    <div class="linha-detalhe">
+      <h6 class="titulo">DEFEITO</h6>
+      <p>{{ solicitacao.defeito }}</p>
+    </div>
+
+
   </div>
-</div>
