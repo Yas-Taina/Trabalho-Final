@@ -46,34 +46,35 @@
         Categoria </a>
     </div>
   </div>
+
   <div class="text-center align-items-center">
-    <div class="col-md-4 d-flex flex-column">
+  <div class="row">
+     <div class="col-md-4 d-flex flex-column">
       <h2>Solicitações</h2>
       <i class="fa-solid fa-screwdriver-wrench" id="iconhome"></i>
       <a class="btn btn-lg btn-creme " title="Categoria"> Minhas Atribuições </a>
       <a class="btn btn-lg btn-azul2" title="Categoria"> Visualizar Todas </a>
     </div>
-    <div class="row">
-      <div class="col-md-4 d-flex flex-column">
-        <h2>Equipamentos</h2>
-        <i class="fa-solid fa-computer" id="iconhome"></i>
-        <a class="btn btn-lg btn-creme" [routerLink]="['/adm/equipamentos']" title="Visualizar Equipamentos">
-          Visualizar
-        </a>
-        <a class="btn btn-lg btn-azul2" [routerLink]="['/adm/equipamentos/novo']" title="Novo Equipamento">
-          Cadastrar Novo
-        </a>
-      </div>
-      <div class="col-md-4 d-flex flex-column">
-        <h2>Funcionários</h2>
-        <i class="fa-solid fa-users" id="iconhome"></i>
-        <a class="btn btn-lg btn-creme" [routerLink]="['/adm/funcionarios']" title="Visualizar Funcionários">
-          Visualizar
-        </a>
-        <a class="btn btn-lg btn-azul2" [routerLink]="['/adm/funcionarios/novo']" title="Novo Funcionário">
-          Cadastrar Novo
-        </a>
-      </div>
+    <div class="col-md-4 d-flex flex-column">
+      <h2>Equipamentos</h2>
+      <i class="fa-solid fa-computer" id="iconhome"></i>
+      <a class="btn btn-xs btn-creme" [routerLink]="['/adm/equipamentos']" title="Visualizar Equipamentos">
+        Visualizar
+      </a>
+      <a class="btn btn-xs btn-azul2" [routerLink]="['/adm/equipamentos/novo']" title="Novo Equipamento">
+        Cadastrar Novo
+      </a>
+    </div>
+    <div class="col-md-4 d-flex flex-column">
+      <h2>Funcionários</h2>
+      <i class="fa-solid fa-users" id="iconhome"></i>
+      <a class="btn btn-xs btn-creme" [routerLink]="['/adm/funcionarios']" title="Visualizar Funcionários">
+        Visualizar
+      </a>
+      <a class="btn btn-xs btn-azul2" [routerLink]="['/adm/funcionarios/novo']" title="Novo Funcionário">
+        Cadastrar Novo
+      </a>
     </div>
   </div>
+
 </div>
