@@ -70,14 +70,16 @@
 }
 
 #boxServico {
-  border-radius: 50px;
-  padding: 30px ;
+  border: 1px solid var(--rosa-salmao);
+  border-radius: 20px;
+  padding: 30px;
+  margin: 5px;
 }
 
 #boxOrcamento {
   border-radius: 20px;
   padding: 15px 3rem;
-  border: var(--rosa-cha) solid 2px;
+  border: var(--rosa-salmao) solid 2px;
 }
 
 #boxOrcamento hr {
