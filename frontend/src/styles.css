@@ -536,7 +536,7 @@ button:secondary {
   display: block;
   padding: 10px;
   text-decoration: none;
-  color: var(--creme);
+  color: var(--text-color);
   transition: background-color 0.3s ease-in-out;
   text-align: end;
 }   
