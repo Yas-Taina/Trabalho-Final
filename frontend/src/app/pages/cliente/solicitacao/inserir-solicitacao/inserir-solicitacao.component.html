@@ -4,14 +4,14 @@
   </div>
 
   <div class="col-md-8 d-flex flex-column justify-content-center px-5">
-    <form #formEquipamento="ngForm" class="formulario-destaque">
+    <form #formSolicitacao="ngForm" class="formulario-destaque">
       <div class="form-group mb-4 bold-creme">
 
         <label for="equipamento">Categoria do Equipamento</label>
         <select class="form-control bg-creme" id="equipamento" name="equipamento" [(ngModel)]="solicitacao.equipamento"
           #equipamento="ngModel" required>
           <option *ngFor="let e of equipamentos" [ngValue]="e.id">
-            {{ e.nome }}
+            {{ e?.nome }}
           </option>
         </select>
         <div *ngIf="

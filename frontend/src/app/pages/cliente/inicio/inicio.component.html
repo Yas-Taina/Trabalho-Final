@@ -42,7 +42,7 @@
             <a
               *ngIf="solicitacao.estado === 'REJEITADA'"
               class="btn btn-xs btn-info"
-              [routerLink]="['/client/solicitacao/visualizar', solicitacao.id]"
+              (click)="this.resgatar($event, solicitacao)"
               title="Ação"
               >Resgatar Serviço
             </a>
