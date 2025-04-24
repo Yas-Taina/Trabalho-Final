@@ -1,15 +1,29 @@
 <div class="row">
   <div class="col-md-4">
-    <img src="../../../../assets/images/backgroundTitle.png" class="backgroundimg" />
+    <img
+      src="../../../../assets/images/backgroundTitle.png"
+      class="backgroundimg"
+    />
   </div>
 
   <div class="col-md-8 d-flex flex-column justify-content-center px-5">
     <form #formEquipamento="ngForm" class="formulario-destaque">
       <div class="form-group bold-creme">
         <label for="nome">Nome</label>
-        <input type="text" class="form-control bg-creme" id="nome" name="nome" [(ngModel)]="equipamento.nome"
-          #nome="ngModel" minlength="2" required />
-        <div *ngIf="nome.errors && (nome.dirty || nome.touched)" class="alert alert-danger">
+        <input
+          type="text"
+          class="form-control bg-creme"
+          id="nome"
+          name="nome"
+          [(ngModel)]="equipamento.nome"
+          #nome="ngModel"
+          minlength="2"
+          required
+        />
+        <div
+          *ngIf="nome.errors && (nome.dirty || nome.touched)"
+          class="alert alert-danger"
+        >
           <div [hidden]="!nome.errors['required']">
             Digite um nome para o equipamento.
           </div>
@@ -20,9 +34,20 @@
       </div>
       <div class="form-group bold-creme">
         <label for="descricao">Descrição</label>
-        <input type="text" class="form-control bg-creme" id="descricao" name="descricao" [(ngModel)]="equipamento.descricao"
-          #descricao="ngModel" minlength="5" required />
-        <div *ngIf="descricao.errors && (descricao.dirty || descricao.touched)" class="alert alert-danger">
+        <input
+          type="text"
+          class="form-control bg-creme"
+          id="descricao"
+          name="descricao"
+          [(ngModel)]="equipamento.descricao"
+          #descricao="ngModel"
+          minlength="5"
+          required
+        />
+        <div
+          *ngIf="descricao.errors && (descricao.dirty || descricao.touched)"
+          class="alert alert-danger"
+        >
           <div [hidden]="!descricao.errors['required']">
             Digite uma descrição para o equipamento.
           </div>
@@ -32,11 +57,20 @@
         </div>
       </div>
       <div class="d-flex justify-content-end gap-3 mt-4">
-        <button type="button" class="btn btn-rosa-cha" title="Salvar" (click)="inserir()"
-          [disabled]="!formEquipamento.form.valid">
+        <button
+          type="button"
+          class="btn btn-rosa-cha"
+          title="Salvar"
+          (click)="inserir()"
+          [disabled]="!formEquipamento.form.valid"
+        >
           <i class="fa fa-save" aria-hidden="true"></i>
         </button>
-        <a class="btn btn-rosa-salmao" title="Voltar" routerLink="/adm/equipamentos">
+        <a
+          class="btn btn-rosa-salmao"
+          title="Voltar"
+          routerLink="/adm/equipamentos"
+        >
           <i class="fa fa-arrow-left" aria-hidden="true"></i>
         </a>
       </div>

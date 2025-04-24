@@ -32,14 +32,14 @@
           <td>{{ funcionario.data }}</td>
           <td class="text-center">
             <a
-              class="btn btn-xs  btn-rosa-cha"
+              class="btn btn-xs btn-rosa-cha"
               [routerLink]="['/adm/funcionarios/editar', funcionario.id]"
               title="Editar"
             >
               <i class="fa fa-edit" aria-hidden="true"></i>
             </a>
             <a
-              class="btn btn-xs  btn-rosa-cha"
+              class="btn btn-xs btn-rosa-cha"
               (click)="remover($event, funcionario)"
               title="Remover"
             >

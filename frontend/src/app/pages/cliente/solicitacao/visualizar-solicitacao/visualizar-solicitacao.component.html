@@ -1,12 +1,19 @@
 <div class="row bg-creme">
   <div class="col-md-6 d-flex flex-column align-items-center text-center gap-3">
-    <div *ngIf="solicitacao.estado !== 'ABERTA'" id="boxOrcamento" class="border-rosa-salmao">
+    <div
+      *ngIf="solicitacao.estado !== 'ABERTA'"
+      id="boxOrcamento"
+      class="border-rosa-salmao"
+    >
       <h3 class="titulo-box">Valor</h3>
       <h4 class="valor-box">{{ orcamento?.valor | currency: "BRL" }}</h4>
       <!-- <p class ="detalhe-box">{{orcamento?.ultimaatualizacao }}</p> -->
     </div>
 
-    <div *ngIf="solicitacao.manutencao && solicitacao.manutencao.trim() !== ''" id="boxServico" >
+    <div
+      *ngIf="solicitacao.manutencao && solicitacao.manutencao.trim() !== ''"
+      id="boxServico"
+    >
       <h4>Serviços Realizados</h4>
       <p>{{ solicitacao.manutencao }}</p>
       <h4>Orientações</h4>
@@ -15,13 +22,21 @@
 
     <div class="d-flex flex-column w-100 gap-2">
       <div *ngIf="solicitacao.estado === 'ORÇADA'">
-        <a class="btn btn-xs btn-rosa-salmao w-100" title="Aprovar" (click)="aprovar($event)">
+        <a
+          class="btn btn-xs btn-rosa-salmao w-100"
+          title="Aprovar"
+          (click)="aprovar($event)"
+        >
           <i class="fa-solid fa-circle-check"></i>&nbsp;&nbsp;Aprovar Serviço
         </a>
       </div>
 
       <div *ngIf="solicitacao.estado === 'ORÇADA'">
-        <a class="btn btn-xs btn-rosa-salmao w-100" title="Recusar" (click)="abrirModal()">
+        <a
+          class="btn btn-xs btn-rosa-salmao w-100"
+          title="Recusar"
+          (click)="abrirModal()"
+        >
           <i class="fa-solid fa-circle-xmark"></i>&nbsp;&nbsp;Recusar Serviço
         </a>
       </div>
@@ -31,7 +46,8 @@
         [modalTitle]="currentModalTitle"
         [contentTemplate]="currentContentTemplate"
         [templateContext]="{ formData: currentFormData }"
-        (confirmed)="handleConfirmation($event)">
+        (confirmed)="handleConfirmation($event)"
+      >
       </app-modal>
 
       <ng-template #rejectTemplate let-formData="formData">
@@ -42,26 +58,40 @@
               class="form-control"
               [(ngModel)]="formData.reason"
               name="reason"
-              required>
+              required
+            >
             </textarea>
           </div>
         </form>
       </ng-template>
 
       <div *ngIf="solicitacao.estado === 'REJEITADA'" class="w-100">
-        <a class="btn btn-xs btn-rosa-salmao  w-100" title="Resgatar" (click)="resgatar($event)">
+        <a
+          class="btn btn-xs btn-rosa-salmao w-100"
+          title="Resgatar"
+          (click)="resgatar($event)"
+        >
           <i class="fa-solid fa-trash-arrow-up"></i>&nbsp;&nbsp;Resgatar Serviço
         </a>
       </div>
 
       <div *ngIf="solicitacao.estado === 'ARRUMADA'" class="w-100">
-        <a class="btn btn-xs btn-rosa-salmao w-100" title="Pagar" (click)="pagar($event)">
-          <i class="fa-solid fa-money-check-dollar"></i>&nbsp;&nbsp;Pagar Serviço
+        <a
+          class="btn btn-xs btn-rosa-salmao w-100"
+          title="Pagar"
+          (click)="pagar($event)"
+        >
+          <i class="fa-solid fa-money-check-dollar"></i>&nbsp;&nbsp;Pagar
+          Serviço
         </a>
       </div>
 
       <div class="w-100">
-        <a class="btn btn-xs btn-rosa-salmao w-100" title="Histórico" (click)="toggleHist()">
+        <a
+          class="btn btn-xs btn-rosa-salmao w-100"
+          title="Histórico"
+          (click)="toggleHist()"
+        >
           <i class="fa-solid fa-book-open"></i>&nbsp;&nbsp;Histórico
         </a>
         <div *ngIf="isHistOpen">
@@ -72,26 +102,33 @@
   </div>
 
   <!-- Coluna da direita permanece igual -->
-  <div class="col-md-6 detalhes-solicitacao text-center boxOrcamento" id="boxOrcamento">
-    <h1>DETALHES DA<br>SOLICITAÇÃO</h1>
-    <hr>
+  <div
+    class="col-md-6 detalhes-solicitacao text-center boxOrcamento"
+    id="boxOrcamento"
+  >
+    <h1>DETALHES DA<br />SOLICITAÇÃO</h1>
+    <hr />
 
     <div>
       <h6 class="titulo">ESTADO</h6>
       <p>{{ solicitacao.estado }}</p>
     </div>
-    <hr>
+    <hr />
 
     <div>
       <h6 class="titulo">DATA E HORA</h6>
       <p>{{ solicitacao.data }}</p>
     </div>
-    <hr>
+    <hr />
 
     <div class="equipamento-box">
       <h6 class="titulo">EQUIPAMENTO</h6>
       <p class="equipamento-nome">{{ equipamento?.nome }}</p>
-      <button class="btn btn-xs btn-rosa-cha icon-olho" (click)="toggleEquip()" title="Visualizar">
+      <button
+        class="btn btn-xs btn-rosa-cha icon-olho"
+        (click)="toggleEquip()"
+        title="Visualizar"
+      >
         <i class="fa-solid fa-eye"></i>
       </button>
     </div>
@@ -106,13 +143,13 @@
         {{ solicitacao.descricao }}
       </p>
     </div>
-    <hr>
+    <hr />
 
     <div>
       <h6 class="titulo">DEFEITO</h6>
       <p>{{ solicitacao.defeito }}</p>
     </div>
-    <hr>
+    <hr />
 
     <a class="btn btn-voltar" routerLink="/client/home">
       <i class="fa fa-arrow-left" aria-hidden="true"></i>

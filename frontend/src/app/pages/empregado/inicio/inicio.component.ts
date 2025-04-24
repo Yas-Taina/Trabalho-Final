@@ -22,7 +22,7 @@ export class EmpregadoInicioComponent {
   constructor(
     private solicitacaoService: SolicitacaoService,
     private clienteService: ClienteService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
   ) {}
 
   ngOnInit(): void {
@@ -34,19 +34,20 @@ export class EmpregadoInicioComponent {
 
   buscarNomeCliente(id: number): string {
     const cliente = this.clientes.find((c) => c.id === id);
-    return cliente ? cliente.nome : "Cliente não encontrado";}
-    
+    return cliente ? cliente.nome : "Cliente não encontrado";
+  }
+
   listarTodos(): Solicitacao[] {
     return this.solicitacaoService.listarTodos();
   }
 
-  abrirModalRelatorioReceitas(){
+  abrirModalRelatorioReceitas() {
     this.modalService.open(ReceitasComponent);
   }
 
   gerarRelatorioReceitasPorCategoria() {
     // Abrir pdf arbitrário em nova aba
     const pdfUrl = "/assets/files/relatorio_exemplo.pdf";
-    window.open(pdfUrl, '_blank');
+    window.open(pdfUrl, "_blank");
   }
 }

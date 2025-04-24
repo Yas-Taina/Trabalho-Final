@@ -52,7 +52,7 @@
             <a
               *ngIf="solicitacao.estado === 'PAGA'"
               class="btn btn-xs btn-info"
-              [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
+              (click)="this.finalizar(solicitacao)"
               title="Finalizar"
               >Finalizar Solicitação</a
             >

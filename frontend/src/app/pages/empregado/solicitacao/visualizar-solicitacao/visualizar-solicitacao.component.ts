@@ -83,9 +83,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
 
   carregarNomeFuncionario() {
     const funcionario = this.funcionarioService.buscarPorId(this.usuario);
-    this.nomeFuncionario = funcionario
-      ? funcionario.nome
-      : "Funcionário não encontrado";
+    this.nomeFuncionario = funcionario?.nome ?? "Funcionário não encontrado";
   }
 
   carregarCliente(): void {
