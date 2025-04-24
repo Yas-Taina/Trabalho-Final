@@ -1,0 +1,75 @@
+<div class="row">
+  <div class="col-md-4">
+    <img
+      src="../../../../assets/images/backgroundTitle.png"
+      class="backgroundimg"
+    />
+  </div>
+
+  <div class="col-md-8">
+    <table class="table table-striped table-bordered table-hover">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Data</th>
+          <th>Cliente</th>
+          <th>Estado da Solicitação</th>
+          <th>Descrição</th>
+          <th colspan="2">Ações</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let solicitacao of solicitacoes">
+          <td>
+            <span
+              class="bola-status"
+              [style.background-color]="getCorStatus(solicitacao.estado)"
+            ></span>
+          </td>
+          <td>{{ solicitacao.data }}</td>
+          <td>{{ buscarNomeCliente(solicitacao.idCliente) }}</td>
+          <td>{{ solicitacao.estado }}</td>
+          <td>{{ solicitacao.descricao }}</td>
+          <td class="text-center">
+            <a
+              *ngIf="solicitacao.estado === 'ABERTA'"
+              class="btn btn-xs btn-info"
+              [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
+              title="Orçar"
+              >Realizar Orçamento</a
+            >
+            <a
+              *ngIf="
+                solicitacao.estado === 'APROVADA' ||
+                solicitacao.estado === 'REDIRECIONADA'
+              "
+              [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
+              class="btn btn-xs btn-info"
+              title="Consertar"
+              >Realizar Manutenção</a
+            >
+            <a
+              *ngIf="solicitacao.estado === 'PAGA'"
+              class="btn btn-xs btn-info"
+              [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
+              title="Finalizar"
+              >Finalizar Solicitação</a
+            >
+          </td>
+          <td class="text-center">
+            <a
+              class="btn btn-xs btn-info"
+              [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
+              title="Visualizar"
+            >
+              <i class="fa-solid fa-eye" aria aria-hidden="true"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p *ngIf="solicitacoes.length === 0">Nenhuma Solicitação Atribuidda.</p>
+  </div>
+</div>

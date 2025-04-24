@@ -3,6 +3,7 @@ import { SolicitacaoService } from "../../../services/solicitacao.service";
 import { Solicitacao } from "../../../shared/models/solicitacao.model";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
+import { LoginService } from "../../../services/login/login.service";
 
 @Component({
   selector: "app-inicio",
@@ -13,11 +14,22 @@ import { RouterModule } from "@angular/router";
 })
 export class ClienteInicioComponent {
   solicitacoes: Solicitacao[] = [];
+  usuario: number = 0;
 
-  constructor(private solicitacaoService: SolicitacaoService) {}
+  constructor(
+    private solicitacaoService: SolicitacaoService,
+    private loginService: LoginService,
+  ) {}
 
   ngOnInit(): void {
-    this.solicitacoes = this.listarTodos();
+    const sessao = this.loginService.obterDadosDaSessao();
+    if (sessao && sessao.usuarioId) {
+      this.usuario = sessao.usuarioId;
+
+      this.solicitacoes = this.solicitacaoService
+        .listarTodos()
+        .filter((item) => +item.idCliente === +this.usuario);
+    }
   }
   listarTodos(): Solicitacao[] {
     return this.solicitacaoService.listarTodos();

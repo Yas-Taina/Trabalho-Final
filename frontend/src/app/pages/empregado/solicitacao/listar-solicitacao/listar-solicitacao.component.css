@@ -1,0 +1,7 @@
+.bola-status {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin: 4px;
+}

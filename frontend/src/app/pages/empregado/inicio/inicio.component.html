@@ -17,10 +17,15 @@
       <tbody>
         <tr *ngFor="let solicitacao of solicitacoes">
           <td>{{ solicitacao.data }}</td>
-          <td>{{ solicitacao.idCliente }}</td>
+          <td>{{ buscarNomeCliente(solicitacao.idCliente) }}</td>
           <td>{{ solicitacao.estado }}</td>
           <td class="text-center">
-            <a class="btn btn-lg btn-rosa-cha" title="Orçar">Efetuar Orçamento</a>
+            <a
+              class="btn btn-xs btn-info"
+              [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
+              title="Orçar"
+              >Efetuar Orçamento</a
+            >
           </td>
           <td class="text-center">
             <a class="btn btn-lg btn-rosa-cha" [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
@@ -32,7 +37,9 @@
       </tbody>
     </table>
 
-    <p *ngIf="solicitacoes.length === 0">Nenhuma Solicitação Cadastrada.</p>
+    <p *ngIf="solicitacoes.length === 0">
+      Nenhuma Solicitação em Estado Aberto.
+    </p>
   </div>
   <div class="row text-center mt-4" id="relatorio">
     <div class="col-md-4 d-flex flex-column justify-content-center align-items-center">
@@ -52,8 +59,20 @@
      <div class="col-md-4 d-flex flex-column">
       <h2>Solicitações</h2>
       <i class="fa-solid fa-screwdriver-wrench" id="iconhome"></i>
-      <a class="btn btn-lg btn-creme " title="Categoria"> Minhas Atribuições </a>
-      <a class="btn btn-lg btn-azul2" title="Categoria"> Visualizar Todas </a>
+      <a
+        class="btn btn-xs btn-info"
+        [routerLink]="['/adm/atribuicoes']"
+        title="Categoria"
+      >
+        Minhas Atribuições
+      </a>
+      <a
+        class="btn btn-xs btn-info"
+        [routerLink]="['/adm/solicitacoes']"
+        title="Categoria"
+      >
+        Visualizar Todas
+      </a>
     </div>
     <div class="col-md-4 d-flex flex-column">
       <h2>Equipamentos</h2>
