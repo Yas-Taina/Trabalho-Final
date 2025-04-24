@@ -1,4 +1,4 @@
-<div class="row">
+<div id="admhome" class="row">
   <div class="col-md-4">
     <img
       src="../../../../assets/images/backgroundTitle.png"
@@ -24,7 +24,7 @@
           <td>{{ solicitacao.estado }}</td>
           <td class="text-center">
             <a
-              class="btn btn-xs btn-info"
+              class="btn btn-xs btn-rosa-cha"
               [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
               title="Orçar"
               >Efetuar Orçamento</a
@@ -43,7 +43,7 @@
       </tbody>
     </table>
 
-    <p *ngIf="solicitacoes.length === 0">
+    <p id="semSolicitacoes" *ngIf="solicitacoes.length === 0">
       Nenhuma Solicitação em Estado Aberto.
     </p>
   </div>
@@ -74,19 +74,19 @@
   </div>
 
   <div class="text-center align-items-center">
-    <div class="row">
+    <div id ="letra-creme" class="row">
       <div class="col-md-4 d-flex flex-column">
         <h2>Solicitações</h2>
         <i class="fa-solid fa-screwdriver-wrench" id="iconhome"></i>
         <a
-          class="btn btn-xs btn-info"
+          class="btn btn-xs btn-creme"
           [routerLink]="['/adm/atribuicoes']"
           title="Categoria"
         >
           Minhas Atribuições
         </a>
         <a
-          class="btn btn-xs btn-info"
+          class="btn btn-xs btn-azul2"
           [routerLink]="['/adm/solicitacoes']"
           title="Categoria"
         >

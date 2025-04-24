@@ -1,4 +1,4 @@
-<div class="row">
+<div id="listarequipamento" class="row">
   <div class="col-md-4">
     <img
       src="../../../../assets/images/backgroundTitle.png"
@@ -8,7 +8,7 @@
 
   <div class="col-md-8">
     <a
-      class="btn btn-xs btn-rosa-cha"
+      class="btn btn-xs botao1"
       [routerLink]="['/adm/equipamentos/novo']"
       title="Novo Cadastro"
     >
@@ -33,7 +33,7 @@
               href="#"
               title="Editar"
               alt="Editar"
-              class="btn btn-xs btn-rosa-cha"
+              class="btn btn-xs botao2"
               [routerLink]="['/adm/equipamentos/editar', equipamento.id]"
             >
               <i class="fa fa-edit" aria-hidden="true"></i>
@@ -42,7 +42,7 @@
               href="#"
               title="Remover"
               alt="Remover"
-              class="btn btn-xs btn-rosa-cha"
+              class="btn btn-xs botao2"
               (click)="remover($event, equipamento)"
             >
               <i class="fa fa-trash" aria-hidden="true"></i>

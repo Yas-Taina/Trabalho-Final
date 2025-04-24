@@ -1,0 +1,15 @@
+#listarfuncionario {
+    background-color: var(--azul2);
+}
+
+#semFuncionarios {
+    font-family: "DejaVu Serif";
+    color: var(--creme);
+    margin: 1vw;
+    padding: auto;
+}
+
+.table{
+    font-family: "DejaVu Serif";
+    color: var(--text-color);
+}

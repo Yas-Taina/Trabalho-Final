@@ -53,7 +53,7 @@
           solicitacao.estado === 'APROVADA' ||
           solicitacao.estado === 'REDIRECIONADA'
         "
-        class="btn btn-xs btn-rosa-salmao w-100"
+        class="btn btn-xs botao1 w-50"
         title="Consertar"
         (click)="abrirModalConsertar()"
       >
@@ -86,7 +86,7 @@
           solicitacao.estado === 'APROVADA' ||
           solicitacao.estado === 'REDIRECIONADA'
         "
-        class="btn btn-xs btn-creme w-100"
+        class="btn btn-xs btn-creme w-50"
         title="Redirecionar"
         (click)="abrirModalRedirecionar()"
       >
@@ -121,7 +121,7 @@
       </a>
       <div>
         <a
-          class="btn btn-xs btn-rosa-salmao w-100"
+          class="btn btn-xs botao1 w-50"
           title="Histórico"
           (click)="toggleHist()"
         >
@@ -134,9 +134,9 @@
     </div>
   </div>
 
-  <div class="col-md-6 detalhes-solicitacao text-center mx-auto">
+  <div id ="detalhes" class="col-md-6 detalhes-solicitacao text-center mx-auto">
     <br /><br />
-    <h1 class="titulo">DETALHES DA SOLICITAÇÃO</h1>
+    <h1 class="detalhes-box">DETALHES DA<br>SOLICITAÇÃO</h1>
     <hr />
 
     <!-- Estado solicitação -->

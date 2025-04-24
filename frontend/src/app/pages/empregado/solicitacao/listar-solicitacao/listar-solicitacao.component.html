@@ -1,4 +1,4 @@
-<div class="row">
+<div id="visualizarsolicitacao" class="row">
   <div class="col-md-4">
     <img
       src="../../../../assets/images/backgroundTitle.png"
@@ -6,9 +6,9 @@
     />
   </div>
 
-  <div class="col-md-8">
+  <div id="tabelasolicitacao" class="col-md-8">
     <a
-      class="btn btn-xs btn-rosa-salmao"
+      class="btn btn-xs btn-rosa-cha"
       title="Filtrar"
       (click)="toggleFilter()"
     >
@@ -16,13 +16,13 @@
     </a>
     <a
       *ngIf="dataMinima !== ''"
-      class="btn btn-xs btn-rosa-salmao"
+      class="btn btn-xs btn-rosa-cha"
       title="Limpar Filtro"
       (click)="limparFiltro()"
     >
       <i class="fa-solid fa-filter-circle-xmark"></i>
     </a>
-    <div class="mb-3" *ngIf="isFilterOpen">
+    <div id="filtro" class="mb-3" *ngIf="isFilterOpen">
       <label for="dataMinima">Filtrar a partir de:</label>
       <input
         type="date"
@@ -59,7 +59,7 @@
           <td class="text-center">
             <a
               *ngIf="solicitacao.estado === 'ABERTA'"
-              class="btn btn-xs btn-info"
+              class="btn btn-xs btn-rosa-cha"
               [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
               title="Orçar"
               >Realizar Orçamento</a
@@ -70,13 +70,13 @@
                 solicitacao.estado === 'REDIRECIONADA'
               "
               [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
-              class="btn btn-xs btn-info"
+              class="btn btn-xs btn-rosa-cha"
               title="Consertar"
               >Realizar Manutenção</a
             >
             <a
               *ngIf="solicitacao.estado === 'PAGA'"
-              class="btn btn-xs btn-info"
+              class="btn btn-xs btn-rosa-cha"
               (click)="this.finalizar(solicitacao)"
               title="Finalizar"
               >Finalizar Solicitação</a
@@ -84,7 +84,7 @@
           </td>
           <td class="text-center">
             <a
-              class="btn btn-xs btn-info"
+              class="btn btn-xs btn-rosa-cha"
               [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
               title="Visualizar"
             >

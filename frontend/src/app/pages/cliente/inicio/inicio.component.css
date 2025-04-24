@@ -1,0 +1,9 @@
+#clienthome {
+    background-color: var(--azul2);
+}
+
+.table {
+    font-family: "DejaVu Serif";
+    color: var(--background-color);
+    border: 2px solid #e4a18f;
+}

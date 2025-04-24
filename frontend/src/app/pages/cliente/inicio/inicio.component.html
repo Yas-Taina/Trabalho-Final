@@ -1,4 +1,4 @@
-<div class="row">
+<div id="clienthome" class="row">
   <div class="col-md-4">
     <img
       src="../../../../assets/images/backgroundTitle.png"
@@ -8,7 +8,7 @@
 
   <div class="col-md-8">
     <a
-      class="btn btn-xs btn-rosa-salmao"
+      class="btn btn-xs botao1"
       [routerLink]="['/client/solicitacao/novo']"
       title="Nova Solicitação"
     >
@@ -34,14 +34,14 @@
           <td class="text-center">
             <a
               *ngIf="solicitacao.estado === 'ORÇADA'"
-              class="btn btn-xs btn-info"
+              class="btn btn-xs btn-rosa-cha"
               [routerLink]="['/client/solicitacao/visualizar', solicitacao.id]"
               title="Ação"
               >Aprovar/Rejeitar Serviço
             </a>
             <a
               *ngIf="solicitacao.estado === 'REJEITADA'"
-              class="btn btn-xs btn-info"
+              class="btn btn-xs botao1"
               (click)="this.resgatar($event, solicitacao)"
               title="Ação"
               >Resgatar Serviço

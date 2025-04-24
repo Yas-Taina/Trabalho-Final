@@ -1,13 +1,41 @@
+#admhome {
+  background-color: var(--azul2);
+}
+
 #relatorio {
+  font-family: "DejaVu Serif";
+  color: var(--background-color);
   border: 2px solid #e4a18f;
   border-radius: 30px;
   margin: 1vw;
   padding-left: 100px;
   padding-right: 100px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   justify-content: space-between;
-}
+  align-items: right;}
 
 #iconhome {
   font-size: 150px;
   color: #e4a18f;
+  margin: 1vw;
+  padding: auto;
+}
+
+#semSolicitacoes {
+  font-family: "DejaVu Serif";
+  color: var(--creme);
+  margin: 1vw;
+  padding: auto;
+}
+
+#label{
+  font-family: "DejaVu Serif";
+  color: var(--creme);
+  margin: 1vw;
+  padding: auto;
+}
+
+#letra-creme {
+  color: var(--creme);
 }

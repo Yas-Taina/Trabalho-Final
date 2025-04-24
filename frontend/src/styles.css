@@ -1,4 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+/*
+Cores:
+Azul 1: #1e3542
+Azul 2: #3f5f72
+Creme: #fff8e6
+Rosa salmão: #e4a18f
+Rosa chá: #b84c65
+
+Fontes:
+Titulos: Blackest text regular
+Texto 1: DejaVu Serif
+Texto 2: DM sans regular
+*/
+
+
 @font-face {
   font-family: "Blackest";
   font-style: normal;
@@ -82,36 +97,34 @@
   border: var(--rosa-salmao) solid 2px;
 }
 
+/*
 main {
   min-height: 50vw;
-  /* padding: 3vw; */
+  padding: 3vw; 
   padding: 0.1vw 1vw;
   background-color: var(--azul2);
   color: white;
 }
+*/
 
 :root {
   /*cores principais*/
-  --primary-color: #f7c5dd;
-  --primary-color-dark: #e4a9c2;
+  --primary-color: #e4a18f;
+  --primary-color-dark: #b84c65;
   --accent-color: #f9e3ec;
   /*cores de apoio*/
-  --background-color: #fffafc;
-  --secondary-color: #f1f1f1;
-  --text-color: #4b4b4b;
+  --background-color: #fff8e6;
+  --secondary-color: #e4a18f;
+  --text-color: #1e3542;
   /*cores de botões*/
-  --button-hover1: #f1f1f1;
-  --button-hover2: #f3bcd2;
+  --button-hover1: #e4a18fd5;
+  --button-hover2: #b84c65d5;
   --border-color: #e4a9c2;
   --azul1: #1e3542;
   --azul2: #3f5f72;
   --creme: #fff8e6;
   --rosa-salmao: #e4a18f;
   --rosa-cha: #b84c65;
-}
-
-.azul2 {
-  color: var(--azul2);
 }
 
 body {
@@ -126,6 +139,76 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.azul2 {
+    font-family: "Blackest Text Regular";
+    color: #1e3542
+  }
+
+.titulo {
+  font-family: "Blackest Text Regular";
+  color: #1e3542;
+  font-size: 55px;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.texto-descricao {
+  font-family: "Blackest Text Regular";
+  color: #1e3542;
+  font-size: 20px;
+  margin-bottom: 0.5%;
+  text-align: center;
+}
+
+.botao1 {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  color: var(--background-color);
+  background-color: var(--primary-color);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.botao2 {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  background-color: var(--primary-color-dark);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  color: var(--background-color);
+}
+
+.botao1:hover {
+  color: var(--background-color);
+  background-color: var(--button-hover1);
+  transform: scale(1.05);
+}
+
+.botao2:hover {
+  background-color: var(--button-hover2);
+  transform: scale(1.05);
+}
+
+.button:secondary {
+  background-color: transparent;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+.btn {
+  margin: 5px;
+  border-radius: 15px;
+}
+
+.backgroundimg {
+  max-width: 600px;
+  width: 80%;
 }
 
 .bg-creme {
@@ -442,11 +525,22 @@ button:secondary {
   height: 100vh;
   width: 250px;
   background-color: var(--rosa-salmao);
+  font-family: "DejaVu Serif";
   text-align: end;
   transform: translateX(-100%);
   transition: transform 0.3s ease-in-out;
   z-index: 999;
 }
+
+.menu-col a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: var(--creme);
+  transition: background-color 0.3s ease-in-out;
+  text-align: end;
+}   
+
 .menu-col.show {
   transform: translateX(0);
 }

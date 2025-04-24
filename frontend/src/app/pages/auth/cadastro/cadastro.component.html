@@ -153,7 +153,7 @@
                   class="alert alert-danger"
                 >
                   <div [hidden]="!logradouro.errors['required']">
-                    Digite um logradouro.
+                    Digite um endereço válido.
                   </div>
                 </div>
               </div>
@@ -217,7 +217,7 @@
                   class="alert alert-danger"
                 >
                   <div [hidden]="!estado.errors['required']">
-                    Digite um estado.
+                    Insira um estado válido.
                   </div>
                 </div>
               </div>
@@ -226,7 +226,7 @@
             <div class="d-grid gap-2 mb-3">
               <button
                 type="button"
-                class="btn btn-rosa-salmao"
+                class="btn botao1"
                 (click)="inserir()"
                 [disabled]="!formCliente.form.valid"
               >
