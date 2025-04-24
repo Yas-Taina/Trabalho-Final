@@ -25,7 +25,7 @@ export class ListarAtribuicaoComponent {
     private solicitacaoService: SolicitacaoService,
     private loginService: LoginService,
     private clienteService: ClienteService,
-    private funcionarioService: FuncionarioService
+    private funcionarioService: FuncionarioService,
   ) {}
 
   ngOnInit(): void {
@@ -68,11 +68,8 @@ export class ListarAtribuicaoComponent {
 
   carregarNomeFuncionario() {
     const funcionario = this.funcionarioService.buscarPorId(this.usuario);
-    this.nomeFuncionario = funcionario
-      ? funcionario.nome
-      : "Funcionário não encontrado";
+    this.nomeFuncionario = funcionario?.nome ?? "Funcionário não encontrado";
   }
-
 
   atualizarHistorico(solicitacao: any): void {
     const dataAtual = new Date();
@@ -102,5 +99,4 @@ export class ListarAtribuicaoComponent {
       alert("Manutenção finalizada");
     }
   }
-  
 }

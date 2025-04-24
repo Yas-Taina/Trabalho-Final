@@ -1,10 +1,17 @@
 <div class="row">
   <div class="col-md-4">
-    <img src="../../../../assets/images/backgroundTitle.png" class="backgroundimg" />
+    <img
+      src="../../../../assets/images/backgroundTitle.png"
+      class="backgroundimg"
+    />
   </div>
 
-  <div class="col-md-8 ">
-    <a class="btn btn-xs btn-rosa-cha" [routerLink]="['/adm/equipamentos/novo']" title="Novo Cadastro">
+  <div class="col-md-8">
+    <a
+      class="btn btn-xs btn-rosa-cha"
+      [routerLink]="['/adm/equipamentos/novo']"
+      title="Novo Cadastro"
+    >
       <i class="fa-solid fa-plus" aria aria-hidden="true"></i>&nbsp;&nbsp;Novo
       Cadastro
     </a>
@@ -22,12 +29,22 @@
           <td>{{ equipamento.nome }}</td>
           <td>{{ equipamento.descricao }}</td>
           <td class="text-center">
-            <a href="#" title="Editar" alt="Editar" class="btn btn-xs btn-rosa-cha"
-              [routerLink]="['/adm/equipamentos/editar', equipamento.id]">
+            <a
+              href="#"
+              title="Editar"
+              alt="Editar"
+              class="btn btn-xs btn-rosa-cha"
+              [routerLink]="['/adm/equipamentos/editar', equipamento.id]"
+            >
               <i class="fa fa-edit" aria-hidden="true"></i>
             </a>
-            <a href="#" title="Remover" alt="Remover" class="btn btn-xs btn-rosa-cha"
-              (click)="remover($event, equipamento)">
+            <a
+              href="#"
+              title="Remover"
+              alt="Remover"
+              class="btn btn-xs btn-rosa-cha"
+              (click)="remover($event, equipamento)"
+            >
               <i class="fa fa-trash" aria-hidden="true"></i>
             </a>
           </td>

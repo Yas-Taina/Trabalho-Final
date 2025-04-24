@@ -22,7 +22,7 @@ export class ClienteInicioComponent {
   constructor(
     private solicitacaoService: SolicitacaoService,
     private loginService: LoginService,
-    private orcamentoService: OrcamentoService
+    private orcamentoService: OrcamentoService,
   ) {}
 
   ngOnInit(): void {
@@ -79,5 +79,4 @@ export class ClienteInicioComponent {
   atualizar(solicitacao: any): void {
     this.solicitacaoService.atualizar(solicitacao);
   }
-
 }

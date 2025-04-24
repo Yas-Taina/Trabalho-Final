@@ -28,7 +28,7 @@ export class ListarSolicitacaoComponent {
     private solicitacaoService: SolicitacaoService,
     private clienteService: ClienteService,
     private funcionarioService: FuncionarioService,
-    private loginService: LoginService 
+    private loginService: LoginService,
   ) {}
 
   ngOnInit(): void {
@@ -37,7 +37,6 @@ export class ListarSolicitacaoComponent {
       .listarTodos()
       .filter((item: any) => item.idEmpregado === 0);
     this.getId();
-    
   }
 
   getId() {
@@ -72,11 +71,8 @@ export class ListarSolicitacaoComponent {
 
   carregarNomeFuncionario() {
     const funcionario = this.funcionarioService.buscarPorId(this.usuario);
-    this.nomeFuncionario = funcionario
-      ? funcionario.nome
-      : "Funcionário não encontrado";
+    this.nomeFuncionario = funcionario?.nome ?? "Funcionário não encontrado";
   }
-
 
   atualizarHistorico(solicitacao: any): void {
     const dataAtual = new Date();
@@ -118,18 +114,18 @@ export class ListarSolicitacaoComponent {
         .filter((item: any) => item.idEmpregado === 0);
       return;
     }
-  
+
     const dataMinimaDate = new Date(this.dataMinima + "T00:00:00");
-  
+
     this.solicitacoes = this.solicitacaoService
       .listarTodos()
       .filter((item: any) => {
         if (item.idEmpregado !== 0) return false;
-  
-        const [dataParte] = item.data.split(" - "); 
+
+        const [dataParte] = item.data.split(" - ");
         const [dia, mes, ano] = dataParte.split("/");
         const dataItem = new Date(`${ano}-${mes}-${dia}T00:00:00`);
-  
+
         return dataItem >= dataMinimaDate;
       });
   }
@@ -138,5 +134,4 @@ export class ListarSolicitacaoComponent {
     this.dataMinima = "";
     this.filtrarPorData();
   }
-
 }
