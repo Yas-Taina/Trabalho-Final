@@ -26,7 +26,7 @@
 </div>
 
 <header
-  class="d-flex justify-content-between align-items-center p-3 bg-light shadow"
+  class="d-flex justify-content-between align-items-center p-3 bg-rosa-salmao shadow"
   id="compmenu"
 >
   <button
@@ -39,16 +39,16 @@
     <span></span>
   </button>
 
-  <h1 class="m-0">Sistema de Controle de Manutenção de Equipamentos</h1>
+  <h1 class="m-0">Manutenção de Equipamentos</h1>
 
   <ng-container *ngIf="(currentSection$ | async) === 'auth'; else logoutButton">
     <div class="log">
-      <button routerLink="/auth/login" class="btn btn-primary" title="Login">
+      <button routerLink="/auth/login" class="btn btn btn-azul2" title="Login">
         <i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i>
       </button>
       <button
         routerLink="/auth/cadastro"
-        class="btn btn-primary"
+        class="btn btn-azul2"
         title="Cadastro"
       >
         <i class="fa fa-user-plus" aria-hidden="true"></i>
@@ -59,7 +59,7 @@
   <ng-template #logoutButton>
     <button
       type="button"
-      class="btn btn-danger"
+      class="btn btn-azul2"
       title="Logout"
       (click)="logout()"
     >

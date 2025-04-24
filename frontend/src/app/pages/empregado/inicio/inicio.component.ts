@@ -5,6 +5,8 @@ import { Cliente } from "../../../shared/models/cliente.model";
 import { ClienteService } from "../../../services/cliente.service";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { ReceitasComponent } from "../relatorios/receitas/receitas.component";
 
 @Component({
   selector: "app-inicio",
@@ -20,6 +22,7 @@ export class EmpregadoInicioComponent {
   constructor(
     private solicitacaoService: SolicitacaoService,
     private clienteService: ClienteService,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
@@ -31,6 +34,19 @@ export class EmpregadoInicioComponent {
 
   buscarNomeCliente(id: number): string {
     const cliente = this.clientes.find((c) => c.id === id);
-    return cliente ? cliente.nome : "Cliente não encontrado";
+    return cliente ? cliente.nome : "Cliente não encontrado";}
+    
+  listarTodos(): Solicitacao[] {
+    return this.solicitacaoService.listarTodos();
+  }
+
+  abrirModalRelatorioReceitas(){
+    this.modalService.open(ReceitasComponent);
+  }
+
+  gerarRelatorioReceitasPorCategoria() {
+    // Abrir pdf arbitrário em nova aba
+    const pdfUrl = "/assets/files/relatorio_exemplo.pdf";
+    window.open(pdfUrl, '_blank');
   }
 }
