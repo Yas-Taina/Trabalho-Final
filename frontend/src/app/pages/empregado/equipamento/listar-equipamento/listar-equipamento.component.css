@@ -1,0 +1,8 @@
+#listarequipamento {
+    background-color: var(--azul2);
+}
+
+.table{
+    font-family: "DejaVu Serif";
+    color: var(--text-color);
+}

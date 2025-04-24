@@ -61,7 +61,8 @@
       </div>
 
       <div class="w-100">
-        <a class="btn btn-xs btn-rosa-salmao w-100" title="Histórico" (click)="toggleHist()">
+
+        <a class="btn btn-xs botao1 w-50" title="Histórico" (click)="toggleHist()">
           <i class="fa-solid fa-book-open"></i>&nbsp;&nbsp;Histórico
         </a>
         <div *ngIf="isHistOpen">
@@ -73,7 +74,7 @@
 
   <!-- Coluna da direita permanece igual -->
   <div class="col-md-6 detalhes-solicitacao text-center boxOrcamento" id="boxOrcamento">
-    <h1>DETALHES DA<br>SOLICITAÇÃO</h1>
+    <h1 class="detalhes-box">DETALHES DA<br>SOLICITAÇÃO</h1>
     <hr>
 
     <div>

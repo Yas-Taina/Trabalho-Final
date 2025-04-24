@@ -1,4 +1,4 @@
-<div class="row">
+<div id="listarfuncionario" class="row">
   <div class="col-md-4">
     <img
       src="../../../../assets/images/backgroundTitle.png"
@@ -8,7 +8,7 @@
 
   <div class="col-md-8">
     <a
-      class="btn btn-xs btn-rosa-cha"
+      class="btn btn-xs botao1"
       [routerLink]="['/adm/funcionarios/novo']"
       title="Novo Cadastro"
     >
@@ -32,14 +32,14 @@
           <td>{{ funcionario.data }}</td>
           <td class="text-center">
             <a
-              class="btn btn-xs  btn-rosa-cha"
+              class="btn btn-xs  botao2"
               [routerLink]="['/adm/funcionarios/editar', funcionario.id]"
               title="Editar"
             >
               <i class="fa fa-edit" aria-hidden="true"></i>
             </a>
             <a
-              class="btn btn-xs  btn-rosa-cha"
+              class="btn btn-xs botao2"
               (click)="remover($event, funcionario)"
               title="Remover"
             >
