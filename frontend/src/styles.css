@@ -120,8 +120,6 @@ main {
   --button-hover1: #e4a18fd5;
   --button-hover2: #b84c65d5;
   --border-color: #e4a9c2;
-  --font-family: 'Poppins', sans-serif;
-
   --azul1: #1e3542;
   --azul2: #3f5f72;
   --creme: #fff8e6;
@@ -237,7 +235,9 @@ header {
   background-color: var(--primary-color);
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
 }
 
 .botaobranco {
@@ -247,7 +247,9 @@ header {
   background-color: var(--background-color);
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
   color: var(--text-color);
 }
 
@@ -270,12 +272,14 @@ header {
   border-radius: 25px;
   font-weight: bold;
   font-size: 0.9rem;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
 }
 
 .btn-rosa-salmao:hover {
   background-color: var(--rosa-cha);
-  color: var(--creme) ;
+  color: var(--creme);
   transform: scale(1.05);
 }
 
@@ -284,18 +288,17 @@ header {
   transform: scale(0.95);
 }
 
-.btn-creme{
+.btn-creme {
   border-color: var(--rosa-cha);
   background-color: var(--creme);
-  color: var(--azul1)
+  color: var(--azul1);
 }
 
 .btn-creme:hover {
   background-color: var(--azul2);
-  color: var(--creme) ;
+  color: var(--creme);
   transform: scale(1.05);
   border: 2px solid var(--creme);
-
 }
 
 .btn-rosa-cha[disabled] {
@@ -307,15 +310,16 @@ header {
 }
 
 .btn-rosa-salmao[disabled] {
-  background-color: var(--rosa-salmao) !important; /* cor alternativa mais clara */
+  background-color: var(
+    --rosa-salmao
+  ) !important; /* cor alternativa mais clara */
   border-color: var(--rosa-salmao) !important;
   color: var(--creme) !important;
   cursor: not-allowed !important;
   opacity: 0.7;
 }
 
-
-.btn-azul2{
+.btn-azul2 {
   border-color: var(--creme);
   background-color: var(--azul2);
   color: var(--creme);
@@ -323,7 +327,7 @@ header {
 
 .btn-azul2:hover {
   background-color: var(--creme);
-  color: var(--azul2) ;
+  color: var(--azul2);
   transform: scale(1.05);
 }
 
@@ -338,7 +342,7 @@ button:secondary {
   border-radius: 15px;
 }
 
-.btn-rosa-cha{
+.btn-rosa-cha {
   background-color: var(--rosa-cha);
   color: var(--creme);
   border: none;
@@ -346,12 +350,14 @@ button:secondary {
   border-radius: 25px;
   font-weight: bold;
   font-size: 0.9rem;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
 }
 
 .btn-rosa-cha:hover {
   background-color: var(--rosa-cha);
-  color: var(--creme) ;
+  color: var(--creme);
   transform: scale(1.05);
 }
 
@@ -377,7 +383,7 @@ button:secondary {
 .table thead th {
   background-color: var(--rosa-salmao);
   color: var(--creme);
-  font-size:1.2rem;
+  font-size: 1.2rem;
   text-align: center;
   padding: 0.75rem;
   border: 1px solid var(--rosa-cha);
@@ -425,12 +431,13 @@ button:secondary {
   color: var(--azul2);
 }
 
-.icon-olho,.icon-olho:hover {
+.icon-olho,
+.icon-olho:hover {
   font-size: 1.2rem;
   color: var(--rosa-cha);
   background-color: transparent;
   padding: 0px;
-  margin: 0px; 
+  margin: 0px;
 }
 .btn-voltar {
   background-color: transparent;
@@ -438,7 +445,6 @@ button:secondary {
   font-size: 1.8rem;
   border: none;
 }
-
 
 .titulo-box {
   color: var(--rosa-cha);
@@ -456,9 +462,8 @@ button:secondary {
   margin-top: 1.5rem;
 }
 
-
 .bg-rosa-salmao {
-    background-color: var(--rosa-salmao);
+  background-color: var(--rosa-salmao);
 }
 
 .burgue {
@@ -542,7 +547,7 @@ button {
   }
 }
 
-.bold-creme{
+.bold-creme {
   font-weight: bold;
   color: var(--creme);
 }

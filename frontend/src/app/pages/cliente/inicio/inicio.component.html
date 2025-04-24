@@ -32,7 +32,27 @@
           <td>{{ solicitacao.descricao }}</td>
           <td>{{ solicitacao.estado }}</td>
           <td class="text-center">
-            <a class="btn btn-xs btn-rosa-cha" title="Visualizar">Botão de Ação</a>
+            <a
+              *ngIf="solicitacao.estado === 'ORÇADA'"
+              class="btn btn-xs btn-info"
+              [routerLink]="['/client/solicitacao/visualizar', solicitacao.id]"
+              title="Ação"
+              >Aprovar/Rejeitar Serviço
+            </a>
+            <a
+              *ngIf="solicitacao.estado === 'REJEITADA'"
+              class="btn btn-xs btn-info"
+              (click)="this.resgatar($event, solicitacao)"
+              title="Ação"
+              >Resgatar Serviço
+            </a>
+            <a
+              *ngIf="solicitacao.estado === 'ARRUMADA'"
+              class="btn btn-xs btn-info"
+              [routerLink]="['/client/solicitacao/visualizar', solicitacao.id]"
+              title="Ação"
+              >Pagar Serviço
+            </a>
           </td>
           <td class="text-center">
             <a

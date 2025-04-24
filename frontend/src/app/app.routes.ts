@@ -13,6 +13,8 @@ import { EditarFuncionarioComponent } from "./pages/empregado/funcionario/editar
 import { InserirSolicitacaoComponent } from "./pages/cliente/solicitacao/inserir-solicitacao/inserir-solicitacao.component";
 import { VisualizarSolicitacaoComponentAdm } from "./pages/empregado/solicitacao/visualizar-solicitacao/visualizar-solicitacao.component";
 import { VisualizarSolicitacaoComponent } from "./pages/cliente/solicitacao/visualizar-solicitacao/visualizar-solicitacao.component";
+import { ListarSolicitacaoComponent } from "./pages/empregado/solicitacao/listar-solicitacao/listar-solicitacao.component";
+import { ListarAtribuicaoComponent } from "./pages/empregado/solicitacao/listar-atribuicao/listar-atribuicao.component";
 import { authGuard } from "./auth/auth.guard";
 import { TipoUsuario } from "./shared/models/enums/tipo-usuario.enum";
 
@@ -67,6 +69,18 @@ export const routes: Routes = [
   {
     path: "adm/equipamentos/novo",
     component: InserirEquipamentoComponent,
+    canActivate: [authGuard],
+    data: { requiredRole: TipoUsuario.Funcionario },
+  },
+  {
+    path: "adm/solicitacoes",
+    component: ListarSolicitacaoComponent,
+    canActivate: [authGuard],
+    data: { requiredRole: TipoUsuario.Funcionario },
+  },
+  {
+    path: "adm/atribuicoes",
+    component: ListarAtribuicaoComponent,
     canActivate: [authGuard],
     data: { requiredRole: TipoUsuario.Funcionario },
   },
