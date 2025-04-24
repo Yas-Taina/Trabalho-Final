@@ -1,3 +1,7 @@
+#visualizarsolicitacao {
+    padding: 15px;
+}
+
 .detalhes-box {
     font-family: "DejaVu Serif";
     color: var(--text-color);
