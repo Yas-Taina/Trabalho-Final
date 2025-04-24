@@ -15,13 +15,13 @@
 
     <div class="d-flex flex-column w-100 gap-2">
       <div *ngIf="solicitacao.estado === 'ORÇADA'">
-        <a class="btn btn-xs btn-rosa-salmao w-100" title="Aprovar" (click)="aprovar($event)">
+        <a class="btn btn-xs botao1 w-50" title="Aprovar" (click)="aprovar($event)">
           <i class="fa-solid fa-circle-check"></i>&nbsp;&nbsp;Aprovar Serviço
         </a>
       </div>
 
       <div *ngIf="solicitacao.estado === 'ORÇADA'">
-        <a class="btn btn-xs btn-rosa-salmao w-100" title="Recusar" (click)="abrirModal()">
+        <a class="btn btn-xs botao2 w-50" title="Recusar" (click)="abrirModal()">
           <i class="fa-solid fa-circle-xmark"></i>&nbsp;&nbsp;Recusar Serviço
         </a>
       </div>
