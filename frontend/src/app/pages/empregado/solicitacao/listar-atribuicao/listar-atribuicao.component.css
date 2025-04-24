@@ -1,3 +1,14 @@
+#listaratribuicao {
+  background-color: var(--azul2);
+}
+
+#semSolicitacoes {
+  font-family: "DejaVu Serif";
+  color: var(--creme);
+  margin: 1vw;
+  padding: auto;
+}
+
 .bola-status {
   display: inline-block;
   width: 15px;

@@ -22,9 +22,20 @@
   padding: auto;
 }
 
-#label{
+#semSolicitacoes {
   font-family: "DejaVu Serif";
-  color: var(--background-color);
+  color: var(--creme);
   margin: 1vw;
   padding: auto;
+}
+
+#label{
+  font-family: "DejaVu Serif";
+  color: var(--creme);
+  margin: 1vw;
+  padding: auto;
+}
+
+#letra-creme {
+  color: var(--creme);
 }

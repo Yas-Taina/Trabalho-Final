@@ -525,11 +525,22 @@ button:secondary {
   height: 100vh;
   width: 250px;
   background-color: var(--rosa-salmao);
+  font-family: "DejaVu Serif";
   text-align: end;
   transform: translateX(-100%);
   transition: transform 0.3s ease-in-out;
   z-index: 999;
 }
+
+.menu-col a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: var(--creme);
+  transition: background-color 0.3s ease-in-out;
+  text-align: end;
+}   
+
 .menu-col.show {
   transform: translateX(0);
 }

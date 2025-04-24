@@ -34,14 +34,14 @@
           <td class="text-center">
             <a
               *ngIf="solicitacao.estado === 'ORÇADA'"
-              class="btn btn-xs btn-info"
+              class="btn btn-xs btn-rosa-cha"
               [routerLink]="['/client/solicitacao/visualizar', solicitacao.id]"
               title="Ação"
               >Aprovar/Rejeitar Serviço
             </a>
             <a
               *ngIf="solicitacao.estado === 'REJEITADA'"
-              class="btn btn-xs btn-info"
+              class="btn btn-xs botao1"
               (click)="this.resgatar($event, solicitacao)"
               title="Ação"
               >Resgatar Serviço
