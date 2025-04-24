@@ -110,9 +110,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
       const funcionario = this.funcionarioService.buscarPorId(
         this.orcamento.idEmpregado,
       );
-      this.nomeFuncionarioOrc = funcionario
-        ? funcionario.nome
-        : "Funcionário não encontrado";
+      this.nomeFuncionarioOrc = funcionario?.nome ?? "Funcionário não encontrado";
     }
   }
 
