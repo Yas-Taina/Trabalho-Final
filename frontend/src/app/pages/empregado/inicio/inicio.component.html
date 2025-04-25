@@ -23,7 +23,7 @@
           <td>{{ solicitacao.data }}</td>
           <td>{{ buscarNomeCliente(solicitacao.idCliente) }}</td>
           <td>{{ solicitacao.estado }}</td>
-          <td class="text-center" style="border-right: 0;">
+          <td class="text-center" style="border-right: 0">
             <a
               class="btn btn-xs btn-rosa-cha"
               [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
@@ -31,7 +31,7 @@
               >Efetuar Orçamento</a
             >
           </td>
-          <td class="text-center" style="border-left: 0;">
+          <td class="text-center" style="border-left: 0">
             <a
               class="btn btn-lg icon-olho"
               [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
@@ -48,18 +48,20 @@
       Nenhuma Solicitação em Estado Aberto.
     </p>
   </div>
-  <div class="row text-center mt-4 " id="relatorio">
+  <div class="row text-center mt-4" id="relatorio">
     <div
       class="col-md-4 d-flex flex-column justify-content-center align-items-center"
     >
-      <h2 style="text-align: right; font-family: 'Blackest Text';">EMITIR<br />RELATÓRIO<br />FINANCEIRO</h2>
+      <h2 style="text-align: right; font-family: &quot;Blackest Text&quot;">
+        EMITIR<br />RELATÓRIO<br />FINANCEIRO
+      </h2>
     </div>
     <div class="col-md-4 d-flex justify-content-center align-items-center">
       <a
         class="btn btn-lg btn-creme w-75"
         title="Data"
         (click)="abrirModalRelatorioReceitas()"
-        style="font-size: 1rem;"
+        style="font-size: 1rem"
       >
         Receitas
       </a>
@@ -69,7 +71,7 @@
         class="btn btn-lg btn-azul2 w-75"
         title="Data"
         (click)="gerarRelatorioReceitasPorCategoria()"
-        style="font-size: 1rem;"
+        style="font-size: 1rem"
       >
         Receitas por Categoria
       </a>
@@ -77,15 +79,15 @@
   </div>
 
   <div class="text-center align-items-center">
-    <div id ="letra-creme" class="row">
+    <div id="letra-creme" class="row">
       <div class="col-md-4 d-flex flex-column">
-        <h2 style="font-family: 'Blackest Text';">Solicitações</h2>
+        <h2 style="font-family: &quot;Blackest Text&quot;">Solicitações</h2>
         <i class="fa-solid fa-screwdriver-wrench" id="iconhome"></i>
         <a
           class="btn btn-xs btn-creme"
           [routerLink]="['/adm/atribuicoes']"
           title="Categoria"
-          style="font-family: 'DejaVu Serif';"
+          style="font-family: &quot;DejaVu Serif&quot;"
         >
           Minhas Atribuições
         </a>
@@ -93,19 +95,19 @@
           class="btn btn-xs btn-azul2"
           [routerLink]="['/adm/solicitacoes']"
           title="Categoria"
-          style="font-family: 'DejaVu Serif';"
+          style="font-family: &quot;DejaVu Serif&quot;"
         >
           Visualizar Todas
         </a>
       </div>
       <div class="col-md-4 d-flex flex-column">
-        <h2 style="font-family: 'Blackest Text';">Equipamentos</h2>
+        <h2 style="font-family: &quot;Blackest Text&quot;">Equipamentos</h2>
         <i class="fa-solid fa-computer" id="iconhome"></i>
         <a
           class="btn btn-xs btn-creme"
           [routerLink]="['/adm/equipamentos']"
           title="Visualizar Equipamentos"
-          style="font-family: 'DejaVu Serif';"
+          style="font-family: &quot;DejaVu Serif&quot;"
         >
           Visualizar
         </a>
@@ -113,19 +115,19 @@
           class="btn btn-xs btn-azul2"
           [routerLink]="['/adm/equipamentos/novo']"
           title="Novo Equipamento"
-          style="font-family: 'DejaVu Serif';"
+          style="font-family: &quot;DejaVu Serif&quot;"
         >
           Cadastrar Novo
         </a>
       </div>
       <div class="col-md-4 d-flex flex-column">
-        <h2 style="font-family: 'Blackest Text';">Funcionários</h2>
+        <h2 style="font-family: &quot;Blackest Text&quot;">Funcionários</h2>
         <i class="fa-solid fa-users" id="iconhome"></i>
         <a
           class="btn btn-xs btn-creme"
           [routerLink]="['/adm/funcionarios']"
           title="Visualizar Funcionários"
-          style="font-family: 'DejaVu Serif';"
+          style="font-family: &quot;DejaVu Serif&quot;"
         >
           Visualizar
         </a>
@@ -133,7 +135,7 @@
           class="btn btn-xs btn-azul2"
           [routerLink]="['/adm/funcionarios/novo']"
           title="Novo Funcionário"
-          style="font-family: 'DejaVu Serif';"
+          style="font-family: &quot;DejaVu Serif&quot;"
         >
           Cadastrar Novo
         </a>

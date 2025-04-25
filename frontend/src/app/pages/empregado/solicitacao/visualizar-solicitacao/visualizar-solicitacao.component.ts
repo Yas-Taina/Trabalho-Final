@@ -56,7 +56,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     private clienteService: ClienteService,
     private equipamentoService: EquipamentoService,
     private orcamentoService: OrcamentoService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -112,7 +112,8 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
       const funcionario = this.funcionarioService.buscarPorId(
         this.orcamento.idEmpregado,
       );
-      this.nomeFuncionarioOrc = funcionario?.nome ?? "Funcionário não encontrado";
+      this.nomeFuncionarioOrc =
+        funcionario?.nome ?? "Funcionário não encontrado";
     }
   }
 
@@ -171,7 +172,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     this.solicitacao.estado = "REDIRECIONADA";
     this.atualizarHistorico();
     this.atualizar();
-    this.router.navigate(['/adm/home']);
+    this.router.navigate(["/adm/home"]);
   }
 
   consertar(formData: any) {

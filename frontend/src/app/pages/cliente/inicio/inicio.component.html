@@ -12,7 +12,7 @@
       class="btn btn-xs botao1"
       [routerLink]="['/client/solicitacao/novo']"
       title="Nova Solicitação"
-      style="margin-left: auto;"
+      style="margin-left: auto"
     >
       <i class="fa-solid fa-plus" aria aria-hidden="true"></i>&nbsp;&nbsp;Nova
       Solicitação
@@ -33,7 +33,7 @@
           <td>{{ solicitacao.data }}</td>
           <td>{{ solicitacao.descricao }}</td>
           <td>{{ solicitacao.estado }}</td>
-          <td class="text-center" style="border-right: 0;">
+          <td class="text-center" style="border-right: 0">
             <a
               *ngIf="solicitacao.estado === 'ORÇADA'"
               class="btn btn-xs btn-rosa-cha"
@@ -56,7 +56,7 @@
               >Pagar Serviço
             </a>
           </td>
-          <td class="text-center" style="border-left: 0;">
+          <td class="text-center" style="border-left: 0">
             <a
               class="btn btn-xs icon-olho"
               [routerLink]="['/client/solicitacao/visualizar', solicitacao.id]"

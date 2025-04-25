@@ -13,7 +13,6 @@ Texto 1: DejaVu Serif
 Texto 2: DM sans regular
 */
 
-
 @font-face {
   font-family: "Blackest";
   font-style: normal;
@@ -88,7 +87,7 @@ Texto 2: DM sans regular
   border: 1px solid var(--rosa-salmao);
   border-radius: 20px;
   padding: 30px;
- margin: 5px;
+  margin: 5px;
 }
 
 #boxOrcamento {
@@ -133,9 +132,9 @@ header {
 }
 
 .azul2 {
-    font-family: "DejaVu Serif";
-    color: #1e3542
-  }
+  font-family: "DejaVu Serif";
+  color: #1e3542;
+}
 
 .titulo {
   font-family: "DejaVu Serif";
@@ -161,7 +160,9 @@ header {
   background-color: var(--primary-color);
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
 }
 
 .botao2 {
@@ -171,7 +172,9 @@ header {
   background-color: var(--primary-color-dark);
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
   color: var(--background-color);
 }
 
@@ -203,18 +206,18 @@ header {
   max-width: 400px;
 }
 
-#containerImagem{
+#containerImagem {
   position: relative;
   text-align: center;
   font-size: 30px;
-  display: flex; 
-  justify-content: center; 
+  display: flex;
+  justify-content: center;
   align-items: center;
   font-family: "Blackest Text";
   color: #fff8e6;
 }
 
-#tituloImagem{
+#tituloImagem {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -550,7 +553,7 @@ button:secondary {
   color: var(--text-color);
   transition: background-color 0.3s ease-in-out;
   text-align: end;
-}   
+}
 
 .menu-col.show {
   transform: translateX(0);
@@ -573,4 +576,3 @@ button {
   font-weight: bold;
   color: var(--creme);
 }
-
