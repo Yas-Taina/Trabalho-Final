@@ -1,9 +1,10 @@
 <div id="listaratribuicao" class="row">
-  <div class="col-md-4">
+  <div class="col-md-4" id="containerImagem">
     <img
       src="../../../../assets/images/backgroundTitle.png"
       class="backgroundimg"
     />
+    <div id="tituloImagem"><h1>Atribuições</h1></div>
   </div>
 
   <div class="col-md-8">
@@ -31,10 +32,10 @@
           <td>{{ buscarNomeCliente(solicitacao.idCliente) }}</td>
           <td>{{ solicitacao.estado }}</td>
           <td>{{ solicitacao.descricao }}</td>
-          <td class="text-center">
+          <td class="text-center" style="border-right: 0;">
             <a
               *ngIf="solicitacao.estado === 'ABERTA'"
-              class="btn btn-xs btn-info"
+              class="btn btn-xs btn-rosa-cha"
               [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
               title="Orçar"
               >Realizar Orçamento</a
@@ -45,21 +46,21 @@
                 solicitacao.estado === 'REDIRECIONADA'
               "
               [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
-              class="btn btn-xs btn-info"
+              class="btn btn-xs btn-rosa-cha"
               title="Consertar"
               >Realizar Manutenção</a
             >
             <a
               *ngIf="solicitacao.estado === 'PAGA'"
-              class="btn btn-xs btn-info"
+              class="btn btn-xs btn-rosa-cha"
               (click)="this.finalizar(solicitacao)"
               title="Finalizar"
               >Finalizar Solicitação</a
             >
           </td>
-          <td class="text-center">
+          <td class="text-center" style="border-left: 0;">
             <a
-              class="btn btn-xs btn-info"
+              class="btn btn-xs icon-olho"
               [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
               title="Visualizar"
             >

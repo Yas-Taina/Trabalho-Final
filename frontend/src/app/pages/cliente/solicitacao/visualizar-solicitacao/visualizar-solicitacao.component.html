@@ -1,18 +1,19 @@
-<div id="visualizar-solicitacao" class="row bg-creme">
-  <div class="col-md-6 d-flex flex-column align-items-center text-center gap-3">
+<div id="visualizar-solicitacao" class="row d-flex justify-content-center bg-creme" style="padding: 40px 30px 40px;">
+  <div class="col-md-4 d-flex flex-column align-items-center text-center gap-3">
     <div
       *ngIf="solicitacao.estado !== 'ABERTA'"
       id="boxOrcamento"
       class="border-rosa-salmao"
+      style="min-width: 90%; max-width: 90%;"
     >
-      <h3 class="titulo-box">Valor</h3>
+      <h3 class="titulo-box" style="font-family: 'Blackest Text';">Valor</h3>
       <h4 class="valor-box">{{ orcamento?.valor | currency: "BRL" }}</h4>
-      <!-- <p class ="detalhe-box">{{orcamento?.ultimaatualizacao }}</p> -->
     </div>
 
     <div
       *ngIf="solicitacao.manutencao && solicitacao.manutencao.trim() !== ''"
       id="boxServico"
+      style="min-width: 90%; max-width: 90%;"
     >
       <h4>Serviços Realizados</h4>
       <p>{{ solicitacao.manutencao }}</p>
@@ -23,9 +24,10 @@
     <div class="d-flex flex-column w-100 gap-2">
       <div *ngIf="solicitacao.estado === 'ORÇADA'">
         <a
-          class="btn btn-xs botao1 w-50"
+          class="btn btn-xs botao1"
           title="Aprovar"
           (click)="aprovar($event)"
+          style="width: 300px;"
         >
           <i class="fa-solid fa-circle-check"></i>&nbsp;&nbsp;Aprovar Serviço
         </a>
@@ -33,9 +35,10 @@
 
       <div *ngIf="solicitacao.estado === 'ORÇADA'">
         <a
-          class="btn btn-xs botao2 w-50"
+          class="btn btn-xs botao2"
           title="Recusar"
           (click)="abrirModal()"
+          style="width: 300px;"
         >
           <i class="fa-solid fa-circle-xmark"></i>&nbsp;&nbsp;Recusar Serviço
         </a>
@@ -65,11 +68,12 @@
         </form>
       </ng-template>
 
-      <div *ngIf="solicitacao.estado === 'REJEITADA'" class="w-100">
+      <div *ngIf="solicitacao.estado === 'REJEITADA'">
         <a
-          class="btn btn-xs botao1 w-50"
+          class="btn btn-xs botao1"
           title="Resgatar"
           (click)="resgatar($event)"
+          style="width: 300px;"
         >
           <i class="fa-solid fa-trash-arrow-up"></i>&nbsp;&nbsp;Resgatar Serviço
         </a>
@@ -77,9 +81,10 @@
 
       <div *ngIf="solicitacao.estado === 'ARRUMADA'" class="w-100">
         <a
-          class="btn btn-xs botao1 w-50"
+          class="btn btn-xs botao1"
           title="Pagar"
           (click)="pagar($event)"
+          style="width: 300px;"
         >
           <i class="fa-solid fa-money-check-dollar"></i>&nbsp;&nbsp;Pagar
           Serviço
@@ -88,9 +93,10 @@
 
       <div class="w-100">
         <a
-          class="btn btn-xs botao1 w-50"
+          class="btn btn-xs botao1"
           title="Histórico"
           (click)="toggleHist()"
+          style="width: 300px;"
         >
           <i class="fa-solid fa-book-open"></i>&nbsp;&nbsp;Histórico
         </a>
@@ -101,12 +107,10 @@
     </div>
   </div>
 
-  <!-- Coluna da direita permanece igual -->
   <div
-    class="col-md-6 detalhes-solicitacao text-center boxOrcamento"
-    id="boxOrcamento"
+    class="col-md-4 detalhes-solicitacao text-center boxOrcamento"
   >
-    <h1>DETALHES DA<br />SOLICITAÇÃO</h1>
+    <h1 id="tituloSolicitacao">DETALHES DA<br />SOLICITAÇÃO</h1>
     <hr />
 
     <div>
@@ -121,11 +125,13 @@
     </div>
     <hr />
 
-    <div class="equipamento-box">
-      <h6 class="titulo">EQUIPAMENTO</h6>
-      <p class="equipamento-nome">{{ equipamento?.nome }}</p>
+    <div class="linha-detalhe position-relative">
+      <div class="text-center">
+        <h6 class="titulo">EQUIPAMENTO</h6>
+        <p>{{ equipamento?.nome }}</p>
+      </div>
       <button
-        class="btn btn-xs btn-rosa-cha icon-olho"
+        class="btn icon-olho position-absolute end-0 top-50 translate-middle-y"
         (click)="toggleEquip()"
         title="Visualizar"
       >
@@ -151,8 +157,10 @@
     </div>
     <hr />
 
-    <a class="btn btn-voltar" routerLink="/client/home">
-      <i class="fa fa-arrow-left" aria-hidden="true"></i>
-    </a>
+    <div style="display: flex;">
+      <a class="btn btn-voltar" routerLink="/client/home" style=" margin-left: auto;">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+      </a>
+    </div>
   </div>
 </div>

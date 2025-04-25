@@ -14,6 +14,7 @@ import { CommonModule } from "@angular/common";
 import { LoginService } from "../../../../services/login/login.service";
 import { ModalComponent } from "../../../../components/modal/modal.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-visualizar-solicitacao",
@@ -55,6 +56,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     private clienteService: ClienteService,
     private equipamentoService: EquipamentoService,
     private orcamentoService: OrcamentoService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -169,6 +171,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     this.solicitacao.estado = "REDIRECIONADA";
     this.atualizarHistorico();
     this.atualizar();
+    this.router.navigate(['/adm/home']);
   }
 
   consertar(formData: any) {

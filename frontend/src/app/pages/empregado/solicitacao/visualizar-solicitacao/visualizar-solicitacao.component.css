@@ -1,5 +1,6 @@
 #visualizar-solicitacao {
-    padding: 15px;
+    padding: 30px;
+
 }
 
 #detalhes {
@@ -7,16 +8,16 @@
 }
 
 .detalhes-box {
-    font-family: "DejaVu Serif";
-    color: var(--text-color);
+    font-family: "Blackest Text";
+    color: #3f5f72;
     font-weight: bold;
     letter-spacing: 1px;
 }
 
 .titulo-box {
-    font-family: "DejaVu Serif";
+    font-family: "Blackest Text";
     font-size: 2rem;
     color: var(--primary-color-dark);
-    font-weight: bold;
     letter-spacing: 1px;
 }
+

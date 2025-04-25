@@ -14,7 +14,8 @@
   padding-top: 10px;
   padding-bottom: 10px;
   justify-content: space-between;
-  align-items: right;}
+  align-items: right;
+  max-width: 95%;}
 
 #iconhome {
   font-size: 150px;

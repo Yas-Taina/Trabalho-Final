@@ -1,14 +1,16 @@
 <div id="listarsolicitacao" class="row">
-  <div class="col-md-4">
+  <div class="col-md-4" id="containerImagem">
     <img
       src="../../../../assets/images/backgroundTitle.png"
       class="backgroundimg"
     />
+    <div id="tituloImagem"><h1>Solicitações</h1></div>
   </div>
 
   <div id="tabelasolicitacao" class="col-md-8">
+    <div style="display: flex; justify-content: right;">
     <a
-      class="btn btn-xs btn-rosa-cha"
+      class="btn btn-xs botao1"
       title="Filtrar"
       (click)="toggleFilter()"
     >
@@ -16,12 +18,13 @@
     </a>
     <a
       *ngIf="dataMinima !== ''"
-      class="btn btn-xs btn-rosa-cha"
+      class="btn btn-xs botao1"
       title="Limpar Filtro"
       (click)="limparFiltro()"
     >
       <i class="fa-solid fa-filter-circle-xmark"></i>
-    </a>
+  </a>
+  </div>
     <div id="filtro" class="mb-3" *ngIf="isFilterOpen">
       <label for="dataMinima">Filtrar a partir de:</label>
       <input
@@ -56,7 +59,7 @@
           <td>{{ buscarNomeCliente(solicitacao.idCliente) }}</td>
           <td>{{ solicitacao.estado }}</td>
           <td>{{ solicitacao.descricao }}</td>
-          <td class="text-center">
+          <td class="text-center" style="border-right: 0;">
             <a
               *ngIf="solicitacao.estado === 'ABERTA'"
               class="btn btn-xs btn-rosa-cha"
@@ -82,9 +85,9 @@
               >Finalizar Solicitação</a
             >
           </td>
-          <td class="text-center">
+          <td class="text-center" style="border-left: 0;">
             <a
-              class="btn btn-xs btn-rosa-cha"
+              class="btn btn-xs icon-olho"
               [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
               title="Visualizar"
             >

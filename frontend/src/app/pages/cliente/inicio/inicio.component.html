@@ -1,16 +1,18 @@
 <div id="clienthome" class="row">
-  <div class="col-md-4">
+  <div class="col-md-4" id="containerImagem">
     <img
       src="../../../../assets/images/backgroundTitle.png"
       class="backgroundimg"
     />
+    <div id="tituloImagem"><h1>Início</h1></div>
   </div>
 
-  <div class="col-md-8">
+  <div class="col-md-8 d-flex flex-column">
     <a
       class="btn btn-xs botao1"
       [routerLink]="['/client/solicitacao/novo']"
       title="Nova Solicitação"
+      style="margin-left: auto;"
     >
       <i class="fa-solid fa-plus" aria aria-hidden="true"></i>&nbsp;&nbsp;Nova
       Solicitação
@@ -31,7 +33,7 @@
           <td>{{ solicitacao.data }}</td>
           <td>{{ solicitacao.descricao }}</td>
           <td>{{ solicitacao.estado }}</td>
-          <td class="text-center">
+          <td class="text-center" style="border-right: 0;">
             <a
               *ngIf="solicitacao.estado === 'ORÇADA'"
               class="btn btn-xs btn-rosa-cha"
@@ -41,22 +43,22 @@
             </a>
             <a
               *ngIf="solicitacao.estado === 'REJEITADA'"
-              class="btn btn-xs botao1"
+              class="btn btn-xs btn-rosa-cha"
               (click)="this.resgatar($event, solicitacao)"
               title="Ação"
               >Resgatar Serviço
             </a>
             <a
               *ngIf="solicitacao.estado === 'ARRUMADA'"
-              class="btn btn-xs btn-info"
+              class="btn btn-xs btn-rosa-cha"
               [routerLink]="['/client/solicitacao/visualizar', solicitacao.id]"
               title="Ação"
               >Pagar Serviço
             </a>
           </td>
-          <td class="text-center">
+          <td class="text-center" style="border-left: 0;">
             <a
-              class="btn btn-xs btn-rosa-cha"
+              class="btn btn-xs icon-olho"
               [routerLink]="['/client/solicitacao/visualizar', solicitacao.id]"
               title="Visualizar"
             >
