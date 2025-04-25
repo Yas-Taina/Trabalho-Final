@@ -1,3 +1,7 @@
+#visualizarsolicitacao {
+    padding: 30px;
+}
+
 .detalhes-box {
     font-family: "DejaVu Serif";
     color: var(--text-color);
@@ -11,4 +15,9 @@
     font-weight: bold;
     font-size: 2rem;
     letter-spacing: 1px;
+}
+
+#tituloSolicitacao{
+    font-family: "Blackest Text";
+    color: #3f5f72;
 }

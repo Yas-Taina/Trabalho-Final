@@ -1,12 +1,13 @@
 <div id="inserirsolicitacao" class="row">
-  <div class="col-md-4">
+  <div class="col-md-6" id="containerImagem">
     <img
       src="../../../../assets/images/backgroundTitle.png"
       class="backgroundimg"
     />
+    <div id="tituloImagem"><h1>Nova Solicitação</h1></div>
   </div>
 
-  <div class="col-md-8 d-flex flex-column justify-content-center px-5">
+  <div class="col-md-6 d-flex flex-column justify-content-center px-5">
     <form #formSolicitacao="ngForm" class="formulario-destaque">
       <div class="form-group mb-4 bold-creme">
         <label for="equipamento">Categoria do Equipamento</label>
@@ -43,6 +44,7 @@
           class="form-control bg-creme"
           id="descricao"
           name="descricao"
+          style="height: 150px;"
           [(ngModel)]="solicitacao.descricao"
           #descricao="ngModel"
           required
@@ -67,6 +69,7 @@
           class="form-control bg-creme"
           id="defeito"
           name="defeito"
+          style="height: 150px;"
           [(ngModel)]="solicitacao.defeito"
           #defeito="ngModel"
           required
