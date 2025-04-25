@@ -1,12 +1,16 @@
 <div id="editarequipamento" class="row">
-  <div class="col-md-4">
+  <div class="col-md-6" id="containerImagem">
     <img
       src="../../../../assets/images/backgroundTitle.png"
       class="backgroundimg"
     />
+    <div id="tituloImagem"><h1>Equipamento</h1></div>
   </div>
 
-  <div class="col-md-8 d-flex flex-column justify-content-center px-5">
+  <div
+    class="col-md-6 d-flex flex-column justify-content-center px-5"
+    style="width: 500px"
+  >
     <form #formEquipamento="ngForm" class="formulario-destaque">
       <div class="form-group mb-4 bold-creme">
         <label for="nome">Nome</label>
@@ -42,6 +46,7 @@
           [(ngModel)]="equipamento.descricao"
           #descricao="ngModel"
           minlength="5"
+          style="height: 100px"
           required
         />
         <div

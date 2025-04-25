@@ -1,5 +1,6 @@
 #admhome {
   background-color: var(--azul2);
+  padding: 15px;
 }
 
 #relatorio {
@@ -13,7 +14,9 @@
   padding-top: 10px;
   padding-bottom: 10px;
   justify-content: space-between;
-  align-items: right;}
+  align-items: right;
+  max-width: 95%;
+}
 
 #iconhome {
   font-size: 150px;
@@ -29,7 +32,7 @@
   padding: auto;
 }
 
-#label{
+#label {
   font-family: "DejaVu Serif";
   color: var(--creme);
   margin: 1vw;

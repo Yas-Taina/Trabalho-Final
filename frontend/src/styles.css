@@ -13,7 +13,6 @@ Texto 1: DejaVu Serif
 Texto 2: DM sans regular
 */
 
-
 @font-face {
   font-family: "Blackest";
   font-style: normal;
@@ -93,19 +92,10 @@ Texto 2: DM sans regular
 
 #boxOrcamento {
   border-radius: 20px;
-  padding: 15px 3rem;
-  border: var(--rosa-salmao) solid 2px;
+  padding: 30px;
+  border: var(--rosa-salmao) solid 1px;
+  margin: 5px;
 }
-
-/*
-main {
-  min-height: 50vw;
-  padding: 3vw; 
-  padding: 0.1vw 1vw;
-  background-color: var(--azul2);
-  color: white;
-}
-*/
 
 :root {
   /*cores principais*/
@@ -129,8 +119,8 @@ main {
 
 body {
   font-family: "DM Sans", sans-serif;
-  background-color: var(--secondary-color);
   color: var(--text-color);
+  overflow-x: hidden;
 }
 
 header {
@@ -142,12 +132,12 @@ header {
 }
 
 .azul2 {
-    font-family: "Blackest Text Regular";
-    color: #1e3542
-  }
+  font-family: "DejaVu Serif";
+  color: #1e3542;
+}
 
 .titulo {
-  font-family: "Blackest Text Regular";
+  font-family: "DejaVu Serif";
   color: #1e3542;
   font-size: 55px;
   margin-bottom: 2rem;
@@ -155,7 +145,7 @@ header {
 }
 
 .texto-descricao {
-  font-family: "Blackest Text Regular";
+  font-family: "DejaVu Serif";
   color: #1e3542;
   font-size: 20px;
   margin-bottom: 0.5%;
@@ -170,7 +160,9 @@ header {
   background-color: var(--primary-color);
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
 }
 
 .botao2 {
@@ -180,7 +172,9 @@ header {
   background-color: var(--primary-color-dark);
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
   color: var(--background-color);
 }
 
@@ -207,8 +201,27 @@ header {
 }
 
 .backgroundimg {
-  max-width: 600px;
-  width: 80%;
+  width: 400px;
+  min-width: 400px;
+  max-width: 400px;
+}
+
+#containerImagem {
+  position: relative;
+  text-align: center;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Blackest Text";
+  color: #fff8e6;
+}
+
+#tituloImagem {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .bg-creme {
@@ -413,7 +426,7 @@ button:secondary {
 }
 
 .detalhes-solicitacao hr {
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid #1e3542;
   width: 100%;
 }
 
@@ -486,7 +499,7 @@ button:secondary {
   position: absolute;
   width: 24px;
   height: 3px;
-  background-color: #1d1d1d;
+  background-color: #3f5f72;
   border-radius: 2px;
   transition: all 0.3s ease-in-out;
 }
@@ -530,6 +543,7 @@ button:secondary {
   transform: translateX(-100%);
   transition: transform 0.3s ease-in-out;
   z-index: 999;
+  border-right: 1px solid #3f5f72;
 }
 
 .menu-col a {
@@ -539,7 +553,7 @@ button:secondary {
   color: var(--text-color);
   transition: background-color 0.3s ease-in-out;
   text-align: end;
-}   
+}
 
 .menu-col.show {
   transform: translateX(0);

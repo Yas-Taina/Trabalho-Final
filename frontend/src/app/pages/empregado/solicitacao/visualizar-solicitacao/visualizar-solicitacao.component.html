@@ -1,7 +1,17 @@
-<div class="row align-items-start bg-creme">
-  <div class="col-md-6 text-center">
+<div
+  id="visualizar-solicitacao"
+  class="row d-flex justify-content-center bg-creme"
+>
+  <div
+    class="col-md-4 d-flex flex-column align-items-center"
+    style="padding-top: 30px"
+  >
     <br />
-    <div *ngIf="solicitacao.estado !== 'ABERTA'" id="boxOrcamento">
+    <div
+      *ngIf="solicitacao.estado !== 'ABERTA'"
+      id="boxOrcamento"
+      style="text-align: center; min-width: 90%; max-width: 90%"
+    >
       <h5 class="titulo-box">VALOR</h5>
       <h2 class="valor-box">{{ orcamento.valor | currency: "BRL" }}</h2>
       <p class="azul2">
@@ -12,6 +22,7 @@
     <div
       *ngIf="solicitacao.manutencao && solicitacao.manutencao.trim() !== ''"
       id="boxServico"
+      style="text-align: center; min-width: 90%; max-width: 90%"
     >
       <h3>Serviços Realizados</h3>
       <p>{{ solicitacao.manutencao }}</p>
@@ -22,6 +33,7 @@
         class="btn btn-xs btn-rosa-salmao"
         title="Orçar"
         (click)="abrirModalOrcar()"
+        style="width: 300px"
       >
         <i class="fa-solid fa-hand-holding-dollar"></i>&nbsp;&nbsp;Realizar
         Orçamento
@@ -53,9 +65,10 @@
           solicitacao.estado === 'APROVADA' ||
           solicitacao.estado === 'REDIRECIONADA'
         "
-        class="btn btn-xs botao1 w-50"
+        class="btn btn-xs botao1"
         title="Consertar"
         (click)="abrirModalConsertar()"
+        style="width: 300px"
       >
         <i class="fa-solid fa-gears"></i>&nbsp;&nbsp;Efetuar Manutenção
       </a>
@@ -86,9 +99,10 @@
           solicitacao.estado === 'APROVADA' ||
           solicitacao.estado === 'REDIRECIONADA'
         "
-        class="btn btn-xs btn-creme w-50"
+        class="btn btn-xs btn-creme"
         title="Redirecionar"
         (click)="abrirModalRedirecionar()"
+        style="width: 300px"
       >
         <i class="fa-solid fa-user-gear"></i>&nbsp;&nbsp;Redirecionar
         Solicitação
@@ -115,15 +129,17 @@
         class="btn btn-xs btn-rosa-salmao"
         title="Finalizar"
         (click)="finalizar()"
+        style="width: 300px"
       >
         <i class="fa-solid fa-check-to-slot"></i>&nbsp;&nbsp;Finalizar
         Solicitação
       </a>
       <div>
         <a
-          class="btn btn-xs botao1 w-50"
+          class="btn btn-xs botao1"
           title="Histórico"
           (click)="toggleHist()"
+          style="width: 300px"
         >
           <i class="fa-solid fa-book-open"></i>&nbsp;&nbsp;Histórico
         </a>
@@ -134,19 +150,15 @@
     </div>
   </div>
 
-  <div id ="detalhes" class="col-md-6 detalhes-solicitacao text-center mx-auto">
+  <div id="detalhes" class="col-md-4 detalhes-solicitacao text-center mx-auto">
     <br /><br />
-    <h1 class="detalhes-box">DETALHES DA<br>SOLICITAÇÃO</h1>
+    <h1 class="detalhes-box">DETALHES DA<br />SOLICITAÇÃO</h1>
     <hr />
-
-    <!-- Estado solicitação -->
     <div class="linha-detalhe">
       <h6 class="titulo">Estado da Solicitação</h6>
       <p>{{ solicitacao.estado }}</p>
     </div>
     <hr />
-
-    <!-- Cliente -->
     <div class="linha-detalhe position-relative">
       <div class="text-center">
         <h6 class="titulo">CLIENTE</h6>
@@ -162,22 +174,19 @@
     </div>
     <div *ngIf="isClientOpen" class="texto-expandido text-start">
       <p class="text-center">
-        CPF: {{ cliente?.cpf }}<br />
-        Email: {{ cliente?.email }}<br />
-        Telefone: {{ cliente?.telefone }}<br />
-        Endereço: {{ cliente?.endereco }}
+        <strong>CPF:</strong> {{ cliente?.cpf }}<br />
+        <strong>Email:</strong> {{ cliente?.email }}<br />
+        <strong>Telefone:</strong> {{ cliente?.telefone }}<br />
+        <strong>Endereço:</strong> {{ cliente?.endereco }}
       </p>
     </div>
     <hr />
-
-    <!-- Data e Hora -->
     <div class="linha-detalhe">
       <h6 class="titulo">DATA E HORA</h6>
       <p>{{ solicitacao.data }}</p>
     </div>
     <hr />
 
-    <!-- Equipamento -->
     <div class="linha-detalhe position-relative">
       <div class="text-center">
         <h6 class="titulo">EQUIPAMENTO</h6>
@@ -200,11 +209,19 @@
       </p>
     </div>
     <hr />
-
-    <!-- Defeito -->
     <div class="linha-detalhe">
       <h6 class="titulo">DEFEITO</h6>
       <p>{{ solicitacao.defeito }}</p>
+    </div>
+    <hr />
+    <div style="display: flex">
+      <a
+        class="btn btn-voltar"
+        routerLink="/adm/home"
+        style="margin-left: auto"
+      >
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+      </a>
     </div>
   </div>
 </div>

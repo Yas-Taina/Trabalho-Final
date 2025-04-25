@@ -1,19 +1,20 @@
 .footer {
   background-color: #333;
   color: #fff;
-  padding: 20px 0;
+  padding: 20px;
+  margin: 0px;
+  min-width: 100vw;
+  overflow-x: hidden;
 }
 
 .footer-container {
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
+  margin: 0px;
   text-align: center;
 }
 
 .footer-mensagem {
   font-family: "Times New Roman", Times, serif;
-  margin: 0;
+  margin: 0px;
   font-size: 14px;
 }
 

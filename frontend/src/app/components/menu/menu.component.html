@@ -28,6 +28,7 @@
 <header
   class="d-flex justify-content-between align-items-center p-3 bg-rosa-salmao shadow"
   id="compmenu"
+  style="min-width: 100vw"
 >
   <button
     class="burgue"
@@ -39,17 +40,23 @@
     <span></span>
   </button>
 
-  <h1 class="m-0">Manutenção de Equipamentos</h1>
+  <h1 id="tituloMenu" class="m-0">Manutenção de Equipamentos</h1>
 
   <ng-container *ngIf="(currentSection$ | async) === 'auth'; else logoutButton">
     <div class="log">
-      <button routerLink="/auth/login" class="btn btn btn-azul2" title="Login">
+      <button
+        routerLink="/auth/login"
+        class="btn btn-azul2"
+        title="Login"
+        style="border: 0px"
+      >
         <i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i>
       </button>
       <button
         routerLink="/auth/cadastro"
         class="btn btn-azul2"
         title="Cadastro"
+        style="border: 0px"
       >
         <i class="fa fa-user-plus" aria-hidden="true"></i>
       </button>
@@ -61,6 +68,7 @@
       type="button"
       class="btn btn-azul2"
       title="Logout"
+      style="border: 0px"
       (click)="logout()"
     >
       <i class="fa-solid fa-right-from-bracket"></i>
