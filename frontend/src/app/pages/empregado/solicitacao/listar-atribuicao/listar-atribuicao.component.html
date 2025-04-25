@@ -32,7 +32,7 @@
           <td>{{ buscarNomeCliente(solicitacao.idCliente) }}</td>
           <td>{{ solicitacao.estado }}</td>
           <td>{{ solicitacao.descricao }}</td>
-          <td class="text-center" style="border-right: 0;">
+          <td class="text-center" style="border-right: 0">
             <a
               *ngIf="solicitacao.estado === 'ABERTA'"
               class="btn btn-xs btn-rosa-cha"
@@ -58,7 +58,7 @@
               >Finalizar Solicitação</a
             >
           </td>
-          <td class="text-center" style="border-left: 0;">
+          <td class="text-center" style="border-left: 0">
             <a
               class="btn btn-xs icon-olho"
               [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
@@ -71,6 +71,8 @@
       </tbody>
     </table>
 
-    <p id="semSolicitacoes" *ngIf="solicitacoes.length === 0">Nenhuma Solicitação Atribuidda.</p>
+    <p id="semSolicitacoes" *ngIf="solicitacoes.length === 0">
+      Nenhuma Solicitação Atribuidda.
+    </p>
   </div>
 </div>

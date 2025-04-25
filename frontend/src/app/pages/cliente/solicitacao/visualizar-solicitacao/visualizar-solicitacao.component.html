@@ -1,19 +1,25 @@
-<div id="visualizar-solicitacao" class="row d-flex justify-content-center bg-creme" style="padding: 40px 30px 40px;">
+<div
+  id="visualizar-solicitacao"
+  class="row d-flex justify-content-center bg-creme"
+  style="padding: 40px 30px 40px"
+>
   <div class="col-md-4 d-flex flex-column align-items-center text-center gap-3">
     <div
       *ngIf="solicitacao.estado !== 'ABERTA'"
       id="boxOrcamento"
       class="border-rosa-salmao"
-      style="min-width: 90%; max-width: 90%;"
+      style="min-width: 90%; max-width: 90%"
     >
-      <h3 class="titulo-box" style="font-family: 'Blackest Text';">Valor</h3>
+      <h3 class="titulo-box" style="font-family: &quot;Blackest Text&quot;">
+        Valor
+      </h3>
       <h4 class="valor-box">{{ orcamento?.valor | currency: "BRL" }}</h4>
     </div>
 
     <div
       *ngIf="solicitacao.manutencao && solicitacao.manutencao.trim() !== ''"
       id="boxServico"
-      style="min-width: 90%; max-width: 90%;"
+      style="min-width: 90%; max-width: 90%"
     >
       <h4>Serviços Realizados</h4>
       <p>{{ solicitacao.manutencao }}</p>
@@ -27,7 +33,7 @@
           class="btn btn-xs botao1"
           title="Aprovar"
           (click)="aprovar($event)"
-          style="width: 300px;"
+          style="width: 300px"
         >
           <i class="fa-solid fa-circle-check"></i>&nbsp;&nbsp;Aprovar Serviço
         </a>
@@ -38,7 +44,7 @@
           class="btn btn-xs botao2"
           title="Recusar"
           (click)="abrirModal()"
-          style="width: 300px;"
+          style="width: 300px"
         >
           <i class="fa-solid fa-circle-xmark"></i>&nbsp;&nbsp;Recusar Serviço
         </a>
@@ -73,7 +79,7 @@
           class="btn btn-xs botao1"
           title="Resgatar"
           (click)="resgatar($event)"
-          style="width: 300px;"
+          style="width: 300px"
         >
           <i class="fa-solid fa-trash-arrow-up"></i>&nbsp;&nbsp;Resgatar Serviço
         </a>
@@ -84,7 +90,7 @@
           class="btn btn-xs botao1"
           title="Pagar"
           (click)="pagar($event)"
-          style="width: 300px;"
+          style="width: 300px"
         >
           <i class="fa-solid fa-money-check-dollar"></i>&nbsp;&nbsp;Pagar
           Serviço
@@ -96,7 +102,7 @@
           class="btn btn-xs botao1"
           title="Histórico"
           (click)="toggleHist()"
-          style="width: 300px;"
+          style="width: 300px"
         >
           <i class="fa-solid fa-book-open"></i>&nbsp;&nbsp;Histórico
         </a>
@@ -107,9 +113,7 @@
     </div>
   </div>
 
-  <div
-    class="col-md-4 detalhes-solicitacao text-center boxOrcamento"
-  >
+  <div class="col-md-4 detalhes-solicitacao text-center boxOrcamento">
     <h1 id="tituloSolicitacao">DETALHES DA<br />SOLICITAÇÃO</h1>
     <hr />
 
@@ -157,8 +161,12 @@
     </div>
     <hr />
 
-    <div style="display: flex;">
-      <a class="btn btn-voltar" routerLink="/client/home" style=" margin-left: auto;">
+    <div style="display: flex">
+      <a
+        class="btn btn-voltar"
+        routerLink="/client/home"
+        style="margin-left: auto"
+      >
         <i class="fa fa-arrow-left" aria-hidden="true"></i>
       </a>
     </div>

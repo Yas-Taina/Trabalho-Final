@@ -8,15 +8,15 @@
   </div>
 
   <div class="col-md-8">
-    <div style="display: flex; justify-content: right;">
-    <a
-      class="btn btn-xs botao1"
-      [routerLink]="['/adm/equipamentos/novo']"
-      title="Novo Cadastro"
-    >
-      <i class="fa-solid fa-plus" aria aria-hidden="true"></i>&nbsp;&nbsp;Novo
-      Cadastro
-    </a>
+    <div style="display: flex; justify-content: right">
+      <a
+        class="btn btn-xs botao1"
+        [routerLink]="['/adm/equipamentos/novo']"
+        title="Novo Cadastro"
+      >
+        <i class="fa-solid fa-plus" aria aria-hidden="true"></i>&nbsp;&nbsp;Novo
+        Cadastro
+      </a>
     </div>
     <table class="table table-striped table-bordered table-hover">
       <thead>
@@ -37,19 +37,27 @@
               alt="Editar"
               class="btn btn-xs botao2"
               [routerLink]="['/adm/equipamentos/editar', equipamento.id]"
-              style="background-color: transparent; color: #b84c65; font-size: 25px;"
+              style="
+                background-color: transparent;
+                color: #b84c65;
+                font-size: 25px;
+              "
             >
               <i class="fa-solid fa-pen-nib" aria-hidden="true"></i>
             </a>
-            </td>
-            <td class="text-center">
+          </td>
+          <td class="text-center">
             <a
               href="#"
               title="Remover"
               alt="Remover"
               class="btn btn-xs botao2"
               (click)="remover($event, equipamento)"
-              style="background-color: transparent; color: #b84c65; font-size: 25px;"
+              style="
+                background-color: transparent;
+                color: #b84c65;
+                font-size: 25px;
+              "
             >
               <i class="fa fa-trash" aria-hidden="true"></i>
             </a>
