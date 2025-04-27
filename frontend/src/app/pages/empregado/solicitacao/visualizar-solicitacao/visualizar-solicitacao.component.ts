@@ -17,6 +17,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { Router } from "@angular/router";
 import { EstadosSolicitacao } from "../../../../shared/models/enums/estados-solicitacao";
 import { EstadoAmigavelPipe } from "../../../../shared/pipes/estado-amigavel.pipe";
+import { HistoricoUtils } from "../../../../shared/utils/historico-utils";
 
 @Component({
   selector: "app-visualizar-solicitacao",
@@ -120,18 +121,6 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     }
   }
 
-  atualizarHistorico(): void {
-    const dataAtual = new Date();
-    const dia = dataAtual.getDate().toString().padStart(2, "0");
-    const mes = (dataAtual.getMonth() + 1).toString().padStart(2, "0");
-    const ano = dataAtual.getFullYear();
-    const horas = dataAtual.getHours().toString().padStart(2, "0");
-    const minutos = dataAtual.getMinutes().toString().padStart(2, "0");
-    const estado = this.solicitacao.estado;
-    const add = `• ${estado}, Data: ${dia}/${mes}/${ano} - ${horas}:${minutos}, Responsável: ${this.nomeFuncionario} \n`;
-    this.solicitacao.historico += add;
-  }
-
   atualizar(): void {
     this.solicitacaoService.atualizar(this.solicitacao);
   }
@@ -161,7 +150,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     this.inserirOrcamento();
     this.carregarOrcamento();
     this.solicitacao.estado = EstadosSolicitacao.Orcada;
-    this.atualizarHistorico();
+    HistoricoUtils.atualizarHistoricoComResponsavel(this.solicitacao, this.nomeFuncionario);
     this.atualizar();
   }
 
@@ -173,7 +162,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
 
     this.solicitacao.idEmpregado = formData.idEmpregado;
     this.solicitacao.estado = EstadosSolicitacao.Redirecionada;
-    this.atualizarHistorico();
+    HistoricoUtils.atualizarHistoricoComResponsavel(this.solicitacao, this.nomeFuncionario);
     this.atualizar();
     this.router.navigate(["/adm/home"]);
   }
@@ -187,7 +176,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     this.solicitacao.mensagem = formData.mensagem;
     this.solicitacao.manutencao = formData.manutencao;
     this.solicitacao.estado = EstadosSolicitacao.Arrumada;
-    this.atualizarHistorico();
+    HistoricoUtils.atualizarHistoricoComResponsavel(this.solicitacao, this.nomeFuncionario);
     this.atualizar();
     alert("Manutenção realizada");
   }
@@ -199,7 +188,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
       )
     ) {
       this.solicitacao.estado = EstadosSolicitacao.Finalizada;
-      this.atualizarHistorico();
+      HistoricoUtils.atualizarHistoricoComResponsavel(this.solicitacao, this.nomeFuncionario);
       this.atualizar();
       alert("Manutenção finalizada");
     }
