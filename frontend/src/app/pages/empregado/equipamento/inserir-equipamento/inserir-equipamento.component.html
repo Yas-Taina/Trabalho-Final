@@ -1,10 +1,10 @@
 <div id="inserirequipamento" class="row">
-  <div class="col-md-6" id="containerImagem">
+  <div class="col-md-6 containerTituloPagina">
     <img
       src="../../../../assets/images/backgroundTitle.png"
-      class="backgroundimg"
+      class="imgFundoTitulo"
     />
-    <div id="tituloImagem"><h1>Novo Equipamento</h1></div>
+    <div class="tituloPagina"><h1>Novo Equipamento</h1></div>
   </div>
 
   <div
@@ -64,7 +64,7 @@
       <div class="d-flex justify-content-end gap-3 mt-4">
         <button
           type="button"
-          class="btn btn-rosa-cha"
+          class="btn btnRosaCha"
           title="Salvar"
           (click)="inserir()"
           [disabled]="!formEquipamento.form.valid"
@@ -72,11 +72,11 @@
           <i class="fa fa-save" aria-hidden="true"></i>
         </button>
         <a
-          class="btn btn-rosa-salmao"
+          class="btn btnRosaSalmao"
           title="Voltar"
           routerLink="/adm/equipamentos"
         >
-          <i class="fa fa-arrow-left" aria-hidden="true"></i>
+          <i class="fa-solid fa-location-arrow btnVoltar"></i>
         </a>
       </div>
     </form>

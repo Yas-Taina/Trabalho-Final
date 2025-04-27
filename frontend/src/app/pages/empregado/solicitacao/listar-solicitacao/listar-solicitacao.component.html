@@ -1,37 +1,46 @@
-<div id="listarsolicitacao" class="row">
-  <div class="col-md-4" id="containerImagem">
+<div class="row mainAzul">
+  <div class="col-md-4 containerTituloPagina">
     <img
       src="../../../../assets/images/backgroundTitle.png"
-      class="backgroundimg"
+      class="imgFundoTitulo"
     />
-    <div id="tituloImagem"><h1>Solicitações</h1></div>
+    <div class="tituloPagina"><h1>Solicitações</h1></div>
   </div>
 
-  <div id="tabelasolicitacao" class="col-md-8">
-    <div style="display: flex; justify-content: right">
-      <a class="btn btn-xs botao1" title="Filtrar" (click)="toggleFilter()">
-        <i class="fa-solid fa-filter"></i>
-      </a>
-      <a
-        *ngIf="dataMinima !== ''"
-        class="btn btn-xs botao1"
-        title="Limpar Filtro"
-        (click)="limparFiltro()"
-      >
-        <i class="fa-solid fa-filter-circle-xmark"></i>
-      </a>
+  <div class="col-md-8 mx-auto px-0">
+    <div class="d-flex flex-column align-items-end m-2">
+      <div>
+        <a
+          *ngIf="dataMinima !== ''"
+          class="btn btnRosaSalmao"
+          title="Limpar Filtro"
+          (click)="limparFiltro()"
+        >
+          <i class="fa-solid fa-filter-circle-xmark"></i>
+        </a>
+        <a
+          class="btn btnRosaSalmao"
+          title="Filtrar"
+          (click)="toggleFilter()"
+        >
+          <i class="fa-solid fa-filter"></i>
+        </a>
+      </div>
+    
+      <div class="mb-3 col-md-4" *ngIf="isFilterOpen">
+        <label for="dataMinima">Filtrar a partir de:</label>
+        <input
+          type="date"
+          class="form-control"
+          id="dataMinima"
+          [(ngModel)]="dataMinima"
+          (change)="filtrarPorData()"
+        />
+      </div>
     </div>
-    <div id="filtro" class="mb-3" *ngIf="isFilterOpen">
-      <label for="dataMinima">Filtrar a partir de:</label>
-      <input
-        type="date"
-        class="form-control"
-        id="dataMinima"
-        [(ngModel)]="dataMinima"
-        (change)="filtrarPorData()"
-      />
-    </div>
-    <table class="table table-striped table-bordered table-hover">
+      <div class="containerTabela">
+      <div class="tabela">
+      <table>
       <thead>
         <tr>
           <th></th>
@@ -58,10 +67,10 @@
           <td class="text-center" style="border-right: 0">
             <a
               *ngIf="solicitacao.estado === 'ABERTA'"
-              class="btn btn-xs btn-rosa-cha"
+              class="btn btnRosaCha btnTabela"
               [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
               title="Orçar"
-              >Realizar Orçamento</a
+              >Realizar<br>Orçamento</a
             >
             <a
               *ngIf="
@@ -69,21 +78,21 @@
                 solicitacao.estado === 'REDIRECIONADA'
               "
               [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
-              class="btn btn-xs btn-rosa-cha"
+              class="btn btnRosaCha btnTabela"
               title="Consertar"
-              >Realizar Manutenção</a
+              >Realizar<br>Manutenção</a
             >
             <a
               *ngIf="solicitacao.estado === 'PAGA'"
-              class="btn btn-xs btn-rosa-cha"
+              class="btn btnRosaCha btnTabela"
               (click)="this.finalizar(solicitacao)"
               title="Finalizar"
-              >Finalizar Solicitação</a
+              >Finalizar<br>Solicitação</a
             >
           </td>
           <td class="text-center" style="border-left: 0">
             <a
-              class="btn btn-xs icon-olho"
+              class="btnIcon"
               [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
               title="Visualizar"
             >
@@ -93,7 +102,19 @@
         </tr>
       </tbody>
     </table>
+    </div>
+    </div>
 
     <p *ngIf="solicitacoes.length === 0">Nenhuma Solicitação Cadastrada.</p>
+
+    <div class="d-flex justify-content-end gap-3 mt-4">
+      <a
+        class="btn btnRosaSalmao"
+        title="Voltar"
+        routerLink="/adm/home"
+      >
+        <i class="fa-solid fa-location-arrow btnVoltar"></i>
+      </a>
+    </div>
   </div>
 </div>

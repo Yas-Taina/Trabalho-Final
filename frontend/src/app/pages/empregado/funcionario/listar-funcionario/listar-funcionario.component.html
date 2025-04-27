@@ -1,16 +1,16 @@
-<div id="listarfuncionario" class="row">
-  <div class="col-md-4" id="containerImagem">
+<div class="row mainAzul">
+  <div class="col-md-4 containerTituloPagina">
     <img
       src="../../../../assets/images/backgroundTitle.png"
-      class="backgroundimg"
+      class="imgFundoTitulo"
     />
-    <div id="tituloImagem"><h1>Funcionários</h1></div>
+    <div class="tituloPagina"><h1>Funcionários</h1></div>
   </div>
 
-  <div class="col-md-8">
-    <div style="display: flex; justify-content: right">
+  <div class="col-md-8 mx-auto px-0">
+    <div class="d-flex justify-content-end">
       <a
-        class="btn btn-xs botao1"
+        class="btn btnRosaSalmao"
         [routerLink]="['/adm/funcionarios/novo']"
         title="Novo Cadastro"
       >
@@ -18,7 +18,9 @@
         Cadastro
       </a>
     </div>
-    <table class="table table-striped table-bordered table-hover">
+    <div class="containerTabela">
+      <div class="tabela">
+      <table>
       <thead>
         <tr>
           <th>Nome</th>
@@ -34,13 +36,8 @@
           <td>{{ funcionario.data }}</td>
           <td class="text-center">
             <a
-              class="btn btn-xs botao2"
+              class="btnIcon"
               [routerLink]="['/adm/funcionarios/editar', funcionario.id]"
-              style="
-                background-color: transparent;
-                color: #b84c65;
-                font-size: 25px;
-              "
               title="Editar"
             >
               <i class="fa-solid fa-pen-nib" aria-hidden="true"></i>
@@ -48,13 +45,8 @@
           </td>
           <td class="text-center">
             <a
-              class="btn btn-xs botao2"
+              class="btnIcon"
               (click)="remover($event, funcionario)"
-              style="
-                background-color: transparent;
-                color: #b84c65;
-                font-size: 25px;
-              "
               title="Remover"
             >
               <i class="fa fa-trash" aria-hidden="true"></i>
@@ -63,9 +55,19 @@
         </tr>
       </tbody>
     </table>
-
+    </div>
+    </div>
     <p id="semFuncionarios" *ngIf="funcionarios.length === 0">
       Nenhum Funcionário Cadastrado.
     </p>
+    <div class="d-flex justify-content-end">
+      <a
+        class="btn btnRosaSalmao"
+        title="Voltar"
+        routerLink="/adm/home"
+      >
+        <i class="fa-solid fa-location-arrow btnVoltar"></i>
+      </a>
+    </div>
   </div>
 </div>

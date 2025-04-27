@@ -1,6 +1,5 @@
-<div id="menu" class="menu-col p-3" [class.show]="isMenuOpen">
-  <div class="menu-itens">
-    <div class="menu1">
+<div class="menuColumn p-3" [class.show]="isMenuOpen">
+  <div class="menuItens">
       <ng-container *ngIf="(currentSection$ | async) === 'cliente'">
         <br />
         <a routerLink="/client/home">Inicio</a>
@@ -20,18 +19,16 @@
         <br />
         <a routerLink="/adm/funcionarios">Funcionários</a>
       </ng-container>
-    </div>
     <hr />
   </div>
 </div>
 
 <header
-  class="d-flex justify-content-between align-items-center p-3 bg-rosa-salmao shadow"
-  id="compmenu"
-  style="min-width: 100vw"
+  class="d-flex justify-content-between align-items-center p-3 shadow"
+  id="mainMenu"
 >
   <button
-    class="burgue"
+    class="btnHamburguer"
     (click)="toggleMenu()"
     *ngIf="(currentSection$ | async) !== 'auth'"
   >
@@ -43,20 +40,18 @@
   <h1 id="tituloMenu" class="m-0">Manutenção de Equipamentos</h1>
 
   <ng-container *ngIf="(currentSection$ | async) === 'auth'; else logoutButton">
-    <div class="log">
+    <div>
       <button
         routerLink="/auth/login"
-        class="btn btn-azul2"
+        class="btn btnAzul"
         title="Login"
-        style="border: 0px"
       >
         <i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i>
       </button>
       <button
         routerLink="/auth/cadastro"
-        class="btn btn-azul2"
+        class="btn btnAzul"
         title="Cadastro"
-        style="border: 0px"
       >
         <i class="fa fa-user-plus" aria-hidden="true"></i>
       </button>
@@ -66,9 +61,8 @@
   <ng-template #logoutButton>
     <button
       type="button"
-      class="btn btn-azul2"
+      class="btn btnAzul"
       title="Logout"
-      style="border: 0px"
       (click)="logout()"
     >
       <i class="fa-solid fa-right-from-bracket"></i>

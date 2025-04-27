@@ -1,11 +1,3 @@
-#visualizar-solicitacao {
-  padding: 30px;
-}
-
-#detalhes {
-  font-family: "DejaVu Serif";
-}
-
 .detalhes-box {
   font-family: "Blackest Text";
   color: #3f5f72;
@@ -16,6 +8,6 @@
 .titulo-box {
   font-family: "Blackest Text";
   font-size: 2rem;
-  color: var(--primary-color-dark);
+  color: #b84c65;
   letter-spacing: 1px;
 }

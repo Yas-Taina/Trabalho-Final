@@ -1,10 +1,10 @@
-<div id="inserirfuncionario" class="row">
-  <div class="col-md-6" id="containerImagem">
+<div class="row mainAzul">
+  <div class="col-md-6 containerTituloPagina">
     <img
       src="../../../../assets/images/backgroundTitle.png"
-      class="backgroundimg"
+      class="imgFundoTitulo"
     />
-    <div id="tituloImagem"><h1>Novo Funcionário</h1></div>
+    <div class="tituloPagina"><h1>Novo Funcionário</h1></div>
   </div>
 
   <div class="col-md-6 d-flex flex-column justify-content-center px-5">
@@ -129,22 +129,24 @@
         </div>
       </div>
       <div class="form-group">
-        <button
-          type="button"
-          title="Salvar"
-          class="btn btn-rosa-salmao"
-          (click)="inserir()"
-          [disabled]="!formFuncionario.form.valid"
-        >
-          <i class="fa fa-save" aria-hidden="true"></i>
-        </button>
-        <a
-          class="btn btn-rosa-cha"
-          title="Voltar"
-          routerLink="/adm/funcionarios"
-        >
-          <i class="fa fa-arrow-left" aria-hidden="true"></i>
-        </a>
+        <div class="d-flex justify-content-end gap-3 mt-4">
+          <button
+            type="button"
+            title="Salvar"
+            class="btn btnRosaCha"
+            (click)="inserir()"
+            [disabled]="!formFuncionario.form.valid"
+          >
+            <i class="fa fa-save" aria-hidden="true"></i>
+          </button>
+          <a
+            class="btn btnRosaSalmao"
+            title="Voltar"
+            routerLink="/adm/funcionarios"
+          >
+            <i class="fa-solid fa-location-arrow btnVoltar"></i>
+          </a>
+        </div>
       </div>
     </form>
   </div>
