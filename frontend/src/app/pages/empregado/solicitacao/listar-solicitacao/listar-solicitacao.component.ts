@@ -8,15 +8,19 @@ import { Cliente } from "../../../../shared/models/cliente.model";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { FormsModule } from "@angular/forms";
+import { EstadosSolicitacao, getCorEstadoSolicitacao } from "../../../../shared/models/enums/estados-solicitacao";
+import { EstadoAmigavelPipe } from "../../../../shared/pipes/estado-amigavel.pipe";
+import { EstadoCorPipe } from "../../../../shared/pipes/estado-cor.pipe";
 
 @Component({
   selector: "app-listar-solicitacao",
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, EstadoAmigavelPipe, EstadoCorPipe],
   templateUrl: "./listar-solicitacao.component.html",
   styleUrl: "./listar-solicitacao.component.css",
 })
 export class ListarSolicitacaoComponent {
+  EstadosSolicitacao = EstadosSolicitacao;
   solicitacoes: Solicitacao[] = [];
   clientes: Cliente[] = [];
   nomeFuncionario: string = "";
@@ -29,7 +33,7 @@ export class ListarSolicitacaoComponent {
     private clienteService: ClienteService,
     private funcionarioService: FuncionarioService,
     private loginService: LoginService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.clientes = this.clienteService.listarTodos();
@@ -44,25 +48,6 @@ export class ListarSolicitacaoComponent {
     this.usuario = sessao!.usuarioId;
   }
 
-  getCorStatus(estado: string): string {
-    return estado === "ABERTA"
-      ? "gray"
-      : estado === "ORÇADA"
-        ? "brown"
-        : estado === "REJEITADA"
-          ? "red"
-          : estado === "APROVADA"
-            ? "yellow"
-            : estado === "REDIRECIONADA"
-              ? "purple"
-              : estado === "ARRUMADA"
-                ? "blue"
-                : estado === "PAGA"
-                  ? "orange"
-                  : estado === "FINALIZADA"
-                    ? "green"
-                    : "white";
-  }
 
   buscarNomeCliente(id: number): string {
     const cliente = this.clientes.find((c) => c.id === id);

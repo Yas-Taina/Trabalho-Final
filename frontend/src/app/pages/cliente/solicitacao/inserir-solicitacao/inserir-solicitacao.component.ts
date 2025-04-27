@@ -7,6 +7,7 @@ import { EquipamentoService } from "../../../../services/equipamento.service";
 import { LoginService } from "../../../../services/login/login.service";
 import { Router, RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
+import { EstadosSolicitacao } from "../../../../shared/models/enums/estados-solicitacao";
 
 @Component({
   selector: "app-inserir-solicitacao",
@@ -38,7 +39,7 @@ export class InserirSolicitacaoComponent {
       const horas = dataAtual.getHours().toString().padStart(2, "0");
       const minutos = dataAtual.getMinutes().toString().padStart(2, "0");
       this.solicitacao.data = `${dia}/${mes}/${ano} - ${horas}:${minutos}`;
-      this.solicitacao.estado = "ABERTA";
+      this.solicitacao.estado = EstadosSolicitacao.Aberta;
       const sessao = this.loginService.obterDadosDaSessao();
       if (!sessao) {
         throw new Error("Usuário não está logado");

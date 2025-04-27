@@ -7,11 +7,13 @@ import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ReceitasComponent } from "../relatorios/receitas/receitas.component";
+import { EstadosSolicitacao } from "../../../shared/models/enums/estados-solicitacao";
+import { EstadoAmigavelPipe } from "../../../shared/pipes/estado-amigavel.pipe";
 
 @Component({
   selector: "app-inicio",
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, EstadoAmigavelPipe],
   templateUrl: "./inicio.component.html",
   styleUrl: "./inicio.component.css",
 })
@@ -29,7 +31,7 @@ export class EmpregadoInicioComponent {
     this.clientes = this.clienteService.listarTodos();
     this.solicitacoes = this.solicitacaoService
       .listarTodos()
-      .filter((item) => item.estado === "ABERTA");
+      .filter((item) => item.estado === EstadosSolicitacao.Aberta);
   }
 
   buscarNomeCliente(id: number): string {

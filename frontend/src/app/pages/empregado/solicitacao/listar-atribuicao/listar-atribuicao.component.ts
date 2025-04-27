@@ -7,15 +7,19 @@ import { Solicitacao } from "../../../../shared/models/solicitacao.model";
 import { Cliente } from "../../../../shared/models/cliente.model";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
+import { EstadosSolicitacao, getCorEstadoSolicitacao } from "../../../../shared/models/enums/estados-solicitacao";
+import { EstadoAmigavelPipe } from "../../../../shared/pipes/estado-amigavel.pipe";
+import { EstadoCorPipe } from "../../../../shared/pipes/estado-cor.pipe";
 
 @Component({
   selector: "app-listar-atribuicao",
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, EstadoAmigavelPipe, EstadoCorPipe],
   templateUrl: "./listar-atribuicao.component.html",
   styleUrl: "./listar-atribuicao.component.css",
 })
 export class ListarAtribuicaoComponent {
+  EstadosSolicitacao = EstadosSolicitacao;
   solicitacoes: Solicitacao[] = [];
   clientes: Cliente[] = [];
   usuario: number = 0;
@@ -41,25 +45,6 @@ export class ListarAtribuicaoComponent {
     }
   }
 
-  getCorStatus(estado: string): string {
-    return estado === "ABERTA"
-      ? "gray"
-      : estado === "ORÇADA"
-        ? "brown"
-        : estado === "REJEITADA"
-          ? "red"
-          : estado === "APROVADA"
-            ? "yellow"
-            : estado === "REDIRECIONADA"
-              ? "purple"
-              : estado === "ARRUMADA"
-                ? "blue"
-                : estado === "PAGA"
-                  ? "orange"
-                  : estado === "FINALIZADA"
-                    ? "green"
-                    : "white";
-  }
 
   buscarNomeCliente(id: number): string {
     const cliente = this.clientes.find((c) => c.id === id);

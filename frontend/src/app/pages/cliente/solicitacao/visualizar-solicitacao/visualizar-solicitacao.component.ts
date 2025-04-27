@@ -10,11 +10,13 @@ import { OrcamentoService } from "../../../../services/orcamento.service";
 import { CommonModule } from "@angular/common";
 import { ModalComponent } from "../../../../components/modal/modal.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { EstadosSolicitacao } from "../../../../shared/models/enums/estados-solicitacao";
+import { EstadoAmigavelPipe } from "../../../../shared/pipes/estado-amigavel.pipe";
 
 @Component({
   selector: "app-visualizar-solicitacao",
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, ModalComponent, NgbModule],
+  imports: [CommonModule, FormsModule, RouterModule, ModalComponent, NgbModule, EstadoAmigavelPipe],
   templateUrl: "./visualizar-solicitacao.component.html",
   styleUrl: "./visualizar-solicitacao.component.css",
 })
@@ -23,6 +25,7 @@ export class VisualizarSolicitacaoComponent implements OnInit {
   @ViewChild(ModalComponent) modal!: ModalComponent;
   @ViewChild("rejectTemplate") rejectTemplate!: TemplateRef<any>;
 
+  EstadosSolicitacao = EstadosSolicitacao;
   solicitacao: Solicitacao = new Solicitacao();
   id: number = 0;
   equipamento?: Equipamento | null;
@@ -94,7 +97,7 @@ export class VisualizarSolicitacaoComponent implements OnInit {
     if (
       confirm("Deseja aprovar o orçamento? Essa ação não pode ser revertida")
     ) {
-      this.solicitacao.estado = "APROVADA";
+      this.solicitacao.estado = EstadosSolicitacao.Aprovada;
       this.atualizarHistorico();
       this.atualizar();
       alert(`Serviço aprovado no valor de R$ ${this.orcamento!.valor}`);
@@ -108,7 +111,7 @@ export class VisualizarSolicitacaoComponent implements OnInit {
         "Deseja resgatar a solicitação? Ela será automaticamente aprovada no valor orçado",
       )
     ) {
-      this.solicitacao.estado = "APROVADA";
+      this.solicitacao.estado = EstadosSolicitacao.Aprovada;
       this.atualizarHistorico();
       this.atualizar();
       alert(
@@ -122,7 +125,7 @@ export class VisualizarSolicitacaoComponent implements OnInit {
     if (
       confirm("Deseja realizar o pagamento? Essa ação não pode ser revertida")
     ) {
-      this.solicitacao.estado = "PAGA";
+      this.solicitacao.estado = EstadosSolicitacao.Paga;
       this.atualizarHistorico();
       this.atualizar();
     }
@@ -137,10 +140,10 @@ export class VisualizarSolicitacaoComponent implements OnInit {
 
   handleConfirmation(formData: any) {
     if (!formData.reason) {
-      alert("Digiteo motivo de sua recusa:");
+      alert("Digite o motivo de sua recusa:");
       return;
     }
-    this.solicitacao.estado = "REJEITADA";
+    this.solicitacao.estado = EstadosSolicitacao.Rejeitada;
     const motivo = formData.reason;
     const dataAtual = new Date();
     const dia = dataAtual.getDate().toString().padStart(2, "0");

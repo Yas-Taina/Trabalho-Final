@@ -53,16 +53,16 @@
               <td>
                 <span
                   class="bola-status"
-                  [style.background-color]="getCorStatus(solicitacao.estado)"
+                  [style.background-color]="solicitacao.estado | estadoCor"
                 ></span>
               </td>
               <td>{{ solicitacao.data }}</td>
               <td>{{ buscarNomeCliente(solicitacao.idCliente) }}</td>
-              <td>{{ solicitacao.estado }}</td>
+              <td>{{ solicitacao.estado | estadoAmigavel }}</td>
               <td>{{ solicitacao.descricao }}</td>
               <td style="border-right: 0">
                 <a
-                  *ngIf="solicitacao.estado === 'ABERTA'"
+                  *ngIf="solicitacao.estado === EstadosSolicitacao.Aberta"
                   class="btn btnRosaCha btnTabela"
                   [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
                   title="Orçar"
@@ -70,8 +70,8 @@
                 >
                 <a
                   *ngIf="
-                    solicitacao.estado === 'APROVADA' ||
-                    solicitacao.estado === 'REDIRECIONADA'
+                    solicitacao.estado === EstadosSolicitacao.Aprovada ||
+                    solicitacao.estado === EstadosSolicitacao.Redirecionada
                   "
                   [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
                   class="btn btnRosaCha btnTabela"
@@ -79,7 +79,7 @@
                   >Realizar<br />Manutenção</a
                 >
                 <a
-                  *ngIf="solicitacao.estado === 'PAGA'"
+                  *ngIf="solicitacao.estado === EstadosSolicitacao.Paga"
                   class="btn btnRosaCha btnTabela"
                   (click)="this.finalizar(solicitacao)"
                   title="Finalizar"

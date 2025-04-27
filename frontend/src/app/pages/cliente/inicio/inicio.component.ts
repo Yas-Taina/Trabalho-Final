@@ -6,15 +6,18 @@ import { OrcamentoService } from "../../../services/orcamento.service";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { LoginService } from "../../../services/login/login.service";
+import { EstadosSolicitacao } from "../../../shared/models/enums/estados-solicitacao";
+import { EstadoAmigavelPipe } from "../../../shared/pipes/estado-amigavel.pipe";
 
 @Component({
   selector: "app-inicio",
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, EstadoAmigavelPipe],
   templateUrl: "./inicio.component.html",
   styleUrl: "./inicio.component.css",
 })
 export class ClienteInicioComponent {
+  EstadosSolicitacao = EstadosSolicitacao;
   solicitacoes: Solicitacao[] = [];
   usuario: number = 0;
   orcamento?: Orcamento | null;
@@ -36,7 +39,7 @@ export class ClienteInicioComponent {
     }
   }
 
-  carregarOrcamento(solicitacao: any) {
+  carregarOrcamento(solicitacao: Solicitacao) {
     const orcamentoEncontrado = this.orcamentoService
       .listarTodos()
       .find((o) => o.idSolicitacao === solicitacao.id);
@@ -47,14 +50,14 @@ export class ClienteInicioComponent {
     return this.solicitacaoService.listarTodos();
   }
 
-  resgatar($event: any, solicitacao: any): void {
+  resgatar($event: any, solicitacao: Solicitacao): void {
     $event.preventDefault();
     if (
       confirm(
         "Deseja resgatar a solicitação? Ela será automaticamente aprovada no valor orçado",
       )
     ) {
-      solicitacao.estado = "APROVADA";
+      solicitacao.estado = EstadosSolicitacao.Aprovada;
       this.orcamento = this.carregarOrcamento(solicitacao);
       this.atualizarHistorico(solicitacao);
       this.atualizar(solicitacao);
@@ -64,7 +67,7 @@ export class ClienteInicioComponent {
     }
   }
 
-  atualizarHistorico(solicitacao: any): void {
+  atualizarHistorico(solicitacao: Solicitacao): void {
     const dataAtual = new Date();
     const dia = dataAtual.getDate().toString().padStart(2, "0");
     const mes = (dataAtual.getMonth() + 1).toString().padStart(2, "0");
@@ -76,7 +79,7 @@ export class ClienteInicioComponent {
     solicitacao.historico += add;
   }
 
-  atualizar(solicitacao: any): void {
+  atualizar(solicitacao: Solicitacao): void {
     this.solicitacaoService.atualizar(solicitacao);
   }
 }
