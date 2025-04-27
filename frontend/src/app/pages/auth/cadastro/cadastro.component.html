@@ -1,4 +1,4 @@
-<div id="cadastro" class="row">
+<div class="row mainAzul">
   <div class="col-md-6 containerTituloPagina">
     <img
       src="../../../../assets/images/backgroundTitle.png"
@@ -11,13 +11,13 @@
     <div class="container py-5">
       <div class="row justify-content-center">
         <div class="col-lg-8">
-          <form #formCliente="ngForm" class="formulario-destaque">
+          <form #formCliente="ngForm">
             <div class="row mb-3">
               <div class="col-md-6">
-                <label for="cpf" class="form-label bold-creme">CPF</label>
+                <label for="cpf" class="form-label">CPF</label>
                 <input
                   type="text"
-                  class="form-control bg-creme"
+                  class="form-control"
                   id="cpf"
                   name="cpf"
                   [(ngModel)]="cliente.cpf"
@@ -35,10 +35,10 @@
               </div>
 
               <div class="col-md-6">
-                <label for="nome" class="form-label bold-creme">Nome</label>
+                <label for="nome" class="form-label">Nome</label>
                 <input
                   type="text"
-                  class="form-control bg-creme"
+                  class="form-control"
                   id="nome"
                   name="nome"
                   [(ngModel)]="cliente.nome"
@@ -59,10 +59,10 @@
             </div>
 
             <div class="mb-3">
-              <label for="email" class="form-label bold-creme">E-mail</label>
+              <label for="email" class="form-label">E-mail</label>
               <input
                 type="email"
-                class="form-control bg-creme"
+                class="form-control"
                 id="email"
                 name="email"
                 [(ngModel)]="cliente.email"
@@ -82,12 +82,10 @@
             </div>
 
             <div class="mb-3">
-              <label for="telefone" class="form-label bold-creme"
-                >Telefone</label
-              >
+              <label for="telefone" class="form-label">Telefone</label>
               <input
                 type="text"
-                class="form-control bg-creme"
+                class="form-control"
                 id="telefone"
                 name="telefone"
                 [(ngModel)]="cliente.telefone"
@@ -103,16 +101,15 @@
                 <div [hidden]="!telefone.errors['required']">
                   Digite um telefone.
                 </div>
-                <!-- <div [hidden]="!cpf.errors['minlength']">O nome deve conter ao menos 2 caracteres</div> -->
               </div>
             </div>
 
             <div class="row mb-3">
               <div class="col-md-6">
-                <label for="cep" class="form-label bold-creme">CEP</label>
+                <label for="cep" class="form-label">CEP</label>
                 <input
                   type="text"
-                  class="form-control bg-creme"
+                  class="form-control"
                   id="cep"
                   name="cep"
                   required
@@ -134,12 +131,10 @@
                 </div>
               </div>
               <div class="col-md-6">
-                <label for="logradouro" class="form-label bold-creme"
-                  >Endereço</label
-                >
+                <label for="logradouro" class="form-label">Endereço</label>
                 <input
                   type="text"
-                  class="form-control bg-creme"
+                  class="form-control"
                   id="logradouro"
                   name="logradouro"
                   required
@@ -162,10 +157,10 @@
 
             <div class="row mb-3">
               <div class="col-md-6">
-                <label for="bairro" class="form-label bold-creme">Bairro</label>
+                <label for="bairro" class="form-label">Bairro</label>
                 <input
                   type="text"
-                  class="form-control bg-creme"
+                  class="form-control"
                   id="bairro"
                   name="bairro"
                   required
@@ -182,10 +177,10 @@
                 </div>
               </div>
               <div class="col-md-4">
-                <label for="cidade" class="form-label bold-creme">Cidade</label>
+                <label for="cidade" class="form-label">Cidade</label>
                 <input
                   type="text"
-                  class="form-control bg-creme"
+                  class="form-control"
                   id="cidade"
                   name="cidade"
                   required
@@ -202,10 +197,10 @@
                 </div>
               </div>
               <div class="col-md-2">
-                <label for="estado" class="form-label bold-creme">UF</label>
+                <label for="estado" class="form-label">UF</label>
                 <input
                   type="text"
-                  class="form-control bg-creme"
+                  class="form-control"
                   id="estado"
                   name="estado"
                   required
@@ -238,7 +233,7 @@
             <div class="text-center">
               <a
                 routerLink="/auth/login"
-                class="rosa-salmao"
+                class="textLink"
                 routerLinkActive="active"
                 >Já tem uma conta? Faça login</a
               >

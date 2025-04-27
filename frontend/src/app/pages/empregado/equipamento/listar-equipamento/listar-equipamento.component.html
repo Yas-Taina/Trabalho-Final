@@ -6,8 +6,8 @@
     />
     <div class="tituloPagina"><h1>Equipamentos</h1></div>
   </div>
-    <div class="col-md-8 mx-auto px-0">
-      <div class="d-flex justify-content-end">
+  <div class="col-md-8 mx-auto px-0">
+    <div class="d-flex justify-content-end">
       <a
         class="btn btnRosaSalmao"
         [routerLink]="['/adm/equipamentos/novo']"
@@ -16,55 +16,51 @@
         <i class="fa-solid fa-plus" aria aria-hidden="true"></i>&nbsp;&nbsp;Novo
         Cadastro
       </a>
-      </div>
-      <div class="containerTabela">
-      <div class="tabela">
-      <table>
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th>Descrição</th>
-          <th colspan="2">Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let equipamento of equipamentos">
-          <td>{{ equipamento.nome }}</td>
-          <td>{{ equipamento.descricao }}</td>
-          <td class="text-center">
-            <a
-              href="#"
-              title="Editar"
-              alt="Editar"
-              class="btnIcon"
-              [routerLink]="['/adm/equipamentos/editar', equipamento.id]"
-            >
-              <i class="fa-solid fa-pen-nib" aria-hidden="true"></i>
-            </a>
-          </td>
-          <td class="text-center">
-            <a
-              href="#"
-              title="Remover"
-              alt="Remover"
-              class="btnIcon"
-              (click)="remover($event, equipamento)"
-            >
-              <i class="fa fa-trash" aria-hidden="true"></i>
-            </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
     </div>
+    <div class="containerTabela">
+      <div class="tabela">
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Descrição</th>
+              <th colspan="2">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let equipamento of equipamentos">
+              <td>{{ equipamento.nome }}</td>
+              <td>{{ equipamento.descricao }}</td>
+              <td>
+                <a
+                  href="#"
+                  title="Editar"
+                  alt="Editar"
+                  class="btnIcon"
+                  [routerLink]="['/adm/equipamentos/editar', equipamento.id]"
+                >
+                  <i class="fa-solid fa-pen-nib" aria-hidden="true"></i>
+                </a>
+              </td>
+              <td>
+                <a
+                  href="#"
+                  title="Remover"
+                  alt="Remover"
+                  class="btnIcon"
+                  (click)="remover($event, equipamento)"
+                >
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
     <p *ngIf="equipamentos.length === 0">Nenhum Equipamento Cadastrado.</p>
     <div class="d-flex justify-content-end gap-3 mt-4">
-      <a
-        class="btn btnRosaSalmao"
-        title="Voltar"
-        routerLink="/adm/home"
-      >
+      <a class="btn btnRosaSalmao" title="Voltar" routerLink="/adm/home">
         <i class="fa-solid fa-location-arrow btnVoltar"></i>
       </a>
     </div>

@@ -1,24 +1,24 @@
 <div class="menuColumn p-3" [class.show]="isMenuOpen">
   <div class="menuItens">
-      <ng-container *ngIf="(currentSection$ | async) === 'cliente'">
-        <br />
-        <a routerLink="/client/home">Inicio</a>
-        <br />
-        <a routerLink="/client/solicitacao/novo">Fazer Solicitação</a>
-      </ng-container>
+    <ng-container *ngIf="(currentSection$ | async) === 'cliente'">
+      <br />
+      <a routerLink="/client/home">Inicio</a>
+      <br />
+      <a routerLink="/client/solicitacao/novo">Fazer Solicitação</a>
+    </ng-container>
 
-      <ng-container *ngIf="(currentSection$ | async) === 'empregado'">
-        <br />
-        <a routerLink="/adm/home">Inicio</a>
-        <br />
-        <a routerLink="/adm/solicitacoes">Solicitações</a>
-        <br />
-        <a routerLink="/adm/atribuicoes">Minhas Atribuições</a>
-        <br />
-        <a routerLink="/adm/equipamentos">Equipamentos</a>
-        <br />
-        <a routerLink="/adm/funcionarios">Funcionários</a>
-      </ng-container>
+    <ng-container *ngIf="(currentSection$ | async) === 'empregado'">
+      <br />
+      <a routerLink="/adm/home">Inicio</a>
+      <br />
+      <a routerLink="/adm/solicitacoes">Solicitações</a>
+      <br />
+      <a routerLink="/adm/atribuicoes">Minhas Atribuições</a>
+      <br />
+      <a routerLink="/adm/equipamentos">Equipamentos</a>
+      <br />
+      <a routerLink="/adm/funcionarios">Funcionários</a>
+    </ng-container>
     <hr />
   </div>
 </div>
@@ -37,34 +37,21 @@
     <span></span>
   </button>
 
-  <h1 id="tituloMenu" class="m-0">Manutenção de Equipamentos</h1>
+  <h1 class="m-0">Manutenção de Equipamentos</h1>
 
   <ng-container *ngIf="(currentSection$ | async) === 'auth'; else logoutButton">
     <div>
-      <button
-        routerLink="/auth/login"
-        class="btn btnAzul"
-        title="Login"
-      >
+      <button routerLink="/auth/login" class="btn btnAzul" title="Login">
         <i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i>
       </button>
-      <button
-        routerLink="/auth/cadastro"
-        class="btn btnAzul"
-        title="Cadastro"
-      >
+      <button routerLink="/auth/cadastro" class="btn btnAzul" title="Cadastro">
         <i class="fa fa-user-plus" aria-hidden="true"></i>
       </button>
     </div>
   </ng-container>
 
   <ng-template #logoutButton>
-    <button
-      type="button"
-      class="btn btnAzul"
-      title="Logout"
-      (click)="logout()"
-    >
+    <button type="button" class="btn btnAzul" title="Logout" (click)="logout()">
       <i class="fa-solid fa-right-from-bracket"></i>
     </button>
   </ng-template>

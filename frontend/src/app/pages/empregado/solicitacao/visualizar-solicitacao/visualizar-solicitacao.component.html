@@ -1,23 +1,21 @@
-<div  class="row d-flex justify-content-center mainCreme">
-  <div class="col-md-4 d-flex flex-column align-items-center text-center gap-3">
-    <div
-      *ngIf="solicitacao.estado !== 'ABERTA'"
-      id="boxOrcamento"
-      style="text-align: center; min-width: 90%; max-width: 90%"
-    >
-      <h5 class="titulo-box">VALOR</h5>
-      <h2 class="valor-box">{{ orcamento.valor | currency: "BRL" }}</h2>
-      <p>
-        Orçamento feito por funcionario {{ nomeFuncionarioOrc }} em
-        {{ orcamento.data }}
+<div class="row d-flex justify-content-center mainCreme">
+  <div class="col-md-4 d-flex flex-column align-items-center">
+    <div *ngIf="solicitacao.estado !== 'ABERTA'" class="box">
+      <h6 class="tituloPequeno">VALOR</h6>
+      <h2>{{ orcamento.valor | currency: "BRL" }}</h2>
+      <p class="subtitulo">
+        <i
+          >Orçamento feito por funcionario
+          <strong>{{ nomeFuncionarioOrc }}</strong> em
+          <strong>{{ orcamento.data }}</strong></i
+        >
       </p>
     </div>
     <div
       *ngIf="solicitacao.manutencao && solicitacao.manutencao.trim() !== ''"
-      id="boxServico"
-      style="text-align: center; min-width: 90%; max-width: 90%"
+      class="box"
     >
-      <h3>Serviços Realizados</h3>
+      <h6 class="subtituloRosa">SERVIÇOS REALIZADOS</h6>
       <p>{{ solicitacao.manutencao }}</p>
     </div>
     <div class="d-flex flex-column align-items-center">
@@ -138,17 +136,17 @@
     </div>
   </div>
 
-  <div id="detalhes" class="col-md-4 detalhes-solicitacao text-center">
-    <h1 class="detalhes-box">DETALHES DA<br />SOLICITAÇÃO</h1>
+  <div class="col-md-4">
+    <h1 class="tituloGrande">DETALHES DA<br />SOLICITAÇÃO</h1>
     <hr />
-    <div class="linha-detalhe">
-      <h6 class="titulo">Estado da Solicitação</h6>
+    <div>
+      <h6 class="subtituloRosa">ESTADO DA SOLICITAÇÃO</h6>
       <p>{{ solicitacao.estado }}</p>
     </div>
     <hr />
-    <div class="linha-detalhe position-relative">
-      <div class="text-center">
-        <h6 class="titulo">CLIENTE</h6>
+    <div class="position-relative">
+      <div>
+        <h6 class="subtituloRosa">CLIENTE</h6>
         <p>{{ cliente?.nome }}</p>
       </div>
       <button
@@ -159,8 +157,8 @@
         <i class="fa-solid fa-eye"></i>
       </button>
     </div>
-    <div *ngIf="isClientOpen" class="texto-expandido text-start">
-      <p class="text-center">
+    <div *ngIf="isClientOpen" class="text-start">
+      <p>
         <strong>CPF:</strong> {{ cliente?.cpf }}<br />
         <strong>Email:</strong> {{ cliente?.email }}<br />
         <strong>Telefone:</strong> {{ cliente?.telefone }}<br />
@@ -168,15 +166,15 @@
       </p>
     </div>
     <hr />
-    <div class="linha-detalhe">
-      <h6 class="titulo">DATA E HORA</h6>
+    <div>
+      <h6 class="subtituloRosa">DATA E HORA</h6>
       <p>{{ solicitacao.data }}</p>
     </div>
     <hr />
 
-    <div class="linha-detalhe position-relative">
-      <div class="text-center">
-        <h6 class="titulo">EQUIPAMENTO</h6>
+    <div class="position-relative">
+      <div>
+        <h6 class="subtituloRosa">EQUIPAMENTO</h6>
         <p>{{ equipamento?.nome }}</p>
       </div>
       <button
@@ -187,8 +185,8 @@
         <i class="fa-solid fa-eye"></i>
       </button>
     </div>
-    <div *ngIf="isEquipOpen" class="texto-expandido text-start">
-      <p class="text-center">
+    <div *ngIf="isEquipOpen" class="text-start">
+      <p>
         <strong>Descrição da categoria do equipamento:</strong>
         {{ equipamento?.descricao }}<br />
         <strong>Descrição deste equipamento:</strong>
@@ -196,16 +194,13 @@
       </p>
     </div>
     <hr />
-    <div class="linha-detalhe">
-      <h6 class="titulo">DEFEITO</h6>
+    <div>
+      <h6 class="subtituloRosa">DEFEITO</h6>
       <p>{{ solicitacao.defeito }}</p>
     </div>
     <hr />
     <div class="d-flex justify-content-end gap-3 mt-4">
-      <a
-        class="btn btnRosaSalmao"
-        routerLink="/adm/home"
-      >
+      <a class="btn btnRosaSalmao" routerLink="/adm/home">
         <i class="fa-solid fa-location-arrow btnVoltar"></i>
       </a>
     </div>

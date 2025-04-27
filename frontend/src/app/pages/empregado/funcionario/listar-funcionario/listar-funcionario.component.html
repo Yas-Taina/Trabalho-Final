@@ -20,52 +20,46 @@
     </div>
     <div class="containerTabela">
       <div class="tabela">
-      <table>
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th>Email</th>
-          <th>Data de Nascimento</th>
-          <th colspan="2">Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let funcionario of funcionarios">
-          <td>{{ funcionario.nome }}</td>
-          <td>{{ funcionario.email }}</td>
-          <td>{{ funcionario.data }}</td>
-          <td class="text-center">
-            <a
-              class="btnIcon"
-              [routerLink]="['/adm/funcionarios/editar', funcionario.id]"
-              title="Editar"
-            >
-              <i class="fa-solid fa-pen-nib" aria-hidden="true"></i>
-            </a>
-          </td>
-          <td class="text-center">
-            <a
-              class="btnIcon"
-              (click)="remover($event, funcionario)"
-              title="Remover"
-            >
-              <i class="fa fa-trash" aria-hidden="true"></i>
-            </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Data de Nascimento</th>
+              <th colspan="2">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let funcionario of funcionarios">
+              <td>{{ funcionario.nome }}</td>
+              <td>{{ funcionario.email }}</td>
+              <td>{{ funcionario.data }}</td>
+              <td>
+                <a
+                  class="btnIcon"
+                  [routerLink]="['/adm/funcionarios/editar', funcionario.id]"
+                  title="Editar"
+                >
+                  <i class="fa-solid fa-pen-nib" aria-hidden="true"></i>
+                </a>
+              </td>
+              <td>
+                <a
+                  class="btnIcon"
+                  (click)="remover($event, funcionario)"
+                  title="Remover"
+                >
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    </div>
-    <p id="semFuncionarios" *ngIf="funcionarios.length === 0">
-      Nenhum Funcionário Cadastrado.
-    </p>
+    <p *ngIf="funcionarios.length === 0">Nenhum Funcionário Cadastrado.</p>
     <div class="d-flex justify-content-end">
-      <a
-        class="btn btnRosaSalmao"
-        title="Voltar"
-        routerLink="/adm/home"
-      >
+      <a class="btn btnRosaSalmao" title="Voltar" routerLink="/adm/home">
         <i class="fa-solid fa-location-arrow btnVoltar"></i>
       </a>
     </div>

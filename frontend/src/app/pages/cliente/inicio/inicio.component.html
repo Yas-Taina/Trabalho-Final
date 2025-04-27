@@ -9,69 +9,78 @@
 
   <div class="col-md-8 mx-auto px-0">
     <div class="d-flex justify-content-end">
-    <a
-      class="btn btnRosaSalmao"
-      [routerLink]="['/client/solicitacao/novo']"
-      title="Nova Solicitação"
-    >
-      <i class="fa-solid fa-plus" aria aria-hidden="true"></i>&nbsp;&nbsp;Nova
-      Solicitação
-    </a>
+      <a
+        class="btn btnRosaSalmao"
+        [routerLink]="['/client/solicitacao/novo']"
+        title="Nova Solicitação"
+      >
+        <i class="fa-solid fa-plus" aria aria-hidden="true"></i>&nbsp;&nbsp;Nova
+        Solicitação
+      </a>
     </div>
 
     <div class="containerTabela">
       <div class="tabela">
-      <table>
-      <thead>
-        <tr>
-          <th>Data</th>
-          <th>Descrição do defeito</th>
-          <th>Estado da Solicitação</th>
-          <th colspan="2">Ações</th>
-        </tr>
-      </thead>
+        <table>
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Descrição do defeito</th>
+              <th>Estado da Solicitação</th>
+              <th colspan="2">Ações</th>
+            </tr>
+          </thead>
 
-      <tbody>
-        <tr *ngFor="let solicitacao of solicitacoes">
-          <td>{{ solicitacao.data }}</td>
-          <td>{{ solicitacao.descricao }}</td>
-          <td>{{ solicitacao.estado }}</td>
-          <td class="text-center" style="border-right: 0">
-            <a
-              *ngIf="solicitacao.estado === 'ORÇADA'"
-              class="btn btnRosaCha btnTabela"
-              [routerLink]="['/client/solicitacao/visualizar', solicitacao.id]"
-              title="Ação"
-              >Aprovar/Rejeitar<br>Serviço
-            </a>
-            <a
-              *ngIf="solicitacao.estado === 'REJEITADA'"
-              class="btn btnRosaCha btnTabela"
-              (click)="this.resgatar($event, solicitacao)"
-              title="Ação"
-              >Resgatar<br>Serviço
-            </a>
-            <a
-              *ngIf="solicitacao.estado === 'ARRUMADA'"
-              class="btn btnRosaCha btnTabela"
-              [routerLink]="['/client/solicitacao/visualizar', solicitacao.id]"
-              title="Ação"
-              >Pagar<br>Serviço
-            </a>
-          </td>
-          <td class="text-center" style="border-left: 0">
-            <a
-              class="btnIcon"
-              [routerLink]="['/client/solicitacao/visualizar', solicitacao.id]"
-              title="Visualizar"
-            >
-              <i class="fa-solid fa-eye" aria aria-hidden="true"></i>
-            </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    </div>
+          <tbody>
+            <tr *ngFor="let solicitacao of solicitacoes">
+              <td>{{ solicitacao.data }}</td>
+              <td>{{ solicitacao.descricao }}</td>
+              <td>{{ solicitacao.estado }}</td>
+              <td style="border-right: 0">
+                <a
+                  *ngIf="solicitacao.estado === 'ORÇADA'"
+                  class="btn btnRosaCha btnTabela"
+                  [routerLink]="[
+                    '/client/solicitacao/visualizar',
+                    solicitacao.id,
+                  ]"
+                  title="Ação"
+                  >Aprovar/Rejeitar<br />Serviço
+                </a>
+                <a
+                  *ngIf="solicitacao.estado === 'REJEITADA'"
+                  class="btn btnRosaCha btnTabela"
+                  (click)="this.resgatar($event, solicitacao)"
+                  title="Ação"
+                  >Resgatar<br />Serviço
+                </a>
+                <a
+                  *ngIf="solicitacao.estado === 'ARRUMADA'"
+                  class="btn btnRosaCha btnTabela"
+                  [routerLink]="[
+                    '/client/solicitacao/visualizar',
+                    solicitacao.id,
+                  ]"
+                  title="Ação"
+                  >Pagar<br />Serviço
+                </a>
+              </td>
+              <td style="border-left: 0">
+                <a
+                  class="btnIcon"
+                  [routerLink]="[
+                    '/client/solicitacao/visualizar',
+                    solicitacao.id,
+                  ]"
+                  title="Visualizar"
+                >
+                  <i class="fa-solid fa-eye" aria aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <p *ngIf="solicitacoes.length === 0">Nenhuma Solicitação Cadastrada.</p>

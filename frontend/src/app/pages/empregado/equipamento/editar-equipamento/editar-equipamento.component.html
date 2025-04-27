@@ -7,16 +7,13 @@
     <div class="tituloPagina"><h1>Equipamento</h1></div>
   </div>
 
-  <div
-    class="col-md-6 d-flex flex-column justify-content-center px-5"
-    style="width: 500px"
-  >
-    <form #formEquipamento="ngForm" class="formulario-destaque">
-      <div class="form-group mb-4 bold-creme">
+  <div class="col-md-6 d-flex flex-column justify-content-center px-5">
+    <form #formEquipamento="ngForm">
+      <div class="form-group mb-4">
         <label for="nome">Nome</label>
         <input
           type="text"
-          class="form-control bg-creme"
+          class="form-control"
           id="nome"
           name="nome"
           [(ngModel)]="equipamento.nome"
@@ -37,18 +34,17 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="descricao" class="bold-creme">Descrição</label>
-        <input
+        <label for="descricao">Descrição</label>
+        <textarea
           type="text"
-          class="form-control bg-creme"
+          class="form-control"
           id="descricao"
           name="descricao"
           [(ngModel)]="equipamento.descricao"
           #descricao="ngModel"
           minlength="5"
-          style="height: 100px"
           required
-        />
+        ></textarea>
         <div
           *ngIf="descricao.errors && (descricao.dirty || descricao.touched)"
           class="alert alert-danger"
