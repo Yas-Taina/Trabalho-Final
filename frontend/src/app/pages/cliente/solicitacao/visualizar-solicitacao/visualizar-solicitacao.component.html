@@ -27,28 +27,23 @@
       <p>{{ solicitacao.mensagem }}</p>
     </div>
 
-    <div class="d-flex flex-column w-100 gap-2">
-      <div *ngIf="solicitacao.estado === 'ORÇADA'">
+    <div class="d-flex flex-column align-items-center">
         <a
-          class="btn btn-xs botao1"
+          *ngIf="solicitacao.estado === 'ORÇADA'"
+          class="btn btnRosaSalmao btnAcao"
           title="Aprovar"
           (click)="aprovar($event)"
-          style="width: 300px"
         >
           <i class="fa-solid fa-circle-check"></i>&nbsp;&nbsp;Aprovar Serviço
         </a>
-      </div>
-
-      <div *ngIf="solicitacao.estado === 'ORÇADA'">
         <a
-          class="btn btn-xs botao2"
+          *ngIf="solicitacao.estado === 'ORÇADA'"
+          class="btn btnTransparenteSalmao btnAcao"
           title="Recusar"
           (click)="abrirModal()"
-          style="width: 300px"
         >
           <i class="fa-solid fa-circle-xmark"></i>&nbsp;&nbsp;Recusar Serviço
         </a>
-      </div>
 
       <app-modal
         #Modal
@@ -73,43 +68,33 @@
           </div>
         </form>
       </ng-template>
-
-      <div *ngIf="solicitacao.estado === 'REJEITADA'">
         <a
-          class="btn btn-xs botao1"
+          *ngIf="solicitacao.estado === 'REJEITADA'"
+          class="btn btnRosaSalmao btnAcao"
           title="Resgatar"
           (click)="resgatar($event)"
-          style="width: 300px"
         >
           <i class="fa-solid fa-trash-arrow-up"></i>&nbsp;&nbsp;Resgatar Serviço
         </a>
-      </div>
-
-      <div *ngIf="solicitacao.estado === 'ARRUMADA'" class="w-100">
         <a
-          class="btn btn-xs botao1"
+          *ngIf="solicitacao.estado === 'ARRUMADA'"
+          class="btn btnRosaSalmao btnAcao"
           title="Pagar"
           (click)="pagar($event)"
-          style="width: 300px"
         >
           <i class="fa-solid fa-money-check-dollar"></i>&nbsp;&nbsp;Pagar
           Serviço
         </a>
-      </div>
-
-      <div class="w-100">
         <a
-          class="btn btn-xs botao1"
+          class="btn btnRosaSalmao btnAcao"
           title="Histórico"
           (click)="toggleHist()"
-          style="width: 300px"
         >
           <i class="fa-solid fa-book-open"></i>&nbsp;&nbsp;Histórico
         </a>
         <div *ngIf="isHistOpen">
           <p style="white-space: pre-line">{{ solicitacao.historico }}</p>
         </div>
-      </div>
     </div>
   </div>
 
@@ -135,7 +120,7 @@
         <p>{{ equipamento?.nome }}</p>
       </div>
       <button
-        class="btn icon-olho position-absolute end-0 top-50 translate-middle-y"
+        class="btnIcon position-absolute end-0 top-50 translate-middle-y"
         (click)="toggleEquip()"
         title="Visualizar"
       >
@@ -161,13 +146,12 @@
     </div>
     <hr />
 
-    <div style="display: flex">
+    <div class="d-flex justify-content-end gap-3 mt-4">
       <a
-        class="btn btn-voltar"
+        class="btn btnRosaSalmao"
         routerLink="/client/home"
-        style="margin-left: auto"
       >
-        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        <i class="fa-solid fa-location-arrow btnVoltar"></i>
       </a>
     </div>
   </div>

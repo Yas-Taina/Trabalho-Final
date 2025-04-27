@@ -1,3 +1,95 @@
 #tituloMenu {
   font-family: "Blackest Text";
 }
+
+/*---Botão Hamburguer---*/
+.btnHamburguer {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 35px;
+  width: 35px;
+  padding: 0;
+  position: relative;
+  z-index: 1000;
+  min-width: 35px;
+  min-height: 35px;
+}
+
+.btnHamburguer span {
+  position: absolute;
+  width: 24px;
+  height: 3px;
+  background-color: #3f5f72;
+  border-radius: 2px;
+  transition: all 0.3s ease-in-out;
+}
+
+.btnHamburguer span:nth-child(1) {
+  top: 6px;
+}
+
+.btnHamburguer span:nth-child(2) {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.btnHamburguer span:nth-child(3) {
+  bottom: 6px;
+}
+
+/*---Transforma botão hamburguer em X quando ativo---*/
+.menuColumn.show ~ header .btnHamburguer span:nth-child(1) {
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.menuColumn.show ~ header .btnHamburguer span:nth-child(2) {
+  opacity: 0;
+}
+
+.menuColumn.show ~ header .btnHamburguer span:nth-child(3) {
+  bottom: 50%;
+  transform: translateY(50%) rotate(-45deg);
+}
+
+/*---Coluna do Menu com Links---*/
+.menuColumn {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 250px;
+  background-color: #e4a18f;
+  text-align: end;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 999;
+  border-right: 1px solid #3f5f72;
+}
+
+a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: #1e3542;
+  transition: background-color 0.3s ease-in-out;
+  text-align: end;
+}
+
+.menuColumn.show {
+  transform: translateX(0);
+}
+.menuItens div {
+  margin: 10px 0;
+}
+
+/*---Preenche a tela em dispositivos móveis---*/
+@media (max-width: 768px) {
+  .menuColumn {
+    width: 100vw;
+  }
+}

@@ -8,11 +8,6 @@
   background-color: var(--azul2);
 }
 
-#filtro {
-  font-family: "DejaVu Serif";
-  color: var(--background-color);
-}
-
 .bola-status {
   display: inline-block;
   width: 15px;

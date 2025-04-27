@@ -1,3 +1,11 @@
+/*---Icones Usados Como Imagens---*/
+#iconHome {
+  font-size: 150px;
+  color: #e4a18f;
+  margin: 1vw;
+  padding: auto;
+}
+
 #admhome {
   background-color: var(--azul2);
   padding: 15px;
@@ -16,13 +24,6 @@
   justify-content: space-between;
   align-items: right;
   max-width: 95%;
-}
-
-#iconhome {
-  font-size: 150px;
-  color: #e4a18f;
-  margin: 1vw;
-  padding: auto;
 }
 
 #semSolicitacoes {

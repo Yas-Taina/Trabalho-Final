@@ -1,10 +1,10 @@
 <div id="listaratribuicao" class="row">
-  <div class="col-md-4" id="containerImagem">
+  <div class="col-md-4 containerTituloPagina">
     <img
       src="../../../../assets/images/backgroundTitle.png"
-      class="backgroundimg"
+      class="imgFundoTitulo"
     />
-    <div id="tituloImagem"><h1>Atribuições</h1></div>
+    <div class="tituloPagina"><h1>Atribuições</h1></div>
   </div>
 
   <div class="col-md-8">
@@ -35,10 +35,10 @@
           <td class="text-center" style="border-right: 0">
             <a
               *ngIf="solicitacao.estado === 'ABERTA'"
-              class="btn btn-xs btn-rosa-cha"
+              class="btn btnRosaCha btnTabela"
               [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
               title="Orçar"
-              >Realizar Orçamento</a
+              >Realizar<br>Orçamento</a
             >
             <a
               *ngIf="
@@ -46,21 +46,21 @@
                 solicitacao.estado === 'REDIRECIONADA'
               "
               [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
-              class="btn btn-xs btn-rosa-cha"
+              class="btn btnRosaCha btnTabela"
               title="Consertar"
-              >Realizar Manutenção</a
+              >Realizar<br>Manutenção</a
             >
             <a
               *ngIf="solicitacao.estado === 'PAGA'"
-              class="btn btn-xs btn-rosa-cha"
+              class="btn btnRosaCha btnTabela"
               (click)="this.finalizar(solicitacao)"
               title="Finalizar"
-              >Finalizar Solicitação</a
+              >Finalizar<br>Solicitação</a
             >
           </td>
           <td class="text-center" style="border-left: 0">
             <a
-              class="btn btn-xs icon-olho"
+              class="btnIcon"
               [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
               title="Visualizar"
             >
@@ -74,5 +74,16 @@
     <p id="semSolicitacoes" *ngIf="solicitacoes.length === 0">
       Nenhuma Solicitação Atribuidda.
     </p>
+
+    <div class="d-flex justify-content-end gap-3 mt-4">
+      <a
+        class="btn btnRosaSalmao"
+        title="Voltar"
+        routerLink="/adm/home"
+      >
+        <i class="fa-solid fa-location-arrow btnVoltar"></i>
+      </a>
+    </div>
+
   </div>
 </div>

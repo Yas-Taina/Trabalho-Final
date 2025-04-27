@@ -1,10 +1,10 @@
 <div id="inserirsolicitacao" class="row">
-  <div class="col-md-6" id="containerImagem">
+  <div class="col-md-6 containerTituloPagina">
     <img
       src="../../../../assets/images/backgroundTitle.png"
-      class="backgroundimg"
+      class="imgFundoTitulo"
     />
-    <div id="tituloImagem"><h1>Nova Solicitação</h1></div>
+    <div class="tituloPagina"><h1>Nova Solicitação</h1></div>
   </div>
 
   <div class="col-md-6 d-flex flex-column justify-content-center px-5">
@@ -44,7 +44,7 @@
           class="form-control bg-creme"
           id="descricao"
           name="descricao"
-          style="height: 150px"
+          style="min-height: 150px; padding-top: 5px;"
           [(ngModel)]="solicitacao.descricao"
           #descricao="ngModel"
           required
@@ -69,7 +69,7 @@
           class="form-control bg-creme"
           id="defeito"
           name="defeito"
-          style="height: 150px"
+          style="min-height: 150px; line-height: 20px; padding-top: 5px;"
           [(ngModel)]="solicitacao.defeito"
           #defeito="ngModel"
           required
@@ -84,19 +84,23 @@
         </div>
       </div>
 
-      <div class="form-group">
-        <a class="btn btn-rosa-salmao" title="Voltar" routerLink="/client/home">
-          <i class="fa fa-arrow-left" aria-hidden="true"></i>
-        </a>
+      <div class="form-group d-flex justify-content-end gap-3 mt-4">
         <button
           type="button"
+          class="btn btnRosaCha"
           title="Salvar"
-          class="btn btn-rosa-cha"
           (click)="inserir()"
           [disabled]="!formSolicitacao.form.valid"
         >
           <i class="fa fa-save" aria-hidden="true"></i>
         </button>
+        <a
+          class="btn btnRosaSalmao"
+          title="Voltar"
+          routerLink="/client/home"
+        >
+          <i class="fa-solid fa-location-arrow btnVoltar"></i>
+        </a>
       </div>
     </form>
   </div>

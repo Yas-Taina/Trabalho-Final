@@ -27,13 +27,12 @@
       <h3>Serviços Realizados</h3>
       <p>{{ solicitacao.manutencao }}</p>
     </div>
-    <div class="d-flex flex-column">
+    <div class="d-flex flex-column align-items-center">
       <a
         *ngIf="solicitacao.estado === 'ABERTA'"
-        class="btn btn-xs btn-rosa-salmao"
+        class="btn btnRosaSalmao btnAcao"
         title="Orçar"
         (click)="abrirModalOrcar()"
-        style="width: 300px"
       >
         <i class="fa-solid fa-hand-holding-dollar"></i>&nbsp;&nbsp;Realizar
         Orçamento
@@ -65,10 +64,9 @@
           solicitacao.estado === 'APROVADA' ||
           solicitacao.estado === 'REDIRECIONADA'
         "
-        class="btn btn-xs botao1"
+        class="btn btnRosaSalmao btnAcao"
         title="Consertar"
         (click)="abrirModalConsertar()"
-        style="width: 300px"
       >
         <i class="fa-solid fa-gears"></i>&nbsp;&nbsp;Efetuar Manutenção
       </a>
@@ -99,10 +97,9 @@
           solicitacao.estado === 'APROVADA' ||
           solicitacao.estado === 'REDIRECIONADA'
         "
-        class="btn btn-xs btn-creme"
+        class="btn btnTransparenteSalmao btnAcao"
         title="Redirecionar"
         (click)="abrirModalRedirecionar()"
-        style="width: 300px"
       >
         <i class="fa-solid fa-user-gear"></i>&nbsp;&nbsp;Redirecionar
         Solicitação
@@ -126,20 +123,18 @@
       </ng-template>
       <a
         *ngIf="solicitacao.estado === 'PAGA'"
-        class="btn btn-xs btn-rosa-salmao"
+        class="btn btnRosaSalmao btnAcao"
         title="Finalizar"
         (click)="finalizar()"
-        style="width: 300px"
       >
         <i class="fa-solid fa-check-to-slot"></i>&nbsp;&nbsp;Finalizar
         Solicitação
       </a>
-      <div>
+      <div class="d-flex flex-column align-items-center">
         <a
-          class="btn btn-xs botao1"
+          class="btn btnRosaSalmao btnAcao"
           title="Histórico"
           (click)="toggleHist()"
-          style="width: 300px"
         >
           <i class="fa-solid fa-book-open"></i>&nbsp;&nbsp;Histórico
         </a>
@@ -165,7 +160,7 @@
         <p>{{ cliente?.nome }}</p>
       </div>
       <button
-        class="btn icon-olho position-absolute end-0 top-50 translate-middle-y"
+        class="btnIcon position-absolute end-0 top-50 translate-middle-y"
         (click)="toggleClientView()"
         title="Visualizar"
       >
@@ -193,7 +188,7 @@
         <p>{{ equipamento?.nome }}</p>
       </div>
       <button
-        class="btn icon-olho position-absolute end-0 top-50 translate-middle-y"
+        class="btnIcon position-absolute end-0 top-50 translate-middle-y"
         (click)="toggleEquipView()"
         title="Visualizar"
       >
@@ -214,13 +209,12 @@
       <p>{{ solicitacao.defeito }}</p>
     </div>
     <hr />
-    <div style="display: flex">
+    <div class="d-flex justify-content-end gap-3 mt-4">
       <a
-        class="btn btn-voltar"
+        class="btn btnRosaSalmao"
         routerLink="/adm/home"
-        style="margin-left: auto"
       >
-        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        <i class="fa-solid fa-location-arrow btnVoltar"></i>
       </a>
     </div>
   </div>

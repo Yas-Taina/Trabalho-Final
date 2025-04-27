@@ -1,5 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
-/*
+/*---Atalho para cores e fontes---
 Cores:
 Azul 1: #1e3542
 Azul 2: #3f5f72
@@ -8,10 +7,12 @@ Rosa salmão: #e4a18f
 Rosa chá: #b84c65
 
 Fontes:
-Titulos: Blackest text regular
+Titulos: Blackest Text
 Texto 1: DejaVu Serif
-Texto 2: DM sans regular
+Texto 2: DM Sans
 */
+
+/*---Declaração de Fontes---*/
 
 @font-face {
   font-family: "Blackest";
@@ -83,6 +84,152 @@ Texto 2: DM sans regular
   src: url("./assets/fonts/DejaVuSerif-BoldItalic.woff") format("woff");
 }
 
+/*---Botões---*/
+
+.btn{
+  font-family: "DM Sans";
+  padding: 5px 20px 5px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin: 0.2rem;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+}
+
+.btn:hover{
+  transform: scale(1.05);
+}
+
+.btn:active{
+  transform: scale(0.95);
+}
+
+.btnRosaCha{
+  background-color: #b84c65;
+  color: #fff8e6;
+}
+
+.btnRosaCha:hover{
+  background-color: transparent;
+  color: #b84c65;
+  border: 2px solid #b84c65;
+}
+
+.btnRosaCha:disabled{
+  background-color: transparent;
+  color: #cc7f91;
+  border: 2px solid #cc7f91;
+}
+
+.btnRosaSalmao{
+  background-color: #e4a18f;
+  color: #fff8e6;
+}
+
+.btnRosaSalmao:hover{
+  background-color: transparent;
+  color: #e4a18f;
+  border: 2px solid #e4a18f;
+}
+
+.btnRosaSalmao:disabled{
+  background-color: transparent;
+  color: #ebbaad;
+  border: 2px solid #ebbaad;
+}
+
+.btnAzul{
+  background-color: #3f5f72;
+  color: #fff8e6;
+}
+
+.btnAzul:hover{
+  background-color: transparent;
+  color: #3f5f72;
+  border: 2px solid #3f5f72;
+}
+
+.btnAzul:disabled{
+  background-color: transparent;
+  color: #5b89a4;
+  border: 2px solid #5b89a4;
+}
+
+.btnCreme{
+  background-color: #fff8e6;
+  color: #3f5f72;
+}
+
+.btnCreme:hover{
+  background-color: transparent;
+  color: #fff8e6;
+  border: 2px solid #fff8e6;
+}
+
+.btnTransparenteCreme{
+  background-color: transparent;
+  color: #fff8e6;
+  border: 2px solid #fff8e6;
+}
+
+.btnTransparenteCreme:hover{
+  background-color: #fff8e6;
+  color: #3f5f72;
+}
+
+.btnTransparenteSalmao{
+  background-color: transparent;
+  color: #e4a18f;
+  border: 2px solid #e4a18f;
+}
+
+.btnTransparenteSalmao:hover{
+  background-color: #e4a18f;
+  color: #fff8e6;
+}
+
+.btnAcao{
+  min-width: 300px;
+  max-width: 300px;
+}
+
+.btnTabela{
+  min-width: 150px;
+  max-width: 150px;
+  padding: 5px;
+}
+
+.btnIcon{
+  background-color: transparent;
+  border: none;
+  padding: 10px;
+  font-size: 1.5rem;
+  color: #b84c65;
+  transition:
+    font-size 0.3s ease,
+    transform 0.2s ease;
+}
+
+.btnIcon:hover{
+  color: #3f5f72; 
+  font-size: 1.55rem;
+}
+
+.btnIcon:active{
+  transform: scale(0.95);
+}
+
+.btnIcon:disabled{
+  color: #cc7f91;
+}
+
+.btnVoltar{
+  rotate: -135deg;
+}
+
+/**/
+
 #boxServico {
   border: 1px solid var(--rosa-salmao);
   border-radius: 20px;
@@ -118,17 +265,9 @@ Texto 2: DM sans regular
 }
 
 body {
-  font-family: "DM Sans", sans-serif;
+  font-family: "DejaVu Serif";
   color: var(--text-color);
   overflow-x: hidden;
-}
-
-header {
-  background-color: white;
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .azul2 {
@@ -152,64 +291,18 @@ header {
   text-align: center;
 }
 
-.botao1 {
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  border: none;
-  color: var(--background-color);
-  background-color: var(--primary-color);
-  font-weight: 600;
-  cursor: pointer;
-  transition:
-    background-color 0.3s ease,
-    transform 0.2s ease;
+/*---Caixa de Titulo das Páginas---*/
+
+.imgFundoTitulo {
+  width: 450px;
+  min-width: 450px;
+  max-width: 450px;
 }
 
-.botao2 {
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  border: none;
-  background-color: var(--primary-color-dark);
-  font-weight: 600;
-  cursor: pointer;
-  transition:
-    background-color 0.3s ease,
-    transform 0.2s ease;
-  color: var(--background-color);
-}
-
-.botao1:hover {
-  color: var(--background-color);
-  background-color: var(--button-hover1);
-  transform: scale(1.05);
-}
-
-.botao2:hover {
-  background-color: var(--button-hover2);
-  transform: scale(1.05);
-}
-
-.button:secondary {
-  background-color: transparent;
-  border: 2px solid var(--primary-color);
-  color: var(--primary-color);
-}
-
-.btn {
-  margin: 5px;
-  border-radius: 15px;
-}
-
-.backgroundimg {
-  width: 400px;
-  min-width: 400px;
-  max-width: 400px;
-}
-
-#containerImagem {
+.containerTituloPagina {
   position: relative;
   text-align: center;
-  font-size: 30px;
+  font-size: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -217,12 +310,14 @@ header {
   color: #fff8e6;
 }
 
-#tituloImagem {
+.tituloPagina {
   position: absolute;
-  top: 50%;
+  top: 48%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -52%);
 }
+
+/**/
 
 .bg-creme {
   background-color: var(--creme);
@@ -239,149 +334,6 @@ header {
 .rosa-salmao a {
   color: var(--rosa-salmao);
   text-decoration: underline;
-}
-
-.botaorosa {
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  border: none;
-  background-color: var(--primary-color);
-  font-weight: 600;
-  cursor: pointer;
-  transition:
-    background-color 0.3s ease,
-    transform 0.2s ease;
-}
-
-.botaobranco {
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  border: none;
-  background-color: var(--background-color);
-  font-weight: 600;
-  cursor: pointer;
-  transition:
-    background-color 0.3s ease,
-    transform 0.2s ease;
-  color: var(--text-color);
-}
-
-.botaorosa:hover {
-  color: var(--text-color);
-  background-color: var(--button-hover1);
-  transform: scale(1.05);
-}
-
-.botaobranco:hover {
-  background-color: var(--button-hover2);
-  transform: scale(1.05);
-}
-
-.btn-rosa-salmao {
-  background-color: var(--rosa-salmao);
-  color: var(--creme);
-  border: none;
-  padding: 0.4rem 1.2rem;
-  border-radius: 25px;
-  font-weight: bold;
-  font-size: 0.9rem;
-  transition:
-    background-color 0.2s ease,
-    transform 0.1s ease;
-}
-
-.btn-rosa-salmao:hover {
-  background-color: var(--rosa-cha);
-  color: var(--creme);
-  transform: scale(1.05);
-}
-
-.btn-rosa-salmao:active {
-  background-color: var(--creme);
-  transform: scale(0.95);
-}
-
-.btn-creme {
-  border-color: var(--rosa-cha);
-  background-color: var(--creme);
-  color: var(--azul1);
-}
-
-.btn-creme:hover {
-  background-color: var(--azul2);
-  color: var(--creme);
-  transform: scale(1.05);
-  border: 2px solid var(--creme);
-}
-
-.btn-rosa-cha[disabled] {
-  background-color: var(--rosa-cha) !important; /* cor alternativa mais clara */
-  border-color: var(--rosa-cha) !important;
-  color: var(--creme) !important;
-  cursor: not-allowed !important;
-  opacity: 0.7;
-}
-
-.btn-rosa-salmao[disabled] {
-  background-color: var(
-    --rosa-salmao
-  ) !important; /* cor alternativa mais clara */
-  border-color: var(--rosa-salmao) !important;
-  color: var(--creme) !important;
-  cursor: not-allowed !important;
-  opacity: 0.7;
-}
-
-.btn-azul2 {
-  border-color: var(--creme);
-  background-color: var(--azul2);
-  color: var(--creme);
-}
-
-.btn-azul2:hover {
-  background-color: var(--creme);
-  color: var(--azul2);
-  transform: scale(1.05);
-}
-
-button:secondary {
-  background-color: transparent;
-  border: 2px solid var(--primary-color);
-  color: var(--primary-color);
-}
-
-.btn {
-  margin: 5px;
-  border-radius: 15px;
-}
-
-.btn-rosa-cha {
-  background-color: var(--rosa-cha);
-  color: var(--creme);
-  border: none;
-  padding: 0.4rem 1.2rem;
-  border-radius: 25px;
-  font-weight: bold;
-  font-size: 0.9rem;
-  transition:
-    background-color 0.2s ease,
-    transform 0.1s ease;
-}
-
-.btn-rosa-cha:hover {
-  background-color: var(--rosa-cha);
-  color: var(--creme);
-  transform: scale(1.05);
-}
-
-.btn-rosa-cha:active {
-  background-color: var(--creme);
-  transform: scale(0.95);
-}
-
-.backgroundimg {
-  max-width: 600px;
-  width: 80%;
 }
 
 /* Tabela */
@@ -444,21 +396,6 @@ button:secondary {
   color: var(--azul2);
 }
 
-.icon-olho,
-.icon-olho:hover {
-  font-size: 1.2rem;
-  color: var(--rosa-cha);
-  background-color: transparent;
-  padding: 0px;
-  margin: 0px;
-}
-.btn-voltar {
-  background-color: transparent;
-  color: var(--rosa-cha);
-  font-size: 1.8rem;
-  border: none;
-}
-
 .titulo-box {
   color: var(--rosa-cha);
   font-weight: bold;
@@ -477,99 +414,6 @@ button:secondary {
 
 .bg-rosa-salmao {
   background-color: var(--rosa-salmao);
-}
-
-.burgue {
-  background: none;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 35px;
-  width: 35px;
-  padding: 0;
-  position: relative;
-  z-index: 1000;
-  min-width: 35px;
-  min-height: 35px;
-}
-
-.burgue span {
-  position: absolute;
-  width: 24px;
-  height: 3px;
-  background-color: #3f5f72;
-  border-radius: 2px;
-  transition: all 0.3s ease-in-out;
-}
-
-.burgue span:nth-child(1) {
-  top: 6px;
-}
-
-.burgue span:nth-child(2) {
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.burgue span:nth-child(3) {
-  bottom: 6px;
-}
-
-.menu-col.show ~ header .burgue span:nth-child(1) {
-  top: 50%;
-  transform: translateY(-50%) rotate(45deg);
-}
-
-.menu-col.show ~ header .burgue span:nth-child(2) {
-  opacity: 0;
-}
-
-.menu-col.show ~ header .burgue span:nth-child(3) {
-  bottom: 50%;
-  transform: translateY(50%) rotate(-45deg);
-}
-
-.menu-col {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 250px;
-  background-color: var(--rosa-salmao);
-  font-family: "DejaVu Serif";
-  text-align: end;
-  transform: translateX(-100%);
-  transition: transform 0.3s ease-in-out;
-  z-index: 999;
-  border-right: 1px solid #3f5f72;
-}
-
-.menu-col a {
-  display: block;
-  padding: 10px;
-  text-decoration: none;
-  color: var(--text-color);
-  transition: background-color 0.3s ease-in-out;
-  text-align: end;
-}
-
-.menu-col.show {
-  transform: translateX(0);
-}
-.menu-itens div {
-  margin: 10px 0;
-}
-
-button {
-  margin: 5px;
-}
-
-@media (max-width: 768px) {
-  .menu-col {
-    width: 100vw;
-  }
 }
 
 .bold-creme {

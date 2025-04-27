@@ -1,16 +1,16 @@
 <div id="listarequipamento" class="row">
-  <div class="col-md-4" id="containerImagem">
+  <div class="col-md-4 containerTituloPagina">
     <img
       src="../../../../assets/images/backgroundTitle.png"
-      class="backgroundimg"
+      class="imgFundoTitulo"
     />
-    <div id="tituloImagem"><h1>Equipamentos</h1></div>
+    <div class="tituloPagina"><h1>Equipamentos</h1></div>
   </div>
 
   <div class="col-md-8">
-    <div style="display: flex; justify-content: right">
+    <div class="d-flex justify-content-end">
       <a
-        class="btn btn-xs botao1"
+        class="btn btnRosaSalmao"
         [routerLink]="['/adm/equipamentos/novo']"
         title="Novo Cadastro"
       >
@@ -35,13 +35,8 @@
               href="#"
               title="Editar"
               alt="Editar"
-              class="btn btn-xs botao2"
+              class="btnIcon"
               [routerLink]="['/adm/equipamentos/editar', equipamento.id]"
-              style="
-                background-color: transparent;
-                color: #b84c65;
-                font-size: 25px;
-              "
             >
               <i class="fa-solid fa-pen-nib" aria-hidden="true"></i>
             </a>
@@ -51,13 +46,8 @@
               href="#"
               title="Remover"
               alt="Remover"
-              class="btn btn-xs botao2"
+              class="btnIcon"
               (click)="remover($event, equipamento)"
-              style="
-                background-color: transparent;
-                color: #b84c65;
-                font-size: 25px;
-              "
             >
               <i class="fa fa-trash" aria-hidden="true"></i>
             </a>
@@ -66,5 +56,14 @@
       </tbody>
     </table>
     <p *ngIf="equipamentos.length === 0">Nenhum Equipamento Cadastrado.</p>
+    <div class="d-flex justify-content-end gap-3 mt-4">
+      <a
+        class="btn btnRosaSalmao"
+        title="Voltar"
+        routerLink="/adm/home"
+      >
+        <i class="fa-solid fa-location-arrow btnVoltar"></i>
+      </a>
+    </div>
   </div>
 </div>

@@ -1,22 +1,23 @@
 <div id="clienthome" class="row">
-  <div class="col-md-4" id="containerImagem">
+  <div class="col-md-4 containerTituloPagina">
     <img
       src="../../../../assets/images/backgroundTitle.png"
-      class="backgroundimg"
+      class="imgFundoTitulo"
     />
-    <div id="tituloImagem"><h1>Início</h1></div>
+    <div class="tituloPagina"><h1>Início</h1></div>
   </div>
 
   <div class="col-md-8 d-flex flex-column">
+    <div class="d-flex justify-content-end">
     <a
-      class="btn btn-xs botao1"
+      class="btn btnRosaSalmao"
       [routerLink]="['/client/solicitacao/novo']"
       title="Nova Solicitação"
-      style="margin-left: auto"
     >
       <i class="fa-solid fa-plus" aria aria-hidden="true"></i>&nbsp;&nbsp;Nova
       Solicitação
     </a>
+    </div>
 
     <table class="table table-striped table-bordered table-hover">
       <thead>
@@ -36,29 +37,29 @@
           <td class="text-center" style="border-right: 0">
             <a
               *ngIf="solicitacao.estado === 'ORÇADA'"
-              class="btn btn-xs btn-rosa-cha"
+              class="btn btnRosaCha btnTabela"
               [routerLink]="['/client/solicitacao/visualizar', solicitacao.id]"
               title="Ação"
-              >Aprovar/Rejeitar Serviço
+              >Aprovar/Rejeitar<br>Serviço
             </a>
             <a
               *ngIf="solicitacao.estado === 'REJEITADA'"
-              class="btn btn-xs btn-rosa-cha"
+              class="btn btnRosaCha btnTabela"
               (click)="this.resgatar($event, solicitacao)"
               title="Ação"
-              >Resgatar Serviço
+              >Resgatar<br>Serviço
             </a>
             <a
               *ngIf="solicitacao.estado === 'ARRUMADA'"
-              class="btn btn-xs btn-rosa-cha"
+              class="btn btnRosaCha btnTabela"
               [routerLink]="['/client/solicitacao/visualizar', solicitacao.id]"
               title="Ação"
-              >Pagar Serviço
+              >Pagar<br>Serviço
             </a>
           </td>
           <td class="text-center" style="border-left: 0">
             <a
-              class="btn btn-xs icon-olho"
+              class="btnIcon"
               [routerLink]="['/client/solicitacao/visualizar', solicitacao.id]"
               title="Visualizar"
             >
