@@ -62,10 +62,11 @@
           <label for="data">Data de Nascimento</label>
           <input
             type="date"
-            class="form-control"
+            class="form-control bg-creme"
             id="data"
             name="data"
-            [(ngModel)]="funcionario.data"
+            [ngModel]="funcionario.data | date: 'yyyy-MM-dd'"
+            (ngModelChange)="funcionario.data = $event"
             #data="ngModel"
             required
           />

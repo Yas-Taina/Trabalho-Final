@@ -33,7 +33,7 @@
             <tr *ngFor="let funcionario of funcionarios">
               <td>{{ funcionario.nome }}</td>
               <td>{{ funcionario.email }}</td>
-              <td>{{ funcionario.data }}</td>
+              <td>{{ funcionario.data | date: 'dd/MM/yyyy' }}</td>
               <td>
                 <a
                   class="btnIcon"
