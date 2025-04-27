@@ -9,56 +9,54 @@
 
   <div class="col-md-8 mx-auto px-0">
     <div class="containerTabela">
-    <div class="tabela">
-    <table>
-      <thead>
-        <tr>
-          <th>Data</th>
-          <th>Cliente</th>
-          <th>Estado da Solicitação</th>
-          <th colspan="2">Ações</th>
-        </tr>
-      </thead>
+      <div class="tabela">
+        <table>
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Cliente</th>
+              <th>Estado da Solicitação</th>
+              <th colspan="2">Ações</th>
+            </tr>
+          </thead>
 
-      <tbody>
-        <tr *ngFor="let solicitacao of solicitacoes">
-          <td>{{ solicitacao.data }}</td>
-          <td>{{ buscarNomeCliente(solicitacao.idCliente) }}</td>
-          <td>{{ solicitacao.estado }}</td>
-          <td style="border-right: 0">
-            <a
-              class="btn btnRosaCha btnTabela"
-              [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
-              title="Orçar"
-              >Efetuar<br>Orçamento</a
-            >
-          </td>
-          <td style="border-left: 0">
-            <a
-              class="btnIcon"
-              [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
-              title="Visualizar"
-            >
-              <i class="fa-solid fa-eye" aria aria-hidden="true"></i>
-            </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    </div>
+          <tbody>
+            <tr *ngFor="let solicitacao of solicitacoes">
+              <td>{{ solicitacao.data }}</td>
+              <td>{{ buscarNomeCliente(solicitacao.idCliente) }}</td>
+              <td>{{ solicitacao.estado }}</td>
+              <td style="border-right: 0">
+                <a
+                  class="btn btnRosaCha btnTabela"
+                  [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
+                  title="Orçar"
+                  >Efetuar<br />Orçamento</a
+                >
+              </td>
+              <td style="border-left: 0">
+                <a
+                  class="btnIcon"
+                  [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
+                  title="Visualizar"
+                >
+                  <i class="fa-solid fa-eye" aria aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <p class="m-3" *ngIf="solicitacoes.length === 0">
       Nenhuma Solicitação em Estado Aberto.
     </p>
   </div>
-  <div class="row text-center mt-4" id="relatorio">
+  <div class="row mt-4" id="relatorio">
     <div
       class="col-md-4 d-flex flex-column justify-content-center align-items-center"
     >
-      <h2 style="text-align: right; font-family: 'Blackest Text'">
-        EMITIR<br />RELATÓRIO<br />FINANCEIRO
-      </h2>
+      <h2 class="tituloGrande">EMITIR<br />RELATÓRIO<br />FINANCEIRO</h2>
     </div>
     <div class="col-md-4 d-flex justify-content-center align-items-center">
       <a
@@ -80,60 +78,60 @@
     </div>
   </div>
 
-    <div class="row">
-      <div class="col-md-4 d-flex flex-column align-items-center">
-        <h2 style="font-family: 'Blackest Text'">Solicitações</h2>
-        <i class="fa-solid fa-screwdriver-wrench" id="iconHome"></i>
-        <a
-          class="btn btnCreme btnAcao"
-          [routerLink]="['/adm/atribuicoes']"
-          title="Categoria"
-        >
-          Minhas Atribuições
-        </a>
-        <a
-          class="btn btnTransparenteCreme btnAcao"
-          [routerLink]="['/adm/solicitacoes']"
-          title="Categoria"
-        >
-          Visualizar Todas
-        </a>
-      </div>
-      <div class="col-md-4 d-flex flex-column align-items-center">
-        <h2 style="font-family: 'Blackest Text'">Equipamentos</h2>
-        <i class="fa-solid fa-computer" id="iconHome"></i>
-        <a
-          class="btn btnCreme btnAcao"
-          [routerLink]="['/adm/equipamentos']"
-          title="Visualizar Equipamentos"
-        >
-          Visualizar
-        </a>
-        <a
-          class="btn btnTransparenteCreme btnAcao"
-          [routerLink]="['/adm/equipamentos/novo']"
-          title="Novo Equipamento"
-        >
-          Cadastrar Novo
-        </a>
-      </div>
-      <div class="col-md-4 d-flex flex-column align-items-center">
-        <h2 style="font-family: 'Blackest Text'">Funcionários</h2>
-        <i class="fa-solid fa-users" id="iconHome"></i>
-        <a
-          class="btn btnCreme btnAcao"
-          [routerLink]="['/adm/funcionarios']"
-          title="Visualizar Funcionários"
-        >
-          Visualizar
-        </a>
-        <a
-          class="btn btnTransparenteCreme btnAcao"
-          [routerLink]="['/adm/funcionarios/novo']"
-          title="Novo Funcionário"
-        >
-          Cadastrar Novo
-        </a>
-      </div>
+  <div class="row">
+    <div class="col-md-4 d-flex flex-column align-items-center">
+      <h2 class="tituloPequeno">Solicitações</h2>
+      <i class="fa-solid fa-screwdriver-wrench" id="iconHome"></i>
+      <a
+        class="btn btnCreme btnAcao"
+        [routerLink]="['/adm/atribuicoes']"
+        title="Categoria"
+      >
+        Minhas Atribuições
+      </a>
+      <a
+        class="btn btnTransparenteCreme btnAcao"
+        [routerLink]="['/adm/solicitacoes']"
+        title="Categoria"
+      >
+        Visualizar Todas
+      </a>
+    </div>
+    <div class="col-md-4 d-flex flex-column align-items-center">
+      <h2 class="tituloPequeno">Equipamentos</h2>
+      <i class="fa-solid fa-computer" id="iconHome"></i>
+      <a
+        class="btn btnCreme btnAcao"
+        [routerLink]="['/adm/equipamentos']"
+        title="Visualizar Equipamentos"
+      >
+        Visualizar
+      </a>
+      <a
+        class="btn btnTransparenteCreme btnAcao"
+        [routerLink]="['/adm/equipamentos/novo']"
+        title="Novo Equipamento"
+      >
+        Cadastrar Novo
+      </a>
+    </div>
+    <div class="col-md-4 d-flex flex-column align-items-center">
+      <h2 class="tituloPequeno">Funcionários</h2>
+      <i class="fa-solid fa-users" id="iconHome"></i>
+      <a
+        class="btn btnCreme btnAcao"
+        [routerLink]="['/adm/funcionarios']"
+        title="Visualizar Funcionários"
+      >
+        Visualizar
+      </a>
+      <a
+        class="btn btnTransparenteCreme btnAcao"
+        [routerLink]="['/adm/funcionarios/novo']"
+        title="Novo Funcionário"
+      >
+        Cadastrar Novo
+      </a>
+    </div>
   </div>
 </div>

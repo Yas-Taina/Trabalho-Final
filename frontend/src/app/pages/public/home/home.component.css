@@ -4,14 +4,14 @@
 }
 
 #bigdecor {
-  max-width: 100%;
+  max-width: 50%;
 }
 
-.homeImgDecoracao{
-  background-color: #e4a18f;
-  padding: 30px;
+.homeImgDecoracao {
+  background-color: var(--salmao);
+  padding: 10px;
 }
 
-.btn{
+.btn {
   font-size: 1.2rem;
 }

@@ -1,16 +1,16 @@
 /*---Icones Usados Como Imagens---*/
 #iconHome {
   font-size: 150px;
-  color: #e4a18f;
+  color: var(--salmao);
   margin: 1vw;
   padding: auto;
 }
 
 /*---Box de Relatórios---*/
 #relatorio {
-  border: 2px solid #e4a18f;
+  border: 2px solid var(--salmao);
   border-radius: 30px;
   padding: 10px 100px 10px;
   justify-content: space-between;
-  align-items: right;
+  text-align: right;
 }

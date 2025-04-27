@@ -18,16 +18,12 @@
         >
           <i class="fa-solid fa-filter-circle-xmark"></i>
         </a>
-        <a
-          class="btn btnRosaSalmao"
-          title="Filtrar"
-          (click)="toggleFilter()"
-        >
+        <a class="btn btnRosaSalmao" title="Filtrar" (click)="toggleFilter()">
           <i class="fa-solid fa-filter"></i>
         </a>
       </div>
-    
-      <div class="mb-3 col-md-4" *ngIf="isFilterOpen">
+
+      <div class="mb-3 col-md-4 text-start" *ngIf="isFilterOpen">
         <label for="dataMinima">Filtrar a partir de:</label>
         <input
           type="date"
@@ -38,81 +34,77 @@
         />
       </div>
     </div>
-      <div class="containerTabela">
+    <div class="containerTabela">
       <div class="tabela">
-      <table>
-      <thead>
-        <tr>
-          <th></th>
-          <th>Data</th>
-          <th>Cliente</th>
-          <th>Estado da Solicitação</th>
-          <th>Descrição</th>
-          <th colspan="2">Ações</th>
-        </tr>
-      </thead>
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Data</th>
+              <th>Cliente</th>
+              <th>Estado da Solicitação</th>
+              <th>Descrição</th>
+              <th colspan="2">Ações</th>
+            </tr>
+          </thead>
 
-      <tbody>
-        <tr *ngFor="let solicitacao of solicitacoes">
-          <td>
-            <span
-              class="bola-status"
-              [style.background-color]="getCorStatus(solicitacao.estado)"
-            ></span>
-          </td>
-          <td>{{ solicitacao.data }}</td>
-          <td>{{ buscarNomeCliente(solicitacao.idCliente) }}</td>
-          <td>{{ solicitacao.estado }}</td>
-          <td>{{ solicitacao.descricao }}</td>
-          <td class="text-center" style="border-right: 0">
-            <a
-              *ngIf="solicitacao.estado === 'ABERTA'"
-              class="btn btnRosaCha btnTabela"
-              [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
-              title="Orçar"
-              >Realizar<br>Orçamento</a
-            >
-            <a
-              *ngIf="
-                solicitacao.estado === 'APROVADA' ||
-                solicitacao.estado === 'REDIRECIONADA'
-              "
-              [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
-              class="btn btnRosaCha btnTabela"
-              title="Consertar"
-              >Realizar<br>Manutenção</a
-            >
-            <a
-              *ngIf="solicitacao.estado === 'PAGA'"
-              class="btn btnRosaCha btnTabela"
-              (click)="this.finalizar(solicitacao)"
-              title="Finalizar"
-              >Finalizar<br>Solicitação</a
-            >
-          </td>
-          <td class="text-center" style="border-left: 0">
-            <a
-              class="btnIcon"
-              [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
-              title="Visualizar"
-            >
-              <i class="fa-solid fa-eye" aria aria-hidden="true"></i>
-            </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    </div>
+          <tbody>
+            <tr *ngFor="let solicitacao of solicitacoes">
+              <td>
+                <span
+                  class="bola-status"
+                  [style.background-color]="getCorStatus(solicitacao.estado)"
+                ></span>
+              </td>
+              <td>{{ solicitacao.data }}</td>
+              <td>{{ buscarNomeCliente(solicitacao.idCliente) }}</td>
+              <td>{{ solicitacao.estado }}</td>
+              <td>{{ solicitacao.descricao }}</td>
+              <td style="border-right: 0">
+                <a
+                  *ngIf="solicitacao.estado === 'ABERTA'"
+                  class="btn btnRosaCha btnTabela"
+                  [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
+                  title="Orçar"
+                  >Realizar<br />Orçamento</a
+                >
+                <a
+                  *ngIf="
+                    solicitacao.estado === 'APROVADA' ||
+                    solicitacao.estado === 'REDIRECIONADA'
+                  "
+                  [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
+                  class="btn btnRosaCha btnTabela"
+                  title="Consertar"
+                  >Realizar<br />Manutenção</a
+                >
+                <a
+                  *ngIf="solicitacao.estado === 'PAGA'"
+                  class="btn btnRosaCha btnTabela"
+                  (click)="this.finalizar(solicitacao)"
+                  title="Finalizar"
+                  >Finalizar<br />Solicitação</a
+                >
+              </td>
+              <td style="border-left: 0">
+                <a
+                  class="btnIcon"
+                  [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
+                  title="Visualizar"
+                >
+                  <i class="fa-solid fa-eye" aria aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <p *ngIf="solicitacoes.length === 0">Nenhuma Solicitação Cadastrada.</p>
 
     <div class="d-flex justify-content-end gap-3 mt-4">
-      <a
-        class="btn btnRosaSalmao"
-        title="Voltar"
-        routerLink="/adm/home"
-      >
+      <a class="btn btnRosaSalmao" title="Voltar" routerLink="/adm/home">
         <i class="fa-solid fa-location-arrow btnVoltar"></i>
       </a>
     </div>

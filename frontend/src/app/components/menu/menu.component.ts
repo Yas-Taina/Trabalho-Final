@@ -72,7 +72,8 @@ export class MenuComponent implements OnInit, OnDestroy {
   @HostListener("document:click", ["$event"])
   onClick(event: MouseEvent) {
     const menucont = this.elementRef.nativeElement.querySelector("#mainMenu");
-    const btnHamburguer = this.elementRef.nativeElement.querySelector(".btnHamburguer");
+    const btnHamburguer =
+      this.elementRef.nativeElement.querySelector(".btnHamburguer");
 
     if (
       menucont &&
