@@ -8,6 +8,7 @@ import { RouterModule } from "@angular/router";
 import { LoginService } from "../../../services/login/login.service";
 import { EstadosSolicitacao } from "../../../shared/models/enums/estados-solicitacao";
 import { EstadoAmigavelPipe } from "../../../shared/pipes/estado-amigavel.pipe";
+import { HistoricoUtils } from "../../../shared/utils/historico-utils";
 
 @Component({
   selector: "app-inicio",
@@ -59,24 +60,12 @@ export class ClienteInicioComponent {
     ) {
       solicitacao.estado = EstadosSolicitacao.Aprovada;
       this.orcamento = this.carregarOrcamento(solicitacao);
-      this.atualizarHistorico(solicitacao);
+      HistoricoUtils.atualizarHistorico(solicitacao);
       this.atualizar(solicitacao);
       alert(
         `Solicitação resgatada. Serviço aprovado no valor de R$ ${this.orcamento!.valor}`,
       );
     }
-  }
-
-  atualizarHistorico(solicitacao: Solicitacao): void {
-    const dataAtual = new Date();
-    const dia = dataAtual.getDate().toString().padStart(2, "0");
-    const mes = (dataAtual.getMonth() + 1).toString().padStart(2, "0");
-    const ano = dataAtual.getFullYear();
-    const horas = dataAtual.getHours().toString().padStart(2, "0");
-    const minutos = dataAtual.getMinutes().toString().padStart(2, "0");
-    const estado = solicitacao.estado;
-    const add = `• ${estado}, Data: ${dia}/${mes}/${ano} - ${horas}:${minutos} \n`;
-    solicitacao.historico += add;
   }
 
   atualizar(solicitacao: Solicitacao): void {

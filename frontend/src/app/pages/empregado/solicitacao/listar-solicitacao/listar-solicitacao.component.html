@@ -11,7 +11,7 @@
     <div class="d-flex flex-column align-items-end m-2">
       <div>
         <a
-          *ngIf="dataMinima !== ''"
+          *ngIf="dataMinima"
           class="btn btnRosaSalmao"
           title="Limpar Filtro"
           (click)="limparFiltro()"
@@ -29,8 +29,8 @@
           type="date"
           class="form-control"
           id="dataMinima"
-          [(ngModel)]="dataMinima"
-          (change)="filtrarPorData()"
+          [ngModel]="dataMinima | date: 'yyyy-MM-dd'"
+          (ngModelChange)="dataMinima = $event; filtrarPorData()"
         />
       </div>
     </div>
@@ -56,7 +56,7 @@
                   [style.background-color]="solicitacao.estado | estadoCor"
                 ></span>
               </td>
-              <td>{{ solicitacao.data }}</td>
+              <td>{{ solicitacao.data | date: 'dd/MM/yyyy - HH:mm' }}</td>
               <td>{{ buscarNomeCliente(solicitacao.idCliente) }}</td>
               <td>{{ solicitacao.estado | estadoAmigavel }}</td>
               <td>{{ solicitacao.descricao }}</td>
