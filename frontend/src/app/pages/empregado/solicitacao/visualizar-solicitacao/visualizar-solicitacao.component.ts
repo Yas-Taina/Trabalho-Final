@@ -18,6 +18,7 @@ import { Router } from "@angular/router";
 import { EstadosSolicitacao } from "../../../../shared/models/enums/estados-solicitacao";
 import { EstadoAmigavelPipe } from "../../../../shared/pipes/estado-amigavel.pipe";
 import { HistoricoUtils } from "../../../../shared/utils/historico-utils";
+import { Funcionario } from "../../../../shared/models/funcionario.model";
 
 @Component({
   selector: "app-visualizar-solicitacao",
@@ -45,7 +46,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
   isEquipOpen = false;
   isClientOpen = false;
   isHistOpen = false;
-  funcionarios: any[] = [];
+  funcionarios: Funcionario[] = [];
   confirmada!: (formData: any) => void;
 
   currentModalTitle: string = "";
