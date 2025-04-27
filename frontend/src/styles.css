@@ -1,17 +1,3 @@
-/*---Atalho para cores e fontes---
-Cores:
-Azul 1: var(--azulEscuro)
-Azul 2: var(--azulRoyal)
-Creme: var(--creme)
-Rosa salmão: var(--salmao)
-Rosa chá: var(--rosaCha)
-
-Fontes:
-Titulos: Blackest Text
-Texto 1: DejaVu Serif
-Texto 2: DM Sans
-*/
-
 /*---Declaração de Fontes---*/
 @font-face {
   font-family: "Blackest";
@@ -242,7 +228,7 @@ Texto 2: DM Sans
   rotate: -135deg;
 }
 
-/*---Tabela---*/
+/*---Tabelas---*/
 .containerTabela {
   width: 100%;
   overflow-x: auto;
@@ -316,7 +302,7 @@ table tbody tr:hover td {
   transform: translate(-50%, -52%);
 }
 
-/*---Configurações de componentes do site*/
+/*---Componentes do site---*/
 html,
 body {
   font-family: "DejaVu Serif";
@@ -343,7 +329,7 @@ footer {
 .mainCreme {
   background-color: var(--creme);
   color: var(--azulEscuro);
-  padding: 20px;
+  padding: 2rem;
 }
 
 .mainCreme .tituloGrande {
@@ -423,7 +409,7 @@ textarea {
   text-decoration: underline;
 }
 
-/*caixa de Destaque*/
+/*---Caixa de Destaque---*/
 .box {
   border: 2px solid var(--salmao);
   border-radius: 20px;
@@ -441,8 +427,7 @@ textarea {
   color: var(--azulRoyal);
 }
 
-/*Outros itens*/
-
+/*---Outros itens---*/
 hr {
   border-top: 1px solid var(--azulEscuro);
   width: 100%;
