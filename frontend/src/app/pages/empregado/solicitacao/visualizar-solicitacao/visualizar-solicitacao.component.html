@@ -1,12 +1,5 @@
-<div
-  id="visualizar-solicitacao"
-  class="row d-flex justify-content-center bg-creme"
->
-  <div
-    class="col-md-4 d-flex flex-column align-items-center"
-    style="padding-top: 30px"
-  >
-    <br />
+<div  class="row d-flex justify-content-center mainCreme">
+  <div class="col-md-4 d-flex flex-column align-items-center text-center gap-3">
     <div
       *ngIf="solicitacao.estado !== 'ABERTA'"
       id="boxOrcamento"
@@ -14,7 +7,7 @@
     >
       <h5 class="titulo-box">VALOR</h5>
       <h2 class="valor-box">{{ orcamento.valor | currency: "BRL" }}</h2>
-      <p class="azul2">
+      <p>
         Orçamento feito por funcionario {{ nomeFuncionarioOrc }} em
         {{ orcamento.data }}
       </p>
@@ -145,8 +138,7 @@
     </div>
   </div>
 
-  <div id="detalhes" class="col-md-4 detalhes-solicitacao text-center mx-auto">
-    <br /><br />
+  <div id="detalhes" class="col-md-4 detalhes-solicitacao text-center">
     <h1 class="detalhes-box">DETALHES DA<br />SOLICITAÇÃO</h1>
     <hr />
     <div class="linha-detalhe">

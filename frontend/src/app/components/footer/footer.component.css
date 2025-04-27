@@ -1,21 +1,12 @@
-.footer {
+footer {
   background-color: #333;
-  color: #fff;
+  color: #fff8e6;
   padding: 20px;
   margin: 0px;
   min-width: 100vw;
-  overflow-x: hidden;
-}
-
-.footer-container {
-  margin: 0px;
+  font-size: 12px;
   text-align: center;
-}
-
-.footer-mensagem {
-  font-family: "Times New Roman", Times, serif;
-  margin: 0px;
-  font-size: 14px;
+  line-height: 1;
 }
 
 #kitty {

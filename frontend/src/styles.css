@@ -13,7 +13,6 @@ Texto 2: DM Sans
 */
 
 /*---Declaração de Fontes---*/
-
 @font-face {
   font-family: "Blackest";
   font-style: normal;
@@ -85,7 +84,6 @@ Texto 2: DM Sans
 }
 
 /*---Botões---*/
-
 .btn{
   font-family: "DM Sans";
   padding: 5px 20px 5px;
@@ -228,75 +226,60 @@ Texto 2: DM Sans
   rotate: -135deg;
 }
 
-/**/
-
-#boxServico {
-  border: 1px solid var(--rosa-salmao);
-  border-radius: 20px;
-  padding: 30px;
-  margin: 5px;
+/*---Tabela---*/
+.containerTabela {
+  width: 100%;
+  overflow-x: auto;
 }
 
-#boxOrcamento {
-  border-radius: 20px;
-  padding: 30px;
-  border: var(--rosa-salmao) solid 1px;
-  margin: 5px;
+.tabela {
+  min-width: 100%; 
+  display: inline-table; 
+  border-radius: 25px;
+  border: 2px solid #b84c65;
+  overflow: hidden;
 }
 
-:root {
-  /*cores principais*/
-  --primary-color: #e4a18f;
-  --primary-color-dark: #b84c65;
-  --accent-color: #f9e3ec;
-  /*cores de apoio*/
-  --background-color: #fff8e6;
-  --secondary-color: #e4a18f;
-  --text-color: #1e3542;
-  /*cores de botões*/
-  --button-hover1: #e4a18fd5;
-  --button-hover2: #b84c65d5;
-  --border-color: #e4a9c2;
-  --azul1: #1e3542;
-  --azul2: #3f5f72;
-  --creme: #fff8e6;
-  --rosa-salmao: #e4a18f;
-  --rosa-cha: #b84c65;
+table {
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  min-width: fit-content; 
+  width: 100%;
 }
 
-body {
-  font-family: "DejaVu Serif";
-  color: var(--text-color);
-  overflow-x: hidden;
-}
-
-.azul2 {
-  font-family: "DejaVu Serif";
-  color: #1e3542;
-}
-
-.titulo {
-  font-family: "DejaVu Serif";
-  color: #1e3542;
-  font-size: 55px;
-  margin-bottom: 2rem;
+table thead th {
+  background-color: #e4a18f;
+  color: #fff8e6;
+  font-size: 1rem;
+  font-family: "DM Sans";
   text-align: center;
+  padding: 0.75rem;
+  border: 1px solid #b84c65;
+  font-weight: bold;
 }
 
-.texto-descricao {
-  font-family: "DejaVu Serif";
+table tbody td {
   color: #1e3542;
-  font-size: 20px;
-  margin-bottom: 0.5%;
+  background-color: #fff8e6;
+  padding: 0.75rem;
+  border: 1px solid #b84c65;
   text-align: center;
+  vertical-align: middle;
+}
+
+table tbody tr:nth-of-type(even) td {
+  background-color: #e4a18f;
+  color: #fff8e6;
+}
+
+table tbody tr:hover td {
+  opacity: 0.9;
 }
 
 /*---Caixa de Titulo das Páginas---*/
-
 .imgFundoTitulo {
   width: 450px;
-  min-width: 450px;
-  max-width: 450px;
+  max-width: 100%;
 }
 
 .containerTituloPagina {
@@ -317,15 +300,74 @@ body {
   transform: translate(-50%, -52%);
 }
 
+/*---Configurações de componentes do site*/
+html, body {
+  font-family: "DejaVu Serif";
+  max-width: 100vw;
+  overflow-x: hidden;
+  text-align: center;
+}
+
+header, main, footer {
+  width: 100%;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mainAzul{
+  background-color: #3f5f72;
+  color: #fff8e6;
+  padding: 2rem;
+}
+
+.mainCreme{
+  background-color: #fff8e6;
+  color: #1e3542;
+  padding: 20px;
+}
+
 /**/
+
+#boxServico {
+  border: 1px solid var(--rosa-salmao);
+  border-radius: 20px;
+  padding: 30px;
+  margin: 5px;
+}
+
+#boxOrcamento {
+  border-radius: 20px;
+  padding: 30px;
+  border: var(--rosa-salmao) solid 1px;
+  margin: 5px;
+}
+
+:root {
+  --azul1: #1e3542;
+  --azul2: #3f5f72;
+  --creme: #fff8e6;
+  --rosa-salmao: #e4a18f;
+  --rosa-cha: #b84c65;
+}
+
+.titulo {
+  color: #1e3542;
+  font-size: 55px;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.texto-descricao {
+  color: #1e3542;
+  font-size: 20px;
+  margin-bottom: 0.5%;
+  text-align: center;
+}
 
 .bg-creme {
   background-color: var(--creme);
   color: var(--azul1);
-}
-
-.rosa-cha {
-  color: var(--rosa-cha);
 }
 
 .rosa-salmao {
@@ -334,39 +376,6 @@ body {
 .rosa-salmao a {
   color: var(--rosa-salmao);
   text-decoration: underline;
-}
-
-/* Tabela */
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  border: 2px solid var(--rosa-cha);
-  font-size: 1rem;
-  margin-top: 1rem;
-}
-
-.table thead th {
-  background-color: var(--rosa-salmao);
-  color: var(--creme);
-  font-size: 1.2rem;
-  text-align: center;
-  padding: 0.75rem;
-  border: 1px solid var(--rosa-cha);
-  font-weight: bold;
-}
-
-.table tbody td {
-  color: var(--azul2);
-  background-color: var(--creme);
-  padding: 0.75rem;
-  border: 1px solid var(--rosa-cha);
-  text-align: center;
-  vertical-align: middle;
-}
-
-.table-striped tbody tr:nth-of-type(even) td {
-  background-color: var(--rosa-salmao);
-  color: var(--creme);
 }
 
 .detalhes-solicitacao h1 {
@@ -410,10 +419,6 @@ body {
 .border-rosa-salmao {
   border: 2px solid var(--rosa-salmao);
   margin-top: 1.5rem;
-}
-
-.bg-rosa-salmao {
-  background-color: var(--rosa-salmao);
 }
 
 .bold-creme {

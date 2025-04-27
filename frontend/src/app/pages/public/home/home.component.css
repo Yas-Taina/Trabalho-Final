@@ -7,6 +7,11 @@
   max-width: 100%;
 }
 
+.homeImgDecoracao{
+  background-color: #e4a18f;
+  padding: 30px;
+}
+
 .btn{
   font-size: 1.2rem;
 }

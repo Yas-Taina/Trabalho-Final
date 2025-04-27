@@ -2,6 +2,10 @@
   font-family: "Blackest Text";
 }
 
+header {
+  background-color: #e4a18f;
+}
+
 /*---Botão Hamburguer---*/
 .btnHamburguer {
   background: none;

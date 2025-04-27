@@ -1,4 +1,4 @@
-<div id="listarfuncionario" class="row">
+<div class="row mainAzul">
   <div class="col-md-4 containerTituloPagina">
     <img
       src="../../../../assets/images/backgroundTitle.png"
@@ -7,7 +7,7 @@
     <div class="tituloPagina"><h1>Funcionários</h1></div>
   </div>
 
-  <div class="col-md-8">
+  <div class="col-md-8 mx-auto px-0">
     <div class="d-flex justify-content-end">
       <a
         class="btn btnRosaSalmao"
@@ -18,7 +18,9 @@
         Cadastro
       </a>
     </div>
-    <table class="table table-striped table-bordered table-hover">
+    <div class="containerTabela">
+      <div class="tabela">
+      <table>
       <thead>
         <tr>
           <th>Nome</th>
@@ -53,10 +55,12 @@
         </tr>
       </tbody>
     </table>
+    </div>
+    </div>
     <p id="semFuncionarios" *ngIf="funcionarios.length === 0">
       Nenhum Funcionário Cadastrado.
     </p>
-    <div class="d-flex justify-content-end gap-3 mt-4">
+    <div class="d-flex justify-content-end">
       <a
         class="btn btnRosaSalmao"
         title="Voltar"
