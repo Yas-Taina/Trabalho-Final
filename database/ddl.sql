@@ -8,15 +8,13 @@ CREATE DATABASE manutencao;
 -- Criar o tipo ENUM para os estados da solicitação (antes da tabela solicitacao)
 CREATE TYPE estado_solicitacao AS ENUM (
     'Aberta',
-    'Em Análise',
-    'Aguardando Orçamento',
-    'Orçamento Enviado',
-    'Orçamento Aprovado',
-    'Orçamento Rejeitado',
-    'Em Execução',
-    'Aguardando Peças',
-    'Concluída',
-    'Cancelada'
+    'Orcada',
+    'Aprovada',
+    'Rejeitada',
+    'Redirecionada',
+    'Arrumada',
+    'Paga',
+    'Finalizada'
 );
 
 -- Tabela para cliente
@@ -34,7 +32,7 @@ CREATE TABLE cliente (
 CREATE TABLE funcionario (
     id_funcionario SERIAL PRIMARY KEY, -- PK id_funcionario
     nome VARCHAR(255) NOT NULL,
-    data_admissao DATE NOT NULL,
+    data_nascimento DATE NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     senha VARCHAR(255) NOT NULL -- Armazenar HASH seguro
 );
