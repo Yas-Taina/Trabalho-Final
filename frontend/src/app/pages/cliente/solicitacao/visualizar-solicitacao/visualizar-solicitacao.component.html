@@ -1,6 +1,6 @@
 <div class="row d-flex justify-content-center mainCreme">
   <div class="col-md-4 d-flex flex-column align-items-center gap-3">
-    <div *ngIf="solicitacao.estado !== 'ABERTA'" class="box">
+    <div *ngIf="solicitacao.estado !== EstadosSolicitacao.Aberta" class="box">
       <h3 class="tituloPequeno">Valor</h3>
       <h2>{{ orcamento?.valor | currency: "BRL" }}</h2>
     </div>
@@ -17,7 +17,7 @@
 
     <div class="d-flex flex-column align-items-center">
       <a
-        *ngIf="solicitacao.estado === 'ORÇADA'"
+      *ngIf="solicitacao.estado === EstadosSolicitacao.Orcada"
         class="btn btnRosaSalmao btnAcao"
         title="Aprovar"
         (click)="aprovar($event)"
@@ -25,7 +25,7 @@
         <i class="fa-solid fa-circle-check"></i>&nbsp;&nbsp;Aprovar Serviço
       </a>
       <a
-        *ngIf="solicitacao.estado === 'ORÇADA'"
+        *ngIf="solicitacao.estado === EstadosSolicitacao.Orcada"
         class="btn btnTransparenteSalmao btnAcao"
         title="Recusar"
         (click)="abrirModal()"
@@ -57,7 +57,7 @@
         </form>
       </ng-template>
       <a
-        *ngIf="solicitacao.estado === 'REJEITADA'"
+        *ngIf="solicitacao.estado === EstadosSolicitacao.Rejeitada"
         class="btn btnRosaSalmao btnAcao"
         title="Resgatar"
         (click)="resgatar($event)"
@@ -65,7 +65,7 @@
         <i class="fa-solid fa-trash-arrow-up"></i>&nbsp;&nbsp;Resgatar Serviço
       </a>
       <a
-        *ngIf="solicitacao.estado === 'ARRUMADA'"
+        *ngIf="solicitacao.estado === EstadosSolicitacao.Arrumada"
         class="btn btnRosaSalmao btnAcao"
         title="Pagar"
         (click)="pagar($event)"
@@ -91,13 +91,13 @@
 
     <div>
       <h6 class="subtituloRosa">ESTADO</h6>
-      <p>{{ solicitacao.estado }}</p>
+      <p>{{ solicitacao.estado | estadoAmigavel }}</p>
     </div>
     <hr />
 
     <div>
       <h6 class="subtituloRosa">DATA E HORA</h6>
-      <p>{{ solicitacao.data }}</p>
+      <p>{{ solicitacao.data | date: 'dd/MM/yyyy - HH:mm' }}</p>
     </div>
     <hr />
 

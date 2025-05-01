@@ -7,15 +7,20 @@ import { Solicitacao } from "../../../../shared/models/solicitacao.model";
 import { Cliente } from "../../../../shared/models/cliente.model";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
+import { EstadosSolicitacao, getCorEstadoSolicitacao } from "../../../../shared/models/enums/estados-solicitacao";
+import { EstadoAmigavelPipe } from "../../../../shared/pipes/estado-amigavel.pipe";
+import { EstadoCorPipe } from "../../../../shared/pipes/estado-cor.pipe";
+import { HistoricoUtils } from "../../../../shared/utils/historico-utils";
 
 @Component({
   selector: "app-listar-atribuicao",
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, EstadoAmigavelPipe, EstadoCorPipe],
   templateUrl: "./listar-atribuicao.component.html",
   styleUrl: "./listar-atribuicao.component.css",
 })
 export class ListarAtribuicaoComponent {
+  EstadosSolicitacao = EstadosSolicitacao;
   solicitacoes: Solicitacao[] = [];
   clientes: Cliente[] = [];
   usuario: number = 0;
@@ -41,25 +46,6 @@ export class ListarAtribuicaoComponent {
     }
   }
 
-  getCorStatus(estado: string): string {
-    return estado === "ABERTA"
-      ? "gray"
-      : estado === "ORÇADA"
-        ? "brown"
-        : estado === "REJEITADA"
-          ? "red"
-          : estado === "APROVADA"
-            ? "yellow"
-            : estado === "REDIRECIONADA"
-              ? "purple"
-              : estado === "ARRUMADA"
-                ? "blue"
-                : estado === "PAGA"
-                  ? "orange"
-                  : estado === "FINALIZADA"
-                    ? "green"
-                    : "white";
-  }
 
   buscarNomeCliente(id: number): string {
     const cliente = this.clientes.find((c) => c.id === id);
@@ -71,30 +57,19 @@ export class ListarAtribuicaoComponent {
     this.nomeFuncionario = funcionario?.nome ?? "Funcionário não encontrado";
   }
 
-  atualizarHistorico(solicitacao: any): void {
-    const dataAtual = new Date();
-    const dia = dataAtual.getDate().toString().padStart(2, "0");
-    const mes = (dataAtual.getMonth() + 1).toString().padStart(2, "0");
-    const ano = dataAtual.getFullYear();
-    const horas = dataAtual.getHours().toString().padStart(2, "0");
-    const minutos = dataAtual.getMinutes().toString().padStart(2, "0");
-    const estado = solicitacao.estado;
-    const add = `• ${estado}, Data: ${dia}/${mes}/${ano} - ${horas}:${minutos}, Responsável: ${this.nomeFuncionario} \n`;
-    solicitacao.historico += add;
-  }
-
-  atualizar(solicitacao: any): void {
+  atualizar(solicitacao: Solicitacao): void {
     this.solicitacaoService.atualizar(solicitacao);
   }
 
-  finalizar(solicitacao: any) {
+  finalizar(solicitacao: Solicitacao) {
     if (
       confirm(
         "Deseja finalizar a solicitação? Essa ação não pode ser revertida",
       )
     ) {
-      solicitacao.estado = "FINALIZADA";
-      this.atualizarHistorico(solicitacao);
+      solicitacao.estado = EstadosSolicitacao.Finalizada;
+      HistoricoUtils.atualizarHistoricoComResponsavel(solicitacao, this.nomeFuncionario);
+      
       this.atualizar(solicitacao);
       alert("Manutenção finalizada");
     }

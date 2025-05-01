@@ -8,28 +8,33 @@ import { Cliente } from "../../../../shared/models/cliente.model";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { FormsModule } from "@angular/forms";
+import { EstadosSolicitacao, getCorEstadoSolicitacao } from "../../../../shared/models/enums/estados-solicitacao";
+import { EstadoAmigavelPipe } from "../../../../shared/pipes/estado-amigavel.pipe";
+import { EstadoCorPipe } from "../../../../shared/pipes/estado-cor.pipe";
+import { HistoricoUtils } from "../../../../shared/utils/historico-utils";
 
 @Component({
   selector: "app-listar-solicitacao",
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, EstadoAmigavelPipe, EstadoCorPipe],
   templateUrl: "./listar-solicitacao.component.html",
   styleUrl: "./listar-solicitacao.component.css",
 })
 export class ListarSolicitacaoComponent {
+  EstadosSolicitacao = EstadosSolicitacao;
   solicitacoes: Solicitacao[] = [];
   clientes: Cliente[] = [];
   nomeFuncionario: string = "";
   usuario: number = 0;
   isFilterOpen = false;
-  dataMinima: string = "";
+  dataMinima: Date | null = null;
 
   constructor(
     private solicitacaoService: SolicitacaoService,
     private clienteService: ClienteService,
     private funcionarioService: FuncionarioService,
     private loginService: LoginService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.clientes = this.clienteService.listarTodos();
@@ -44,25 +49,6 @@ export class ListarSolicitacaoComponent {
     this.usuario = sessao!.usuarioId;
   }
 
-  getCorStatus(estado: string): string {
-    return estado === "ABERTA"
-      ? "gray"
-      : estado === "ORÇADA"
-        ? "brown"
-        : estado === "REJEITADA"
-          ? "red"
-          : estado === "APROVADA"
-            ? "yellow"
-            : estado === "REDIRECIONADA"
-              ? "purple"
-              : estado === "ARRUMADA"
-                ? "blue"
-                : estado === "PAGA"
-                  ? "orange"
-                  : estado === "FINALIZADA"
-                    ? "green"
-                    : "white";
-  }
 
   buscarNomeCliente(id: number): string {
     const cliente = this.clientes.find((c) => c.id === id);
@@ -74,30 +60,19 @@ export class ListarSolicitacaoComponent {
     this.nomeFuncionario = funcionario?.nome ?? "Funcionário não encontrado";
   }
 
-  atualizarHistorico(solicitacao: any): void {
-    const dataAtual = new Date();
-    const dia = dataAtual.getDate().toString().padStart(2, "0");
-    const mes = (dataAtual.getMonth() + 1).toString().padStart(2, "0");
-    const ano = dataAtual.getFullYear();
-    const horas = dataAtual.getHours().toString().padStart(2, "0");
-    const minutos = dataAtual.getMinutes().toString().padStart(2, "0");
-    const estado = solicitacao.estado;
-    const add = `• ${estado}, Data: ${dia}/${mes}/${ano} - ${horas}:${minutos}, Responsável: ${this.nomeFuncionario} \n`;
-    solicitacao.historico += add;
-  }
-
-  atualizar(solicitacao: any): void {
+  atualizar(solicitacao: Solicitacao): void {
     this.solicitacaoService.atualizar(solicitacao);
   }
 
-  finalizar(solicitacao: any) {
+  finalizar(solicitacao: Solicitacao) {
     if (
       confirm(
         "Deseja finalizar a solicitação? Essa ação não pode ser revertida",
       )
     ) {
-      solicitacao.estado = "FINALIZADA";
-      this.atualizarHistorico(solicitacao);
+      solicitacao.estado = EstadosSolicitacao.Finalizada;
+      HistoricoUtils.atualizarHistoricoComResponsavel(solicitacao, this.nomeFuncionario);
+      
       this.atualizar(solicitacao);
       alert("Manutenção finalizada");
     }
@@ -108,30 +83,19 @@ export class ListarSolicitacaoComponent {
   }
 
   filtrarPorData(): void {
-    if (!this.dataMinima) {
-      this.solicitacoes = this.solicitacaoService
-        .listarTodos()
-        .filter((item: any) => item.idEmpregado === 0);
-      return;
+    let solicitacoes = this.solicitacaoService.listarTodos();
+
+    if (this.dataMinima) {
+      solicitacoes = solicitacoes.filter((item) => item.data >= this.dataMinima!);
     }
 
-    const dataMinimaDate = new Date(this.dataMinima + "T00:00:00");
-
-    this.solicitacoes = this.solicitacaoService
-      .listarTodos()
-      .filter((item: any) => {
-        if (item.idEmpregado !== 0) return false;
-
-        const [dataParte] = item.data.split(" - ");
-        const [dia, mes, ano] = dataParte.split("/");
-        const dataItem = new Date(`${ano}-${mes}-${dia}T00:00:00`);
-
-        return dataItem >= dataMinimaDate;
-      });
+    solicitacoes = solicitacoes.filter((item) => item.idEmpregado === 0);
+    
+    this.solicitacoes = solicitacoes;
   }
 
   limparFiltro() {
-    this.dataMinima = "";
+    this.dataMinima = null;
     this.filtrarPorData();
   }
 }

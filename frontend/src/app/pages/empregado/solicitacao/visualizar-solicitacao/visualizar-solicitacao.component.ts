@@ -15,11 +15,15 @@ import { LoginService } from "../../../../services/login/login.service";
 import { ModalComponent } from "../../../../components/modal/modal.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { Router } from "@angular/router";
+import { EstadosSolicitacao } from "../../../../shared/models/enums/estados-solicitacao";
+import { EstadoAmigavelPipe } from "../../../../shared/pipes/estado-amigavel.pipe";
+import { HistoricoUtils } from "../../../../shared/utils/historico-utils";
+import { Funcionario } from "../../../../shared/models/funcionario.model";
 
 @Component({
   selector: "app-visualizar-solicitacao",
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, ModalComponent, NgbModule],
+  imports: [CommonModule, FormsModule, RouterModule, ModalComponent, NgbModule, EstadoAmigavelPipe],
   templateUrl: "./visualizar-solicitacao.component.html",
   styleUrl: "./visualizar-solicitacao.component.css",
 })
@@ -30,6 +34,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
   @ViewChild("redirecionarTemplate") redirecionarTemplate!: TemplateRef<any>;
   @ViewChild("consertarTemplate") consertarTemplate!: TemplateRef<any>;
 
+  EstadosSolicitacao = EstadosSolicitacao;
   solicitacao: Solicitacao = new Solicitacao();
   orcamento: Orcamento = new Orcamento();
   id: number = 0;
@@ -41,7 +46,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
   isEquipOpen = false;
   isClientOpen = false;
   isHistOpen = false;
-  funcionarios: any[] = [];
+  funcionarios: Funcionario[] = [];
   confirmada!: (formData: any) => void;
 
   currentModalTitle: string = "";
@@ -117,18 +122,6 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     }
   }
 
-  atualizarHistorico(): void {
-    const dataAtual = new Date();
-    const dia = dataAtual.getDate().toString().padStart(2, "0");
-    const mes = (dataAtual.getMonth() + 1).toString().padStart(2, "0");
-    const ano = dataAtual.getFullYear();
-    const horas = dataAtual.getHours().toString().padStart(2, "0");
-    const minutos = dataAtual.getMinutes().toString().padStart(2, "0");
-    const estado = this.solicitacao.estado;
-    const add = `• ${estado}, Data: ${dia}/${mes}/${ano} - ${horas}:${minutos}, Responsável: ${this.nomeFuncionario} \n`;
-    this.solicitacao.historico += add;
-  }
-
   atualizar(): void {
     this.solicitacaoService.atualizar(this.solicitacao);
   }
@@ -157,8 +150,8 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     this.orcamento.valor = valorForm;
     this.inserirOrcamento();
     this.carregarOrcamento();
-    this.solicitacao.estado = "ORÇADA";
-    this.atualizarHistorico();
+    this.solicitacao.estado = EstadosSolicitacao.Orcada;
+    HistoricoUtils.atualizarHistoricoComResponsavel(this.solicitacao, this.nomeFuncionario);
     this.atualizar();
   }
 
@@ -169,8 +162,8 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     }
 
     this.solicitacao.idEmpregado = formData.idEmpregado;
-    this.solicitacao.estado = "REDIRECIONADA";
-    this.atualizarHistorico();
+    this.solicitacao.estado = EstadosSolicitacao.Redirecionada;
+    HistoricoUtils.atualizarHistoricoComResponsavel(this.solicitacao, this.nomeFuncionario);
     this.atualizar();
     this.router.navigate(["/adm/home"]);
   }
@@ -183,8 +176,8 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
 
     this.solicitacao.mensagem = formData.mensagem;
     this.solicitacao.manutencao = formData.manutencao;
-    this.solicitacao.estado = "ARRUMADA";
-    this.atualizarHistorico();
+    this.solicitacao.estado = EstadosSolicitacao.Arrumada;
+    HistoricoUtils.atualizarHistoricoComResponsavel(this.solicitacao, this.nomeFuncionario);
     this.atualizar();
     alert("Manutenção realizada");
   }
@@ -195,8 +188,8 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
         "Deseja finalizar a solicitação? Essa ação não pode ser revertida",
       )
     ) {
-      this.solicitacao.estado = "FINALIZADA";
-      this.atualizarHistorico();
+      this.solicitacao.estado = EstadosSolicitacao.Finalizada;
+      HistoricoUtils.atualizarHistoricoComResponsavel(this.solicitacao, this.nomeFuncionario);
       this.atualizar();
       alert("Manutenção finalizada");
     }

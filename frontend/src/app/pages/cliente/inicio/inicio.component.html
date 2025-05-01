@@ -33,12 +33,12 @@
 
           <tbody>
             <tr *ngFor="let solicitacao of solicitacoes">
-              <td>{{ solicitacao.data }}</td>
+              <td>{{ solicitacao.data | date: 'dd/MM/yyyy - HH:mm' }}</td>
               <td>{{ solicitacao.descricao }}</td>
-              <td>{{ solicitacao.estado }}</td>
+              <td>{{ solicitacao.estado | estadoAmigavel }}</td>
               <td style="border-right: 0">
                 <a
-                  *ngIf="solicitacao.estado === 'ORÇADA'"
+                  *ngIf="solicitacao.estado === EstadosSolicitacao.Orcada"
                   class="btn btnRosaCha btnTabela"
                   [routerLink]="[
                     '/client/solicitacao/visualizar',
@@ -48,14 +48,14 @@
                   >Aprovar/Rejeitar<br />Serviço
                 </a>
                 <a
-                  *ngIf="solicitacao.estado === 'REJEITADA'"
+                  *ngIf="solicitacao.estado === EstadosSolicitacao.Rejeitada"
                   class="btn btnRosaCha btnTabela"
                   (click)="this.resgatar($event, solicitacao)"
                   title="Ação"
                   >Resgatar<br />Serviço
                 </a>
                 <a
-                  *ngIf="solicitacao.estado === 'ARRUMADA'"
+                  *ngIf="solicitacao.estado === EstadosSolicitacao.Arrumada"
                   class="btn btnRosaCha btnTabela"
                   [routerLink]="[
                     '/client/solicitacao/visualizar',

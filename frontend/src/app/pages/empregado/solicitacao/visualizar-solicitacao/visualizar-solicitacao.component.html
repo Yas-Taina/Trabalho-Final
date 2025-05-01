@@ -1,6 +1,6 @@
 <div class="row d-flex justify-content-center mainCreme">
   <div class="col-md-4 d-flex flex-column align-items-center">
-    <div *ngIf="solicitacao.estado !== 'ABERTA'" class="box">
+    <div *ngIf="solicitacao.estado !== EstadosSolicitacao.Aberta" class="box">
       <h6 class="tituloPequeno">VALOR</h6>
       <h2>{{ orcamento.valor | currency: "BRL" }}</h2>
       <p class="subtitulo">
@@ -20,7 +20,7 @@
     </div>
     <div class="d-flex flex-column align-items-center">
       <a
-        *ngIf="solicitacao.estado === 'ABERTA'"
+        *ngIf="solicitacao.estado === EstadosSolicitacao.Aberta"
         class="btn btnRosaSalmao btnAcao"
         title="Orçar"
         (click)="abrirModalOrcar()"
@@ -52,8 +52,8 @@
       </ng-template>
       <a
         *ngIf="
-          solicitacao.estado === 'APROVADA' ||
-          solicitacao.estado === 'REDIRECIONADA'
+          solicitacao.estado === EstadosSolicitacao.Aprovada ||
+          solicitacao.estado === EstadosSolicitacao.Redirecionada
         "
         class="btn btnRosaSalmao btnAcao"
         title="Consertar"
@@ -85,8 +85,8 @@
       </ng-template>
       <a
         *ngIf="
-          solicitacao.estado === 'APROVADA' ||
-          solicitacao.estado === 'REDIRECIONADA'
+          solicitacao.estado === EstadosSolicitacao.Aprovada ||
+          solicitacao.estado === EstadosSolicitacao.Redirecionada
         "
         class="btn btnTransparenteSalmao btnAcao"
         title="Redirecionar"
@@ -113,7 +113,7 @@
         </form>
       </ng-template>
       <a
-        *ngIf="solicitacao.estado === 'PAGA'"
+        *ngIf="solicitacao.estado === EstadosSolicitacao.Paga"
         class="btn btnRosaSalmao btnAcao"
         title="Finalizar"
         (click)="finalizar()"
@@ -141,7 +141,7 @@
     <hr />
     <div>
       <h6 class="subtituloRosa">ESTADO DA SOLICITAÇÃO</h6>
-      <p>{{ solicitacao.estado }}</p>
+      <p>{{ solicitacao.estado | estadoAmigavel }}</p>
     </div>
     <hr />
     <div class="position-relative">
@@ -168,7 +168,7 @@
     <hr />
     <div>
       <h6 class="subtituloRosa">DATA E HORA</h6>
-      <p>{{ solicitacao.data }}</p>
+      <p>{{ solicitacao.data | date: 'dd/MM/yyyy - HH:mm' }}</p>
     </div>
     <hr />
 
