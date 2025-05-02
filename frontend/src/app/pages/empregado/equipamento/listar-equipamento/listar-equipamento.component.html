@@ -6,7 +6,7 @@
     />
     <div class="tituloPagina"><h1>Equipamentos</h1></div>
   </div>
-  <div class="col-md-8 mx-auto px-0">
+  <div class="col-md-8">
     <div class="d-flex justify-content-end">
       <a
         class="btn btnRosaSalmao"
@@ -17,7 +17,7 @@
         Cadastro
       </a>
     </div>
-    <div class="containerTabela">
+    <div *ngIf="equipamentos.length !== 0" class="containerTabela">
       <div class="tabela">
         <table>
           <thead>
@@ -58,8 +58,8 @@
         </table>
       </div>
     </div>
-    <p *ngIf="equipamentos.length === 0">Nenhum Equipamento Cadastrado.</p>
-    <div class="d-flex justify-content-end gap-3 mt-4">
+    <p *ngIf="equipamentos.length === 0" class="tituloPequeno mt-5">Nenhum Equipamento Cadastrado.</p>
+    <div class="d-flex justify-content-end">
       <a class="btn btnRosaSalmao" title="Voltar" routerLink="/adm/home">
         <i class="fa-solid fa-location-arrow btnVoltar"></i>
       </a>

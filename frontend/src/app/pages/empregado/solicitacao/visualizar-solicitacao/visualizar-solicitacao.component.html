@@ -1,5 +1,7 @@
-<div class="row d-flex justify-content-center mainCreme">
+<div class="row d-flex justify-content-center mainCreme gap-5">
+  <!--Caixa Esquerda-->
   <div class="col-md-4 d-flex flex-column align-items-center">
+    <!--Exibe o orçamento, caso exista-->
     <div *ngIf="solicitacao.estado !== EstadosSolicitacao.Aberta" class="box">
       <h6 class="tituloPequeno">VALOR</h6>
       <h2>{{ orcamento.valor | currency: "BRL" }}</h2>
@@ -11,6 +13,7 @@
         >
       </p>
     </div>
+    <!--Exibe detalhes da manutenção, caso exista-->
     <div
       *ngIf="solicitacao.manutencao && solicitacao.manutencao.trim() !== ''"
       class="box"
@@ -18,7 +21,10 @@
       <h6 class="subtituloRosa">SERVIÇOS REALIZADOS</h6>
       <p>{{ solicitacao.manutencao }}</p>
     </div>
-    <div class="d-flex flex-column align-items-center">
+
+    <!--Botões de Ação-->
+    <div>
+      <!--Fazer orçamento-->
       <a
         *ngIf="solicitacao.estado === EstadosSolicitacao.Aberta"
         class="btn btnRosaSalmao btnAcao"
@@ -28,6 +34,8 @@
         <i class="fa-solid fa-hand-holding-dollar"></i>&nbsp;&nbsp;Realizar
         Orçamento
       </a>
+
+      <!--Configurações da modal box-->
       <app-modal
         #Modal
         [modalTitle]="currentModalTitle"
@@ -36,20 +44,24 @@
         (confirmed)="confirmar($event)"
       >
       </app-modal>
+
+      <!--Modal box de orçamento-->
       <ng-template #orcarTemplate let-formData="formData">
         <form #form="ngForm">
-          <div class="mb-3">
+          <div>
             <label>Valor do Serviço</label>
-            <textarea
+            <input
+              type="text"
               class="form-control"
               [(ngModel)]="formData.valor"
               name="valor"
               required
-            >
-            </textarea>
+            />
           </div>
         </form>
       </ng-template>
+
+      <!--Fazer manutenção-->
       <a
         *ngIf="
           solicitacao.estado === EstadosSolicitacao.Aprovada ||
@@ -61,9 +73,11 @@
       >
         <i class="fa-solid fa-gears"></i>&nbsp;&nbsp;Efetuar Manutenção
       </a>
+
+      <!--Modal box de manutenção-->
       <ng-template #consertarTemplate let-formData="formData">
         <form #form="ngForm">
-          <div class="mb-3">
+          <div>
             <label>Serviços Realizados</label>
             <textarea
               class="form-control"
@@ -72,7 +86,7 @@
               required
             ></textarea>
           </div>
-          <div class="mb-3">
+          <div>
             <label>Orientações para o cliente</label>
             <textarea
               class="form-control"
@@ -83,6 +97,8 @@
           </div>
         </form>
       </ng-template>
+
+      <!--Redirecionamento de solicitação-->
       <a
         *ngIf="
           solicitacao.estado === EstadosSolicitacao.Aprovada ||
@@ -95,9 +111,11 @@
         <i class="fa-solid fa-user-gear"></i>&nbsp;&nbsp;Redirecionar
         Solicitação
       </a>
+
+      <!--Modal box de redirecionamento-->
       <ng-template #redirecionarTemplate let-formData="formData">
         <form #form="ngForm">
-          <div class="mb-3">
+          <div>
             <label>Selecione o Funcionário</label>
             <select
               class="form-control"
@@ -112,6 +130,8 @@
           </div>
         </form>
       </ng-template>
+
+      <!--Finalização dos serviços-->
       <a
         *ngIf="solicitacao.estado === EstadosSolicitacao.Paga"
         class="btn btnRosaSalmao btnAcao"
@@ -121,7 +141,8 @@
         <i class="fa-solid fa-check-to-slot"></i>&nbsp;&nbsp;Finalizar
         Solicitação
       </a>
-      <div class="d-flex flex-column align-items-center">
+
+      <!--Exibe o histórico-->
         <a
           class="btn btnRosaSalmao btnAcao"
           title="Histórico"
@@ -129,13 +150,13 @@
         >
           <i class="fa-solid fa-book-open"></i>&nbsp;&nbsp;Histórico
         </a>
-        <div *ngIf="isHistOpen">
+        <div *ngIf="isHistOpen" class="box" style="background-color: #e4a18f20;">
           <p style="white-space: pre-line">{{ solicitacao.historico }}</p>
         </div>
       </div>
-    </div>
   </div>
 
+  <!--Caixa direita (detalhes)-->
   <div class="col-md-4">
     <h1 class="tituloGrande">DETALHES DA<br />SOLICITAÇÃO</h1>
     <hr />
@@ -199,7 +220,7 @@
       <p>{{ solicitacao.defeito }}</p>
     </div>
     <hr />
-    <div class="d-flex justify-content-end gap-3 mt-4">
+    <div class="d-flex justify-content-end">
       <a class="btn btnRosaSalmao" routerLink="/adm/home">
         <i class="fa-solid fa-location-arrow btnVoltar"></i>
       </a>

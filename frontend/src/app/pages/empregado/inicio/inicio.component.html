@@ -7,8 +7,8 @@
     <div class="tituloPagina"><h1>Início</h1></div>
   </div>
 
-  <div class="col-md-8 mx-auto px-0">
-    <div class="containerTabela">
+  <div class="col-md-8">
+    <div *ngIf="solicitacoes.length !== 0" class="containerTabela">
       <div class="tabela">
         <table>
           <thead>
@@ -48,11 +48,13 @@
       </div>
     </div>
 
-    <p class="m-3" *ngIf="solicitacoes.length === 0">
+    <p class="tituloPequeno mt-5" *ngIf="solicitacoes.length === 0">
       Nenhuma Solicitação em Estado Aberto.
     </p>
   </div>
-  <div class="row mt-4" id="relatorio">
+
+  <!--Geração de relatórios-->
+  <div class="row row-gap-2" id="relatorio">
     <div
       class="col-md-4 d-flex flex-column justify-content-center align-items-center"
     >
@@ -78,7 +80,8 @@
     </div>
   </div>
 
-  <div class="row">
+  <!--Atalhos para páginas de funcionário-->
+  <div class="row row-gap-4">
     <div class="col-md-4 d-flex flex-column align-items-center">
       <h2 class="tituloPequeno">Solicitações</h2>
       <i class="fa-solid fa-screwdriver-wrench" id="iconHome"></i>

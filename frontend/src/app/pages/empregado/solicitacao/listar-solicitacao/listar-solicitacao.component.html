@@ -7,8 +7,9 @@
     <div class="tituloPagina"><h1>Solicitações</h1></div>
   </div>
 
-  <div class="col-md-8 mx-auto px-0">
-    <div class="d-flex flex-column align-items-end m-2">
+  <div class="col-md-8">
+    <!--Filtros-->
+    <div class="d-flex flex-column align-items-end row-gap-2">
       <div>
         <a
           *ngIf="dataMinima"
@@ -23,7 +24,7 @@
         </a>
       </div>
 
-      <div class="mb-3 col-md-4 text-start" *ngIf="isFilterOpen">
+      <div class="col-md-4 text-start" *ngIf="isFilterOpen">
         <label for="dataMinima">Filtrar a partir de:</label>
         <input
           type="date"
@@ -34,7 +35,9 @@
         />
       </div>
     </div>
-    <div class="containerTabela">
+
+    <!--Tabela-->
+    <div *ngIf="solicitacoes.length !== 0" class="containerTabela">
       <div class="tabela">
         <table>
           <thead>
@@ -101,9 +104,9 @@
       </div>
     </div>
 
-    <p *ngIf="solicitacoes.length === 0">Nenhuma Solicitação Cadastrada.</p>
+    <p *ngIf="solicitacoes.length === 0" class="tituloPequeno mt-5">Nenhuma Solicitação Cadastrada.</p>
 
-    <div class="d-flex justify-content-end gap-3 mt-4">
+    <div class="d-flex justify-content-end">
       <a class="btn btnRosaSalmao" title="Voltar" routerLink="/adm/home">
         <i class="fa-solid fa-location-arrow btnVoltar"></i>
       </a>

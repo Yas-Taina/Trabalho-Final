@@ -7,13 +7,12 @@
     <div class="tituloPagina"><h1>Cadastre-se</h1></div>
   </div>
 
-  <div class="col-md-6 d-flex flex-column justify-content-center px-5">
-    <div class="container py-5">
+  <div class="col-md-6 d-flex flex-column justify-content-center">
       <div class="row justify-content-center">
         <div class="col-lg-8">
           <form #formCliente="ngForm">
-            <div class="row mb-3">
-              <div class="col-md-6">
+            <div class="row">
+              <div class="col-6">
                 <label for="cpf" class="form-label">CPF</label>
                 <input
                   type="text"
@@ -34,7 +33,7 @@
                 </div>
               </div>
 
-              <div class="col-md-6">
+              <div class="col-6">
                 <label for="nome" class="form-label">Nome</label>
                 <input
                   type="text"
@@ -58,7 +57,7 @@
               </div>
             </div>
 
-            <div class="mb-3">
+            <div>
               <label for="email" class="form-label">E-mail</label>
               <input
                 type="email"
@@ -81,7 +80,8 @@
               </div>
             </div>
 
-            <div class="mb-3">
+            <div class="row">
+              <div class="col-7">
               <label for="telefone" class="form-label">Telefone</label>
               <input
                 type="text"
@@ -103,9 +103,7 @@
                 </div>
               </div>
             </div>
-
-            <div class="row mb-3">
-              <div class="col-md-6">
+              <div class="col-5">
                 <label for="cep" class="form-label">CEP</label>
                 <input
                   type="text"
@@ -130,7 +128,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-6">
+              </div>
                 <label for="logradouro" class="form-label">Endereço</label>
                 <input
                   type="text"
@@ -152,11 +150,9 @@
                     Digite um endereço válido.
                   </div>
                 </div>
-              </div>
-            </div>
 
-            <div class="row mb-3">
-              <div class="col-md-6">
+            <div class="row">
+              <div class="col-6">
                 <label for="bairro" class="form-label">Bairro</label>
                 <input
                   type="text"
@@ -176,7 +172,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-4">
+              <div class="col-4">
                 <label for="cidade" class="form-label">Cidade</label>
                 <input
                   type="text"
@@ -196,7 +192,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-2">
+              <div class="col-2">
                 <label for="estado" class="form-label">UF</label>
                 <input
                   type="text"
@@ -219,7 +215,7 @@
               </div>
             </div>
 
-            <div class="d-grid gap-2 mb-3">
+            <div class="d-grid">
               <button
                 type="button"
                 class="btn btnRosaSalmao"
@@ -242,5 +238,4 @@
         </div>
       </div>
     </div>
-  </div>
 </div>
