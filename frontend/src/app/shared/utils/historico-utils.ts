@@ -23,4 +23,13 @@ export class HistoricoUtils {
 
     solicitacao.historico += add;
   }
+
+  static atualizarHistoricoComMotivo(solicitacao: Solicitacao, motivo: string): void {
+
+    const data = DataUtils.obterDataHoraAtualFormatada();
+    const estado = getEstadoAmigavelSolicitacao(solicitacao.estado);
+    const add = `• ${estado}, Data: ${data}, Motivo: ${motivo} \n`;
+
+    solicitacao.historico += add;
+  }
 }
