@@ -101,7 +101,8 @@
   transform: scale(1.05);
 }
 
-.btn:active {
+.btn:active,
+.btnIcon:active {
   transform: scale(0.95);
 }
 
@@ -122,15 +123,10 @@
   border: 2px solid var(--rosaDisabled);
 }
 
-.btnRosaSalmao {
+.btnRosaSalmao,
+.btnTransparenteSalmao:hover {
   background-color: var(--salmao);
   color: var(--creme);
-}
-
-.btnRosaSalmao:hover {
-  background-color: transparent;
-  color: var(--salmao);
-  border: 2px solid var(--salmao);
 }
 
 .btnRosaSalmao:disabled {
@@ -156,37 +152,24 @@
   border: 2px solid var(--azulDisabled);
 }
 
-.btnCreme {
+.btnCreme,
+.btnTransparenteCreme:hover {
   background-color: var(--creme);
   color: var(--azulRoyal);
 }
 
+.btnTransparenteCreme,
 .btnCreme:hover {
   background-color: transparent;
   color: var(--creme);
   border: 2px solid var(--creme);
 }
 
-.btnTransparenteCreme {
-  background-color: transparent;
-  color: var(--creme);
-  border: 2px solid var(--creme);
-}
-
-.btnTransparenteCreme:hover {
-  background-color: var(--creme);
-  color: var(--azulRoyal);
-}
-
-.btnTransparenteSalmao {
+.btnTransparenteSalmao,
+.btnRosaSalmao:hover {
   background-color: transparent;
   color: var(--salmao);
   border: 2px solid var(--salmao);
-}
-
-.btnTransparenteSalmao:hover {
-  background-color: var(--salmao);
-  color: var(--creme);
 }
 
 .btnAcao {
@@ -216,10 +199,6 @@
   font-size: 1.55rem;
 }
 
-.btnIcon:active {
-  transform: scale(0.95);
-}
-
 .btnIcon:disabled {
   color: var(--rosaDisabled);
 }
@@ -240,6 +219,7 @@
   border-radius: 25px;
   border: 2px solid var(--rosaCha);
   overflow: hidden;
+  margin: 0.5rem 0;
 }
 
 table {
@@ -254,7 +234,7 @@ table thead th {
   color: var(--creme);
   font-size: 1rem;
   font-family: "DM Sans";
-  text-align: center;
+  vertical-align: middle;
   padding: 0.75rem;
   border: 1px solid var(--rosaCha);
   font-weight: bold;
@@ -265,7 +245,6 @@ table tbody td {
   background-color: var(--creme);
   padding: 0.75rem;
   border: 1px solid var(--rosaCha);
-  text-align: center;
   vertical-align: middle;
 }
 
@@ -286,13 +265,12 @@ table tbody tr:hover td {
 
 .containerTituloPagina {
   position: relative;
-  text-align: center;
   font-size: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: "Blackest Text";
-  color: var(--creme);
+  margin-bottom: 1rem;
 }
 
 .tituloPagina {
@@ -339,6 +317,7 @@ footer {
 /*---Formulários---*/
 .form-control {
   background-color: var(--creme);
+  margin-bottom: 0.5rem;
   color: var(--azulEscuro);
   --bs-body-bg: var(--creme) !important;
 }
@@ -347,7 +326,7 @@ footer {
   background-color: var(--creme);
   color: var(--azulEscuro);
   border: 1px solid var(--rosaCha);
-  box-shadow: 0px 0px 10px 5px #ffe2c7 inset;
+  box-shadow: 0px 0px 3px 1px var(--salmao);
 }
 
 .form-control:invalid {
@@ -413,9 +392,10 @@ textarea {
 .box {
   border: 2px solid var(--salmao);
   border-radius: 20px;
-  padding: 30px;
+  padding: 1rem 0.3rem 0;
   min-width: 90%;
   max-width: 90%;
+  margin: 0.5rem;
 }
 
 .box .tituloPequeno {
@@ -430,5 +410,4 @@ textarea {
 /*---Outros itens---*/
 hr {
   border-top: 1px solid var(--azulEscuro);
-  width: 100%;
 }

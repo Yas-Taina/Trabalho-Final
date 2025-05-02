@@ -1,10 +1,15 @@
-<div class="row d-flex justify-content-center mainCreme">
-  <div class="col-md-4 d-flex flex-column align-items-center gap-3">
+<div class="row d-flex justify-content-center mainCreme gap-5">
+
+  <!--Caixa Esquerda-->
+  <div class="col-md-4 d-flex flex-column align-items-center">
+
+    <!--Exibe o orçamento, caso exista-->
     <div *ngIf="solicitacao.estado !== EstadosSolicitacao.Aberta" class="box">
       <h3 class="tituloPequeno">Valor</h3>
       <h2>{{ orcamento?.valor | currency: "BRL" }}</h2>
     </div>
 
+    <!--Exibe detalhes da manutenção, caso exista-->
     <div
       *ngIf="solicitacao.manutencao && solicitacao.manutencao.trim() !== ''"
       class="box"
@@ -15,7 +20,8 @@
       <p>{{ solicitacao.mensagem }}</p>
     </div>
 
-    <div class="d-flex flex-column align-items-center">
+    <!--Botões de ação-->
+      <!--Aprovação do serviço-->
       <a
       *ngIf="solicitacao.estado === EstadosSolicitacao.Orcada"
         class="btn btnRosaSalmao btnAcao"
@@ -24,6 +30,8 @@
       >
         <i class="fa-solid fa-circle-check"></i>&nbsp;&nbsp;Aprovar Serviço
       </a>
+
+      <!--Recusa de serviço-->
       <a
         *ngIf="solicitacao.estado === EstadosSolicitacao.Orcada"
         class="btn btnTransparenteSalmao btnAcao"
@@ -33,6 +41,7 @@
         <i class="fa-solid fa-circle-xmark"></i>&nbsp;&nbsp;Recusar Serviço
       </a>
 
+      <!--Modal box para motivo da recusa-->
       <app-modal
         #Modal
         [modalTitle]="currentModalTitle"
@@ -44,7 +53,7 @@
 
       <ng-template #rejectTemplate let-formData="formData">
         <form #form="ngForm">
-          <div class="mb-3">
+          <div>
             <label>Motivo da Recusa</label>
             <textarea
               class="form-control"
@@ -56,6 +65,8 @@
           </div>
         </form>
       </ng-template>
+
+      <!--Resgatar Serviço-->
       <a
         *ngIf="solicitacao.estado === EstadosSolicitacao.Rejeitada"
         class="btn btnRosaSalmao btnAcao"
@@ -64,6 +75,8 @@
       >
         <i class="fa-solid fa-trash-arrow-up"></i>&nbsp;&nbsp;Resgatar Serviço
       </a>
+
+      <!--Pagamento do serviço-->
       <a
         *ngIf="solicitacao.estado === EstadosSolicitacao.Arrumada"
         class="btn btnRosaSalmao btnAcao"
@@ -72,6 +85,8 @@
       >
         <i class="fa-solid fa-money-check-dollar"></i>&nbsp;&nbsp;Pagar Serviço
       </a>
+
+      <!--Exibe o histórico da solicitação-->
       <a
         class="btn btnRosaSalmao btnAcao"
         title="Histórico"
@@ -79,12 +94,12 @@
       >
         <i class="fa-solid fa-book-open"></i>&nbsp;&nbsp;Histórico
       </a>
-      <div *ngIf="isHistOpen">
+      <div *ngIf="isHistOpen" class="box" style="background-color: #e4a18f20;">
         <p style="white-space: pre-line">{{ solicitacao.historico }}</p>
       </div>
     </div>
-  </div>
 
+  <!--Caixa Direita (Detalhes)-->
   <div class="col-md-4">
     <h1 class="tituloGrande">DETALHES DA<br />SOLICITAÇÃO</h1>
     <hr />
@@ -133,7 +148,7 @@
     </div>
     <hr />
 
-    <div class="d-flex justify-content-end gap-3 mt-4">
+    <div class="d-flex justify-content-end">
       <a class="btn btnRosaSalmao" routerLink="/client/home">
         <i class="fa-solid fa-location-arrow btnVoltar"></i>
       </a>

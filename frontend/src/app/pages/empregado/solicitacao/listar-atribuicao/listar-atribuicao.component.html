@@ -7,8 +7,8 @@
     <div class="tituloPagina"><h1>Atribuições</h1></div>
   </div>
 
-  <div class="col-md-8 mx-auto px-0">
-    <div class="containerTabela">
+  <div class="col-md-8">
+    <div *ngIf="solicitacoes.length !== 0" class="containerTabela">
       <div class="tabela">
         <table>
           <thead>
@@ -75,11 +75,11 @@
       </div>
     </div>
 
-    <p class="m-3" *ngIf="solicitacoes.length === 0">
+    <p class="tituloPequeno mt-5" *ngIf="solicitacoes.length === 0">
       Nenhuma Solicitação Atribuidda.
     </p>
 
-    <div class="d-flex justify-content-end gap-3 mt-4">
+    <div class="d-flex justify-content-end">
       <a class="btn btnRosaSalmao" title="Voltar" routerLink="/adm/home">
         <i class="fa-solid fa-location-arrow btnVoltar"></i>
       </a>

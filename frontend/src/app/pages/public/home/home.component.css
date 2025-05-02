@@ -1,17 +1,20 @@
-#smalldecor {
+#smallDecor {
   max-width: 200px;
   width: 200px;
 }
 
-#bigdecor {
-  max-width: 50%;
+.bigDecor{
+  max-height: 90vh;
+  max-width: 100%;
 }
 
 .homeImgDecoracao {
   background-color: var(--salmao);
-  padding: 10px;
+  max-height: 90vh;
 }
 
 .btn {
   font-size: 1.2rem;
 }
+
+
