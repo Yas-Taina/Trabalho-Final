@@ -126,6 +126,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     this.solicitacaoService.atualizar(this.solicitacao);
   }
 
+  // TODO: Refatorar para utilizar data no orcamento
   inserirOrcamento(): void {
     const dataAtual = new Date();
     const dia = dataAtual.getDate().toString().padStart(2, "0");

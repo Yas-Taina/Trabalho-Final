@@ -132,17 +132,10 @@ export class VisualizarSolicitacaoComponent implements OnInit {
       alert("Digite o motivo de sua recusa:");
       return;
     }
+    
     this.solicitacao.estado = EstadosSolicitacao.Rejeitada;
     const motivo = formData.reason;
-    const dataAtual = new Date();
-    const dia = dataAtual.getDate().toString().padStart(2, "0");
-    const mes = (dataAtual.getMonth() + 1).toString().padStart(2, "0");
-    const ano = dataAtual.getFullYear();
-    const horas = dataAtual.getHours().toString().padStart(2, "0");
-    const minutos = dataAtual.getMinutes().toString().padStart(2, "0");
-    const estado = this.solicitacao.estado;
-    const add = `• ${estado}, Data: ${dia}/${mes}/${ano} - ${horas}:${minutos}, Motivo: ${motivo} \n`;
-    this.solicitacao.historico += add;
+    HistoricoUtils.atualizarHistoricoComMotivo(this.solicitacao, motivo);
     this.atualizar();
   }
 }
