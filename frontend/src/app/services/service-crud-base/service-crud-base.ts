@@ -8,7 +8,7 @@ import { IdBaseService } from "../id-base.service";
 export abstract class ServiceCrudBase<T extends EntidadeBase> {
   protected chaveLocalstorage: string;
 
-  constructor(chaveLocalstorage: string) {
+  protected constructor(chaveLocalstorage: string) {
     this.chaveLocalstorage = chaveLocalstorage;
   }
 

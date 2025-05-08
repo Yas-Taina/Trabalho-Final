@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild, TemplateRef } from "@angular/core";
+import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
 import { FormsModule, NgForm } from "@angular/forms";
 import { Solicitacao } from "../../../../shared/models/solicitacao.model";
 import { Orcamento } from "../../../../shared/models/orcamento.model";
 import { Cliente } from "../../../../shared/models/cliente.model";
 import { Equipamento } from "../../../../shared/models/equipamento.model";
-import { ActivatedRoute, RouterModule } from "@angular/router";
+import { ActivatedRoute, Router, RouterModule } from "@angular/router";
 import { SolicitacaoService } from "../../../../services/solicitacao.service";
 import { EquipamentoService } from "../../../../services/equipamento.service";
 import { FuncionarioService } from "../../../../services/funcionario.service";
@@ -14,7 +14,6 @@ import { CommonModule } from "@angular/common";
 import { LoginService } from "../../../../services/login/login.service";
 import { ModalComponent } from "../../../../components/modal/modal.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-import { Router } from "@angular/router";
 import { EstadosSolicitacao } from "../../../../shared/models/enums/estados-solicitacao";
 import { EstadoAmigavelPipe } from "../../../../shared/pipes/estado-amigavel.pipe";
 import { HistoricoUtils } from "../../../../shared/utils/historico-utils";
@@ -62,7 +61,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     private equipamentoService: EquipamentoService,
     private orcamentoService: OrcamentoService,
     private router: Router,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.params["id"];
@@ -94,17 +93,15 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
   }
 
   carregarCliente(): void {
-    const clienteEncontrado = this.clienteService.buscarPorId(
+    this.cliente = this.clienteService.buscarPorId(
       this.solicitacao.idCliente,
     );
-    this.cliente = clienteEncontrado;
   }
 
   carregarEquipamento(): void {
-    const equipamentoEncontrado = this.equipamentoService.buscarPorId(
+    this.equipamento = this.equipamentoService.buscarPorId(
       this.solicitacao.equipamento,
     );
-    this.equipamento = equipamentoEncontrado;
   }
 
   carregarOrcamento(): void {

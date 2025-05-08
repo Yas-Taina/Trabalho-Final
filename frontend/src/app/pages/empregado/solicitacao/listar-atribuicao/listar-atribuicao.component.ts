@@ -7,7 +7,7 @@ import { Solicitacao } from "../../../../shared/models/solicitacao.model";
 import { Cliente } from "../../../../shared/models/cliente.model";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
-import { EstadosSolicitacao, getCorEstadoSolicitacao } from "../../../../shared/models/enums/estados-solicitacao";
+import { EstadosSolicitacao } from "../../../../shared/models/enums/estados-solicitacao";
 import { EstadoAmigavelPipe } from "../../../../shared/pipes/estado-amigavel.pipe";
 import { EstadoCorPipe } from "../../../../shared/pipes/estado-cor.pipe";
 import { HistoricoUtils } from "../../../../shared/utils/historico-utils";
@@ -51,12 +51,7 @@ export class ListarAtribuicaoComponent {
     const cliente = this.clientes.find((c) => c.id === id);
     return cliente ? cliente.nome : "Cliente não encontrado";
   }
-
-  carregarNomeFuncionario() {
-    const funcionario = this.funcionarioService.buscarPorId(this.usuario);
-    this.nomeFuncionario = funcionario?.nome ?? "Funcionário não encontrado";
-  }
-
+  
   atualizar(solicitacao: Solicitacao): void {
     this.solicitacaoService.atualizar(solicitacao);
   }
