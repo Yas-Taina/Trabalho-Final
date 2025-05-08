@@ -43,17 +43,11 @@ export class CadastroComponent {
 
   inserir(): void {
     if (this.formCliente.form.valid) {
-      const senha = NumberUtils.obterNumeroAleatorio(1000, 9999).toString();
-      this.cliente.senha = senha;
-
       this.cliente.endereco = EnderecoUtils.getEnderecoCompleto(
         this.enderecoModel,
       );
 
       this.clienteService.inserir(this.cliente);
-      alert("Senha gerada: " + senha);
-
-      console.log(this.cliente);
 
       this.router.navigate(["/auth/login"]);
     }

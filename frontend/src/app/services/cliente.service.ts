@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Cliente } from "../shared/models/cliente.model";
 import { ServiceCrudBase } from "./service-crud-base/service-crud-base";
+import { NumberUtils } from "../shared/utils/number-utils";
 
 const LS_CHAVE = "clientes";
 
@@ -11,6 +12,15 @@ export class ClienteService extends ServiceCrudBase<Cliente> {
   constructor() {
     super(LS_CHAVE);
     this.inserirClientePadrao();
+  }
+
+  override inserir(entidade: Cliente): void {
+      const senha = NumberUtils.obterNumeroAleatorio(1000, 9999).toString();
+      entidade.senha = senha;
+
+      super.inserir(entidade);
+
+      alert("Senha gerada: " + senha);
   }
 
   // Função temporária, para permitir acesso agora que as rotas estão protegidas
