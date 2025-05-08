@@ -43,13 +43,19 @@ export class ListarAtribuicaoComponent {
       this.solicitacoes = this.solicitacaoService
         .listarTodos()
         .filter((item) => +item.idEmpregado === +this.usuario);
+
+      this.nomeFuncionario = this.buscarNomeFuncionario();
     }
   }
 
-
   buscarNomeCliente(id: number): string {
     const cliente = this.clientes.find((c) => c.id === id);
-    return cliente ? cliente.nome : "Cliente não encontrado";
+    return cliente?.nome ?? "Cliente não encontrado";
+  }
+
+  buscarNomeFuncionario() {
+    const funcionario = this.funcionarioService.buscarPorId(this.usuario);
+    return funcionario?.nome ?? "Funcionário não encontrado";
   }
   
   atualizar(solicitacao: Solicitacao): void {
