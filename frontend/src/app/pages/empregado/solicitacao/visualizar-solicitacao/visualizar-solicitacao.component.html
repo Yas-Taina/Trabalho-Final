@@ -9,7 +9,7 @@
         <i
           >Orçamento feito por funcionario
           <strong>{{ nomeFuncionarioOrc }}</strong> em
-          <strong>{{ orcamento.data }}</strong></i
+          <strong>{{ orcamento.data | date: 'dd/MM/yyyy - HH:mm' }}</strong></i
         >
       </p>
     </div>

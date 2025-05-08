@@ -5,7 +5,7 @@ export class Orcamento extends EntidadeBase {
     public override id: number = 0,
     public idEmpregado: number = 0,
     public idSolicitacao: number = 0,
-    public data: string = "",
+    public data: Date = new Date(),
     public valor: number = 0.0,
   ) {
     super(id);
