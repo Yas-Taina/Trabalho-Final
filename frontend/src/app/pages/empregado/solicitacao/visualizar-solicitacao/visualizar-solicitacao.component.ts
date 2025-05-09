@@ -128,13 +128,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
 
   // TODO: Refatorar para utilizar data no orcamento
   inserirOrcamento(): void {
-    const dataAtual = new Date();
-    const dia = dataAtual.getDate().toString().padStart(2, "0");
-    const mes = (dataAtual.getMonth() + 1).toString().padStart(2, "0");
-    const ano = dataAtual.getFullYear();
-    const horas = dataAtual.getHours().toString().padStart(2, "0");
-    const minutos = dataAtual.getMinutes().toString().padStart(2, "0");
-    this.orcamento.data = `${dia}/${mes}/${ano} - ${horas}:${minutos}`;
+    this.orcamento.data = new Date();
     this.orcamento.idEmpregado = this.usuario;
     this.orcamento.idSolicitacao = this.id;
     this.orcamentoService.inserir(this.orcamento);
