@@ -68,6 +68,7 @@ export class ListarAtribuicaoComponent {
         "Deseja finalizar a solicitação? Essa ação não pode ser revertida",
       )
     ) {
+      // TODO: Preenchimento de histórico será centralizado e/ou movido para o backend
       solicitacao.estado = EstadosSolicitacao.Finalizada;
       HistoricoUtils.atualizarHistoricoComResponsavel(solicitacao, this.nomeFuncionario);
       
