@@ -7,7 +7,7 @@ import { Solicitacao } from "../../../../shared/models/solicitacao.model";
 import { Cliente } from "../../../../shared/models/cliente.model";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
-import { EstadosSolicitacao, getCorEstadoSolicitacao } from "../../../../shared/models/enums/estados-solicitacao";
+import { EstadosSolicitacao } from "../../../../shared/models/enums/estados-solicitacao";
 import { EstadoAmigavelPipe } from "../../../../shared/pipes/estado-amigavel.pipe";
 import { EstadoCorPipe } from "../../../../shared/pipes/estado-cor.pipe";
 import { HistoricoUtils } from "../../../../shared/utils/historico-utils";
@@ -43,20 +43,21 @@ export class ListarAtribuicaoComponent {
       this.solicitacoes = this.solicitacaoService
         .listarTodos()
         .filter((item) => +item.idEmpregado === +this.usuario);
+
+      this.nomeFuncionario = this.buscarNomeFuncionario();
     }
   }
 
-
   buscarNomeCliente(id: number): string {
     const cliente = this.clientes.find((c) => c.id === id);
-    return cliente ? cliente.nome : "Cliente não encontrado";
+    return cliente?.nome ?? "Cliente não encontrado";
   }
 
-  carregarNomeFuncionario() {
+  buscarNomeFuncionario() {
     const funcionario = this.funcionarioService.buscarPorId(this.usuario);
-    this.nomeFuncionario = funcionario?.nome ?? "Funcionário não encontrado";
+    return funcionario?.nome ?? "Funcionário não encontrado";
   }
-
+  
   atualizar(solicitacao: Solicitacao): void {
     this.solicitacaoService.atualizar(solicitacao);
   }
@@ -67,6 +68,7 @@ export class ListarAtribuicaoComponent {
         "Deseja finalizar a solicitação? Essa ação não pode ser revertida",
       )
     ) {
+      // TODO: Preenchimento de histórico será centralizado e/ou movido para o backend
       solicitacao.estado = EstadosSolicitacao.Finalizada;
       HistoricoUtils.atualizarHistoricoComResponsavel(solicitacao, this.nomeFuncionario);
       

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef } from "@angular/core";
+import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
 import { FormsModule, NgForm } from "@angular/forms";
 import { Solicitacao } from "../../../../shared/models/solicitacao.model";
 import { Equipamento } from "../../../../shared/models/equipamento.model";
@@ -65,16 +65,13 @@ export class VisualizarSolicitacaoComponent implements OnInit {
   }
 
   carregarEquipamento(): void {
-    const idEquip = this.solicitacao.equipamento;
-    const equipamentoEncontrado = this.equipamentoService.buscarPorId(idEquip);
-    this.equipamento = equipamentoEncontrado;
+    this.equipamento = this.equipamentoService.buscarPorId(this.solicitacao.equipamento);
   }
 
   carregarOrcamento(): void {
-    const orcamentoEncontrado = this.orcamentoService
+    this.orcamento = this.orcamentoService
       .listarTodos()
       .find((o) => o.idSolicitacao === this.solicitacao.id);
-    this.orcamento = orcamentoEncontrado;
   }
 
   atualizar(): void {
@@ -132,7 +129,7 @@ export class VisualizarSolicitacaoComponent implements OnInit {
       alert("Digite o motivo de sua recusa:");
       return;
     }
-    
+
     this.solicitacao.estado = EstadosSolicitacao.Rejeitada;
     const motivo = formData.reason;
     HistoricoUtils.atualizarHistoricoComMotivo(this.solicitacao, motivo);

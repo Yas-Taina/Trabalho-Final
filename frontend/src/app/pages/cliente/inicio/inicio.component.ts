@@ -27,7 +27,7 @@ export class ClienteInicioComponent {
     private solicitacaoService: SolicitacaoService,
     private loginService: LoginService,
     private orcamentoService: OrcamentoService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const sessao = this.loginService.obterDadosDaSessao();
@@ -41,10 +41,9 @@ export class ClienteInicioComponent {
   }
 
   carregarOrcamento(solicitacao: Solicitacao) {
-    const orcamentoEncontrado = this.orcamentoService
+    return this.orcamentoService
       .listarTodos()
       .find((o) => o.idSolicitacao === solicitacao.id);
-    return orcamentoEncontrado;
   }
 
   listarTodos(): Solicitacao[] {
