@@ -19,6 +19,8 @@
           [(ngModel)]="funcionario.nome"
           #nome="ngModel"
           minlength="2"
+          maxlength="100"
+          placeholder="Insira o nome"
           required
         />
         <div
@@ -43,6 +45,8 @@
             name="email"
             [(ngModel)]="funcionario.email"
             #email="ngModel"
+            maxlength="100"
+            placeholder="Insira o email"
             required
             email
           />
@@ -90,6 +94,7 @@
             [(ngModel)]="funcionario.senha"
             #senha="ngModel"
             minlength="4"
+            maxlength="20"
             required
           />
           <div

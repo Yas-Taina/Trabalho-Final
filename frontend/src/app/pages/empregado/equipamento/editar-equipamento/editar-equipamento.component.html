@@ -19,6 +19,7 @@
           [(ngModel)]="equipamento.nome"
           #nome="ngModel"
           minlength="2"
+          maxlength="100"
           required
         />
         <div
@@ -36,13 +37,13 @@
       <div class="form-group">
         <label for="descricao">Descrição</label>
         <textarea
-          type="text"
           class="form-control"
           id="descricao"
           name="descricao"
           [(ngModel)]="equipamento.descricao"
           #descricao="ngModel"
           minlength="5"
+          maxlength="500"
           required
         ></textarea>
         <div

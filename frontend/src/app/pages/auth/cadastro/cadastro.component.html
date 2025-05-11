@@ -43,6 +43,7 @@
                   [(ngModel)]="cliente.nome"
                   #nome="ngModel"
                   minlength="2"
+                  maxlength="100"
                   required
                 />
                 <div
@@ -66,6 +67,7 @@
                 name="email"
                 [(ngModel)]="cliente.email"
                 #email="ngModel"
+                maxlength="100"
                 required
                 email
               />
@@ -129,7 +131,7 @@
                 </div>
               </div>
               </div>
-                <label for="logradouro" class="form-label">Endereço</label>
+                <label for="logradouro" class="form-label">Logradouro</label>
                 <input
                   type="text"
                   class="form-control"
@@ -138,19 +140,10 @@
                   required
                   [(ngModel)]="enderecoModel.logradouro"
                   #logradouro="ngModel"
+                  placeholder="Logradouro"
+                  [ngClass]="{ 'campoVazio': !enderecoModel.logradouro }"
+                  readonly
                 />
-                <div
-                  *ngIf="
-                    logradouro.errors &&
-                    (logradouro.dirty || logradouro.touched)
-                  "
-                  class="alert alert-danger"
-                >
-                  <div [hidden]="!logradouro.errors['required']">
-                    Digite um endereço válido.
-                  </div>
-                </div>
-
             <div class="row">
               <div class="col-6">
                 <label for="bairro" class="form-label">Bairro</label>
@@ -162,15 +155,10 @@
                   required
                   [(ngModel)]="enderecoModel.bairro"
                   #bairro="ngModel"
+                  placeholder="Bairro"
+                  [ngClass]="{ 'campoVazio': !enderecoModel.bairro }"
+                  readonly
                 />
-                <div
-                  *ngIf="bairro.errors && (bairro.dirty || bairro.touched)"
-                  class="alert alert-danger"
-                >
-                  <div [hidden]="!bairro.errors['required']">
-                    Digite um bairro.
-                  </div>
-                </div>
               </div>
               <div class="col-4">
                 <label for="cidade" class="form-label">Cidade</label>
@@ -182,15 +170,10 @@
                   required
                   [(ngModel)]="enderecoModel.localidade"
                   #cidade="ngModel"
+                  placeholder="Cidade"
+                  [ngClass]="{ 'campoVazio': !enderecoModel.localidade }"
+                  readonly
                 />
-                <div
-                  *ngIf="cidade.errors && (cidade.dirty || cidade.touched)"
-                  class="alert alert-danger"
-                >
-                  <div [hidden]="!cidade.errors['required']">
-                    Digite uma cidade.
-                  </div>
-                </div>
               </div>
               <div class="col-2">
                 <label for="estado" class="form-label">UF</label>
@@ -203,15 +186,10 @@
                   maxlength="2"
                   [(ngModel)]="enderecoModel.uf"
                   #estado="ngModel"
+                  placeholder="--"
+                  [ngClass]="{ 'campoVazio': !enderecoModel.uf }"
+                  readonly
                 />
-                <div
-                  *ngIf="estado.errors && (estado.dirty || estado.touched)"
-                  class="alert alert-danger"
-                >
-                  <div [hidden]="!estado.errors['required']">
-                    Insira um estado válido.
-                  </div>
-                </div>
               </div>
             </div>
 

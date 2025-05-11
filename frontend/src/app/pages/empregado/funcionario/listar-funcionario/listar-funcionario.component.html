@@ -31,8 +31,8 @@
           </thead>
           <tbody>
             <tr *ngFor="let funcionario of funcionarios">
-              <td>{{ funcionario.nome }}</td>
-              <td>{{ funcionario.email }}</td>
+              <td>{{ funcionario.nome.substring(0, 30) }}{{ funcionario.nome.length > 30 ? '...' : '' }}</td>
+              <td>{{ funcionario.email.substring(0, 30) }}{{ funcionario.email.length > 30 ? '...' : '' }}</td>
               <td>{{ funcionario.data | date: 'dd/MM/yyyy' }}</td>
               <td>
                 <a
@@ -44,13 +44,14 @@
                 </a>
               </td>
               <td>
-                <a
+                <button
                   class="btnIcon"
+                  [disabled]="funcionario.id === usuario || funcionarios.length === 1" 
                   (click)="remover($event, funcionario)"
                   title="Remover"
                 >
                   <i class="fa fa-trash" aria-hidden="true"></i>
-                </a>
+              </button>
               </td>
             </tr>
           </tbody>
