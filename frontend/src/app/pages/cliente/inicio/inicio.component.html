@@ -25,7 +25,7 @@
           <thead>
             <tr>
               <th>Data</th>
-              <th>Descrição do defeito</th>
+              <th>Descrição do Equipamento</th>
               <th>Estado da Solicitação</th>
               <th colspan="2">Ações</th>
             </tr>
@@ -34,7 +34,7 @@
           <tbody>
             <tr *ngFor="let solicitacao of solicitacoes">
               <td>{{ solicitacao.data | date: 'dd/MM/yyyy - HH:mm' }}</td>
-              <td>{{ solicitacao.descricao }}</td>
+              <td>{{ solicitacao.descricao.substring(0, 30) }}{{ solicitacao.descricao.length > 30 ? '...' : '' }}</td>
               <td>{{ solicitacao.estado | estadoAmigavel }}</td>
               <td style="border-right: 0">
                 <a

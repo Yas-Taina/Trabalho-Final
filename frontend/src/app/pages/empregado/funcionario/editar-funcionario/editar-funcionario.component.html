@@ -19,6 +19,7 @@
           [(ngModel)]="funcionario.nome"
           #nome="ngModel"
           minlength="2"
+          maxlength="100"
           required
         />
         <div
@@ -43,6 +44,7 @@
             name="email"
             [(ngModel)]="funcionario.email"
             #email="ngModel"
+            maxlength="100"
             required
             email
           />
@@ -91,6 +93,7 @@
             [(ngModel)]="funcionario.senha"
             #senha="ngModel"
             minlength="4"
+            maxlength="20"
           />
           <div
             *ngIf="senha.invalid && (senha.dirty || senha.touched)"

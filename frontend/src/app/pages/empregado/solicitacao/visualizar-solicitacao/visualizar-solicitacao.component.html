@@ -47,6 +47,7 @@
 
       <!--Modal box de orçamento-->
       <ng-template #orcarTemplate let-formData="formData">
+        <div class="d-flex flex-column align-items-center">
         <form #form="ngForm">
           <div>
             <label>Valor do Serviço</label>
@@ -55,10 +56,19 @@
               class="form-control"
               [(ngModel)]="formData.valor"
               name="valor"
+              maxlength="10"
+              currencyMask
+              [options]="{
+                prefix: 'R$ ',
+                thousands: '.',
+                decimal: ',',
+                precision: 2
+              }"
               required
             />
           </div>
         </form>
+      </div>
       </ng-template>
 
       <!--Fazer manutenção-->
@@ -114,6 +124,7 @@
 
       <!--Modal box de redirecionamento-->
       <ng-template #redirecionarTemplate let-formData="formData">
+        <div class="d-flex flex-column align-items-center">
         <form #form="ngForm">
           <div>
             <label>Selecione o Funcionário</label>
@@ -123,12 +134,15 @@
               name="idEmpregado"
               required
             >
-              <option *ngFor="let f of funcionarios" [value]="f.id">
+            <ng-container *ngFor="let f of funcionarios">
+              <option *ngIf="f.id !== usuario" [value]="f.id">
                 {{ f.nome }}
               </option>
+            </ng-container>
             </select>
           </div>
         </form>
+      </div>
       </ng-template>
 
       <!--Finalização dos serviços-->

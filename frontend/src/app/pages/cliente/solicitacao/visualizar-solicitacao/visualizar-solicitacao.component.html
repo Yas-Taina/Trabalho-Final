@@ -52,18 +52,22 @@
       </app-modal>
 
       <ng-template #rejectTemplate let-formData="formData">
-        <form #form="ngForm">
-          <div>
-            <label>Motivo da Recusa</label>
-            <textarea
-              class="form-control"
-              [(ngModel)]="formData.reason"
-              name="reason"
-              required
-            >
-            </textarea>
-          </div>
-        </form>
+        <div class="row d-flex flex-column align-items-center">
+          <form #form="ngForm">
+            <div>
+              <label>Motivo da Recusa</label>
+              <textarea
+                class="form-control"
+                [(ngModel)]="formData.reason"
+                name="reason"
+                maxlength="500"
+                placeholder="Por que está recusando o serviço?"
+                required
+              >
+              </textarea>
+            </div>
+          </form>
+        </div>
       </ng-template>
 
       <!--Resgatar Serviço-->

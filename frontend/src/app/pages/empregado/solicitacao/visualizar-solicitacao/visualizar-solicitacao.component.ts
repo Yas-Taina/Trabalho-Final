@@ -18,11 +18,12 @@ import { EstadosSolicitacao } from "../../../../shared/models/enums/estados-soli
 import { EstadoAmigavelPipe } from "../../../../shared/pipes/estado-amigavel.pipe";
 import { HistoricoUtils } from "../../../../shared/utils/historico-utils";
 import { Funcionario } from "../../../../shared/models/funcionario.model";
+import { NgxCurrencyDirective } from "ngx-currency";
 
 @Component({
   selector: "app-visualizar-solicitacao",
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, ModalComponent, NgbModule, EstadoAmigavelPipe],
+  imports: [CommonModule, FormsModule, RouterModule, ModalComponent, NgbModule, EstadoAmigavelPipe, NgxCurrencyDirective],
   templateUrl: "./visualizar-solicitacao.component.html",
   styleUrl: "./visualizar-solicitacao.component.css",
 })

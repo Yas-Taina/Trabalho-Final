@@ -339,6 +339,10 @@ footer {
   border: 1px solid #204f2c;
 }
 
+.campoVazio {
+  opacity: 0.7;
+}
+
 input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 1000px var(--creme) inset !important;
   -webkit-text-fill-color: var(--azulEscuro) !important;
@@ -410,4 +414,17 @@ textarea {
 /*---Outros itens---*/
 hr {
   border-top: 1px solid var(--azulEscuro);
+}
+
+.alert {
+  opacity: 0.9;
+}
+
+.alert-danger {
+  background-color: var(--creme);
+  border: solid 1px var(--rosaCha);
+  border-radius: 20px;
+  color: #a10320;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
 }

@@ -43,6 +43,8 @@
           name="descricao"
           [(ngModel)]="solicitacao.descricao"
           #descricao="ngModel"
+          maxlength="500"
+          placeholder="Insira a descrição"
           required
         ></textarea>
         <div
@@ -50,7 +52,7 @@
           class="alert alert-danger"
         >
           <div [hidden]="!descricao.errors['required']">
-            Digite uma descricao para a solicitação.
+            Digite uma descrição para a solicitação.
           </div>
         </div>
       </div>
@@ -63,6 +65,8 @@
           name="defeito"
           [(ngModel)]="solicitacao.defeito"
           #defeito="ngModel"
+          maxlength="500"
+          placeholder="Insira o defeito"
           required
         ></textarea>
         <div

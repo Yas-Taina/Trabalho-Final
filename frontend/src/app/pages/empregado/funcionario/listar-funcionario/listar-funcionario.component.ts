@@ -3,6 +3,7 @@ import { FuncionarioService } from "../../../../services/funcionario.service";
 import { Funcionario } from "../../../../shared/models/funcionario.model";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
+import { LoginService } from "../../../../services/login/login.service";
 
 @Component({
   selector: "app-listar-funcionario",
@@ -13,15 +14,26 @@ import { RouterModule } from "@angular/router";
 })
 export class ListarFuncionarioComponent {
   funcionarios: Funcionario[] = [];
+  usuario: number = 0;
 
-  constructor(private funcionarioService: FuncionarioService) {}
+  constructor(
+    private funcionarioService: FuncionarioService,
+    private loginService: LoginService) {}
 
   ngOnInit(): void {
     this.funcionarios = this.listarTodos();
+    this.getId();
   }
+
+  getId() {
+    const sessao = this.loginService.obterDadosDaSessao();
+    this.usuario = sessao!.usuarioId;
+  }
+
   listarTodos(): Funcionario[] {
     return this.funcionarioService.listarTodos();
   }
+
   remover($event: any, funcionario: Funcionario): void {
     $event.preventDefault();
     if (
