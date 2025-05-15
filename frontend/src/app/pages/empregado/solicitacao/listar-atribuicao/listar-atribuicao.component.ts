@@ -3,8 +3,7 @@ import { SolicitacaoService,ClienteService,FuncionarioService,LoginService } fro
 import { Cliente, Solicitacao,EstadosSolicitacao } from "../../../../shared/models";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
-import { EstadoAmigavelPipe } from "../../../../shared/pipes/estado-amigavel.pipe";
-import { EstadoCorPipe } from "../../../../shared/pipes/estado-cor.pipe";
+import { EstadoCorPipe, EstadoAmigavelPipe } from "../../../../shared/pipes";
 import { HistoricoUtils } from "../../../../shared/utils";
 
 @Component({

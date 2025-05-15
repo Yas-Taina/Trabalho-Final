@@ -3,7 +3,7 @@ import { SolicitacaoService,OrcamentoService,LoginService } from "../../../servi
 import { Solicitacao,Orcamento,EstadosSolicitacao } from "../../../shared/models";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
-import { EstadoAmigavelPipe } from "../../../shared/pipes/estado-amigavel.pipe";
+import { EstadoAmigavelPipe } from "../../../shared/pipes";
 import { HistoricoUtils } from "../../../shared/utils";
 
 @Component({

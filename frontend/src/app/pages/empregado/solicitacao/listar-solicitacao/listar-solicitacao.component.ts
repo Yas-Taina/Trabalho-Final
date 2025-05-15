@@ -4,8 +4,7 @@ import { Cliente,Solicitacao,EstadosSolicitacao } from "../../../../shared/model
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { FormsModule } from "@angular/forms";
-import { EstadoAmigavelPipe } from "../../../../shared/pipes/estado-amigavel.pipe";
-import { EstadoCorPipe } from "../../../../shared/pipes/estado-cor.pipe";
+import { EstadoAmigavelPipe, EstadoCorPipe } from "../../../../shared/pipes";
 import { HistoricoUtils } from "../../../../shared/utils";
 
 @Component({

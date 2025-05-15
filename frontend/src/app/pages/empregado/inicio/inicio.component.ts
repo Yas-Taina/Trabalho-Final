@@ -5,7 +5,7 @@ import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ReceitasComponent } from "../relatorios/receitas/receitas.component";
-import { EstadoAmigavelPipe } from "../../../shared/pipes/estado-amigavel.pipe";
+import { EstadoAmigavelPipe } from "../../../shared/pipes";
 
 @Component({
   selector: "app-inicio",
