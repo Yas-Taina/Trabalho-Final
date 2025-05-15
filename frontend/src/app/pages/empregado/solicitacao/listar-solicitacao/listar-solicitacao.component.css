@@ -1,18 +1,4 @@
-#listarsolicitacao {
-  background-color: var(--azul2);
-  padding: 15px;
-}
-
-#tabelasolicitacao {
-  font-family: "DejaVu Serif";
-  background-color: var(--azul2);
-}
-
-#filtro {
-  font-family: "DejaVu Serif";
-  color: var(--background-color);
-}
-
+/*Muda sinâmicamente de acordo com o status da solicitação*/
 .bola-status {
   display: inline-block;
   width: 15px;

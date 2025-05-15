@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Funcionario } from "../shared/models/funcionario.model";
+import { Funcionario } from "../shared/models";
 import { ServiceCrudBase } from "./service-crud-base/service-crud-base";
 
 const LS_CHAVE = "funcionarios";
@@ -18,7 +18,7 @@ export class FuncionarioService extends ServiceCrudBase<Funcionario> {
     const funcionarioPadrao: Funcionario = {
       id: 1010,
       nome: "Funcionário Padrão",
-      data: "2001-02-05",
+      data: new Date(2001, 2, 5),
       email: "func@func",
       senha: "1234",
     };

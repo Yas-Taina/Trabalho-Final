@@ -1,145 +1,140 @@
-<div id="admhome" class="row">
-  <div class="col-md-4" id="containerImagem">
+<div class="row mainAzul">
+  <div class="col-md-4 containerTituloPagina">
     <img
       src="../../../../assets/images/backgroundTitle.png"
-      class="backgroundimg"
+      class="imgFundoTitulo"
     />
-    <div id="tituloImagem"><h1>Início</h1></div>
+    <div class="tituloPagina"><h1>Início</h1></div>
   </div>
 
   <div class="col-md-8">
-    <table class="table table-striped table-bordered table-hover">
-      <thead>
-        <tr>
-          <th>Data</th>
-          <th>Cliente</th>
-          <th>Estado da Solicitação</th>
-          <th colspan="2">Ações</th>
-        </tr>
-      </thead>
+    <div *ngIf="solicitacoes.length !== 0" class="containerTabela">
+      <div class="tabela">
+        <table>
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Cliente</th>
+              <th>Estado da Solicitação</th>
+              <th colspan="2">Ações</th>
+            </tr>
+          </thead>
 
-      <tbody>
-        <tr *ngFor="let solicitacao of solicitacoes">
-          <td>{{ solicitacao.data }}</td>
-          <td>{{ buscarNomeCliente(solicitacao.idCliente) }}</td>
-          <td>{{ solicitacao.estado }}</td>
-          <td class="text-center" style="border-right: 0">
-            <a
-              class="btn btn-xs btn-rosa-cha"
-              [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
-              title="Orçar"
-              >Efetuar Orçamento</a
-            >
-          </td>
-          <td class="text-center" style="border-left: 0">
-            <a
-              class="btn btn-lg icon-olho"
-              [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
-              title="Visualizar"
-            >
-              <i class="fa-solid fa-eye" aria aria-hidden="true"></i>
-            </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+          <tbody>
+            <tr *ngFor="let solicitacao of solicitacoes">
+              <td>{{ solicitacao.data | date: 'dd/MM/yyyy - HH:mm' }}</td>
+              <td>{{ buscarNomeCliente(solicitacao.idCliente) }}</td>
+              <td>{{ solicitacao.estado | estadoAmigavel }}</td>
+              <td style="border-right: 0">
+                <a
+                  class="btn btnRosaCha btnTabela"
+                  [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
+                  title="Orçar"
+                  >Efetuar<br />Orçamento</a
+                >
+              </td>
+              <td style="border-left: 0">
+                <a
+                  class="btnIcon"
+                  [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
+                  title="Visualizar"
+                >
+                  <i class="fa-solid fa-eye" aria aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-    <p id="semSolicitacoes" *ngIf="solicitacoes.length === 0">
+    <p class="tituloPequeno mt-5" *ngIf="solicitacoes.length === 0">
       Nenhuma Solicitação em Estado Aberto.
     </p>
   </div>
-  <div class="row text-center mt-4" id="relatorio">
+
+  <!--Geração de relatórios-->
+  <div class="row row-gap-2" id="relatorio">
     <div
       class="col-md-4 d-flex flex-column justify-content-center align-items-center"
     >
-      <h2 style="text-align: right; font-family: &quot;Blackest Text&quot;">
-        EMITIR<br />RELATÓRIO<br />FINANCEIRO
-      </h2>
+      <h2 class="tituloGrande">EMITIR<br />RELATÓRIO<br />FINANCEIRO</h2>
     </div>
     <div class="col-md-4 d-flex justify-content-center align-items-center">
       <a
-        class="btn btn-lg btn-creme w-75"
+        class="btn btnCreme btnAcao"
         title="Data"
         (click)="abrirModalRelatorioReceitas()"
-        style="font-size: 1rem"
       >
-        Receitas
+        Receitas por Data
       </a>
     </div>
     <div class="col-md-4 d-flex justify-content-center align-items-center">
       <a
-        class="btn btn-lg btn-azul2 w-75"
-        title="Data"
+        class="btn btnTransparenteCreme btnAcao"
+        title="Categoria"
         (click)="gerarRelatorioReceitasPorCategoria()"
-        style="font-size: 1rem"
       >
         Receitas por Categoria
       </a>
     </div>
   </div>
 
-  <div class="text-center align-items-center">
-    <div id="letra-creme" class="row">
-      <div class="col-md-4 d-flex flex-column">
-        <h2 style="font-family: &quot;Blackest Text&quot;">Solicitações</h2>
-        <i class="fa-solid fa-screwdriver-wrench" id="iconhome"></i>
-        <a
-          class="btn btn-xs btn-creme"
-          [routerLink]="['/adm/atribuicoes']"
-          title="Categoria"
-          style="font-family: &quot;DejaVu Serif&quot;"
-        >
-          Minhas Atribuições
-        </a>
-        <a
-          class="btn btn-xs btn-azul2"
-          [routerLink]="['/adm/solicitacoes']"
-          title="Categoria"
-          style="font-family: &quot;DejaVu Serif&quot;"
-        >
-          Visualizar Todas
-        </a>
-      </div>
-      <div class="col-md-4 d-flex flex-column">
-        <h2 style="font-family: &quot;Blackest Text&quot;">Equipamentos</h2>
-        <i class="fa-solid fa-computer" id="iconhome"></i>
-        <a
-          class="btn btn-xs btn-creme"
-          [routerLink]="['/adm/equipamentos']"
-          title="Visualizar Equipamentos"
-          style="font-family: &quot;DejaVu Serif&quot;"
-        >
-          Visualizar
-        </a>
-        <a
-          class="btn btn-xs btn-azul2"
-          [routerLink]="['/adm/equipamentos/novo']"
-          title="Novo Equipamento"
-          style="font-family: &quot;DejaVu Serif&quot;"
-        >
-          Cadastrar Novo
-        </a>
-      </div>
-      <div class="col-md-4 d-flex flex-column">
-        <h2 style="font-family: &quot;Blackest Text&quot;">Funcionários</h2>
-        <i class="fa-solid fa-users" id="iconhome"></i>
-        <a
-          class="btn btn-xs btn-creme"
-          [routerLink]="['/adm/funcionarios']"
-          title="Visualizar Funcionários"
-          style="font-family: &quot;DejaVu Serif&quot;"
-        >
-          Visualizar
-        </a>
-        <a
-          class="btn btn-xs btn-azul2"
-          [routerLink]="['/adm/funcionarios/novo']"
-          title="Novo Funcionário"
-          style="font-family: &quot;DejaVu Serif&quot;"
-        >
-          Cadastrar Novo
-        </a>
-      </div>
+  <!--Atalhos para páginas de funcionário-->
+  <div class="row row-gap-4">
+    <div class="col-md-4 d-flex flex-column align-items-center">
+      <h2 class="tituloPequeno">Solicitações</h2>
+      <i class="fa-solid fa-screwdriver-wrench" id="iconHome"></i>
+      <a
+        class="btn btnCreme btnAcao"
+        [routerLink]="['/adm/atribuicoes']"
+        title="Categoria"
+      >
+        Minhas Atribuições
+      </a>
+      <a
+        class="btn btnTransparenteCreme btnAcao"
+        [routerLink]="['/adm/solicitacoes']"
+        title="Categoria"
+      >
+        Visualizar Todas
+      </a>
+    </div>
+    <div class="col-md-4 d-flex flex-column align-items-center">
+      <h2 class="tituloPequeno">Equipamentos</h2>
+      <i class="fa-solid fa-computer" id="iconHome"></i>
+      <a
+        class="btn btnCreme btnAcao"
+        [routerLink]="['/adm/equipamentos']"
+        title="Visualizar Equipamentos"
+      >
+        Visualizar
+      </a>
+      <a
+        class="btn btnTransparenteCreme btnAcao"
+        [routerLink]="['/adm/equipamentos/novo']"
+        title="Novo Equipamento"
+      >
+        Cadastrar Novo
+      </a>
+    </div>
+    <div class="col-md-4 d-flex flex-column align-items-center">
+      <h2 class="tituloPequeno">Funcionários</h2>
+      <i class="fa-solid fa-users" id="iconHome"></i>
+      <a
+        class="btn btnCreme btnAcao"
+        [routerLink]="['/adm/funcionarios']"
+        title="Visualizar Funcionários"
+      >
+        Visualizar
+      </a>
+      <a
+        class="btn btnTransparenteCreme btnAcao"
+        [routerLink]="['/adm/funcionarios/novo']"
+        title="Novo Funcionário"
+      >
+        Cadastrar Novo
+      </a>
     </div>
   </div>
 </div>

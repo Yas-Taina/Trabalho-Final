@@ -1,44 +1,17 @@
-#admhome {
-  background-color: var(--azul2);
-  padding: 15px;
-}
-
-#relatorio {
-  font-family: "DejaVu Serif";
-  color: var(--background-color);
-  border: 2px solid #e4a18f;
-  border-radius: 30px;
-  margin: 1vw;
-  padding-left: 100px;
-  padding-right: 100px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  justify-content: space-between;
-  align-items: right;
-  max-width: 95%;
-}
-
-#iconhome {
+/*---Icones Usados Como Imagens---*/
+#iconHome {
   font-size: 150px;
-  color: #e4a18f;
+  color: var(--salmao);
   margin: 1vw;
   padding: auto;
 }
 
-#semSolicitacoes {
-  font-family: "DejaVu Serif";
-  color: var(--creme);
-  margin: 1vw;
-  padding: auto;
-}
-
-#label {
-  font-family: "DejaVu Serif";
-  color: var(--creme);
-  margin: 1vw;
-  padding: auto;
-}
-
-#letra-creme {
-  color: var(--creme);
+/*---Box de Relatórios---*/
+#relatorio {
+  border: 2px solid var(--salmao);
+  border-radius: 30px;
+  padding: 10px 100px 10px;
+  margin: 1rem 0 3.5rem;
+  justify-content: space-between;
+  text-align: right;
 }

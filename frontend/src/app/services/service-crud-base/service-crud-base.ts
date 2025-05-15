@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { EntidadeBase } from "../../shared/models/entidade-base.model";
+import { EntidadeBase } from "../../shared/models";
 import { IdBaseService } from "../id-base.service";
 
 @Injectable({
@@ -8,7 +8,7 @@ import { IdBaseService } from "../id-base.service";
 export abstract class ServiceCrudBase<T extends EntidadeBase> {
   protected chaveLocalstorage: string;
 
-  constructor(chaveLocalstorage: string) {
+  protected constructor(chaveLocalstorage: string) {
     this.chaveLocalstorage = chaveLocalstorage;
   }
 

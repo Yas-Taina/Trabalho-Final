@@ -1,18 +1,18 @@
-<div id="inserirsolicitacao" class="row">
-  <div class="col-md-6" id="containerImagem">
+<div class="row mainAzul">
+  <div class="col-md-6 containerTituloPagina">
     <img
       src="../../../../assets/images/backgroundTitle.png"
-      class="backgroundimg"
+      class="imgFundoTitulo"
     />
-    <div id="tituloImagem"><h1>Nova Solicitação</h1></div>
+    <div class="tituloPagina"><h1>Nova Solicitação</h1></div>
   </div>
 
-  <div class="col-md-6 d-flex flex-column justify-content-center px-5">
-    <form #formSolicitacao="ngForm" class="formulario-destaque">
-      <div class="form-group mb-4 bold-creme">
+  <div class="col-md-6 d-flex flex-column justify-content-center">
+    <form #formSolicitacao="ngForm">
+      <div class="form-group">
         <label for="equipamento">Categoria do Equipamento</label>
         <select
-          class="form-control bg-creme"
+          class="form-control"
           id="equipamento"
           name="equipamento"
           [(ngModel)]="solicitacao.equipamento"
@@ -35,45 +35,40 @@
         </div>
       </div>
 
-      <div class="form-group mb-4 bold-creme">
-        <label for="descricao" class="bold-creme"
-          >Descrição do seu Equipamento</label
-        >
-        <input
-          type="text"
-          class="form-control bg-creme"
+      <div class="form-group">
+        <label for="descricao">Descrição do seu Equipamento</label>
+        <textarea
+          class="form-control"
           id="descricao"
           name="descricao"
-          style="height: 150px"
           [(ngModel)]="solicitacao.descricao"
           #descricao="ngModel"
+          maxlength="500"
+          placeholder="Insira a descrição"
           required
-          descricao
-        />
+        ></textarea>
         <div
           *ngIf="descricao.errors && (descricao.dirty || descricao.touched)"
           class="alert alert-danger"
         >
           <div [hidden]="!descricao.errors['required']">
-            Digite uma descricao para a solicitação.
+            Digite uma descrição para a solicitação.
           </div>
         </div>
       </div>
 
-      <div class="form-group mb-4 bold-creme">
-        <label for="defeito" class="bold-creme"
-          >Descreva o defeito do seu equipamento:</label
-        >
-        <input
-          type="text"
-          class="form-control bg-creme"
+      <div class="form-group">
+        <label for="defeito">Descreva o defeito do seu equipamento:</label>
+        <textarea
+          class="form-control"
           id="defeito"
           name="defeito"
-          style="height: 150px"
           [(ngModel)]="solicitacao.defeito"
           #defeito="ngModel"
+          maxlength="500"
+          placeholder="Insira o defeito"
           required
-        />
+        ></textarea>
         <div
           *ngIf="defeito.errors && (defeito.dirty || defeito.touched)"
           class="alert alert-danger"
@@ -84,19 +79,19 @@
         </div>
       </div>
 
-      <div class="form-group">
-        <a class="btn btn-rosa-salmao" title="Voltar" routerLink="/client/home">
-          <i class="fa fa-arrow-left" aria-hidden="true"></i>
-        </a>
+      <div class="form-group d-flex justify-content-end">
         <button
           type="button"
+          class="btn btnRosaCha"
           title="Salvar"
-          class="btn btn-rosa-cha"
           (click)="inserir()"
           [disabled]="!formSolicitacao.form.valid"
         >
           <i class="fa fa-save" aria-hidden="true"></i>
         </button>
+        <a class="btn btnRosaSalmao" title="Voltar" routerLink="/client/home">
+          <i class="fa-solid fa-location-arrow btnVoltar"></i>
+        </a>
       </div>
     </form>
   </div>

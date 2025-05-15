@@ -1,99 +1,115 @@
-<div id="listarsolicitacao" class="row">
-  <div class="col-md-4" id="containerImagem">
+<div class="row mainAzul">
+  <div class="col-md-4 containerTituloPagina">
     <img
       src="../../../../assets/images/backgroundTitle.png"
-      class="backgroundimg"
+      class="imgFundoTitulo"
     />
-    <div id="tituloImagem"><h1>Solicitações</h1></div>
+    <div class="tituloPagina"><h1>Solicitações</h1></div>
   </div>
 
-  <div id="tabelasolicitacao" class="col-md-8">
-    <div style="display: flex; justify-content: right">
-      <a class="btn btn-xs botao1" title="Filtrar" (click)="toggleFilter()">
-        <i class="fa-solid fa-filter"></i>
-      </a>
-      <a
-        *ngIf="dataMinima !== ''"
-        class="btn btn-xs botao1"
-        title="Limpar Filtro"
-        (click)="limparFiltro()"
-      >
-        <i class="fa-solid fa-filter-circle-xmark"></i>
+  <div class="col-md-8">
+    <!--Filtros-->
+    <div class="d-flex flex-column align-items-end row-gap-2">
+      <div>
+        <a
+          *ngIf="dataMinima"
+          class="btn btnRosaSalmao"
+          title="Limpar Filtro"
+          (click)="limparFiltro()"
+        >
+          <i class="fa-solid fa-filter-circle-xmark"></i>
+        </a>
+        <a class="btn btnRosaSalmao" title="Filtrar" (click)="toggleFilter()">
+          <i class="fa-solid fa-filter"></i>
+        </a>
+      </div>
+
+      <div class="col-md-4 text-start" *ngIf="isFilterOpen">
+        <label for="dataMinima">Filtrar a partir de:</label>
+        <input
+          type="date"
+          class="form-control"
+          id="dataMinima"
+          [ngModel]="dataMinima | date: 'yyyy-MM-dd'"
+          (ngModelChange)="dataMinima = $event; filtrarPorData()"
+        />
+      </div>
+    </div>
+
+    <!--Tabela-->
+    <div *ngIf="solicitacoes.length !== 0" class="containerTabela">
+      <div class="tabela">
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Data</th>
+              <th>Cliente</th>
+              <th>Estado da Solicitação</th>
+              <th>Descrição</th>
+              <th colspan="2">Ações</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let solicitacao of solicitacoes">
+              <td>
+                <span
+                  class="bola-status"
+                  [style.background-color]="solicitacao.estado | estadoCor"
+                ></span>
+              </td>
+              <td>{{ solicitacao.data | date: 'dd/MM/yyyy - HH:mm' }}</td>
+              <td>{{ buscarNomeCliente(solicitacao.idCliente) }}</td>
+              <td>{{ solicitacao.estado | estadoAmigavel }}</td>
+              <td>{{ solicitacao.descricao.substring(0, 30) }}{{ solicitacao.descricao.length > 30 ? '...' : '' }}</td>
+              <td style="border-right: 0">
+                <a
+                  *ngIf="solicitacao.estado === EstadosSolicitacao.Aberta"
+                  class="btn btnRosaCha btnTabela"
+                  [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
+                  title="Orçar"
+                  >Realizar<br />Orçamento</a
+                >
+                <a
+                  *ngIf="
+                    solicitacao.estado === EstadosSolicitacao.Aprovada ||
+                    solicitacao.estado === EstadosSolicitacao.Redirecionada
+                  "
+                  [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
+                  class="btn btnRosaCha btnTabela"
+                  title="Consertar"
+                  >Realizar<br />Manutenção</a
+                >
+                <a
+                  *ngIf="solicitacao.estado === EstadosSolicitacao.Paga"
+                  class="btn btnRosaCha btnTabela"
+                  (click)="this.finalizar(solicitacao)"
+                  title="Finalizar"
+                  >Finalizar<br />Solicitação</a
+                >
+              </td>
+              <td style="border-left: 0">
+                <a
+                  class="btnIcon"
+                  [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
+                  title="Visualizar"
+                >
+                  <i class="fa-solid fa-eye" aria aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p *ngIf="solicitacoes.length === 0" class="tituloPequeno mt-5">Nenhuma Solicitação Cadastrada.</p>
+
+    <div class="d-flex justify-content-end">
+      <a class="btn btnRosaSalmao" title="Voltar" routerLink="/adm/home">
+        <i class="fa-solid fa-location-arrow btnVoltar"></i>
       </a>
     </div>
-    <div id="filtro" class="mb-3" *ngIf="isFilterOpen">
-      <label for="dataMinima">Filtrar a partir de:</label>
-      <input
-        type="date"
-        class="form-control"
-        id="dataMinima"
-        [(ngModel)]="dataMinima"
-        (change)="filtrarPorData()"
-      />
-    </div>
-    <table class="table table-striped table-bordered table-hover">
-      <thead>
-        <tr>
-          <th></th>
-          <th>Data</th>
-          <th>Cliente</th>
-          <th>Estado da Solicitação</th>
-          <th>Descrição</th>
-          <th colspan="2">Ações</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr *ngFor="let solicitacao of solicitacoes">
-          <td>
-            <span
-              class="bola-status"
-              [style.background-color]="getCorStatus(solicitacao.estado)"
-            ></span>
-          </td>
-          <td>{{ solicitacao.data }}</td>
-          <td>{{ buscarNomeCliente(solicitacao.idCliente) }}</td>
-          <td>{{ solicitacao.estado }}</td>
-          <td>{{ solicitacao.descricao }}</td>
-          <td class="text-center" style="border-right: 0">
-            <a
-              *ngIf="solicitacao.estado === 'ABERTA'"
-              class="btn btn-xs btn-rosa-cha"
-              [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
-              title="Orçar"
-              >Realizar Orçamento</a
-            >
-            <a
-              *ngIf="
-                solicitacao.estado === 'APROVADA' ||
-                solicitacao.estado === 'REDIRECIONADA'
-              "
-              [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
-              class="btn btn-xs btn-rosa-cha"
-              title="Consertar"
-              >Realizar Manutenção</a
-            >
-            <a
-              *ngIf="solicitacao.estado === 'PAGA'"
-              class="btn btn-xs btn-rosa-cha"
-              (click)="this.finalizar(solicitacao)"
-              title="Finalizar"
-              >Finalizar Solicitação</a
-            >
-          </td>
-          <td class="text-center" style="border-left: 0">
-            <a
-              class="btn btn-xs icon-olho"
-              [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
-              title="Visualizar"
-            >
-              <i class="fa-solid fa-eye" aria aria-hidden="true"></i>
-            </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <p *ngIf="solicitacoes.length === 0">Nenhuma Solicitação Cadastrada.</p>
   </div>
 </div>

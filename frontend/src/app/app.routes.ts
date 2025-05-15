@@ -16,7 +16,7 @@ import { VisualizarSolicitacaoComponent } from "./pages/cliente/solicitacao/visu
 import { ListarSolicitacaoComponent } from "./pages/empregado/solicitacao/listar-solicitacao/listar-solicitacao.component";
 import { ListarAtribuicaoComponent } from "./pages/empregado/solicitacao/listar-atribuicao/listar-atribuicao.component";
 import { authGuard } from "./auth/auth.guard";
-import { TipoUsuario } from "./shared/models/enums/tipo-usuario.enum";
+import { TipoUsuario } from "./shared/models";
 
 export const routes: Routes = [
   // Public routes

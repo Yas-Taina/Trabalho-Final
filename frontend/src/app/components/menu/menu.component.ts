@@ -1,19 +1,8 @@
-import {
-  Component,
-  HostListener,
-  ElementRef,
-  OnInit,
-  OnDestroy,
-} from "@angular/core";
+import {Component,HostListener,ElementRef,OnInit,OnDestroy,} from "@angular/core";
 import { CommonModule } from "@angular/common";
-import {
-  Router,
-  NavigationEnd,
-  RouterModule,
-  NavigationStart,
-} from "@angular/router";
+import {Router,NavigationEnd,RouterModule,NavigationStart,} from "@angular/router";
 import { filter, map, Observable, Subscription } from "rxjs";
-import { LoginService } from "../../services/login/login.service";
+import { LoginService } from "../../services";
 
 @Component({
   selector: "app-menu",
@@ -71,13 +60,14 @@ export class MenuComponent implements OnInit, OnDestroy {
 
   @HostListener("document:click", ["$event"])
   onClick(event: MouseEvent) {
-    const menucont = this.elementRef.nativeElement.querySelector("#compmenu");
-    const burgue = this.elementRef.nativeElement.querySelector(".burgue");
+    const menucont = this.elementRef.nativeElement.querySelector("#mainMenu");
+    const btnHamburguer =
+      this.elementRef.nativeElement.querySelector(".btnHamburguer");
 
     if (
       menucont &&
       !menucont.contains(event.target) &&
-      (!burgue || !burgue.contains(event.target))
+      (!btnHamburguer || !btnHamburguer.contains(event.target))
     ) {
       this.closeMenu();
     }

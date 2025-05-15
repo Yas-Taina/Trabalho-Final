@@ -1,22 +1,20 @@
-<div id="login" class="row">
-  <div class="col-md-6" id="containerImagem">
+<div class="row mainAzul">
+  <div class="col-md-6 containerTituloPagina">
     <img
       src="../../../../assets/images/backgroundTitle.png"
-      class="backgroundimg"
+      class="imgFundoTitulo"
     />
-    <div id="tituloImagem"><h1>Login</h1></div>
+    <div class="tituloPagina"><h1>Login</h1></div>
   </div>
 
-  <div class="col-md-6 d-flex justify-content-center">
-    <div class="container py-5">
-      <div class="row justify-content-center">
+  <div class="col-md-6 d-flex justify-content-center align-items-center">
         <div class="col-md-6 col-lg-5">
           <div>
-            <p class="text-center bold-creme mb-4">Acesse sua conta</p>
+            <h5 class="subtitulo">Acesse sua conta</h5>
 
             <form #formLogin="ngForm">
-              <div class="mb-3">
-                <label for="email" class="form-label bold-creme">E-mail</label>
+              <div>
+                <label for="email" class="form-label">E-mail</label>
                 <input
                   type="email"
                   class="form-control"
@@ -40,8 +38,8 @@
                 </div>
               </div>
 
-              <div class="mb-3">
-                <label for="senha" class="form-label bold-creme">Senha</label>
+              <div>
+                <label for="senha" class="form-label">Senha</label>
                 <input
                   type="password"
                   class="form-control"
@@ -61,15 +59,15 @@
                     Digite uma senha.
                   </div>
                   <div *ngIf="senha.errors?.['minlength']">
-                    A senha deve conter ao menos 6 caracteres.
+                    A senha deve conter ao menos 4 caracteres.
                   </div>
                 </div>
               </div>
 
-              <div class="d-grid mb-3">
+              <div class="d-grid">
                 <button
                   type="button"
-                  class="btn botao2 botaorosa"
+                  class="btn btnRosaSalmao"
                   (click)="login()"
                   [disabled]="!formLogin.form.valid"
                 >
@@ -77,12 +75,10 @@
                 </button>
               </div>
               <div class="text-center">
-                <a href="#" class="small rosa-salmao">Esqueceu a senha?</a>
+                <a href="#" class="textLink">Esqueceu a senha?</a>
               </div>
             </form>
           </div>
         </div>
       </div>
-    </div>
-  </div>
 </div>

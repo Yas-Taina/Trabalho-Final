@@ -1,25 +1,19 @@
-import { Component, OnInit, ViewChild, TemplateRef } from "@angular/core";
+import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
 import { FormsModule, NgForm } from "@angular/forms";
-import { Solicitacao } from "../../../../shared/models/solicitacao.model";
-import { Orcamento } from "../../../../shared/models/orcamento.model";
-import { Cliente } from "../../../../shared/models/cliente.model";
-import { Equipamento } from "../../../../shared/models/equipamento.model";
-import { ActivatedRoute, RouterModule } from "@angular/router";
-import { SolicitacaoService } from "../../../../services/solicitacao.service";
-import { EquipamentoService } from "../../../../services/equipamento.service";
-import { FuncionarioService } from "../../../../services/funcionario.service";
-import { OrcamentoService } from "../../../../services/orcamento.service";
-import { ClienteService } from "../../../../services/cliente.service";
+import { Cliente, Equipamento,Funcionario, Solicitacao, Orcamento,EstadosSolicitacao } from "../../../../shared/models";
+import { ActivatedRoute, Router, RouterModule } from "@angular/router";
+import { SolicitacaoService,EquipamentoService,FuncionarioService,OrcamentoService,ClienteService,LoginService } from "../../../../services";
 import { CommonModule } from "@angular/common";
-import { LoginService } from "../../../../services/login/login.service";
 import { ModalComponent } from "../../../../components/modal/modal.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-import { Router } from "@angular/router";
+import { EstadoAmigavelPipe } from "../../../../shared/pipes";
+import { HistoricoUtils } from "../../../../shared/utils";
+import { NgxCurrencyDirective } from "ngx-currency";
 
 @Component({
   selector: "app-visualizar-solicitacao",
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, ModalComponent, NgbModule],
+  imports: [CommonModule, FormsModule, RouterModule, ModalComponent, NgbModule, EstadoAmigavelPipe, NgxCurrencyDirective],
   templateUrl: "./visualizar-solicitacao.component.html",
   styleUrl: "./visualizar-solicitacao.component.css",
 })
@@ -30,6 +24,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
   @ViewChild("redirecionarTemplate") redirecionarTemplate!: TemplateRef<any>;
   @ViewChild("consertarTemplate") consertarTemplate!: TemplateRef<any>;
 
+  EstadosSolicitacao = EstadosSolicitacao;
   solicitacao: Solicitacao = new Solicitacao();
   orcamento: Orcamento = new Orcamento();
   id: number = 0;
@@ -41,7 +36,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
   isEquipOpen = false;
   isClientOpen = false;
   isHistOpen = false;
-  funcionarios: any[] = [];
+  funcionarios: Funcionario[] = [];
   confirmada!: (formData: any) => void;
 
   currentModalTitle: string = "";
@@ -57,7 +52,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     private equipamentoService: EquipamentoService,
     private orcamentoService: OrcamentoService,
     private router: Router,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.params["id"];
@@ -89,17 +84,15 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
   }
 
   carregarCliente(): void {
-    const clienteEncontrado = this.clienteService.buscarPorId(
+    this.cliente = this.clienteService.buscarPorId(
       this.solicitacao.idCliente,
     );
-    this.cliente = clienteEncontrado;
   }
 
   carregarEquipamento(): void {
-    const equipamentoEncontrado = this.equipamentoService.buscarPorId(
+    this.equipamento = this.equipamentoService.buscarPorId(
       this.solicitacao.equipamento,
     );
-    this.equipamento = equipamentoEncontrado;
   }
 
   carregarOrcamento(): void {
@@ -117,30 +110,13 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     }
   }
 
-  atualizarHistorico(): void {
-    const dataAtual = new Date();
-    const dia = dataAtual.getDate().toString().padStart(2, "0");
-    const mes = (dataAtual.getMonth() + 1).toString().padStart(2, "0");
-    const ano = dataAtual.getFullYear();
-    const horas = dataAtual.getHours().toString().padStart(2, "0");
-    const minutos = dataAtual.getMinutes().toString().padStart(2, "0");
-    const estado = this.solicitacao.estado;
-    const add = `• ${estado}, Data: ${dia}/${mes}/${ano} - ${horas}:${minutos}, Responsável: ${this.nomeFuncionario} \n`;
-    this.solicitacao.historico += add;
-  }
-
   atualizar(): void {
     this.solicitacaoService.atualizar(this.solicitacao);
   }
 
+  // TODO: Refatorar para utilizar data no orcamento
   inserirOrcamento(): void {
-    const dataAtual = new Date();
-    const dia = dataAtual.getDate().toString().padStart(2, "0");
-    const mes = (dataAtual.getMonth() + 1).toString().padStart(2, "0");
-    const ano = dataAtual.getFullYear();
-    const horas = dataAtual.getHours().toString().padStart(2, "0");
-    const minutos = dataAtual.getMinutes().toString().padStart(2, "0");
-    this.orcamento.data = `${dia}/${mes}/${ano} - ${horas}:${minutos}`;
+    this.orcamento.data = new Date();
     this.orcamento.idEmpregado = this.usuario;
     this.orcamento.idSolicitacao = this.id;
     this.orcamentoService.inserir(this.orcamento);
@@ -157,8 +133,8 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     this.orcamento.valor = valorForm;
     this.inserirOrcamento();
     this.carregarOrcamento();
-    this.solicitacao.estado = "ORÇADA";
-    this.atualizarHistorico();
+    this.solicitacao.estado = EstadosSolicitacao.Orcada;
+    HistoricoUtils.atualizarHistoricoComResponsavel(this.solicitacao, this.nomeFuncionario);
     this.atualizar();
   }
 
@@ -169,8 +145,8 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     }
 
     this.solicitacao.idEmpregado = formData.idEmpregado;
-    this.solicitacao.estado = "REDIRECIONADA";
-    this.atualizarHistorico();
+    this.solicitacao.estado = EstadosSolicitacao.Redirecionada;
+    HistoricoUtils.atualizarHistoricoComResponsavel(this.solicitacao, this.nomeFuncionario);
     this.atualizar();
     this.router.navigate(["/adm/home"]);
   }
@@ -183,8 +159,8 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
 
     this.solicitacao.mensagem = formData.mensagem;
     this.solicitacao.manutencao = formData.manutencao;
-    this.solicitacao.estado = "ARRUMADA";
-    this.atualizarHistorico();
+    this.solicitacao.estado = EstadosSolicitacao.Arrumada;
+    HistoricoUtils.atualizarHistoricoComResponsavel(this.solicitacao, this.nomeFuncionario);
     this.atualizar();
     alert("Manutenção realizada");
   }
@@ -195,8 +171,8 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
         "Deseja finalizar a solicitação? Essa ação não pode ser revertida",
       )
     ) {
-      this.solicitacao.estado = "FINALIZADA";
-      this.atualizarHistorico();
+      this.solicitacao.estado = EstadosSolicitacao.Finalizada;
+      HistoricoUtils.atualizarHistoricoComResponsavel(this.solicitacao, this.nomeFuncionario);
       this.atualizar();
       alert("Manutenção finalizada");
     }

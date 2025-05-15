@@ -1,4 +1,4 @@
-import { Endereco } from "../models/endereco";
+import { Endereco } from "../models";
 
 export class EnderecoUtils {
   static getEnderecoCompleto(endereco: Endereco): string {

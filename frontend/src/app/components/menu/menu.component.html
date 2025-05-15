@@ -1,37 +1,34 @@
-<div id="menu" class="menu-col p-3" [class.show]="isMenuOpen">
-  <div class="menu-itens">
-    <div class="menu1">
-      <ng-container *ngIf="(currentSection$ | async) === 'cliente'">
-        <br />
-        <a routerLink="/client/home">Inicio</a>
-        <br />
-        <a routerLink="/client/solicitacao/novo">Fazer Solicitação</a>
-      </ng-container>
+<div class="menuColumn p-3" [class.show]="isMenuOpen">
+  <div class="menuItens">
+    <ng-container *ngIf="(currentSection$ | async) === 'cliente'">
+      <br />
+      <a routerLink="/client/home">Inicio</a>
+      <br />
+      <a routerLink="/client/solicitacao/novo">Fazer Solicitação</a>
+    </ng-container>
 
-      <ng-container *ngIf="(currentSection$ | async) === 'empregado'">
-        <br />
-        <a routerLink="/adm/home">Inicio</a>
-        <br />
-        <a routerLink="/adm/solicitacoes">Solicitações</a>
-        <br />
-        <a routerLink="/adm/atribuicoes">Minhas Atribuições</a>
-        <br />
-        <a routerLink="/adm/equipamentos">Equipamentos</a>
-        <br />
-        <a routerLink="/adm/funcionarios">Funcionários</a>
-      </ng-container>
-    </div>
+    <ng-container *ngIf="(currentSection$ | async) === 'empregado'">
+      <br />
+      <a routerLink="/adm/home">Inicio</a>
+      <br />
+      <a routerLink="/adm/solicitacoes">Solicitações</a>
+      <br />
+      <a routerLink="/adm/atribuicoes">Minhas Atribuições</a>
+      <br />
+      <a routerLink="/adm/equipamentos">Equipamentos</a>
+      <br />
+      <a routerLink="/adm/funcionarios">Funcionários</a>
+    </ng-container>
     <hr />
   </div>
 </div>
 
 <header
-  class="d-flex justify-content-between align-items-center p-3 bg-rosa-salmao shadow"
-  id="compmenu"
-  style="min-width: 100vw"
+  class="d-flex justify-content-between align-items-center p-3 shadow"
+  id="mainMenu"
 >
   <button
-    class="burgue"
+    class="btnHamburguer"
     (click)="toggleMenu()"
     *ngIf="(currentSection$ | async) !== 'auth'"
   >
@@ -40,37 +37,21 @@
     <span></span>
   </button>
 
-  <h1 id="tituloMenu" class="m-0">Manutenção de Equipamentos</h1>
+  <h1 class="m-0">Manutenção de Equipamentos</h1>
 
   <ng-container *ngIf="(currentSection$ | async) === 'auth'; else logoutButton">
-    <div class="log">
-      <button
-        routerLink="/auth/login"
-        class="btn btn-azul2"
-        title="Login"
-        style="border: 0px"
-      >
+    <div>
+      <button routerLink="/auth/login" class="btn btnAzul" title="Login">
         <i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i>
       </button>
-      <button
-        routerLink="/auth/cadastro"
-        class="btn btn-azul2"
-        title="Cadastro"
-        style="border: 0px"
-      >
+      <button routerLink="/auth/cadastro" class="btn btnAzul" title="Cadastro">
         <i class="fa fa-user-plus" aria-hidden="true"></i>
       </button>
     </div>
   </ng-container>
 
   <ng-template #logoutButton>
-    <button
-      type="button"
-      class="btn btn-azul2"
-      title="Logout"
-      style="border: 0px"
-      (click)="logout()"
-    >
+    <button type="button" class="btn btnAzul" title="Logout" (click)="logout()">
       <i class="fa-solid fa-right-from-bracket"></i>
     </button>
   </ng-template>

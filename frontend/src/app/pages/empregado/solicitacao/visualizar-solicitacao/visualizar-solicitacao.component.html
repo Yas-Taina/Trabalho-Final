@@ -1,43 +1,41 @@
-<div
-  id="visualizar-solicitacao"
-  class="row d-flex justify-content-center bg-creme"
->
-  <div
-    class="col-md-4 d-flex flex-column align-items-center"
-    style="padding-top: 30px"
-  >
-    <br />
-    <div
-      *ngIf="solicitacao.estado !== 'ABERTA'"
-      id="boxOrcamento"
-      style="text-align: center; min-width: 90%; max-width: 90%"
-    >
-      <h5 class="titulo-box">VALOR</h5>
-      <h2 class="valor-box">{{ orcamento.valor | currency: "BRL" }}</h2>
-      <p class="azul2">
-        Orçamento feito por funcionario {{ nomeFuncionarioOrc }} em
-        {{ orcamento.data }}
+<div class="row d-flex justify-content-center mainCreme gap-5">
+  <!--Caixa Esquerda-->
+  <div class="col-md-4 d-flex flex-column align-items-center">
+    <!--Exibe o orçamento, caso exista-->
+    <div *ngIf="solicitacao.estado !== EstadosSolicitacao.Aberta" class="box">
+      <h6 class="tituloPequeno">VALOR</h6>
+      <h2>{{ orcamento.valor | currency: "BRL" }}</h2>
+      <p class="subtitulo">
+        <i
+          >Orçamento feito por funcionario
+          <strong>{{ nomeFuncionarioOrc }}</strong> em
+          <strong>{{ orcamento.data | date: 'dd/MM/yyyy - HH:mm' }}</strong></i
+        >
       </p>
     </div>
+    <!--Exibe detalhes da manutenção, caso exista-->
     <div
       *ngIf="solicitacao.manutencao && solicitacao.manutencao.trim() !== ''"
-      id="boxServico"
-      style="text-align: center; min-width: 90%; max-width: 90%"
+      class="box"
     >
-      <h3>Serviços Realizados</h3>
+      <h6 class="subtituloRosa">SERVIÇOS REALIZADOS</h6>
       <p>{{ solicitacao.manutencao }}</p>
     </div>
-    <div class="d-flex flex-column">
+
+    <!--Botões de Ação-->
+    <div>
+      <!--Fazer orçamento-->
       <a
-        *ngIf="solicitacao.estado === 'ABERTA'"
-        class="btn btn-xs btn-rosa-salmao"
+        *ngIf="solicitacao.estado === EstadosSolicitacao.Aberta"
+        class="btn btnRosaSalmao btnAcao"
         title="Orçar"
         (click)="abrirModalOrcar()"
-        style="width: 300px"
       >
         <i class="fa-solid fa-hand-holding-dollar"></i>&nbsp;&nbsp;Realizar
         Orçamento
       </a>
+
+      <!--Configurações da modal box-->
       <app-modal
         #Modal
         [modalTitle]="currentModalTitle"
@@ -46,35 +44,50 @@
         (confirmed)="confirmar($event)"
       >
       </app-modal>
+
+      <!--Modal box de orçamento-->
       <ng-template #orcarTemplate let-formData="formData">
+        <div class="d-flex flex-column align-items-center">
         <form #form="ngForm">
-          <div class="mb-3">
+          <div>
             <label>Valor do Serviço</label>
-            <textarea
+            <input
+              type="text"
               class="form-control"
               [(ngModel)]="formData.valor"
               name="valor"
+              maxlength="10"
+              currencyMask
+              [options]="{
+                prefix: 'R$ ',
+                thousands: '.',
+                decimal: ',',
+                precision: 2
+              }"
               required
-            >
-            </textarea>
+            />
           </div>
         </form>
+      </div>
       </ng-template>
+
+      <!--Fazer manutenção-->
       <a
         *ngIf="
-          solicitacao.estado === 'APROVADA' ||
-          solicitacao.estado === 'REDIRECIONADA'
+          solicitacao.estado === EstadosSolicitacao.Aprovada ||
+          solicitacao.estado === EstadosSolicitacao.Redirecionada
         "
-        class="btn btn-xs botao1"
+        class="btn btnRosaSalmao btnAcao"
         title="Consertar"
         (click)="abrirModalConsertar()"
-        style="width: 300px"
       >
         <i class="fa-solid fa-gears"></i>&nbsp;&nbsp;Efetuar Manutenção
       </a>
+
+      <!--Modal box de manutenção-->
       <ng-template #consertarTemplate let-formData="formData">
         <form #form="ngForm">
-          <div class="mb-3">
+          <div>
             <label>Serviços Realizados</label>
             <textarea
               class="form-control"
@@ -83,7 +96,7 @@
               required
             ></textarea>
           </div>
-          <div class="mb-3">
+          <div>
             <label>Orientações para o cliente</label>
             <textarea
               class="form-control"
@@ -94,22 +107,26 @@
           </div>
         </form>
       </ng-template>
+
+      <!--Redirecionamento de solicitação-->
       <a
         *ngIf="
-          solicitacao.estado === 'APROVADA' ||
-          solicitacao.estado === 'REDIRECIONADA'
+          solicitacao.estado === EstadosSolicitacao.Aprovada ||
+          solicitacao.estado === EstadosSolicitacao.Redirecionada
         "
-        class="btn btn-xs btn-creme"
+        class="btn btnTransparenteSalmao btnAcao"
         title="Redirecionar"
         (click)="abrirModalRedirecionar()"
-        style="width: 300px"
       >
         <i class="fa-solid fa-user-gear"></i>&nbsp;&nbsp;Redirecionar
         Solicitação
       </a>
+
+      <!--Modal box de redirecionamento-->
       <ng-template #redirecionarTemplate let-formData="formData">
+        <div class="d-flex flex-column align-items-center">
         <form #form="ngForm">
-          <div class="mb-3">
+          <div>
             <label>Selecione o Funcionário</label>
             <select
               class="form-control"
@@ -117,63 +134,66 @@
               name="idEmpregado"
               required
             >
-              <option *ngFor="let f of funcionarios" [value]="f.id">
+            <ng-container *ngFor="let f of funcionarios">
+              <option *ngIf="f.id !== usuario" [value]="f.id">
                 {{ f.nome }}
               </option>
+            </ng-container>
             </select>
           </div>
         </form>
+      </div>
       </ng-template>
+
+      <!--Finalização dos serviços-->
       <a
-        *ngIf="solicitacao.estado === 'PAGA'"
-        class="btn btn-xs btn-rosa-salmao"
+        *ngIf="solicitacao.estado === EstadosSolicitacao.Paga"
+        class="btn btnRosaSalmao btnAcao"
         title="Finalizar"
         (click)="finalizar()"
-        style="width: 300px"
       >
         <i class="fa-solid fa-check-to-slot"></i>&nbsp;&nbsp;Finalizar
         Solicitação
       </a>
-      <div>
+
+      <!--Exibe o histórico-->
         <a
-          class="btn btn-xs botao1"
+          class="btn btnRosaSalmao btnAcao"
           title="Histórico"
           (click)="toggleHist()"
-          style="width: 300px"
         >
           <i class="fa-solid fa-book-open"></i>&nbsp;&nbsp;Histórico
         </a>
-        <div *ngIf="isHistOpen">
+        <div *ngIf="isHistOpen" class="box" style="background-color: #e4a18f20;">
           <p style="white-space: pre-line">{{ solicitacao.historico }}</p>
         </div>
       </div>
-    </div>
   </div>
 
-  <div id="detalhes" class="col-md-4 detalhes-solicitacao text-center mx-auto">
-    <br /><br />
-    <h1 class="detalhes-box">DETALHES DA<br />SOLICITAÇÃO</h1>
+  <!--Caixa direita (detalhes)-->
+  <div class="col-md-4">
+    <h1 class="tituloGrande">DETALHES DA<br />SOLICITAÇÃO</h1>
     <hr />
-    <div class="linha-detalhe">
-      <h6 class="titulo">Estado da Solicitação</h6>
-      <p>{{ solicitacao.estado }}</p>
+    <div>
+      <h6 class="subtituloRosa">ESTADO DA SOLICITAÇÃO</h6>
+      <p>{{ solicitacao.estado | estadoAmigavel }}</p>
     </div>
     <hr />
-    <div class="linha-detalhe position-relative">
-      <div class="text-center">
-        <h6 class="titulo">CLIENTE</h6>
+    <div class="position-relative">
+      <div>
+        <h6 class="subtituloRosa">CLIENTE</h6>
         <p>{{ cliente?.nome }}</p>
       </div>
       <button
-        class="btn icon-olho position-absolute end-0 top-50 translate-middle-y"
+        class="btnIcon position-absolute end-0 top-50 translate-middle-y"
         (click)="toggleClientView()"
         title="Visualizar"
       >
         <i class="fa-solid fa-eye"></i>
       </button>
     </div>
-    <div *ngIf="isClientOpen" class="texto-expandido text-start">
-      <p class="text-center">
+    <div *ngIf="isClientOpen" class="text-start">
+      <p>
         <strong>CPF:</strong> {{ cliente?.cpf }}<br />
         <strong>Email:</strong> {{ cliente?.email }}<br />
         <strong>Telefone:</strong> {{ cliente?.telefone }}<br />
@@ -181,27 +201,27 @@
       </p>
     </div>
     <hr />
-    <div class="linha-detalhe">
-      <h6 class="titulo">DATA E HORA</h6>
-      <p>{{ solicitacao.data }}</p>
+    <div>
+      <h6 class="subtituloRosa">DATA E HORA</h6>
+      <p>{{ solicitacao.data | date: 'dd/MM/yyyy - HH:mm' }}</p>
     </div>
     <hr />
 
-    <div class="linha-detalhe position-relative">
-      <div class="text-center">
-        <h6 class="titulo">EQUIPAMENTO</h6>
+    <div class="position-relative">
+      <div>
+        <h6 class="subtituloRosa">EQUIPAMENTO</h6>
         <p>{{ equipamento?.nome }}</p>
       </div>
       <button
-        class="btn icon-olho position-absolute end-0 top-50 translate-middle-y"
+        class="btnIcon position-absolute end-0 top-50 translate-middle-y"
         (click)="toggleEquipView()"
         title="Visualizar"
       >
         <i class="fa-solid fa-eye"></i>
       </button>
     </div>
-    <div *ngIf="isEquipOpen" class="texto-expandido text-start">
-      <p class="text-center">
+    <div *ngIf="isEquipOpen" class="text-start">
+      <p>
         <strong>Descrição da categoria do equipamento:</strong>
         {{ equipamento?.descricao }}<br />
         <strong>Descrição deste equipamento:</strong>
@@ -209,18 +229,14 @@
       </p>
     </div>
     <hr />
-    <div class="linha-detalhe">
-      <h6 class="titulo">DEFEITO</h6>
+    <div>
+      <h6 class="subtituloRosa">DEFEITO</h6>
       <p>{{ solicitacao.defeito }}</p>
     </div>
     <hr />
-    <div style="display: flex">
-      <a
-        class="btn btn-voltar"
-        routerLink="/adm/home"
-        style="margin-left: auto"
-      >
-        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+    <div class="d-flex justify-content-end">
+      <a class="btn btnRosaSalmao" routerLink="/adm/home">
+        <i class="fa-solid fa-location-arrow btnVoltar"></i>
       </a>
     </div>
   </div>

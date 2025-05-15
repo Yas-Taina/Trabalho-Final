@@ -1,20 +1,18 @@
-import { Component, OnInit, ViewChild, TemplateRef } from "@angular/core";
+import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
 import { FormsModule, NgForm } from "@angular/forms";
-import { Solicitacao } from "../../../../shared/models/solicitacao.model";
-import { Equipamento } from "../../../../shared/models/equipamento.model";
-import { Orcamento } from "../../../../shared/models/orcamento.model";
+import { Solicitacao, Equipamento,Orcamento,EstadosSolicitacao } from "../../../../shared/models";
 import { ActivatedRoute, RouterModule } from "@angular/router";
-import { SolicitacaoService } from "../../../../services/solicitacao.service";
-import { EquipamentoService } from "../../../../services/equipamento.service";
-import { OrcamentoService } from "../../../../services/orcamento.service";
+import { SolicitacaoService,EquipamentoService,OrcamentoService } from "../../../../services";
 import { CommonModule } from "@angular/common";
 import { ModalComponent } from "../../../../components/modal/modal.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { EstadoAmigavelPipe } from "../../../../shared/pipes";
+import { HistoricoUtils } from "../../../../shared/utils";
 
 @Component({
   selector: "app-visualizar-solicitacao",
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, ModalComponent, NgbModule],
+  imports: [CommonModule, FormsModule, RouterModule, ModalComponent, NgbModule, EstadoAmigavelPipe],
   templateUrl: "./visualizar-solicitacao.component.html",
   styleUrl: "./visualizar-solicitacao.component.css",
 })
@@ -23,6 +21,7 @@ export class VisualizarSolicitacaoComponent implements OnInit {
   @ViewChild(ModalComponent) modal!: ModalComponent;
   @ViewChild("rejectTemplate") rejectTemplate!: TemplateRef<any>;
 
+  EstadosSolicitacao = EstadosSolicitacao;
   solicitacao: Solicitacao = new Solicitacao();
   id: number = 0;
   equipamento?: Equipamento | null;
@@ -39,7 +38,7 @@ export class VisualizarSolicitacaoComponent implements OnInit {
     private route: ActivatedRoute,
     private equipamentoService: EquipamentoService,
     private orcamentoService: OrcamentoService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.params["id"];
@@ -61,28 +60,13 @@ export class VisualizarSolicitacaoComponent implements OnInit {
   }
 
   carregarEquipamento(): void {
-    const idEquip = this.solicitacao.equipamento;
-    const equipamentoEncontrado = this.equipamentoService.buscarPorId(idEquip);
-    this.equipamento = equipamentoEncontrado;
+    this.equipamento = this.equipamentoService.buscarPorId(this.solicitacao.equipamento);
   }
 
   carregarOrcamento(): void {
-    const orcamentoEncontrado = this.orcamentoService
+    this.orcamento = this.orcamentoService
       .listarTodos()
       .find((o) => o.idSolicitacao === this.solicitacao.id);
-    this.orcamento = orcamentoEncontrado;
-  }
-
-  atualizarHistorico(): void {
-    const dataAtual = new Date();
-    const dia = dataAtual.getDate().toString().padStart(2, "0");
-    const mes = (dataAtual.getMonth() + 1).toString().padStart(2, "0");
-    const ano = dataAtual.getFullYear();
-    const horas = dataAtual.getHours().toString().padStart(2, "0");
-    const minutos = dataAtual.getMinutes().toString().padStart(2, "0");
-    const estado = this.solicitacao.estado;
-    const add = `• ${estado}, Data: ${dia}/${mes}/${ano} - ${horas}:${minutos} \n`;
-    this.solicitacao.historico += add;
   }
 
   atualizar(): void {
@@ -94,8 +78,8 @@ export class VisualizarSolicitacaoComponent implements OnInit {
     if (
       confirm("Deseja aprovar o orçamento? Essa ação não pode ser revertida")
     ) {
-      this.solicitacao.estado = "APROVADA";
-      this.atualizarHistorico();
+      this.solicitacao.estado = EstadosSolicitacao.Aprovada;
+      HistoricoUtils.atualizarHistorico(this.solicitacao);
       this.atualizar();
       alert(`Serviço aprovado no valor de R$ ${this.orcamento!.valor}`);
     }
@@ -108,8 +92,8 @@ export class VisualizarSolicitacaoComponent implements OnInit {
         "Deseja resgatar a solicitação? Ela será automaticamente aprovada no valor orçado",
       )
     ) {
-      this.solicitacao.estado = "APROVADA";
-      this.atualizarHistorico();
+      this.solicitacao.estado = EstadosSolicitacao.Aprovada;
+      HistoricoUtils.atualizarHistorico(this.solicitacao);
       this.atualizar();
       alert(
         `Solicitação resgatada. Serviço aprovado no valor de R$ ${this.orcamento!.valor}`,
@@ -122,8 +106,8 @@ export class VisualizarSolicitacaoComponent implements OnInit {
     if (
       confirm("Deseja realizar o pagamento? Essa ação não pode ser revertida")
     ) {
-      this.solicitacao.estado = "PAGA";
-      this.atualizarHistorico();
+      this.solicitacao.estado = EstadosSolicitacao.Paga;
+      HistoricoUtils.atualizarHistorico(this.solicitacao);
       this.atualizar();
     }
   }
@@ -137,20 +121,13 @@ export class VisualizarSolicitacaoComponent implements OnInit {
 
   handleConfirmation(formData: any) {
     if (!formData.reason) {
-      alert("Digiteo motivo de sua recusa:");
+      alert("Digite o motivo de sua recusa:");
       return;
     }
-    this.solicitacao.estado = "REJEITADA";
+
+    this.solicitacao.estado = EstadosSolicitacao.Rejeitada;
     const motivo = formData.reason;
-    const dataAtual = new Date();
-    const dia = dataAtual.getDate().toString().padStart(2, "0");
-    const mes = (dataAtual.getMonth() + 1).toString().padStart(2, "0");
-    const ano = dataAtual.getFullYear();
-    const horas = dataAtual.getHours().toString().padStart(2, "0");
-    const minutos = dataAtual.getMinutes().toString().padStart(2, "0");
-    const estado = this.solicitacao.estado;
-    const add = `• ${estado}, Data: ${dia}/${mes}/${ano} - ${horas}:${minutos}, Motivo: ${motivo} \n`;
-    this.solicitacao.historico += add;
+    HistoricoUtils.atualizarHistoricoComMotivo(this.solicitacao, motivo);
     this.atualizar();
   }
 }
