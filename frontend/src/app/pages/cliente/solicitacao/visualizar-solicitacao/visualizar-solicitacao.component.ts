@@ -1,18 +1,13 @@
 import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
 import { FormsModule, NgForm } from "@angular/forms";
-import { Solicitacao } from "../../../../shared/models/solicitacao.model";
-import { Equipamento } from "../../../../shared/models/equipamento.model";
-import { Orcamento } from "../../../../shared/models/orcamento.model";
+import { Solicitacao, Equipamento,Orcamento,EstadosSolicitacao } from "../../../../shared/models";
 import { ActivatedRoute, RouterModule } from "@angular/router";
-import { SolicitacaoService } from "../../../../services/solicitacao.service";
-import { EquipamentoService } from "../../../../services/equipamento.service";
-import { OrcamentoService } from "../../../../services/orcamento.service";
+import { SolicitacaoService,EquipamentoService,OrcamentoService } from "../../../../services";
 import { CommonModule } from "@angular/common";
 import { ModalComponent } from "../../../../components/modal/modal.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-import { EstadosSolicitacao } from "../../../../shared/models/enums/estados-solicitacao";
-import { EstadoAmigavelPipe } from "../../../../shared/pipes/estado-amigavel.pipe";
-import { HistoricoUtils } from "../../../../shared/utils/historico-utils";
+import { EstadoAmigavelPipe } from "../../../../shared/pipes";
+import { HistoricoUtils } from "../../../../shared/utils";
 
 @Component({
   selector: "app-visualizar-solicitacao",

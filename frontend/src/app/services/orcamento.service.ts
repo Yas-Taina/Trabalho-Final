@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Orcamento } from "../shared/models/orcamento.model";
+import { Orcamento } from "../shared/models";
 import { ServiceCrudBase } from "./service-crud-base/service-crud-base";
 
 const LS_CHAVE = "orcamentos";

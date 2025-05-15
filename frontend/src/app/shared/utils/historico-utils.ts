@@ -1,5 +1,5 @@
-import { getEstadoAmigavelSolicitacao } from "../models/enums/estados-solicitacao";
-import { Solicitacao } from "../models/solicitacao.model";
+import { getEstadoAmigavelSolicitacao } from "../models/enums";
+import { Solicitacao } from "../models";
 import { DataUtils } from "./data-utils";
 
 export class HistoricoUtils {

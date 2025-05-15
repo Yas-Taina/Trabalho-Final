@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Cliente } from "../shared/models/cliente.model";
+import { Cliente } from "../shared/models";
 import { ServiceCrudBase } from "./service-crud-base/service-crud-base";
 
 const LS_CHAVE = "clientes";

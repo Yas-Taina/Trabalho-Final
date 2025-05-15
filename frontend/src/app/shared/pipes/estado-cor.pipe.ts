@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { EstadosSolicitacao, getCorEstadoSolicitacao } from '../models/enums/estados-solicitacao';
+import { EstadosSolicitacao, getCorEstadoSolicitacao } from '../models/enums';
 
 @Pipe({
   name: 'estadoCor',

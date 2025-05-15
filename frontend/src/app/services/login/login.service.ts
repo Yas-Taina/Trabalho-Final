@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { FuncionarioService } from "../funcionario.service";
-import { Sessao } from "../../shared/models/sessao.model";
-import { TipoUsuario } from "../../shared/models/enums/tipo-usuario.enum";
+import { Sessao,TipoUsuario } from "../../shared/models";
 import { ClienteService } from "../cliente.service";
 
 const LS_CHAVE = "sessaoUsuarioLogado";

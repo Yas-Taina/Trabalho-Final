@@ -1,19 +1,8 @@
-import {
-  Component,
-  HostListener,
-  ElementRef,
-  OnInit,
-  OnDestroy,
-} from "@angular/core";
+import {Component,HostListener,ElementRef,OnInit,OnDestroy,} from "@angular/core";
 import { CommonModule } from "@angular/common";
-import {
-  Router,
-  NavigationEnd,
-  RouterModule,
-  NavigationStart,
-} from "@angular/router";
+import {Router,NavigationEnd,RouterModule,NavigationStart,} from "@angular/router";
 import { filter, map, Observable, Subscription } from "rxjs";
-import { LoginService } from "../../services/login/login.service";
+import { LoginService } from "../../services";
 
 @Component({
   selector: "app-menu",

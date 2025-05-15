@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { EntidadeBase } from "../../shared/models/entidade-base.model";
+import { EntidadeBase } from "../../shared/models";
 import { IdBaseService } from "../id-base.service";
 
 @Injectable({
