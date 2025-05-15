@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { EquipamentoService } from "../../../../services/equipamento.service";
-import { Equipamento } from "../../../../shared/models/equipamento.model";
+import { Equipamento } from "../../../../shared/models";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 

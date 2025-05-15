@@ -1,6 +1,6 @@
 import { Component, ViewChild } from "@angular/core";
 import { FormsModule, NgForm } from "@angular/forms";
-import { Equipamento } from "../../../../shared/models/equipamento.model";
+import { Equipamento } from "../../../../shared/models";
 import { EquipamentoService } from "../../../../services/equipamento.service";
 import { Router, RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";

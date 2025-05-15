@@ -1,12 +1,11 @@
 import { Component, ViewChild } from "@angular/core";
 import { FormsModule, NgForm } from "@angular/forms";
 import { Router, RouterModule } from "@angular/router";
-import { Cliente } from "../../../shared/models/cliente.model";
+import { Cliente,Endereco } from "../../../shared/models";
 import { ClienteService } from "../../../services/cliente.service";
 import { CommonModule } from "@angular/common";
 import { NgxMaskDirective, provideNgxMask } from "ngx-mask";
 import { NumberUtils } from "../../../shared/utils/number-utils";
-import { Endereco } from "../../../shared/models/endereco";
 import { CepService } from "../../../services/cep/cep.service";
 import { EnderecoUtils } from "../../../shared/utils/endereco-utils";
 

@@ -1,9 +1,6 @@
 import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
 import { FormsModule, NgForm } from "@angular/forms";
-import { Solicitacao } from "../../../../shared/models/solicitacao.model";
-import { Orcamento } from "../../../../shared/models/orcamento.model";
-import { Cliente } from "../../../../shared/models/cliente.model";
-import { Equipamento } from "../../../../shared/models/equipamento.model";
+import { Cliente, Equipamento,Funcionario, Solicitacao, Orcamento,EstadosSolicitacao } from "../../../../shared/models";
 import { ActivatedRoute, Router, RouterModule } from "@angular/router";
 import { SolicitacaoService } from "../../../../services/solicitacao.service";
 import { EquipamentoService } from "../../../../services/equipamento.service";
@@ -14,10 +11,8 @@ import { CommonModule } from "@angular/common";
 import { LoginService } from "../../../../services/login/login.service";
 import { ModalComponent } from "../../../../components/modal/modal.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-import { EstadosSolicitacao } from "../../../../shared/models/enums/estados-solicitacao";
 import { EstadoAmigavelPipe } from "../../../../shared/pipes/estado-amigavel.pipe";
 import { HistoricoUtils } from "../../../../shared/utils/historico-utils";
-import { Funcionario } from "../../../../shared/models/funcionario.model";
 import { NgxCurrencyDirective } from "ngx-currency";
 
 @Component({

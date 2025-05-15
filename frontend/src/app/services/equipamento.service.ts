@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Equipamento } from "../shared/models/equipamento.model";
+import { Equipamento } from "../shared/models";
 import { ServiceCrudBase } from "./service-crud-base/service-crud-base";
 
 const LS_CHAVE = "equipamentos";

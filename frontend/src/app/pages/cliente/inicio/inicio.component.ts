@@ -1,12 +1,10 @@
 import { Component } from "@angular/core";
 import { SolicitacaoService } from "../../../services/solicitacao.service";
-import { Solicitacao } from "../../../shared/models/solicitacao.model";
-import { Orcamento } from "../../../shared/models/orcamento.model";
+import { Solicitacao,Orcamento,EstadosSolicitacao } from "../../../shared/models";
 import { OrcamentoService } from "../../../services/orcamento.service";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { LoginService } from "../../../services/login/login.service";
-import { EstadosSolicitacao } from "../../../shared/models/enums/estados-solicitacao";
 import { EstadoAmigavelPipe } from "../../../shared/pipes/estado-amigavel.pipe";
 import { HistoricoUtils } from "../../../shared/utils/historico-utils";
 

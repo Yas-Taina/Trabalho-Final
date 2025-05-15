@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormsModule, NgForm } from "@angular/forms";
-import { Funcionario } from "../../../../shared/models/funcionario.model";
+import { Funcionario } from "../../../../shared/models";
 import { ActivatedRoute, Router, RouterModule } from "@angular/router";
 import { FuncionarioService } from "../../../../services/funcionario.service";
 import { CommonModule } from "@angular/common";
