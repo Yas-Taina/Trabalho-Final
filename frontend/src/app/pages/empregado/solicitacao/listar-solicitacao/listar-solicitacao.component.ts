@@ -6,7 +6,7 @@ import { RouterModule } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { EstadoAmigavelPipe } from "../../../../shared/pipes/estado-amigavel.pipe";
 import { EstadoCorPipe } from "../../../../shared/pipes/estado-cor.pipe";
-import { HistoricoUtils } from "../../../../shared/utils/historico-utils";
+import { HistoricoUtils } from "../../../../shared/utils";
 
 @Component({
   selector: "app-listar-solicitacao",

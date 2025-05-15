@@ -5,8 +5,8 @@ import { CommonModule } from "@angular/common";
 import { NgxMaskDirective, provideNgxMask } from "ngx-mask";
 import { Cliente,Endereco } from "../../../shared/models";
 import { ClienteService,CepService } from "../../../services";
-import { NumberUtils } from "../../../shared/utils/number-utils";
-import { EnderecoUtils } from "../../../shared/utils/endereco-utils";
+import { NumberUtils,EnderecoUtils } from "../../../shared/utils";
+
 
 @Component({
   selector: "app-cadastro",

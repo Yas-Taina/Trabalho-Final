@@ -7,7 +7,7 @@ import { CommonModule } from "@angular/common";
 import { ModalComponent } from "../../../../components/modal/modal.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { EstadoAmigavelPipe } from "../../../../shared/pipes/estado-amigavel.pipe";
-import { HistoricoUtils } from "../../../../shared/utils/historico-utils";
+import { HistoricoUtils } from "../../../../shared/utils";
 
 @Component({
   selector: "app-visualizar-solicitacao",

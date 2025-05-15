@@ -4,7 +4,7 @@ import { Solicitacao,Orcamento,EstadosSolicitacao } from "../../../shared/models
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { EstadoAmigavelPipe } from "../../../shared/pipes/estado-amigavel.pipe";
-import { HistoricoUtils } from "../../../shared/utils/historico-utils";
+import { HistoricoUtils } from "../../../shared/utils";
 
 @Component({
   selector: "app-inicio",
