@@ -1,8 +1,5 @@
 import { Component } from "@angular/core";
-import { SolicitacaoService } from "../../../../services/solicitacao.service";
-import { ClienteService } from "../../../../services/cliente.service";
-import { LoginService } from "../../../../services/login/login.service";
-import { FuncionarioService } from "../../../../services/funcionario.service";
+import { SolicitacaoService,ClienteService,FuncionarioService,LoginService } from "../../../../services";
 import { Cliente, Solicitacao,EstadosSolicitacao } from "../../../../shared/models";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";

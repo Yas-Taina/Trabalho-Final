@@ -1,8 +1,8 @@
 import { Component, ViewChild } from "@angular/core";
 import { FormsModule, NgForm } from "@angular/forms";
-import { LoginService } from "../../../services/login/login.service";
 import { Router, RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
+import { LoginService } from "../../../services";
 import { TipoUsuario } from "../../../shared/models";
 
 @Component({

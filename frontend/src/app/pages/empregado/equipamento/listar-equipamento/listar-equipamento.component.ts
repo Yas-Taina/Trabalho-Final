@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { EquipamentoService } from "../../../../services/equipamento.service";
+import { EquipamentoService } from "../../../../services";
 import { Equipamento } from "../../../../shared/models";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";

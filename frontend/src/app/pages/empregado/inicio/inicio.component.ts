@@ -1,7 +1,6 @@
 import { Component } from "@angular/core";
-import { SolicitacaoService } from "../../../services/solicitacao.service";
+import { SolicitacaoService,ClienteService } from "../../../services";
 import { Cliente,Solicitacao,EstadosSolicitacao } from "../../../shared/models";
-import { ClienteService } from "../../../services/cliente.service";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";

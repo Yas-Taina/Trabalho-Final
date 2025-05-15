@@ -1,12 +1,10 @@
 import { Component, ViewChild } from "@angular/core";
 import { FormsModule, NgForm } from "@angular/forms";
-import { Solicitacao,Equipamento,EstadosSolicitacao } from "../../../../shared/models";
-import { SolicitacaoService } from "../../../../services/solicitacao.service";
-import { EquipamentoService } from "../../../../services/equipamento.service";
-import { LoginService } from "../../../../services/login/login.service";
 import { Router, RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { DataUtils } from "../../../../shared/utils/data-utils";
+import { Solicitacao,Equipamento,EstadosSolicitacao } from "../../../../shared/models";
+import { SolicitacaoService,EquipamentoService,LoginService } from "../../../../services";
 
 @Component({
   selector: "app-inserir-solicitacao",
