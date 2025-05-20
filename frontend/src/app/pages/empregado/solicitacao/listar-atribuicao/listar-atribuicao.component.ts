@@ -1,10 +1,8 @@
 import { Component } from "@angular/core";
-import { SolicitacaoService,ClienteService,FuncionarioService,LoginService } from "../../../../services";
-import { Cliente, Solicitacao,EstadosSolicitacao } from "../../../../shared/models";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
-import { EstadoCorPipe, EstadoAmigavelPipe } from "../../../../shared/pipes";
-import { HistoricoUtils } from "../../../../shared/utils";
+import { SolicitacaoService,ClienteService,FuncionarioService,LoginService } from "../../../../services";
+import { Cliente, Solicitacao,EstadosSolicitacao, EstadoCorPipe, EstadoAmigavelPipe,HistoricoUtils } from "../../../../shared";
 
 @Component({
   selector: "app-listar-atribuicao",

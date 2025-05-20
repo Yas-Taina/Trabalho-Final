@@ -3,7 +3,7 @@ import { FormsModule, NgForm } from "@angular/forms";
 import { Router, RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { LoginService } from "../../../services";
-import { TipoUsuario } from "../../../shared/models";
+import { TipoUsuario } from "../../../shared";
 
 @Component({
   selector: "tela-login",

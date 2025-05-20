@@ -3,9 +3,8 @@ import { FormsModule, NgForm } from "@angular/forms";
 import { Router, RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { NgxMaskDirective, provideNgxMask } from "ngx-mask";
-import { Cliente,Endereco } from "../../../shared/models";
+import { Cliente,Endereco,NumberUtils,EnderecoUtils } from "../../../shared";
 import { ClienteService,CepService } from "../../../services";
-import { NumberUtils,EnderecoUtils } from "../../../shared/utils";
 
 
 @Component({

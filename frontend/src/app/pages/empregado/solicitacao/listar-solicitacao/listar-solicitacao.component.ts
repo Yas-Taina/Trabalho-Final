@@ -1,11 +1,9 @@
 import { Component } from "@angular/core";
-import { SolicitacaoService,ClienteService,FuncionarioService,LoginService } from "../../../../services";
-import { Cliente,Solicitacao,EstadosSolicitacao } from "../../../../shared/models";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { FormsModule } from "@angular/forms";
-import { EstadoAmigavelPipe, EstadoCorPipe } from "../../../../shared/pipes";
-import { HistoricoUtils } from "../../../../shared/utils";
+import { SolicitacaoService,ClienteService,FuncionarioService,LoginService } from "../../../../services";
+import { Cliente,Solicitacao,EstadosSolicitacao,EstadoAmigavelPipe, EstadoCorPipe,HistoricoUtils } from "../../../../shared";
 
 @Component({
   selector: "app-listar-solicitacao",

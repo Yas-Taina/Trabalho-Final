@@ -1,11 +1,10 @@
 import { Component } from "@angular/core";
-import { SolicitacaoService,ClienteService } from "../../../services";
-import { Cliente,Solicitacao,EstadosSolicitacao } from "../../../shared/models";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ReceitasComponent } from "../relatorios/receitas/receitas.component";
-import { EstadoAmigavelPipe } from "../../../shared/pipes";
+import { SolicitacaoService,ClienteService } from "../../../services";
+import { Cliente,Solicitacao,EstadosSolicitacao,EstadoAmigavelPipe } from "../../../shared";
 
 @Component({
   selector: "app-inicio",

@@ -2,8 +2,7 @@ import { Component, ViewChild } from "@angular/core";
 import { FormsModule, NgForm } from "@angular/forms";
 import { Router, RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
-import { DataUtils } from "../../../../shared/utils/data-utils";
-import { Solicitacao,Equipamento,EstadosSolicitacao } from "../../../../shared/models";
+import { Solicitacao,Equipamento,EstadosSolicitacao,DataUtils } from "../../../../shared";
 import { SolicitacaoService,EquipamentoService,LoginService } from "../../../../services";
 
 @Component({
