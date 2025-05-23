@@ -28,16 +28,25 @@ export class CadastroComponent {
   ) {}
 
   async buscarEnderecoPorCep() {
-    if (this.enderecoModel.cep && this.enderecoModel.cep.length == 8) {
+    if (this.enderecoModel.cep && this.enderecoModel.cep.replace('-', '').length === 8) {
       try {
-        this.enderecoModel = await this.cepService.ObterEndereco(
-          this.enderecoModel.cep,
-        );
+        const numeroAtual = this.enderecoModel.numero;
+        const complementoAtual = this.enderecoModel.complemento;
+  
+        const enderecoApi = await this.cepService.ObterEndereco(this.enderecoModel.cep);
+  
+        this.enderecoModel = {
+          ...enderecoApi,
+          numero: numeroAtual,
+          complemento: complementoAtual,
+        };
+  
       } catch {
         alert("Erro ao buscar o endereço. Verifique o CEP informado.");
       }
     }
   }
+  
 
   inserir(): void {
     if (this.formCliente.form.valid) {

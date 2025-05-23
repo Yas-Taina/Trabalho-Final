@@ -46,6 +46,11 @@ h1 {
   bottom: 6px;
 }
 
+.btnHamburguer:hover span {
+  transform: scale(1.05);
+  box-shadow: 0px 0px 0.5px 0.5px var(--creme);
+}
+
 /*---Transforma botão hamburguer em X quando ativo---*/
 .menuColumn.show ~ header .btnHamburguer span:nth-child(1) {
   top: 50%;
