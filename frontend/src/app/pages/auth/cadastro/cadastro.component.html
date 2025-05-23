@@ -144,6 +144,39 @@
                   [ngClass]="{ 'campoVazio': !enderecoModel.logradouro }"
                   readonly
                 />
+
+                <div class="row">
+                  <div class="col-4">
+                    <label for="numero" class="form-label">Nº</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="numero"
+                      name="numero"
+                      [(ngModel)]="enderecoModel.numero"
+                      #numero="ngModel"
+                      required
+                      placeholder="00"
+                    />
+                  </div>
+                
+                  <div class="col-8">
+                    <label for="complemento" class="form-label">Complemento</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="complemento"
+                      name="complemento"
+                      [(ngModel)]="enderecoModel.complemento"
+                      #complemento="ngModel"
+                      placeholder="Bloco, AP..."
+                    />
+                  </div>
+                  <div *ngIf="numero.errors && numero.touched" class="alert alert-danger">
+                    <div [hidden]="!numero.errors['required']">Digite um número.</div>
+                  </div>
+                </div>
+
             <div class="row">
               <div class="col-6">
                 <label for="bairro" class="form-label">Bairro</label>
