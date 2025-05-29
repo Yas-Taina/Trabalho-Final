@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormsModule, NgForm } from "@angular/forms";
-import { Equipamento } from "../../../../shared/models";
 import { ActivatedRoute, Router, RouterModule } from "@angular/router";
-import { EquipamentoService } from "../../../../services";
 import { CommonModule } from "@angular/common";
+import { Equipamento } from "../../../../shared";
+import { EquipamentoService } from "../../../../services";
 
 @Component({
   selector: "app-editar-equipamento",

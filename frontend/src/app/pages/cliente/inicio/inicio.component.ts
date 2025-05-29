@@ -1,10 +1,9 @@
 import { Component } from "@angular/core";
-import { SolicitacaoService,OrcamentoService,LoginService } from "../../../services";
-import { Solicitacao,Orcamento,EstadosSolicitacao } from "../../../shared/models";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
-import { EstadoAmigavelPipe } from "../../../shared/pipes";
-import { HistoricoUtils } from "../../../shared/utils";
+import { SolicitacaoService,OrcamentoService,LoginService } from "../../../services";
+import { Solicitacao,Orcamento,EstadosSolicitacao,EstadoAmigavelPipe,HistoricoUtils } from "../../../shared";
+
 
 @Component({
   selector: "app-inicio",

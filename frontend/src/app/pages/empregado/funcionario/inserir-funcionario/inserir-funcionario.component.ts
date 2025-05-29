@@ -1,9 +1,9 @@
 import { Component, ViewChild } from "@angular/core";
 import { FormsModule, NgForm } from "@angular/forms";
-import { Funcionario } from "../../../../shared/models";
-import { FuncionarioService } from "../../../../services";
 import { Router, RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
+import { Funcionario } from "../../../../shared";
+import { FuncionarioService } from "../../../../services";
 
 @Component({
   selector: "app-inserir-funcionario",

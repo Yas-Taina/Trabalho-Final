@@ -1,8 +1,8 @@
 import { Component } from "@angular/core";
-import { FuncionarioService,LoginService } from "../../../../services";
-import { Funcionario } from "../../../../shared/models";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
+import { FuncionarioService,LoginService } from "../../../../services";
+import { Funcionario } from "../../../../shared";
 
 @Component({
   selector: "app-listar-funcionario",

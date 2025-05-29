@@ -1,11 +1,4 @@
-import {
-  Component,
-  Input,
-  Output,
-  EventEmitter,
-  ViewChild,
-  TemplateRef,
-} from "@angular/core";
+import { Component,Input,Output,EventEmitter,ViewChild,TemplateRef} from "@angular/core";
 import { NgbModal, NgbModalRef } from "@ng-bootstrap/ng-bootstrap";
 import { CommonModule } from "@angular/common";
 

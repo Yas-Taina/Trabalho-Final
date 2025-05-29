@@ -6,4 +6,4 @@ export * from './funcionario.model';
 export * from './orcamento.model';
 export * from './sessao.model';
 export * from './solicitacao.model';
-export * from './enums'
+export * from './enums';

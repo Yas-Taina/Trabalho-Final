@@ -1,13 +1,12 @@
 import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
 import { FormsModule, NgForm } from "@angular/forms";
-import { Solicitacao, Equipamento,Orcamento,EstadosSolicitacao } from "../../../../shared/models";
 import { ActivatedRoute, RouterModule } from "@angular/router";
-import { SolicitacaoService,EquipamentoService,OrcamentoService } from "../../../../services";
 import { CommonModule } from "@angular/common";
-import { ModalComponent } from "../../../../components/modal/modal.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-import { EstadoAmigavelPipe } from "../../../../shared/pipes";
-import { HistoricoUtils } from "../../../../shared/utils";
+import { Solicitacao, Equipamento,Orcamento,EstadosSolicitacao,HistoricoUtils,EstadoAmigavelPipe } from "../../../../shared";
+import { SolicitacaoService,EquipamentoService,OrcamentoService } from "../../../../services";
+import { ModalComponent } from "../../../../components";
+
 
 @Component({
   selector: "app-visualizar-solicitacao",
