@@ -6,7 +6,6 @@ import { FormsModule, NgForm } from "@angular/forms";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import { SolicitacaoService, OrcamentoService } from "../../../../services";
 import { EstadosSolicitacao } from "../../../../shared";
-import { inject } from '@angular/core';
 
 @Component({
   selector: "app-receitas-relatorio",
@@ -26,6 +25,7 @@ export class ReceitasComponent {
     private solicitacaoService: SolicitacaoService
   ) {}
 
+  //todo: checar datas
   async gerarRelatorio() {
   try {
     if (this.formRelatorio.invalid) {
