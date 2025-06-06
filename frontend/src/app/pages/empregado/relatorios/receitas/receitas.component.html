@@ -11,13 +11,14 @@
 </div>
 
 <div class="modal-body">
-  <form #formLogin="ngForm">
+  <form #formRelatorio="ngForm">
     <div class="form-group">
       <label for="dataInicial">Data de Início (opcional):</label>
       <input
         type="date"
         id="dataInicial"
         class="form-control"
+        name = "dataInicial"
         [(ngModel)]="dataInicial"
       />
     </div>
@@ -27,35 +28,10 @@
         type="date"
         id="dataFinal"
         class="form-control"
+        name="dataFinal"
         [(ngModel)]="dataFinal"
       />
     </div>
-    <!-- Talvez seja possível/interessante unificar a geração dos relatórios, e de bônus permitir filtrar por período mesmo no agrupamento de categorias. -->
-    <!-- <div class="form-group">
-      <label>Agrupar por:</label><br>
-      <div class="form-check form-check-inline">
-        <input
-          class="form-check-input"
-          type="radio"
-          name="agrupamento"
-          id="agrupamentoDias"
-          value="dias"
-          [(ngModel)]="agrupamentoSelecionado"
-        />
-        <label class="form-check-label" for="agrupamentoDias">Dias</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input
-          class="form-check-input"
-          type="radio"
-          name="agrupamento"
-          id="agrupamentoCategorias"
-          value="categorias"
-          [(ngModel)]="agrupamentoSelecionado"
-        />
-        <label class="form-check-label" for="agrupamentoCategorias">Categorias</label>
-      </div>
-    </div> -->
   </form>
 </div>
 

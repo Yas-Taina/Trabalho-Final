@@ -22,12 +22,18 @@ O **Sistema de Controle de Manutenção de Equipamentos** tem como objetivo gere
 
 ## Instruções de Execução
 
-[Adicionar as instruções sobre como rodar o projeto.]
+**Para Logar Como Funcionário** 
+- Login: func@func
+- Senha: 1234
+
+**Para Logar Como Cliente** 
+- Login: cli@cli
+- Senha: 1234
 
 ## Tecnologias Utilizadas
 
 - Angular 17.0.0
-- Bootstrap 5.3.3
+- Bootstrap v5.3.3
+- NG Bootstrap v16.0.0
 - Nodejs v22.14.0
-
-[Adicionar as tecnologias utilizadas no projeto, como linguagens, frameworks, etc.]
+- FortAwesome - FontAwesome Free v6.7.2
