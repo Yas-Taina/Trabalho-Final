@@ -34,11 +34,11 @@ public class Usuario {
         this.nome = nome;
     }
 
-    public String getemail() {
+    public String getEmail() {
         return this.email;
     }
 
-    public void setemail(String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
