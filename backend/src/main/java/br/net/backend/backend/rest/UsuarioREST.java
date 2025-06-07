@@ -21,9 +21,8 @@ public class UsuarioREST {
     }
 
     static {
-        lista.add(new Usuario(1, "administr", "admin", "admin", "ADMIN"));
-        lista.add(new Usuario(2, "gerent", "gerente", "gerente", "GERENTE"));
-        lista.add(new Usuario(3, "funcion", "func", "func", "FUNC"));
+        lista.add(new Usuario(1, "Funcionário Padrão", "func@func", "1234", "FUNCIONARIO"));
+        lista.add(new Usuario(2, "Cliente Padrão", "cli@cli", "1234", "CLIENTE"));
     }
 
     
