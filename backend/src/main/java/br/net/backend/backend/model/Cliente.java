@@ -6,18 +6,10 @@ import lombok.*;
 @Entity
 @Table(name = "cliente")
 @Data
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Cliente {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_cliente")
-    private Long id;
-
-    @OneToOne
-    @JoinColumn(name = "id_pessoa", unique = true, nullable = false)
-    private Pessoa pessoa;
-
+public class Cliente extends Pessoa {
     @Column(name = "cpf", unique = true, nullable = false)
     private String cpf;
 
