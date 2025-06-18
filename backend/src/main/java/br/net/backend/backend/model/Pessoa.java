@@ -6,10 +6,11 @@ import lombok.*;
 @Entity
 @Table(name = "pessoa")
 @Data
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Pessoa {
+public abstract class Pessoa extends EntidadeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pessoa")

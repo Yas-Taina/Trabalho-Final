@@ -6,9 +6,10 @@ import lombok.*;
 @Entity
 @Table(name = "equipamento")
 @Data
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Equipamento {
+public class Equipamento extends EntidadeBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_equipamento")
