@@ -392,6 +392,10 @@ textarea {
   text-decoration: underline;
 }
 
+p {
+  overflow-wrap: break-word;
+}
+
 /*---Caixa de Destaque---*/
 .box {
   border: 2px solid var(--salmao);
@@ -400,6 +404,8 @@ textarea {
   min-width: 90%;
   max-width: 90%;
   margin: 0.5rem;
+  text-align: center;
+  overflow-wrap: break-word;
 }
 
 .box .tituloPequeno {
