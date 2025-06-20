@@ -13,7 +13,7 @@ public class Cliente extends Pessoa {
     @Column(name = "cpf", unique = true, nullable = false)
     private String cpf;
 
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_endereco")
     private Endereco endereco;
 
