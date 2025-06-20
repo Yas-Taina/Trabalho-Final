@@ -1,0 +1,83 @@
+meta {
+  name: Listar Funcionarios
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:8080/funcionarios
+  body: none
+  auth: inherit
+}
+
+---
+
+meta {
+  name: Buscar Funcionario por ID
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:8080/funcionarios/1
+  body: none
+  auth: inherit
+}
+
+---
+
+meta {
+  name: Criar Funcionario
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8080/funcionarios
+  body: '{
+    "nome": "Novo Funcionario",
+    "cpf": "12345678900",
+    "email": "novo@empresa.com",
+    "telefone": "11999999999"
+  }'
+  headers: {
+    Content-Type: application/json
+  }
+  auth: inherit
+}
+
+---
+
+meta {
+  name: Atualizar Funcionario
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:8080/funcionarios/1
+  body: '{
+    "nome": "Funcionario Atualizado",
+    "cpf": "12345678900",
+    "email": "atualizado@empresa.com",
+    "telefone": "11888888888"
+  }'
+  headers: {
+    Content-Type: application/json
+  }
+  auth: inherit
+}
+
+---
+
+meta {
+  name: Remover Funcionario
+  type: http
+  seq: 5
+}
+
+delete {
+  url: http://localhost:8080/funcionarios/1
+  body: none
+  auth: inherit
+}
