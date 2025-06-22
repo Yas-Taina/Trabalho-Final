@@ -4,15 +4,38 @@ import { ActivatedRoute, Router, RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { NgxCurrencyDirective } from "ngx-currency";
-import { Cliente, Equipamento,Funcionario, Solicitacao, Orcamento,EstadosSolicitacao,EstadoAmigavelPipe,HistoricoUtils } from "../../../../shared";
-import { SolicitacaoService,EquipamentoService,FuncionarioService,OrcamentoService,ClienteService,LoginService } from "../../../../services";
+import {
+  Cliente,
+  Equipamento,
+  Funcionario,
+  Solicitacao,
+  Orcamento,
+  EstadosSolicitacao,
+  EstadoAmigavelPipe,
+  HistoricoUtils,
+} from "../../../../shared";
+import {
+  SolicitacaoService,
+  EquipamentoService,
+  FuncionarioService,
+  OrcamentoService,
+  LoginService,
+} from "../../../../services";
 import { ModalComponent } from "../../../../components";
-
+import { ClienteApiService } from "../../../../services/api/clientes/cliente-api.service";
 
 @Component({
   selector: "app-visualizar-solicitacao",
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, ModalComponent, NgbModule, EstadoAmigavelPipe, NgxCurrencyDirective],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    ModalComponent,
+    NgbModule,
+    EstadoAmigavelPipe,
+    NgxCurrencyDirective,
+  ],
   templateUrl: "./visualizar-solicitacao.component.html",
   styleUrl: "./visualizar-solicitacao.component.css",
 })
@@ -38,7 +61,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
   funcionarios: Funcionario[] = [];
   confirmada!: (formData: any) => void;
 
-  currentModalTitle: string = "";
+  currentModalTitle = "";
   currentContentTemplate!: TemplateRef<any>;
   currentFormData: any = {};
 
@@ -47,73 +70,72 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     private route: ActivatedRoute,
     private loginService: LoginService,
     private funcionarioService: FuncionarioService,
-    private clienteService: ClienteService,
+    private clienteApiService: ClienteApiService,
     private equipamentoService: EquipamentoService,
     private orcamentoService: OrcamentoService,
-    private router: Router,
-  ) { }
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.id = +this.route.snapshot.params["id"];
+    this.id = Number(this.route.snapshot.params["id"]);
     const res = this.solicitacaoService.buscarPorId(this.id);
     if (!res) {
       throw new Error("Erro ao buscar solicitação, id = " + this.id);
     }
     this.solicitacao = res;
+
     this.getId();
     this.carregarNomeFuncionario();
     this.carregarCliente();
     this.carregarEquipamento();
     this.carregarOrcamento();
-    this.funcionarios = this.listarFunc();
+    this.funcionarios = this.funcionarioService.listarTodos();
   }
 
-  getId() {
+  private getId(): void {
     const sessao = this.loginService.obterDadosDaSessao();
     this.usuario = sessao!.usuarioId;
   }
 
-  listarFunc() {
-    return this.funcionarioService.listarTodos();
+  private carregarCliente(): void {
+    this.clienteApiService.getById(this.solicitacao.idCliente).subscribe({
+      next: (c) => (this.cliente = c),
+      error: (err) => {
+        console.error("Erro ao carregar cliente:", err);
+        this.cliente = null;
+      },
+    });
   }
 
-  carregarNomeFuncionario() {
-    const funcionario = this.funcionarioService.buscarPorId(this.usuario);
-    this.nomeFuncionario = funcionario?.nome ?? "Funcionário não encontrado";
-  }
-
-  carregarCliente(): void {
-    this.cliente = this.clienteService.buscarPorId(
-      this.solicitacao.idCliente,
-    );
-  }
-
-  carregarEquipamento(): void {
+  private carregarEquipamento(): void {
     this.equipamento = this.equipamentoService.buscarPorId(
-      this.solicitacao.equipamento,
+      this.solicitacao.equipamento
     );
   }
 
-  carregarOrcamento(): void {
-    const orcamentoEncontrado = this.orcamentoService
+  private carregarOrcamento(): void {
+    const orc = this.orcamentoService
       .listarTodos()
       .find((o) => o.idSolicitacao === this.solicitacao.id);
-    this.orcamento = orcamentoEncontrado ?? new Orcamento();
+    this.orcamento = orc ?? new Orcamento();
 
-    if (this.orcamento?.idEmpregado) {
-      const funcionario = this.funcionarioService.buscarPorId(
-        this.orcamento.idEmpregado,
+    if (this.orcamento.idEmpregado) {
+      const func = this.funcionarioService.buscarPorId(
+        this.orcamento.idEmpregado
       );
-      this.nomeFuncionarioOrc =
-        funcionario?.nome ?? "Funcionário não encontrado";
+      this.nomeFuncionarioOrc = func?.nome ?? "Funcionário não encontrado";
     }
+  }
+
+  private carregarNomeFuncionario(): void {
+    const func = this.funcionarioService.buscarPorId(this.usuario);
+    this.nomeFuncionario = func?.nome ?? "Funcionário não encontrado";
   }
 
   atualizar(): void {
     this.solicitacaoService.atualizar(this.solicitacao);
   }
 
-  // TODO: Refatorar para utilizar data no orcamento
   inserirOrcamento(): void {
     this.orcamento.data = new Date();
     this.orcamento.idEmpregado = this.usuario;
@@ -121,63 +143,71 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     this.orcamentoService.inserir(this.orcamento);
   }
 
-  orcar(formData: any) {
-    const valorForm = Number(formData.valor);
-
-    if (isNaN(valorForm) || valorForm < 0) {
+  orcar(formData: any): void {
+    const valor = Number(formData.valor);
+    if (isNaN(valor) || valor < 0) {
       alert("Insira um valor numérico válido e positivo.");
       return;
     }
-
-    this.orcamento.valor = valorForm;
+    this.orcamento.valor = valor;
     this.inserirOrcamento();
     this.carregarOrcamento();
     this.solicitacao.estado = EstadosSolicitacao.Orcada;
-    HistoricoUtils.atualizarHistoricoComResponsavel(this.solicitacao, this.nomeFuncionario);
+    HistoricoUtils.atualizarHistoricoComResponsavel(
+      this.solicitacao,
+      this.nomeFuncionario
+    );
     this.atualizar();
   }
 
-  redirecionar(formData: any) {
+  redirecionar(formData: any): void {
     if (!formData.idEmpregado) {
       alert("Selecione um funcionário.");
       return;
     }
-
     this.solicitacao.idEmpregado = formData.idEmpregado;
     this.solicitacao.estado = EstadosSolicitacao.Redirecionada;
-    HistoricoUtils.atualizarHistoricoComResponsavel(this.solicitacao, this.nomeFuncionario);
+    HistoricoUtils.atualizarHistoricoComResponsavel(
+      this.solicitacao,
+      this.nomeFuncionario
+    );
     this.atualizar();
     this.router.navigate(["/adm/home"]);
   }
 
-  consertar(formData: any) {
+  consertar(formData: any): void {
     if (!formData.mensagem || !formData.manutencao) {
       alert("Preencha todos os campos.");
       return;
     }
-
     this.solicitacao.mensagem = formData.mensagem;
     this.solicitacao.manutencao = formData.manutencao;
     this.solicitacao.estado = EstadosSolicitacao.Arrumada;
-    HistoricoUtils.atualizarHistoricoComResponsavel(this.solicitacao, this.nomeFuncionario);
+    HistoricoUtils.atualizarHistoricoComResponsavel(
+      this.solicitacao,
+      this.nomeFuncionario
+    );
     this.atualizar();
     alert("Manutenção realizada");
   }
 
-  finalizar() {
+  finalizar(): void {
     if (
       confirm(
-        "Deseja finalizar a solicitação? Essa ação não pode ser revertida",
+        "Deseja finalizar a solicitação? Essa ação não pode ser revertida"
       )
     ) {
       this.solicitacao.estado = EstadosSolicitacao.Finalizada;
-      HistoricoUtils.atualizarHistoricoComResponsavel(this.solicitacao, this.nomeFuncionario);
+      HistoricoUtils.atualizarHistoricoComResponsavel(
+        this.solicitacao,
+        this.nomeFuncionario
+      );
       this.atualizar();
       alert("Manutenção finalizada");
     }
   }
 
-  abrirModalOrcar() {
+  abrirModalOrcar(): void {
     this.currentModalTitle = "Realizar Orçamento";
     this.currentContentTemplate = this.orcarTemplate;
     this.currentFormData = { valor: 0 };
@@ -185,7 +215,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     this.modal.open();
   }
 
-  abrirModalRedirecionar() {
+  abrirModalRedirecionar(): void {
     this.currentModalTitle = "Redirecionar Solicitação";
     this.currentContentTemplate = this.redirecionarTemplate;
     this.currentFormData = { idEmpregado: null };
@@ -193,7 +223,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     this.modal.open();
   }
 
-  abrirModalConsertar() {
+  abrirModalConsertar(): void {
     this.currentModalTitle = "Realizar Manutenção";
     this.currentContentTemplate = this.consertarTemplate;
     this.currentFormData = { mensagem: "", manutencao: "" };
@@ -201,21 +231,21 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     this.modal.open();
   }
 
-  confirmar(formData: any) {
+  confirmar(formData: any): void {
     if (this.confirmada) {
       this.confirmada(formData);
     }
   }
 
-  toggleEquipView() {
+  toggleEquipView(): void {
     this.isEquipOpen = !this.isEquipOpen;
   }
 
-  toggleClientView() {
+  toggleClientView(): void {
     this.isClientOpen = !this.isClientOpen;
   }
 
-  toggleHist() {
+  toggleHist(): void {
     this.isHistOpen = !this.isHistOpen;
   }
 }

@@ -5,7 +5,7 @@ import { LoginDTO } from '../../../shared/models/api/login/login.model';
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
+export class LoginApiService {
 
   private endpoint: string = 'login';
   private apiClient = inject(ApiClientBase);

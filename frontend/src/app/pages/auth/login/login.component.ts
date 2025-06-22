@@ -22,19 +22,21 @@ export class LoginComponent {
     private router: Router,
   ) {}
 
-  login(): void {
+  // torne o método async
+  async login(): Promise<void> {
     if (!this.formLogin.form.valid) {
       return;
     }
 
-    const sessao = this.loginService.login(this.emailModel, this.senhaModel);
+    // aguarde o Promise retornado pelo serviço
+    const sessao = await this.loginService.login(this.emailModel, this.senhaModel);
 
     if (!sessao) {
-      // Placeholder
       alert("Login ou senha inválidos!");
       return;
     }
 
+    // agora sessao.usuarioTipo está definido
     if (sessao.usuarioTipo === TipoUsuario.Cliente) {
       this.router.navigate(["/client/home"]);
     } else if (sessao.usuarioTipo === TipoUsuario.Funcionario) {
