@@ -1,13 +1,8 @@
 package br.net.backend.backend.dto;
 
+import lombok.Data;
+
+@Data
 public class RedirecionamentoDTO {
     private Long idempregado;
-
-    public Long getIdempregado() {
-        return idempregado;
-    }
-
-    public void setIdempregado(Long idempregado) {
-        this.idempregado = idempregado;
-    }
 }
