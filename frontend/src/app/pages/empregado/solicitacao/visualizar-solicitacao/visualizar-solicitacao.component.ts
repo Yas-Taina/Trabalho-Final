@@ -23,6 +23,7 @@ import {
 } from "../../../../services";
 import { ModalComponent } from "../../../../components";
 import { ClienteApiService } from "../../../../services/api/clientes/cliente-api.service";
+import { EnderecoCompletoPipe } from "../../../../shared/pipes/endereco-completo.pipe";
 
 @Component({
   selector: "app-visualizar-solicitacao",
@@ -35,6 +36,7 @@ import { ClienteApiService } from "../../../../services/api/clientes/cliente-api
     NgbModule,
     EstadoAmigavelPipe,
     NgxCurrencyDirective,
+    EnderecoCompletoPipe,
   ],
   templateUrl: "./visualizar-solicitacao.component.html",
   styleUrl: "./visualizar-solicitacao.component.css",

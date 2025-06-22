@@ -1,3 +1,4 @@
+import { Endereco } from "./endereco";
 import { EntidadeBase } from "./entidade-base.model";
 
 export class Cliente extends EntidadeBase {
@@ -7,7 +8,7 @@ export class Cliente extends EntidadeBase {
     public nome: string = "",
     public email: string = "",
     public telefone: string = "",
-    public endereco: string = "",
+    public endereco: Endereco = new Endereco(),
     public senha: string = "",
   ) {
     super(id);

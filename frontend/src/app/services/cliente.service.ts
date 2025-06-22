@@ -13,7 +13,6 @@ export class ClienteService extends ServiceCrudBase<Cliente> {
     this.inserirClientePadrao();
   }
 
-  // Função temporária, para permitir acesso agora que as rotas estão protegidas
   private inserirClientePadrao(): void {
     const clientePadrao: Cliente = {
       id: 1000,
@@ -21,10 +20,20 @@ export class ClienteService extends ServiceCrudBase<Cliente> {
       nome: "Cliente Padrão",
       email: "cli@cli",
       telefone: "(00) 90000-0000",
-      endereco: "Endereço Padrão",
       senha: "1234",
+      // aqui vem o objeto Endereco em vez de string
+      endereco: {
+        cep: "00000-000",
+        logradouro: "Rua Padrão",
+        numero: 1,
+        complemento: "Sala 1",
+        bairro: "Centro",
+        localidade: "Cidade Exemplo",  // ou 'cidade' se seu modelo usar esse campo
+        uf: "SP"                       // ou 'estado' se for o caso
+      }
     };
 
+    // só insere se ainda não existir um com esse e-mail
     if (!this.getClienteByEmail(clientePadrao.email)) {
       this.inserirDefaultCompleto(clientePadrao);
     }
@@ -32,6 +41,6 @@ export class ClienteService extends ServiceCrudBase<Cliente> {
 
   getClienteByEmail(email: string): Cliente | undefined {
     const clientes = this.listarTodos();
-    return clientes.find((cliente) => cliente.email === email);
+    return clientes.find(c => c.email === email);
   }
 }

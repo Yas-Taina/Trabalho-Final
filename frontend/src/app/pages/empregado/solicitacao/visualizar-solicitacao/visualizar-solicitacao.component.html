@@ -197,7 +197,7 @@
         <strong>CPF:</strong> {{ cliente?.cpf }}<br />
         <strong>Email:</strong> {{ cliente?.email }}<br />
         <strong>Telefone:</strong> {{ cliente?.telefone }}<br />
-        <strong>Endereço:</strong> {{ cliente?.endereco }}
+        <strong>Endereço:</strong> {{ cliente?.endereco | enderecoCompleto }}
       </p>
     </div>
     <hr />
