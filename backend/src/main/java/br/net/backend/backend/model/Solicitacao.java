@@ -43,7 +43,7 @@ public class Solicitacao extends EntidadeBase {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "estado", nullable = false)
-    private EstadoEnum estado = EstadoEnum.Aberta;
+    private EstadoEnum estado; // = EstadoEnum.Aberta;
 
     @Column(name = "valor")
     private BigDecimal valor;

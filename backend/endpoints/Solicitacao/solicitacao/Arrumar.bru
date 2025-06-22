@@ -1,0 +1,19 @@
+meta {
+  name: Arrumar
+  type: http
+  seq: 8
+}
+
+put {
+  url: http://localhost:8080/solicitacao/arrumar/10
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "servicoRealizado": "Troca da placa-mãe e atualização de firmware.",
+    "orientacao": "Evitar quedas de energia. Usar estabilizador."
+  }
+  
+}

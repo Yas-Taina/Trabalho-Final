@@ -1,0 +1,20 @@
+meta {
+  name: Create
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:8080/solicitacao/criar
+  body: json
+  auth: inherit
+}
+
+body:json {
+    {
+      "idcliente": 11,
+      "idempregado": 5,
+      "equipamento": 1,
+      "defeito": "quebrado"
+    }
+}

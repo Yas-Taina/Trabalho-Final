@@ -16,7 +16,8 @@ public class SolicitacaoDTO {
     private EstadoEnum estado;
     private Long equipamento;
     private String defeito;
-    private String descricao;
+    private Double valor;
+    // private String descricao;
     private String manutencao;
     private String mensagem;
     // private String historico;

@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: http://localhost:8080/funcionarios
+  url: http://localhost:8080/solicitacao/criar
   body: json
   auth: inherit
 }
@@ -16,10 +16,9 @@ headers {
 
 body:json {
   {
-      "nome": "Novo Funcionario",
-      "email": "novo@empresa.com",
-      "senha": "123456",
-      "ativo": true,
-      "dataNasc": "1990-01-01"
-    }
+    "idcliente": 11,
+    "idempregado": 5,
+    "equipamento": 1,
+    "defeito": "quebrado"
+  }
 }
