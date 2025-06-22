@@ -33,4 +33,7 @@ public class Historico extends EntidadeBase {
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_func")
     private Funcionario funcionario;
+
+    @Column(name = "mensagem")
+    private String mensagem; // <-- Campo necessário para getMensagem()
 }
