@@ -2,6 +2,8 @@ package br.net.backend.backend.rest;
 
 import br.net.backend.backend.dto.FuncionarioDTO;
 import br.net.backend.backend.dto.ManutencaoDTO;
+import br.net.backend.backend.dto.OrcamentoDTO;
+import br.net.backend.backend.dto.RedirecionamentoDTO;
 import br.net.backend.backend.dto.RejeicaoDTO;
 import br.net.backend.backend.dto.SolicitacaoDTO;
 import br.net.backend.backend.model.*;
@@ -35,6 +37,9 @@ public class SolicitacaoController {
     @Autowired
     private EquipamentoRepository equipamentoRepository;
 
+    @Autowired
+    private HistoricoRepository historicoRepository;
+
     @GetMapping
     public ResponseEntity<List<SolicitacaoDTO>> getAllSolicitacoes() {
         List<SolicitacaoDTO> list = solicitacaoRepository.findAll().stream()
@@ -49,28 +54,6 @@ public class SolicitacaoController {
         return opt.map(solicitacao -> ResponseEntity.ok(toDTO(solicitacao)))
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
-
-    // @PostMapping
-    // public ResponseEntity<SolicitacaoDTO> createSolicitacao(@RequestBody
-    // SolicitacaoDTO dto) {
-    // Optional<Cliente> cliente = clienteRepository.findById(dto.getIdcliente());
-    // Optional<Funcionario> func =
-    // funcionarioRepository.findById(dto.getIdempregado());
-    // Optional<Equipamento> equip =
-    // equipamentoRepository.findById(dto.getEquipamento());
-
-    // if (cliente.isEmpty() || func.isEmpty() || equip.isEmpty()) {
-    // return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-    // }
-
-    // Solicitacao solicitacao = fromDTO(dto, cliente.get(), func.get(),
-    // equip.get());
-    // solicitacao.setId(null);
-    // solicitacao.setDataAberta(LocalDateTime.now());
-    // Solicitacao saved = solicitacaoRepository.save(solicitacao);
-
-    // return ResponseEntity.status(HttpStatus.CREATED).body(toDTO(saved));
-    // }
 
     @PostMapping("/criar")
     public ResponseEntity<SolicitacaoDTO> criarSolicitacao(@RequestBody SolicitacaoDTO dto) {
@@ -99,11 +82,12 @@ public class SolicitacaoController {
         solicitacao.setDataAberta(dataAtual);
 
         Solicitacao saved = solicitacaoRepository.save(solicitacao);
+        registrarHistorico(solicitacao, dataAtual, mensagem);
         return ResponseEntity.status(HttpStatus.CREATED).body(toDTO(saved));
     }
 
     @PutMapping("/orcar/{id}")
-    public ResponseEntity<SolicitacaoDTO> orcarSolicitacao(@PathVariable Long id, @RequestBody BigDecimal valor) {
+    public ResponseEntity<SolicitacaoDTO> orcarSolicitacao(@PathVariable Long id, @RequestBody OrcamentoDTO dto) {
         Optional<Solicitacao> optionalSolicitacao = solicitacaoRepository.findById(id);
 
         if (optionalSolicitacao.isEmpty()) {
@@ -113,7 +97,7 @@ public class SolicitacaoController {
         Solicitacao solicitacao = optionalSolicitacao.get();
 
         LocalDateTime dataAtual = LocalDateTime.now();
-        solicitacao.setValor(valor);
+        solicitacao.setValor(dto.getValor());
         solicitacao.setEstado(EstadoEnum.Orçada);
         solicitacao.setDataAtualizacao(dataAtual);
 
@@ -124,6 +108,7 @@ public class SolicitacaoController {
         solicitacao.setMensagem(mensagem);
 
         solicitacaoRepository.save(solicitacao);
+        registrarHistorico(solicitacao, dataAtual, mensagem);
 
         return ResponseEntity.ok(toDTO(solicitacao));
     }
@@ -169,6 +154,7 @@ public class SolicitacaoController {
         String mensagem = "Aprovada em " + dataAtual.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
         solicitacao.setMensagem(mensagem);
         solicitacaoRepository.save(solicitacao);
+        registrarHistorico(solicitacao, dataAtual, mensagem);
         return ResponseEntity.ok(toDTO(solicitacao));
     }
 
@@ -184,7 +170,7 @@ public class SolicitacaoController {
 
         LocalDateTime dataAtual = LocalDateTime.now();
         solicitacao.setServico(dto.getServicoRealizado());
-        // solicitacao.setManutencao(dto.getOrientacao());
+        solicitacao.setRecomendacao(dto.getRecomendacao());
         solicitacao.setEstado(EstadoEnum.Arrumada);
         solicitacao.setDataAtualizacao(dataAtual);
 
@@ -192,6 +178,7 @@ public class SolicitacaoController {
         solicitacao.setMensagem(mensagem);
 
         solicitacaoRepository.save(solicitacao);
+        registrarHistorico(solicitacao, dataAtual, mensagem);
 
         return ResponseEntity.ok(toDTO(solicitacao));
     }
@@ -214,7 +201,7 @@ public class SolicitacaoController {
         solicitacao.setMensagem(mensagem);
 
         solicitacaoRepository.save(solicitacao);
-
+        registrarHistorico(solicitacao, dataAtual, mensagem);
         return ResponseEntity.ok(toDTO(solicitacao));
     }
 
@@ -236,47 +223,38 @@ public class SolicitacaoController {
         solicitacao.setMensagem(mensagem);
 
         solicitacaoRepository.save(solicitacao);
-
+        registrarHistorico(solicitacao, dataAtual, mensagem);
         return ResponseEntity.ok(toDTO(solicitacao));
     }
 
-    // @PutMapping("/{id}")
-    // public ResponseEntity<SolicitacaoDTO> updateSolicitacao(@PathVariable Long
-    // id, @RequestBody SolicitacaoDTO dto) {
-    // Optional<Solicitacao> existing = solicitacaoRepository.findById(id);
-    // if (existing.isEmpty()) {
-    // return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-    // }
+    @PutMapping("/redirecionar/{id}")
+    public ResponseEntity<SolicitacaoDTO> redirecionarSolicitacao(
+            @PathVariable Long id,
+            @RequestBody RedirecionamentoDTO redirecionamentoDTO) {
 
-    // Optional<Cliente> cliente = clienteRepository.findById(dto.getIdcliente());
-    // Optional<Funcionario> func =
-    // funcionarioRepository.findById(dto.getIdempregado());
-    // Optional<Equipamento> equip =
-    // equipamentoRepository.findById(dto.getEquipamento());
+        Optional<Solicitacao> optionalSolicitacao = solicitacaoRepository.findById(id);
+        Optional<Funcionario> optionalFuncionario = funcionarioRepository
+                .findById(redirecionamentoDTO.getIdempregado());
 
-    // if (cliente.isEmpty() || func.isEmpty() || equip.isEmpty()) {
-    // return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-    // }
+        if (optionalSolicitacao.isEmpty() || optionalFuncionario.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
 
-    // Solicitacao solicitacao = fromDTO(dto, cliente.get(), func.get(),
-    // equip.get());
-    // solicitacao.setId(id);
-    // solicitacao.setDataAtualizacao(LocalDateTime.now());
-    // solicitacaoRepository.save(solicitacao);
+        Solicitacao solicitacao = optionalSolicitacao.get();
+        Funcionario novoFuncionario = optionalFuncionario.get();
 
-    // return ResponseEntity.ok(toDTO(solicitacao));
-    // }
+        LocalDateTime dataAtual = LocalDateTime.now();
+        solicitacao.setFuncionario(novoFuncionario);
+        solicitacao.setDataAtualizacao(dataAtual);
 
-    // @DeleteMapping("/{id}")
-    // public ResponseEntity<Void> deleteSolicitacao(@PathVariable Long id) {
-    // Optional<Solicitacao> existing = solicitacaoRepository.findById(id);
-    // if (existing.isPresent()) {
-    // solicitacaoRepository.delete(existing.get());
-    // return ResponseEntity.ok().build();
-    // } else {
-    // return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-    // }
-    // }
+        String mensagem = "Redirecionada em " + dataAtual.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) +
+                ", Responsável: " + novoFuncionario.getNome();
+        solicitacao.setMensagem(mensagem);
+
+        solicitacaoRepository.save(solicitacao);
+        registrarHistorico(solicitacao, dataAtual, mensagem);
+        return ResponseEntity.ok(toDTO(solicitacao));
+    }
 
     private SolicitacaoDTO toDTO(Solicitacao solicitacao) {
         FuncionarioDTO funcionarioDTO = toDTO(solicitacao.getFuncionario());
@@ -290,6 +268,7 @@ public class SolicitacaoController {
                 solicitacao.getDefeito(),
                 solicitacao.getValor() != null ? solicitacao.getValor().doubleValue() : null,
                 solicitacao.getServico(),
+                solicitacao.getRecomendacao(),
                 // null, // manutencao not provided in DTO
                 solicitacao.getMensagem()
 
@@ -305,16 +284,15 @@ public class SolicitacaoController {
                 funcionario.getDataNasc() != null ? funcionario.getDataNasc().toString() : null);
     }
 
-    // private Solicitacao fromDTO(SolicitacaoDTO dto, Cliente cliente, Funcionario
-    // funcionario, Equipamento equipamento) {
-    // Solicitacao s = new Solicitacao();
-    // s.setCliente(cliente);
-    // s.setFuncionario(funcionario);
-    // s.setEquipamento(equipamento);
-    // s.setDefeito(dto.getDefeito());
-    // s.setEstado(dto.getEstado());
-    // s.setMensagem(dto.getMensagem());
-    // // s.setServico(dto.getDescricao());
-    // return s;
-    // }
+    private void registrarHistorico(Solicitacao solicitacao, LocalDateTime data, String mensagem) {
+        Historico historico = new Historico();
+        historico.setSolicitacao(solicitacao);
+        historico.setEstado(solicitacao.getEstado());
+        historico.setFuncionario(solicitacao.getFuncionario());
+        historico.setData(data);
+        historico.setMensagem(mensagem);
+        historico.setAtivo(true);
+        historicoRepository.save(historico);
+    }
+
 }

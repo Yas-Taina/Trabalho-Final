@@ -19,6 +19,7 @@ public class SolicitacaoDTO {
     private Double valor;
     // private String descricao;
     private String manutencao;
+    private String recomendacao;
     private String mensagem;
     // private String historico;
 }

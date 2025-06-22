@@ -1,0 +1,18 @@
+meta {
+  name: Redirecionar
+  type: http
+  seq: 8
+}
+
+put {
+  url: http://localhost:8080/solicitacao/redirecionar/1
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "idempregado": 4
+  }
+  
+}

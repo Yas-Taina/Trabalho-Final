@@ -1,15 +1,17 @@
 meta {
   name: Orçar
   type: http
-  seq: 4
+  seq: 5
 }
 
 put {
-  url: http://localhost:8080/solicitacao/orcar/10
+  url: http://localhost:8080/solicitacao/orcar/1
   body: json
   auth: inherit
 }
 
 body:json {
-  1500.74
+  {
+    "valor": 150.75
+  }
 }

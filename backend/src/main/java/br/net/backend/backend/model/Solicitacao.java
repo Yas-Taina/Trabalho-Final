@@ -54,6 +54,9 @@ public class Solicitacao extends EntidadeBase {
     @Column(name = "servico")
     private String servico;
 
+     @Column(name = "recomendacao")
+    private String recomendacao;
+
     @OneToMany(mappedBy = "solicitacao", cascade = CascadeType.ALL, orphanRemoval = true)
     private java.util.List<Historico> historicos;
 }
