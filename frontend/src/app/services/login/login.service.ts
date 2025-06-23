@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
-import { FuncionarioService } from "../funcionario.service";
-import { Sessao, TipoUsuario } from "../../shared/models";
 import { firstValueFrom } from "rxjs";
+import { Sessao, TipoUsuario } from "../../shared/models";
 import { ClienteApiService } from "../api/clientes/cliente-api.service";
+import { FuncionarioApiService } from "../api/funcionario/funcionario-api.service";
 
 const LS_CHAVE = "sessaoUsuarioLogado";
 
@@ -11,7 +11,7 @@ const LS_CHAVE = "sessaoUsuarioLogado";
 })
 export class LoginService {
   constructor(
-    private funcionarioService: FuncionarioService,
+    private funcionarioApiService: FuncionarioApiService,
     private clienteApiService: ClienteApiService
   ) {}
 
@@ -20,15 +20,20 @@ export class LoginService {
   }
 
   async login(email: string, senha: string): Promise<Sessao | null> {
-    // 1) Verifica Funcionario localmente
-    const funcionario = this.funcionarioService.getFuncionarioByEmail(email);
-    if (funcionario && funcionario.senha === senha) {
-      const sessao: Sessao = {
-        usuarioId: funcionario.id,
-        usuarioTipo: TipoUsuario.Funcionario
-      };
-      this.gravarSessao(sessao);
-      return sessao;
+    // 1) Verifica Funcionario via API
+    try {
+      const funcionarios = await firstValueFrom(this.funcionarioApiService.getAll());
+      const funcionario = funcionarios.find(f => f.email === email && f.senha === senha);
+      if (funcionario) {
+        const sessao: Sessao = {
+          usuarioId: funcionario.id,
+          usuarioTipo: TipoUsuario.Funcionario
+        };
+        this.gravarSessao(sessao);
+        return sessao;
+      }
+    } catch (error) {
+      console.error('Erro ao buscar funcionários para login:', error);
     }
 
     // 2) Verifica Cliente via API
