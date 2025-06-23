@@ -43,7 +43,7 @@ public class Solicitacao extends EntidadeBase {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "estado", nullable = false)
-    private EstadoEnum estado = EstadoEnum.Aberta;
+    private EstadoEnum estado; // = EstadoEnum.Aberta;
 
     @Column(name = "valor")
     private BigDecimal valor;
@@ -53,6 +53,9 @@ public class Solicitacao extends EntidadeBase {
 
     @Column(name = "servico")
     private String servico;
+
+     @Column(name = "recomendacao")
+    private String recomendacao;
 
     @OneToMany(mappedBy = "solicitacao", cascade = CascadeType.ALL, orphanRemoval = true)
     private java.util.List<Historico> historicos;

@@ -1,0 +1,25 @@
+meta {
+  name: Create copy
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:8080/funcionarios
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+      "nome": "Novo Funcionario 2",
+      "email": "novo2@empresa.com",
+      "senha": "123456",
+      "ativo": true,
+      "dataNasc": "1990-01-01"
+    }
+}

@@ -1,0 +1,19 @@
+meta {
+  name: Arrumar
+  type: http
+  seq: 9
+}
+
+put {
+  url: http://localhost:8080/solicitacao/arrumar/1
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "servicoRealizado": "Troca do cabo de alimentação e limpeza interna",
+    "recomendacao": "Recomenda-se manter o equipamento longe da umidade"
+  }
+  
+}
