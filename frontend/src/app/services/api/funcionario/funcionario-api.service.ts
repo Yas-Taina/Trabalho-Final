@@ -18,7 +18,7 @@ export class FuncionarioApiService {
           new Funcionario(
             item.id,
             item.nome,
-            new Date(item.dataNasc),  // converte string ISO em Date
+            item.date,  // converte string ISO em Date
             item.email,
             item.senha
           )
@@ -35,7 +35,7 @@ export class FuncionarioApiService {
           new Funcionario(
             item.id,
             item.nome,
-            new Date(item.dataNasc),
+            item.date,
             item.email,
             item.senha
           )
