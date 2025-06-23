@@ -1,47 +1,56 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
-import { FuncionarioService,LoginService } from "../../../../services";
-import { Funcionario } from "../../../../shared";
+import { Funcionario } from "../../../../shared/models";
+import { FuncionarioApiService } from "../../../../services/api/funcionario/funcionario-api.service";
+import { LoginService } from "../../../../services";
 
 @Component({
   selector: "app-listar-funcionario",
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: "./listar-funcionario.component.html",
-  styleUrl: "./listar-funcionario.component.css",
+  styleUrls: ["./listar-funcionario.component.css"],
 })
-export class ListarFuncionarioComponent {
+export class ListarFuncionarioComponent implements OnInit {
   funcionarios: Funcionario[] = [];
   usuario: number = 0;
 
   constructor(
-    private funcionarioService: FuncionarioService,
-    private loginService: LoginService) {}
+    private funcionarioApiService: FuncionarioApiService,
+    private loginService: LoginService
+  ) {}
 
   ngOnInit(): void {
-    this.funcionarios = this.listarTodos();
     this.getId();
+    this.loadFuncionarios();
   }
 
-  getId() {
+  private getId(): void {
     const sessao = this.loginService.obterDadosDaSessao();
-    this.usuario = sessao!.usuarioId;
+    this.usuario = sessao ? sessao.usuarioId : 0;
   }
 
-  listarTodos(): Funcionario[] {
-    return this.funcionarioService.listarTodos();
+  private loadFuncionarios(): void {
+    this.funcionarioApiService.getAll().subscribe({
+      next: (data) => (this.funcionarios = data),
+      error: (err) =>
+        console.error("Erro ao listar funcionários:", err),
+    });
   }
 
-  remover($event: any, funcionario: Funcionario): void {
-    $event.preventDefault();
+  remover(event: Event, funcionario: Funcionario): void {
+    event.preventDefault();
     if (
       confirm(
-        "Deseja deletar este funcionario? Esta ação não pode ser revertida",
+        "Deseja deletar este funcionário? Esta ação não pode ser revertida."
       )
     ) {
-      this.funcionarioService.remover(funcionario.id!);
-      this.funcionarios = this.listarTodos();
+      this.funcionarioApiService.delete(funcionario.id!).subscribe({
+        next: () => this.loadFuncionarios(),
+        error: (err) =>
+          console.error("Erro ao remover funcionário:", err),
+      });
     }
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Funcionario } from '../../../shared'; // ajuste o path se for diferente
 
 @Injectable({
@@ -11,13 +11,38 @@ export class FuncionarioApiService {
 
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<Funcionario[]> {
-    return this.http.get<Funcionario[]>(this.baseUrl);
+    getAll(): Observable<Funcionario[]> {
+    return this.http.get<any[]>(this.baseUrl).pipe(
+      map(items =>
+        items.map(item =>
+          new Funcionario(
+            item.id,
+            item.nome,
+            new Date(item.dataNasc),  // converte string ISO em Date
+            item.email,
+            item.senha
+          )
+        )
+      )
+    );
   }
 
   getById(id: number): Observable<Funcionario> {
-    return this.http.get<Funcionario>(`${this.baseUrl}/${id}`);
+    return this.http
+      .get<any>(`${this.baseUrl}/${id}`)
+      .pipe(
+        map(item =>
+          new Funcionario(
+            item.id,
+            item.nome,
+            new Date(item.dataNasc),
+            item.email,
+            item.senha
+          )
+        )
+      );
   }
+
 
   create(funcionario: Funcionario): Observable<Funcionario> {
     return this.http.post<Funcionario>(this.baseUrl, funcionario);
