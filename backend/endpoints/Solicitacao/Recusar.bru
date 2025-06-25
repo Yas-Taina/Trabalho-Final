@@ -1,0 +1,17 @@
+meta {
+  name: Recusar
+  type: http
+  seq: 6
+}
+
+put {
+  url: http://localhost:8080/solicitacao/rejeitar/1
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "motivo":"Muito caro"
+  }
+}
