@@ -6,30 +6,30 @@
     <!--Exibe o orçamento, caso exista-->
     <div *ngIf="solicitacao.estado !== EstadosSolicitacao.Aberta" class="box">
       <h3 class="tituloPequeno">Valor</h3>
-      <h2>{{ orcamento?.valor | currency: "BRL" }}</h2>
+      <h2>{{ solicitacao.valor | currency: "BRL" }}</h2>
     </div>
 
     <!--Exibe detalhes da manutenção, caso exista-->
     <div
-      *ngIf="solicitacao.manutencao && solicitacao.manutencao.trim() !== ''"
+      *ngIf="solicitacao.servico && solicitacao.servico.trim() !== ''"
       class="box"
     >
       <h6 class="subtituloRosa">SERVIÇOS REALIZADOS</h6>
-      <p>{{ solicitacao.manutencao }}</p>
+      <p>{{ solicitacao.servico }}</p>
       <h6 class="subtituloRosa">ORIENTAÇÕES</h6>
       <p>{{ solicitacao.mensagem }}</p>
     </div>
 
     <!--Botões de ação-->
       <!--Aprovação do serviço-->
-      <a
+      <!--<a
       *ngIf="solicitacao.estado === EstadosSolicitacao.Orcada"
         class="btn btnRosaSalmao btnAcao"
         title="Aprovar"
         (click)="aprovar($event)"
       >
         <i class="fa-solid fa-circle-check"></i>&nbsp;&nbsp;Aprovar Serviço
-      </a>
+      </a> -->
 
       <!--Recusa de serviço-->
       <a
@@ -99,7 +99,7 @@
         <i class="fa-solid fa-book-open"></i>&nbsp;&nbsp;Histórico
       </a>
       <div *ngIf="isHistOpen" class="box" style="background-color: #e4a18f20;">
-        <p style="white-space: pre-line">{{ solicitacao.historico }}</p>
+        <p style="white-space: pre-line">O histórico deve ser exibido aqui</p>
       </div>
     </div>
 
@@ -116,7 +116,7 @@
 
     <div>
       <h6 class="subtituloRosa">DATA E HORA</h6>
-      <p>{{ solicitacao.data | date: 'dd/MM/yyyy - HH:mm' }}</p>
+      <p>{{ solicitacao.dataAberta | date: 'dd/MM/yyyy - HH:mm' }}</p>
     </div>
     <hr />
 

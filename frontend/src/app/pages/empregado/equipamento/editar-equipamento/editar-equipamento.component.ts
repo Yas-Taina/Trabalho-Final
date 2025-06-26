@@ -23,16 +23,28 @@ export class EditarEquipamentoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    let id = +this.route.snapshot.params["id"];
-    const res = this.equipamentoService.buscarPorId(id);
-    if (res !== undefined) this.equipamento = res;
-    else throw new Error("Erro ao buscar equipamento, id = " + id);
+    const id = +this.route.snapshot.params["id"];
+    this.equipamentoService.buscarPorId(id).subscribe({
+      next: (equipamento) => {
+        this.equipamento = equipamento;
+      },
+      error: (err) => {
+        console.error("Erro ao buscar equipamento:", err);
+        throw new Error("Erro ao buscar equipamento, id = " + id);
+      }
+    });
   }
 
   atualizar(): void {
     if (this.formEquipamento.form.valid) {
-      this.equipamentoService.atualizar(this.equipamento);
-      this.router.navigate(["/adm/equipamentos"]);
+      this.equipamentoService.atualizar(this.equipamento).subscribe({
+        next: () => {
+          this.router.navigate(["/adm/equipamentos"]);
+        },
+        error: (err) => {
+          console.error("Erro ao atualizar equipamento:", err);
+        }
+      });
     }
   }
 }

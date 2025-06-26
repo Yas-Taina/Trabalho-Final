@@ -22,7 +22,7 @@
 
           <tbody>
             <tr *ngFor="let solicitacao of solicitacoes">
-              <td>{{ solicitacao.data | date: 'dd/MM/yyyy - HH:mm' }}</td>
+              <td>{{ solicitacao.dataAberta | date: 'dd/MM/yyyy - HH:mm' }}</td>
               <td>{{ buscarNomeCliente(solicitacao.idCliente) }}</td>
               <td>{{ solicitacao.estado | estadoAmigavel }}</td>
               <td style="border-right: 0">
