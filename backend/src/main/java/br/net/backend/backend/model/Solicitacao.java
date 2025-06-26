@@ -24,7 +24,7 @@ public class Solicitacao extends EntidadeBase {
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     @JoinColumn(name = "id_func")
     private Funcionario funcionario;
 

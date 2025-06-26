@@ -30,7 +30,7 @@ public class Historico extends EntidadeBase {
     @Column(name = "data", nullable = false)
     private LocalDateTime data;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     @JoinColumn(name = "id_func")
     private Funcionario funcionario;
 

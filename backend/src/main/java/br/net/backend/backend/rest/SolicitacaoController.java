@@ -1,5 +1,6 @@
 package br.net.backend.backend.rest;
 
+import br.net.backend.backend.dto.CriaSolicitacaoDTO;
 import br.net.backend.backend.dto.FuncionarioDTO;
 import br.net.backend.backend.dto.ManutencaoDTO;
 import br.net.backend.backend.dto.OrcamentoDTO;
@@ -12,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -56,12 +55,11 @@ public class SolicitacaoController {
     }
 
     @PostMapping("/criar")
-    public ResponseEntity<SolicitacaoDTO> criarSolicitacao(@RequestBody SolicitacaoDTO dto) {
+    public ResponseEntity<SolicitacaoDTO> criarSolicitacao(@RequestBody CriaSolicitacaoDTO dto) {
         Optional<Cliente> cliente = clienteRepository.findById(dto.getIdcliente());
-        Optional<Funcionario> func = funcionarioRepository.findById(dto.getIdempregado());
         Optional<Equipamento> equip = equipamentoRepository.findById(dto.getEquipamento());
 
-        if (cliente.isEmpty() || func.isEmpty() || equip.isEmpty()) {
+        if (cliente.isEmpty() || equip.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
@@ -73,7 +71,6 @@ public class SolicitacaoController {
         Solicitacao solicitacao = new Solicitacao();
         solicitacao.setId(null);
         solicitacao.setCliente(cliente.get());
-        solicitacao.setFuncionario(func.get());
         solicitacao.setEquipamento(equip.get());
         solicitacao.setEstado(EstadoEnum.Aberta);
         // solicitacao.setDescricao(dto.getDescricao());
@@ -257,11 +254,12 @@ public class SolicitacaoController {
     }
 
     private SolicitacaoDTO toDTO(Solicitacao solicitacao) {
-        FuncionarioDTO funcionarioDTO = toDTO(solicitacao.getFuncionario());
+        Funcionario func = solicitacao.getFuncionario();
+        FuncionarioDTO funcionarioDTO = func != null ? toDTO(func) : null;
         return new SolicitacaoDTO(
                 solicitacao.getId(),
                 solicitacao.getCliente().getId(),
-                funcionarioDTO.getId(),
+                funcionarioDTO != null ? funcionarioDTO.getId() : null,
                 solicitacao.getDataAberta() != null ? solicitacao.getDataAberta().toString() : null,
                 solicitacao.getEstado(),
                 solicitacao.getEquipamento().getId(),
@@ -269,7 +267,6 @@ public class SolicitacaoController {
                 solicitacao.getValor() != null ? solicitacao.getValor().doubleValue() : null,
                 solicitacao.getServico(),
                 solicitacao.getRecomendacao(),
-                // null, // manutencao not provided in DTO
                 solicitacao.getMensagem()
 
         );
@@ -288,7 +285,6 @@ public class SolicitacaoController {
         Historico historico = new Historico();
         historico.setSolicitacao(solicitacao);
         historico.setEstado(solicitacao.getEstado());
-        historico.setFuncionario(solicitacao.getFuncionario());
         historico.setData(data);
         historico.setMensagem(mensagem);
         historico.setAtivo(true);
