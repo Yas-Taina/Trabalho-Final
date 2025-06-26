@@ -7,4 +7,5 @@ import java.util.Optional;
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
     // Métodos personalizados podem ser adicionados aqui
     Optional<Cliente> findByNome(String nome);
+    Optional<Cliente> findByEmail(String email);
 }

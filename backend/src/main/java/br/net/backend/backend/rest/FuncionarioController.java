@@ -3,6 +3,7 @@ package br.net.backend.backend.rest;
 import br.net.backend.backend.model.Funcionario;
 import br.net.backend.backend.repository.FuncionarioRepository;
 import br.net.backend.backend.dto.FuncionarioDTO;
+import br.net.backend.backend.utils.CriptografiaUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,6 +44,7 @@ public class FuncionarioController {
     public ResponseEntity<FuncionarioDTO> createFuncionario(@RequestBody FuncionarioDTO funcionarioDTO) {
         Funcionario funcionario = fromDTO(funcionarioDTO);
         funcionario.setId(null); // Garante inserção
+        funcionario.setSenha(CriptografiaUtils.sha256(funcionario.getSenha()));
         Funcionario saved = funcionarioRepository.save(funcionario);
         return ResponseEntity.status(HttpStatus.CREATED).body(toDTO(saved));
     }
@@ -53,6 +55,7 @@ public class FuncionarioController {
         if (op.isPresent()) {
             Funcionario funcionario = fromDTO(funcionarioDTO);
             funcionario.setId(id);
+            funcionario.setSenha(CriptografiaUtils.sha256(funcionario.getSenha()));
             funcionarioRepository.save(funcionario);
             return ResponseEntity.ok(toDTO(funcionario));
         } else {

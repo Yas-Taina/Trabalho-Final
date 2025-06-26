@@ -3,6 +3,7 @@ package br.net.backend.backend.rest;
 import br.net.backend.backend.model.Cliente;
 import br.net.backend.backend.repository.ClienteRepository;
 import br.net.backend.backend.dto.ClienteDTO;
+import br.net.backend.backend.utils.CriptografiaUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +43,7 @@ public class ClienteController {
     public ResponseEntity<ClienteDTO> createCliente(@RequestBody ClienteDTO clienteDTO) {
         Cliente cliente = fromDTO(clienteDTO);
         cliente.setId(null); // Garante inserção
+        cliente.setSenha(CriptografiaUtils.sha256(cliente.getSenha()));
         Cliente saved = clienteRepository.save(cliente);
         return ResponseEntity.status(HttpStatus.CREATED).body(toDTO(saved));
     }
@@ -52,6 +54,7 @@ public class ClienteController {
         if (op.isPresent()) {
             Cliente cliente = fromDTO(clienteDTO);
             cliente.setId(id);
+            cliente.setSenha(CriptografiaUtils.sha256(cliente.getSenha()));
             clienteRepository.save(cliente);
             return ResponseEntity.ok(toDTO(cliente));
         } else {

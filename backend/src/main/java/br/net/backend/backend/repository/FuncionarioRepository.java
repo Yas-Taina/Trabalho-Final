@@ -7,4 +7,5 @@ import java.util.Optional;
 public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> {
     // Métodos personalizados podem ser adicionados aqui
     Optional<Funcionario> findByNome(String nome);
+    Optional<Funcionario> findByEmail(String email);
 }
