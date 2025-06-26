@@ -45,7 +45,7 @@ export class InserirSolicitacaoComponent {
     });
   }
 
-  inserir(): void {
+  async inserir(): Promise<void> {
     if (!this.formSolicitacao.form.valid) {
       return;
     }
@@ -53,7 +53,7 @@ export class InserirSolicitacaoComponent {
     this.isLoading = true;
     this.errorMessage = null;
 
-    const sessao = this.loginService.obterDadosDaSessao();
+    const sessao = await this.loginService.obterDadosDaSessao();
     if (!sessao) {
       this.errorMessage = "Usuário não está logado";
       this.isLoading = false;

@@ -22,28 +22,27 @@ export class LoginComponent {
     private router: Router,
   ) {}
 
-  login(): void {
-  if (!this.formLogin.form.valid) {
-    return;
-  }
-
-  this.loginService.login(this.emailModel, this.senhaModel).subscribe({
-    next: (sessao) => {
-      if (!sessao) {
-        alert("Login ou senha inválidos!");
-        return;
-      }
-
-      if (sessao.usuarioTipo === TipoUsuario.Cliente) {
-        this.router.navigate(["/client/home"]);
-      } else if (sessao.usuarioTipo === TipoUsuario.Funcionario) {
-        this.router.navigate(["/adm/home"]);
-      }
-    },
-    error: (err) => {
-      alert("Erro durante o login!");
-      console.error(err);
+  async login(): Promise<void> {
+    if (!this.formLogin.form.valid) {
+      return;
     }
-  });
-}
+
+    const sucesso = await this.loginService.login(this.emailModel, this.senhaModel).toPromise();
+    if (!sucesso) {
+      alert("Login ou senha inválidos!");
+      return;
+    }
+
+    const sessao = await this.loginService.obterDadosDaSessao();
+    if (!sessao) {
+      alert("Erro ao obter dados da sessão!");
+      return;
+    }
+
+    if (sessao.usuarioTipo === TipoUsuario.Cliente) {
+      this.router.navigate(["/client/home"]);
+    } else if (sessao.usuarioTipo === TipoUsuario.Funcionario) {
+      this.router.navigate(["/adm/home"]);
+    }
+  }
 }

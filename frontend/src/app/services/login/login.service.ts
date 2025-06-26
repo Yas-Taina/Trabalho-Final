@@ -1,73 +1,56 @@
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
-import { map, switchMap, catchError } from 'rxjs/operators';
-import { FuncionarioService } from "../funcionario.service";
-import { Sessao, TipoUsuario, Cliente, Funcionario } from "../../shared/models";
-import { ClienteService } from "../cliente.service";
+import { map, catchError } from 'rxjs/operators';
+import { HttpClient } from "@angular/common/http";
+import { Sessao, TipoUsuario } from "../../shared/models";
 
-const LS_CHAVE = "sessaoUsuarioLogado";
+const LS_JWT = "jwt";
 
 @Injectable({
   providedIn: "root",
 })
 export class LoginService {
+  private API_URL = 'http://localhost:8080/login';
+
   constructor(
-    private funcionarioService: FuncionarioService,
-    private clienteService: ClienteService,
+    private http: HttpClient
   ) {}
 
-  private gravarSessao(sessao: Sessao): void {
-    localStorage.setItem(LS_CHAVE, JSON.stringify(sessao));
-  }
-
-  login(email: string, senha: string): Observable<Sessao | null> {
-    return this.funcionarioService.getFuncionarioByEmail(email).pipe(
-      switchMap((funcionario: Funcionario | undefined) => {
-        if (funcionario && funcionario.senha === senha) {
-          const sessao: Sessao = {
-            usuarioId: funcionario.id!,
-            usuarioTipo: TipoUsuario.Funcionario,
-          };
-          this.gravarSessao(sessao);
-          return of(sessao);
-        }
-        
-        return this.clienteService.getClienteByEmail(email).pipe(
-          map((cliente: Cliente | undefined) => {
-            if (cliente && cliente.senha === senha) {
-              const sessao: Sessao = {
-                usuarioId: cliente.id!,
-                usuarioTipo: TipoUsuario.Cliente,
-              };
-              this.gravarSessao(sessao);
-              return sessao;
-            }
-            return null;
-          })
-        );
-      }),
+  login(email: string, senha: string): Observable<boolean> {
+    return this.http.post(this.API_URL, { email, senha }, { withCredentials: true }).pipe(
+      map(() => true),
       catchError(error => {
         console.error('Login error:', error);
-        return of(null);
+        return of(false);
       })
     );
   }
 
-  logout(): void {
-    localStorage.removeItem(LS_CHAVE);
+  logout(): Observable<boolean> {
+    return this.http.post(this.API_URL + '/logout', {}, { withCredentials: true }).pipe(
+      map(() => true),
+      catchError(error => {
+        console.error('Logout error:', error);
+        return of(false);
+      })
+    );
   }
 
-  obterDadosDaSessao(): Sessao | null {
-    const sessao = localStorage.getItem(LS_CHAVE);
-    return sessao ? JSON.parse(sessao) : null;
+  async obterDadosDaSessao(): Promise<Sessao | null> {
+    try {
+      const sessao = await this.http.get<Sessao>('http://localhost:8080/login/sessao', { withCredentials: true }).toPromise();
+      return sessao || null;
+    } catch {
+      return null;
+    }
   }
 
   estaLogado(): boolean {
-    return this.obterDadosDaSessao() !== null;
+    return !!localStorage.getItem(LS_JWT);
   }
 
-  getTipoUsuario(): TipoUsuario | null {
-    const sessao = this.obterDadosDaSessao();
+  async getTipoUsuario(): Promise<TipoUsuario | null> {
+    const sessao = await this.obterDadosDaSessao();
     return sessao ? sessao.usuarioTipo : null;
   }
 }

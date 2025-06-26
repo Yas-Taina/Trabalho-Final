@@ -49,8 +49,8 @@ export class MenuComponent implements OnInit, OnDestroy {
     this.isMenuOpen = false;
   }
 
-  logout() {
-    const sessao = this.loginService.obterDadosDaSessao();
+  async logout() {
+    const sessao = await this.loginService.obterDadosDaSessao();
     if (sessao) {
       this.loginService.logout();
     }

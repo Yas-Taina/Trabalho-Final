@@ -120,8 +120,8 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     });
   }
 
-  getId() {
-    const sessao = this.loginService.obterDadosDaSessao();
+  async getId() {
+    const sessao = await this.loginService.obterDadosDaSessao();
     if (sessao) {
       this.usuario = sessao.usuarioId;
     }

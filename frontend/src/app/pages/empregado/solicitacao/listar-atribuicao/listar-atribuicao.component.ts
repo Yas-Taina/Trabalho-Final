@@ -29,15 +29,15 @@ export class ListarAtribuicaoComponent implements OnInit {
     private funcionarioService: FuncionarioService,
   ) {}
 
-  ngOnInit(): void {
-    this.loadData();
+  async ngOnInit(): Promise<void> {
+    await this.loadData();
   }
 
-  loadData(): void {
+  async loadData(): Promise<void> {
     this.isLoading = true;
     this.errorMessage = null;
 
-    const sessao = this.loginService.obterDadosDaSessao();
+    const sessao = await this.loginService.obterDadosDaSessao();
     if (!sessao?.usuarioId) {
       this.isLoading = false;
       return;

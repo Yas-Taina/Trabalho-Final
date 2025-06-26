@@ -44,8 +44,8 @@ export class ListarFuncionarioComponent implements OnInit {
     });
   }
 
-  getId(): void {
-    const sessao = this.loginService.obterDadosDaSessao();
+  async getId(): Promise<void> {
+    const sessao = await this.loginService.obterDadosDaSessao();
     if (sessao) {
       this.usuario = sessao.usuarioId;
     }

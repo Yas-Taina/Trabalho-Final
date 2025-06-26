@@ -3,11 +3,11 @@ import { CanActivateFn, Router } from "@angular/router";
 import { LoginService } from "../services";
 import { TipoUsuario } from "../shared";
 
-export const authGuard: CanActivateFn = (route, state) => {
+export const authGuard: CanActivateFn = async (route, state) => {
   const loginService = inject(LoginService);
   const router = inject(Router);
 
-  const sessao = loginService.obterDadosDaSessao();
+  const sessao = await loginService.obterDadosDaSessao();
   const requiredRole = route.data["requiredRole"] as TipoUsuario;
 
   if (!sessao) {

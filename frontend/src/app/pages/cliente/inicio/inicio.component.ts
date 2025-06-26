@@ -25,12 +25,12 @@ export class ClienteInicioComponent implements OnInit {
     private loginService: LoginService
   ) {}
 
-  ngOnInit(): void {
-    this.carregarSolicitacoes();
+  async ngOnInit(): Promise<void> {
+    await this.carregarSolicitacoes();
   }
 
-  carregarSolicitacoes(): void {
-    const sessao = this.loginService.obterDadosDaSessao();
+  async carregarSolicitacoes(): Promise<void> {
+    const sessao = await this.loginService.obterDadosDaSessao();
     if (!sessao?.usuarioId) return;
 
     this.usuario = sessao.usuarioId;
