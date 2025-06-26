@@ -5,7 +5,11 @@ meta {
 }
 
 get {
-  url: http://localhost:8080/cliente
+  url: http://localhost:8080/cliente?email=novo@cliente.com
   body: none
   auth: inherit
+}
+
+params:query {
+  email: novo@cliente.com
 }
