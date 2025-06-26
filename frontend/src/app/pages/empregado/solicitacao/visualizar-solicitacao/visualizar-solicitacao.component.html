@@ -4,22 +4,22 @@
     <!--Exibe o orçamento, caso exista-->
     <div *ngIf="solicitacao.estado !== EstadosSolicitacao.Aberta" class="box">
       <h6 class="tituloPequeno">VALOR</h6>
-      <h2>{{ orcamento.valor | currency: "BRL" }}</h2>
+      <h2>{{ solicitacao.valor | currency: "BRL" }}</h2>
       <p class="subtitulo">
         <i
           >Orçamento feito por funcionario
-          <strong>{{ nomeFuncionarioOrc }}</strong> em
-          <strong>{{ orcamento.data | date: 'dd/MM/yyyy - HH:mm' }}</strong></i
+          <strong>Funcionario que fez o orçamento vai aqui</strong> em
+          <strong>Data em que orçamento foi feito vai aqui</strong></i
         >
       </p>
     </div>
     <!--Exibe detalhes da manutenção, caso exista-->
     <div
-      *ngIf="solicitacao.manutencao && solicitacao.manutencao.trim() !== ''"
+      *ngIf="solicitacao.servico && solicitacao.servico.trim() !== ''"
       class="box"
     >
       <h6 class="subtituloRosa">SERVIÇOS REALIZADOS</h6>
-      <p>{{ solicitacao.manutencao }}</p>
+      <p>{{ solicitacao.servico }}</p>
     </div>
 
     <!--Botões de Ação-->
@@ -91,8 +91,8 @@
             <label>Serviços Realizados</label>
             <textarea
               class="form-control"
-              [(ngModel)]="formData.manutencao"
-              name="manutencao"
+              [(ngModel)]="formData.servico"
+              name="servico"
               required
             ></textarea>
           </div>
@@ -165,7 +165,7 @@
           <i class="fa-solid fa-book-open"></i>&nbsp;&nbsp;Histórico
         </a>
         <div *ngIf="isHistOpen" class="box" style="background-color: #e4a18f20;">
-          <p style="white-space: pre-line">{{ solicitacao.historico }}</p>
+          <p style="white-space: pre-line">Histórico vai aqui</p>
         </div>
       </div>
   </div>
@@ -203,7 +203,7 @@
     <hr />
     <div>
       <h6 class="subtituloRosa">DATA E HORA</h6>
-      <p>{{ solicitacao.data | date: 'dd/MM/yyyy - HH:mm' }}</p>
+      <p>{{ solicitacao.dataAberta | date: 'dd/MM/yyyy - HH:mm' }}</p>
     </div>
     <hr />
 

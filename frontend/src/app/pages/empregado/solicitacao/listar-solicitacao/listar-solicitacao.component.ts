@@ -1,9 +1,11 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { FormsModule } from "@angular/forms";
-import { SolicitacaoService,ClienteService,FuncionarioService,LoginService } from "../../../../services";
-import { Cliente,Solicitacao,EstadosSolicitacao,EstadoAmigavelPipe, EstadoCorPipe,HistoricoUtils } from "../../../../shared";
+import { SolicitacaoService, ClienteService, FuncionarioService, LoginService } from "../../../../services";
+import { Cliente, Solicitacao, EstadosSolicitacao, EstadoAmigavelPipe, EstadoCorPipe } from "../../../../shared";
+import { catchError, finalize } from "rxjs/operators";
+import { of } from "rxjs";
 
 @Component({
   selector: "app-listar-solicitacao",
@@ -12,7 +14,7 @@ import { Cliente,Solicitacao,EstadosSolicitacao,EstadoAmigavelPipe, EstadoCorPip
   templateUrl: "./listar-solicitacao.component.html",
   styleUrl: "./listar-solicitacao.component.css",
 })
-export class ListarSolicitacaoComponent {
+export class ListarSolicitacaoComponent implements OnInit {
   EstadosSolicitacao = EstadosSolicitacao;
   solicitacoes: Solicitacao[] = [];
   clientes: Cliente[] = [];
@@ -20,6 +22,8 @@ export class ListarSolicitacaoComponent {
   usuario: number = 0;
   isFilterOpen = false;
   dataMinima: Date | null = null;
+  isLoading = false;
+  errorMessage: string | null = null;
 
   constructor(
     private solicitacaoService: SolicitacaoService,
@@ -29,46 +33,84 @@ export class ListarSolicitacaoComponent {
   ) { }
 
   ngOnInit(): void {
-    this.clientes = this.clienteService.listarTodos();
-    this.solicitacoes = this.solicitacaoService
-      .listarTodos()
-      .filter((item: any) => item.idEmpregado === 0);
+    this.loadData();
+  }
+
+  loadData(): void {
+    this.isLoading = true;
+    this.errorMessage = null;
+
+    this.clienteService.listarTodos().pipe(
+      catchError(error => {
+        console.error('Error loading clients:', error);
+        this.errorMessage = 'Failed to load clients';
+        return of([]);
+      })
+    ).subscribe(clientes => {
+      this.clientes = clientes;
+    });
+
+    this.loadSolicitations();
     this.getId();
-    this.nomeFuncionario = this.buscarNomeFuncionario();
+    this.loadEmployeeName();
+  }
+
+  loadSolicitations(): void {
+    this.solicitacaoService.getAll().pipe(
+      catchError(error => {
+        console.error('Error:', error);
+        this.errorMessage = 'Erro ao carregar solicitações';
+        return of([]);
+      }),
+      finalize(() => this.isLoading = false)
+    ).subscribe(solicitacoes => {
+      this.solicitacoes = solicitacoes.filter(item => item.idFuncionario === 0);
+    });
   }
 
   getId() {
     const sessao = this.loginService.obterDadosDaSessao();
-    this.usuario = sessao!.usuarioId;
+    if (sessao) {
+      this.usuario = sessao.usuarioId;
+    }
+  }
+
+  loadEmployeeName(): void {
+    if (!this.usuario) return;
+    
+    this.funcionarioService.buscarPorId(this.usuario).subscribe({
+      next: (funcionario) => {
+        this.nomeFuncionario = funcionario?.nome ?? "Empregado não encontrado";
+      },
+      error: (error) => {
+        console.error('Erro carregando funcionarios', error);
+      }
+    });
   }
 
   buscarNomeCliente(id: number): string {
-    const cliente = this.clientes.find((c) => c.id === id);
+    const cliente = this.clientes.find(c => c.id === id);
     return cliente?.nome ?? "Cliente não encontrado";
   }
 
-  buscarNomeFuncionario() {
-    const funcionario = this.funcionarioService.buscarPorId(this.usuario);
-    return funcionario?.nome ?? "Funcionário não encontrado";
-  }
-
-  atualizar(solicitacao: Solicitacao): void {
-    this.solicitacaoService.atualizar(solicitacao);
-  }
-
   finalizar(solicitacao: Solicitacao) {
-    if (
-      confirm(
-        "Deseja finalizar a solicitação? Essa ação não pode ser revertida",
-      )
-    ) {
-      // TODO: Preenchimento de histórico será centralizado e/ou movido para o backend
-      solicitacao.estado = EstadosSolicitacao.Finalizada;
-      HistoricoUtils.atualizarHistoricoComResponsavel(solicitacao, this.nomeFuncionario);
-      
-      this.atualizar(solicitacao);
-      alert("Manutenção finalizada");
+    if (!confirm("Deseja finalizar a solicitação? Essa ação não pode ser revertida")) {
+      return;
     }
+
+    this.isLoading = true;
+    
+    this.solicitacaoService.finalizar(solicitacao.id).subscribe({
+      next: () => {
+        this.loadSolicitations();
+        alert("Solicitação finalizada");
+      },
+      error: (error) => {
+        console.error('Erro:', error);
+        this.errorMessage = 'Erro ao finalizar';
+        this.isLoading = false;
+      }
+    });
   }
 
   toggleFilter(): void {
@@ -76,15 +118,26 @@ export class ListarSolicitacaoComponent {
   }
 
   filtrarPorData(): void {
-    let solicitacoes = this.solicitacaoService.listarTodos();
-
-    if (this.dataMinima) {
-      solicitacoes = solicitacoes.filter((item) => item.data >= this.dataMinima!);
-    }
-
-    solicitacoes = solicitacoes.filter((item) => item.idEmpregado === 0);
+    this.isLoading = true;
     
-    this.solicitacoes = solicitacoes;
+    this.solicitacaoService.getAll().pipe(
+      catchError(error => {
+        console.error('Erro:', error);
+        this.errorMessage = 'Erro ao filtrar';
+        return of([]);
+      }),
+      finalize(() => this.isLoading = false)
+    ).subscribe(solicitacoes => {
+      let filtered = solicitacoes.filter(item => item.idFuncionario === 0);
+      
+      if (this.dataMinima) {
+        filtered = filtered.filter(item => 
+          new Date(item.dataAberta) >= new Date(this.dataMinima!)
+        );
+      }
+      
+      this.solicitacoes = filtered;
+    });
   }
 
   limparFiltro() {

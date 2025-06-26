@@ -2,8 +2,8 @@ import { Component, ViewChild } from "@angular/core";
 import { FormsModule, NgForm } from "@angular/forms";
 import { Router, RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
-import { Solicitacao,Equipamento,EstadosSolicitacao,DataUtils } from "../../../../shared";
-import { SolicitacaoService,EquipamentoService,LoginService } from "../../../../services";
+import { Solicitacao, Equipamento } from "../../../../shared";
+import { SolicitacaoService, EquipamentoService, LoginService } from "../../../../services";
 
 @Component({
   selector: "app-inserir-solicitacao",
@@ -16,6 +16,8 @@ export class InserirSolicitacaoComponent {
   @ViewChild("formSolicitacao") formSolicitacao!: NgForm;
   solicitacao: Solicitacao = new Solicitacao();
   equipamentos: Equipamento[] = [];
+  isLoading = false;
+  errorMessage: string | null = null;
 
   constructor(
     private solicitacaoService: SolicitacaoService,
@@ -23,7 +25,24 @@ export class InserirSolicitacaoComponent {
     private equipamentoService: EquipamentoService,
     private router: Router,
   ) {
-    this.equipamentos = this.equipamentoService.listarTodos();
+    this.carregarEquipamentos();
+  }
+
+  carregarEquipamentos(): void {
+    this.isLoading = true;
+    this.errorMessage = null;
+
+    this.equipamentoService.listarTodos().subscribe({
+      next: (equipamentos) => {
+        this.equipamentos = equipamentos;
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Erro ao carregar equipamentos:', error);
+        this.errorMessage = 'Falha ao carregar lista de equipamentos';
+        this.isLoading = false;
+      }
+    });
   }
 
   inserir(): void {
@@ -31,21 +50,25 @@ export class InserirSolicitacaoComponent {
       return;
     }
 
+    this.isLoading = true;
+    this.errorMessage = null;
+
     const sessao = this.loginService.obterDadosDaSessao();
     if (!sessao) {
-      throw new Error("Usuário não está logado");
+      this.errorMessage = "Usuário não está logado";
+      this.isLoading = false;
+      return;
     }
 
-    this.solicitacao.data = new Date();
-    this.solicitacao.estado = EstadosSolicitacao.Aberta;
-    this.solicitacao.idCliente = sessao.usuarioId;
-    this.solicitacao.idEmpregado = 0;
-    this.solicitacao.manutencao = "";
-
-    const add = `Aberta em: ${DataUtils.obterDataHoraFormatada(this.solicitacao.data)} \n`;
-    this.solicitacao.historico += add;
-
-    this.solicitacaoService.inserir(this.solicitacao);
-    this.router.navigate(["/client/home"]);
+    this.solicitacaoService.create(this.solicitacao).subscribe({
+      next: () => {
+        this.router.navigate(["/client/home"]);
+      },
+      error: (error) => {
+        console.error('Erro ao criar solicitação:', error);
+        this.errorMessage = 'Falha ao criar solicitação. Tente novamente.';
+        this.isLoading = false;
+      }
+    });
   }
 }

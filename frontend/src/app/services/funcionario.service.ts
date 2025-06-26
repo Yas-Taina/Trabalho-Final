@@ -1,35 +1,45 @@
 import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Observable, map } from "rxjs";
 import { Funcionario } from "../shared/models";
-import { ServiceCrudBase } from "./service-crud-base/service-crud-base";
 
-const LS_CHAVE = "funcionarios";
 
 @Injectable({
   providedIn: "root",
 })
-export class FuncionarioService extends ServiceCrudBase<Funcionario> {
-  constructor() {
-    super(LS_CHAVE);
-    this.inserirFuncionarioPadrao();
+export class FuncionarioService {
+  private API_URL = 'http://localhost:8080/funcionario';
+
+  constructor(private http: HttpClient) {}
+
+
+  listarTodos(): Observable<Funcionario[]> {
+    return this.http.get<Funcionario[]>(this.API_URL);
   }
 
-  // Função temporária, para permitir acesso agora que as rotas estão protegidas
-  private inserirFuncionarioPadrao(): void {
-    const funcionarioPadrao: Funcionario = {
-      id: 1010,
-      nome: "Funcionário Padrão",
-      data: new Date(2001, 2, 5),
-      email: "func@func",
-      senha: "1234",
-    };
-
-    if (!this.getFuncionarioByEmail(funcionarioPadrao.email)) {
-      this.inserirDefaultCompleto(funcionarioPadrao);
-    }
+  buscarPorId(id: number): Observable<Funcionario> {
+    return this.http.get<Funcionario>(`${this.API_URL}/${id}`);
   }
 
-  getFuncionarioByEmail(email: string): Funcionario | undefined {
-    const funcionarios = this.listarTodos();
-    return funcionarios.find((funcionario) => funcionario.email === email);
+  inserir(funcionario: Funcionario): Observable<Funcionario> {
+    return this.http.post<Funcionario>(this.API_URL, funcionario);
+  }
+
+  atualizar(funcionario: Funcionario): Observable<Funcionario> {
+    return this.http.put<Funcionario>(
+      `${this.API_URL}/${funcionario.id}`,
+      funcionario
+    );
+  }
+
+  remover(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.API_URL}/${id}`);
+  }
+
+  
+  getFuncionarioByEmail(email: string): Observable<Funcionario | undefined> {
+    return this.listarTodos().pipe(
+      map(funcionarios => funcionarios.find(f => f.email === email))
+    );
   }
 }

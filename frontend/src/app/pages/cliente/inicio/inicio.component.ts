@@ -1,9 +1,10 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
-import { SolicitacaoService,OrcamentoService,LoginService } from "../../../services";
-import { Solicitacao,Orcamento,EstadosSolicitacao,EstadoAmigavelPipe,HistoricoUtils } from "../../../shared";
-
+import { SolicitacaoService, LoginService } from "../../../services";
+import { Solicitacao, EstadosSolicitacao, EstadoAmigavelPipe } from "../../../shared";
+import { catchError, finalize } from "rxjs/operators";
+import { of } from "rxjs";
 
 @Component({
   selector: "app-inicio",
@@ -12,57 +13,63 @@ import { Solicitacao,Orcamento,EstadosSolicitacao,EstadoAmigavelPipe,HistoricoUt
   templateUrl: "./inicio.component.html",
   styleUrl: "./inicio.component.css",
 })
-export class ClienteInicioComponent {
+export class ClienteInicioComponent implements OnInit {
   EstadosSolicitacao = EstadosSolicitacao;
   solicitacoes: Solicitacao[] = [];
   usuario: number = 0;
-  orcamento?: Orcamento | null;
+  isLoading = false;
+  errorMessage: string | null = null;
 
   constructor(
     private solicitacaoService: SolicitacaoService,
-    private loginService: LoginService,
-    private orcamentoService: OrcamentoService,
-  ) { }
+    private loginService: LoginService
+  ) {}
 
   ngOnInit(): void {
+    this.carregarSolicitacoes();
+  }
+
+  carregarSolicitacoes(): void {
     const sessao = this.loginService.obterDadosDaSessao();
-    if (sessao && sessao.usuarioId) {
-      this.usuario = sessao.usuarioId;
+    if (!sessao?.usuarioId) return;
 
-      this.solicitacoes = this.solicitacaoService
-        .listarTodos()
-        .filter((item) => +item.idCliente === +this.usuario);
-    }
+    this.usuario = sessao.usuarioId;
+    this.isLoading = true;
+    this.errorMessage = null;
+
+    this.solicitacaoService.getAll().pipe(
+      catchError(error => {
+        console.error('Erro ao carregar solicitações:', error);
+        this.errorMessage = 'Falha ao carregar solicitações';
+        return of([]);
+      }),
+      finalize(() => this.isLoading = false)
+    ).subscribe(solicitacoes => {
+      this.solicitacoes = solicitacoes.filter(s => s.idCliente === this.usuario);
+    });
   }
 
-  carregarOrcamento(solicitacao: Solicitacao) {
-    return this.orcamentoService
-      .listarTodos()
-      .find((o) => o.idSolicitacao === solicitacao.id);
-  }
-
-  listarTodos(): Solicitacao[] {
-    return this.solicitacaoService.listarTodos();
-  }
-
-  resgatar($event: any, solicitacao: Solicitacao): void {
+  resgatar($event: Event, solicitacao: Solicitacao): void {
     $event.preventDefault();
-    if (
-      confirm(
-        "Deseja resgatar a solicitação? Ela será automaticamente aprovada no valor orçado",
-      )
-    ) {
-      solicitacao.estado = EstadosSolicitacao.Aprovada;
-      this.orcamento = this.carregarOrcamento(solicitacao);
-      HistoricoUtils.atualizarHistorico(solicitacao);
-      this.atualizar(solicitacao);
-      alert(
-        `Solicitação resgatada. Serviço aprovado no valor de R$ ${this.orcamento!.valor}`,
-      );
-    }
+    if (!confirm("Deseja resgatar a solicitação?")) return;
+
+    this.isLoading = true;
+    this.solicitacaoService.resgatar(solicitacao.id).subscribe({
+      next: (solicitacaoAtualizada) => {
+        this.atualizarLista(solicitacaoAtualizada);
+        alert(`Solicitação resgatada. Serviço aprovado no valor de R$ ${solicitacaoAtualizada.valor}`);
+      },
+      error: (error) => {
+        console.error('Erro ao resgatar solicitação:', error);
+        this.errorMessage = 'Falha ao resgatar solicitação';
+      },
+      complete: () => this.isLoading = false
+    });
   }
 
-  atualizar(solicitacao: Solicitacao): void {
-    this.solicitacaoService.atualizar(solicitacao);
+  private atualizarLista(solicitacaoAtualizada: Solicitacao): void {
+    this.solicitacoes = this.solicitacoes.map(s => 
+      s.id === solicitacaoAtualizada.id ? solicitacaoAtualizada : s
+    );
   }
 }

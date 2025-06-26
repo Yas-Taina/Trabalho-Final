@@ -23,22 +23,27 @@ export class LoginComponent {
   ) {}
 
   login(): void {
-    if (!this.formLogin.form.valid) {
-      return;
-    }
-
-    const sessao = this.loginService.login(this.emailModel, this.senhaModel);
-
-    if (!sessao) {
-      // Placeholder
-      alert("Login ou senha inválidos!");
-      return;
-    }
-
-    if (sessao.usuarioTipo === TipoUsuario.Cliente) {
-      this.router.navigate(["/client/home"]);
-    } else if (sessao.usuarioTipo === TipoUsuario.Funcionario) {
-      this.router.navigate(["/adm/home"]);
-    }
+  if (!this.formLogin.form.valid) {
+    return;
   }
+
+  this.loginService.login(this.emailModel, this.senhaModel).subscribe({
+    next: (sessao) => {
+      if (!sessao) {
+        alert("Login ou senha inválidos!");
+        return;
+      }
+
+      if (sessao.usuarioTipo === TipoUsuario.Cliente) {
+        this.router.navigate(["/client/home"]);
+      } else if (sessao.usuarioTipo === TipoUsuario.Funcionario) {
+        this.router.navigate(["/adm/home"]);
+      }
+    },
+    error: (err) => {
+      alert("Erro durante o login!");
+      console.error(err);
+    }
+  });
+}
 }

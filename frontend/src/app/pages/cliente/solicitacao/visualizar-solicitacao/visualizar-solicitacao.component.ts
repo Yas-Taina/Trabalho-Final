@@ -3,10 +3,9 @@ import { FormsModule, NgForm } from "@angular/forms";
 import { ActivatedRoute, RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-import { Solicitacao, Equipamento,Orcamento,EstadosSolicitacao,HistoricoUtils,EstadoAmigavelPipe } from "../../../../shared";
-import { SolicitacaoService,EquipamentoService,OrcamentoService } from "../../../../services";
+import { Solicitacao, Equipamento, EstadosSolicitacao, EstadoAmigavelPipe } from "../../../../shared";
+import { SolicitacaoService, EquipamentoService } from "../../../../services";
 import { ModalComponent } from "../../../../components";
-
 
 @Component({
   selector: "app-visualizar-solicitacao",
@@ -24,9 +23,10 @@ export class VisualizarSolicitacaoComponent implements OnInit {
   solicitacao: Solicitacao = new Solicitacao();
   id: number = 0;
   equipamento?: Equipamento | null;
-  orcamento?: Orcamento | null;
   isEquipOpen = false;
   isHistOpen = false;
+  isLoading = false;
+  errorMessage: string | null = null;
 
   currentModalTitle: string = "";
   currentContentTemplate!: TemplateRef<any>;
@@ -35,19 +35,30 @@ export class VisualizarSolicitacaoComponent implements OnInit {
   constructor(
     private solicitacaoService: SolicitacaoService,
     private route: ActivatedRoute,
-    private equipamentoService: EquipamentoService,
-    private orcamentoService: OrcamentoService,
+    private equipamentoService: EquipamentoService
   ) { }
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.params["id"];
-    const res = this.solicitacaoService.buscarPorId(this.id);
-    if (!res) {
-      throw new Error("Erro ao buscar solicitação, id = " + this.id);
-    }
-    this.solicitacao = res;
-    this.carregarEquipamento();
-    this.carregarOrcamento();
+    this.carregarSolicitacao();
+  }
+
+  carregarSolicitacao(): void {
+    this.isLoading = true;
+    this.errorMessage = null;
+
+    this.solicitacaoService.getById(this.id).subscribe({
+      next: (solicitacao) => {
+        this.solicitacao = solicitacao;
+        this.carregarEquipamento();
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Erro ao carregar solicitação:', error);
+        this.errorMessage = 'Falha ao carregar dados da solicitação';
+        this.isLoading = false;
+      }
+    });
   }
 
   toggleEquip() {
@@ -59,55 +70,54 @@ export class VisualizarSolicitacaoComponent implements OnInit {
   }
 
   carregarEquipamento(): void {
-    this.equipamento = this.equipamentoService.buscarPorId(this.solicitacao.equipamento);
+    if (!this.solicitacao.idEquipamento) return;
+
+    this.equipamentoService.buscarPorId(this.solicitacao.idEquipamento).subscribe({
+      next: (equipamento) => {
+        this.equipamento = equipamento;
+      },
+      error: (error) => {
+        console.error('Erro ao carregar equipamento:', error);
+        this.equipamento = null;
+      }
+    });
   }
 
-  carregarOrcamento(): void {
-    this.orcamento = this.orcamentoService
-      .listarTodos()
-      .find((o) => o.idSolicitacao === this.solicitacao.id);
-  }
+ 
 
-  atualizar(): void {
-    this.solicitacaoService.atualizar(this.solicitacao);
-  }
-
-  aprovar($event: any): void {
+  resgatar($event: Event): void {
     $event.preventDefault();
-    if (
-      confirm("Deseja aprovar o orçamento? Essa ação não pode ser revertida")
-    ) {
-      this.solicitacao.estado = EstadosSolicitacao.Aprovada;
-      HistoricoUtils.atualizarHistorico(this.solicitacao);
-      this.atualizar();
-      alert(`Serviço aprovado no valor de R$ ${this.orcamento!.valor}`);
+    if (confirm("Deseja resgatar a solicitação?")) {
+      this.isLoading = true;
+      this.solicitacaoService.resgatar(this.id).subscribe({
+        next: (solicitacaoAtualizada) => {
+          this.solicitacao = solicitacaoAtualizada;
+          this.isLoading = false;
+        },
+        error: (error) => {
+          console.error('Erro ao resgatar solicitação:', error);
+          this.errorMessage = 'Falha ao resgatar solicitação';
+          this.isLoading = false;
+        }
+      });
     }
   }
 
-  resgatar($event: any): void {
+  pagar($event: Event): void {
     $event.preventDefault();
-    if (
-      confirm(
-        "Deseja resgatar a solicitação? Ela será automaticamente aprovada no valor orçado",
-      )
-    ) {
-      this.solicitacao.estado = EstadosSolicitacao.Aprovada;
-      HistoricoUtils.atualizarHistorico(this.solicitacao);
-      this.atualizar();
-      alert(
-        `Solicitação resgatada. Serviço aprovado no valor de R$ ${this.orcamento!.valor}`,
-      );
-    }
-  }
-
-  pagar($event: any): void {
-    $event.preventDefault();
-    if (
-      confirm("Deseja realizar o pagamento? Essa ação não pode ser revertida")
-    ) {
-      this.solicitacao.estado = EstadosSolicitacao.Paga;
-      HistoricoUtils.atualizarHistorico(this.solicitacao);
-      this.atualizar();
+    if (confirm("Deseja realizar o pagamento? Essa ação não pode ser revertida")) {
+      this.isLoading = true;
+      this.solicitacaoService.pagar(this.id).subscribe({
+        next: (solicitacaoAtualizada) => {
+          this.solicitacao = solicitacaoAtualizada;
+          this.isLoading = false;
+        },
+        error: (error) => {
+          console.error('Erro ao registrar pagamento:', error);
+          this.errorMessage = 'Falha ao registrar pagamento';
+          this.isLoading = false;
+        }
+      });
     }
   }
 
@@ -118,15 +128,28 @@ export class VisualizarSolicitacaoComponent implements OnInit {
     this.modal.open();
   }
 
-  handleConfirmation(formData: any) {
-    if (!formData.reason) {
-      alert("Digite o motivo de sua recusa:");
-      return;
-    }
-
-    this.solicitacao.estado = EstadosSolicitacao.Rejeitada;
-    const motivo = formData.reason;
-    HistoricoUtils.atualizarHistoricoComMotivo(this.solicitacao, motivo);
-    this.atualizar();
+handleConfirmation(formData: { reason: string }): void {
+  if (!formData.reason.trim()) {
+    alert("Por favor, digite um motivo válido para a recusa.");
+    return;
   }
+
+  this.isLoading = true;
+  this.errorMessage = null;
+
+  this.solicitacaoService.rejeitar(this.id, formData.reason).subscribe({
+    next: (solicitacaoAtualizada: Solicitacao) => {
+      this.solicitacao = solicitacaoAtualizada;
+      this.modal.close();
+      this.isLoading = false;
+    },
+    error: (error) => {
+      console.error('Erro ao recusar solicitação:', error);
+      this.errorMessage = error.status === 404 
+        ? 'Solicitação não encontrada'
+        : 'Falha ao recusar solicitação. Tente novamente mais tarde.';
+      this.isLoading = false;
+    }
+  });
+}
 }
