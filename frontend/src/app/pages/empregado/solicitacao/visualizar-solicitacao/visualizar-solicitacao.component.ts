@@ -4,10 +4,11 @@ import { ActivatedRoute, Router, RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { NgxCurrencyDirective } from "ngx-currency";
-import { Cliente, Equipamento,Funcionario, Solicitacao, Orcamento,EstadosSolicitacao,EstadoAmigavelPipe,HistoricoUtils } from "../../../../shared";
-import { SolicitacaoService,EquipamentoService,FuncionarioService,OrcamentoService,ClienteService,LoginService } from "../../../../services";
+import { Cliente, Equipamento, Funcionario, Solicitacao, EstadosSolicitacao, EstadoAmigavelPipe } from "../../../../shared";
+import { SolicitacaoService, EquipamentoService, FuncionarioService, ClienteService, LoginService } from "../../../../services";
 import { ModalComponent } from "../../../../components";
-
+import { catchError, finalize } from "rxjs/operators";
+import { of } from "rxjs";
 
 @Component({
   selector: "app-visualizar-solicitacao",
@@ -25,17 +26,17 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
 
   EstadosSolicitacao = EstadosSolicitacao;
   solicitacao: Solicitacao = new Solicitacao();
-  orcamento: Orcamento = new Orcamento();
   id: number = 0;
   usuario: number = 0;
   nomeFuncionario: string = "";
-  nomeFuncionarioOrc: string = "";
   cliente?: Cliente | null;
   equipamento?: Equipamento | null;
   isEquipOpen = false;
   isClientOpen = false;
   isHistOpen = false;
   funcionarios: Funcionario[] = [];
+  isLoading = false;
+  errorMessage: string | null = null;
   confirmada!: (formData: any) => void;
 
   currentModalTitle: string = "";
@@ -49,136 +50,175 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     private funcionarioService: FuncionarioService,
     private clienteService: ClienteService,
     private equipamentoService: EquipamentoService,
-    private orcamentoService: OrcamentoService,
     private router: Router,
   ) { }
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.params["id"];
-    const res = this.solicitacaoService.buscarPorId(this.id);
-    if (!res) {
-      throw new Error("Erro ao buscar solicitação, id = " + this.id);
-    }
-    this.solicitacao = res;
+    this.loadSolicitacao();
     this.getId();
-    this.carregarNomeFuncionario();
-    this.carregarCliente();
-    this.carregarEquipamento();
-    this.carregarOrcamento();
-    this.funcionarios = this.listarFunc();
+    this.loadFuncionarios();
+  }
+
+  loadSolicitacao(): void {
+    this.isLoading = true;
+    this.solicitacaoService.getById(this.id).subscribe({
+      next: (solicitacao) => {
+        this.solicitacao = solicitacao;
+        this.loadCliente();
+        this.loadEquipamento();
+        this.loadFuncionarioName();
+      },
+      error: (error) => {
+        console.error('Error loading solicitation:', error);
+        this.errorMessage = 'Failed to load solicitation';
+        this.isLoading = false;
+      }
+    });
+  }
+
+  loadCliente(): void {
+    this.clienteService.buscarPorId(this.solicitacao.idCliente).subscribe({
+      next: (cliente) => {
+        this.cliente = cliente;
+      },
+      error: (error) => {
+        console.error('Error loading client:', error);
+      }
+    });
+  }
+
+  loadEquipamento(): void {
+    this.equipamentoService.buscarPorId(this.solicitacao.idEquipamento).subscribe({
+      next: (equipamento) => {
+        this.equipamento = equipamento;
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error loading equipment:', error);
+        this.isLoading = false;
+      }
+    });
+  }
+
+  loadFuncionarios(): void {
+    this.funcionarioService.listarTodos().subscribe({
+      next: (funcionarios) => {
+        this.funcionarios = funcionarios;
+      },
+      error: (error) => {
+        console.error('Error loading employees:', error);
+      }
+    });
+  }
+
+  loadFuncionarioName(): void {
+    this.funcionarioService.buscarPorId(this.usuario).subscribe({
+      next: (funcionario) => {
+        this.nomeFuncionario = funcionario?.nome ?? "Employee not found";
+      }
+    });
   }
 
   getId() {
     const sessao = this.loginService.obterDadosDaSessao();
-    this.usuario = sessao!.usuarioId;
-  }
-
-  listarFunc() {
-    return this.funcionarioService.listarTodos();
-  }
-
-  carregarNomeFuncionario() {
-    const funcionario = this.funcionarioService.buscarPorId(this.usuario);
-    this.nomeFuncionario = funcionario?.nome ?? "Funcionário não encontrado";
-  }
-
-  carregarCliente(): void {
-    this.cliente = this.clienteService.buscarPorId(
-      this.solicitacao.idCliente,
-    );
-  }
-
-  carregarEquipamento(): void {
-    this.equipamento = this.equipamentoService.buscarPorId(
-      this.solicitacao.equipamento,
-    );
-  }
-
-  carregarOrcamento(): void {
-    const orcamentoEncontrado = this.orcamentoService
-      .listarTodos()
-      .find((o) => o.idSolicitacao === this.solicitacao.id);
-    this.orcamento = orcamentoEncontrado ?? new Orcamento();
-
-    if (this.orcamento?.idEmpregado) {
-      const funcionario = this.funcionarioService.buscarPorId(
-        this.orcamento.idEmpregado,
-      );
-      this.nomeFuncionarioOrc =
-        funcionario?.nome ?? "Funcionário não encontrado";
+    if (sessao) {
+      this.usuario = sessao.usuarioId;
     }
   }
 
-  atualizar(): void {
-    this.solicitacaoService.atualizar(this.solicitacao);
-  }
-
-  // TODO: Refatorar para utilizar data no orcamento
-  inserirOrcamento(): void {
-    this.orcamento.data = new Date();
-    this.orcamento.idEmpregado = this.usuario;
-    this.orcamento.idSolicitacao = this.id;
-    this.orcamentoService.inserir(this.orcamento);
-  }
 
   orcar(formData: any) {
     const valorForm = Number(formData.valor);
 
-    if (isNaN(valorForm) || valorForm < 0) {
-      alert("Insira um valor numérico válido e positivo.");
+    if (isNaN(valorForm)) {
+      alert("Enter a valid numeric value");
       return;
     }
 
-    this.orcamento.valor = valorForm;
-    this.inserirOrcamento();
-    this.carregarOrcamento();
+    this.isLoading = true;
+    this.solicitacao.valor = valorForm;
     this.solicitacao.estado = EstadosSolicitacao.Orcada;
-    HistoricoUtils.atualizarHistoricoComResponsavel(this.solicitacao, this.nomeFuncionario);
-    this.atualizar();
+    
+    this.solicitacaoService.orcar(this.id).subscribe({
+      next: () => {
+        this.modal.close();
+      },
+      error: (error) => {
+        console.error('Error creating budget:', error);
+        this.errorMessage = 'Failed to create budget';
+        this.isLoading = false;
+      }
+    });
   }
 
   redirecionar(formData: any) {
-    if (!formData.idEmpregado) {
-      alert("Selecione um funcionário.");
+    if (!formData.idFuncionario) {
+      alert("Select an employee");
       return;
     }
 
-    this.solicitacao.idEmpregado = formData.idEmpregado;
+    this.isLoading = true;
+    this.solicitacao.idFuncionario = formData.idFuncionario;
     this.solicitacao.estado = EstadosSolicitacao.Redirecionada;
-    HistoricoUtils.atualizarHistoricoComResponsavel(this.solicitacao, this.nomeFuncionario);
-    this.atualizar();
-    this.router.navigate(["/adm/home"]);
+    
+    this.solicitacaoService.redirecionar(this.id).subscribe({
+      next: () => {
+        this.modal.close();
+        this.router.navigate(["/adm/home"]);
+      },
+      error: (error) => {
+        console.error('Error redirecting:', error);
+        this.errorMessage = 'Failed to redirect solicitation';
+        this.isLoading = false;
+      }
+    });
   }
 
   consertar(formData: any) {
-    if (!formData.mensagem || !formData.manutencao) {
-      alert("Preencha todos os campos.");
+    if (!formData.mensagem || !formData.servico) {
+      alert("Fill all fields");
       return;
     }
 
+    this.isLoading = true;
     this.solicitacao.mensagem = formData.mensagem;
-    this.solicitacao.manutencao = formData.manutencao;
-    this.solicitacao.estado = EstadosSolicitacao.Arrumada;
-    HistoricoUtils.atualizarHistoricoComResponsavel(this.solicitacao, this.nomeFuncionario);
-    this.atualizar();
-    alert("Manutenção realizada");
+    this.solicitacao.servico = formData.servico;
+    
+    this.solicitacaoService.arrumar(this.id).subscribe({
+      next: () => {
+        this.modal.close();
+        alert("Maintenance completed");
+      },
+      error: (error) => {
+        console.error('Error completing maintenance:', error);
+        this.errorMessage = 'Failed to complete maintenance';
+        this.isLoading = false;
+      }
+    });
   }
 
   finalizar() {
-    if (
-      confirm(
-        "Deseja finalizar a solicitação? Essa ação não pode ser revertida",
-      )
-    ) {
-      this.solicitacao.estado = EstadosSolicitacao.Finalizada;
-      HistoricoUtils.atualizarHistoricoComResponsavel(this.solicitacao, this.nomeFuncionario);
-      this.atualizar();
-      alert("Manutenção finalizada");
+    if (!confirm("Do you want to finalize the solicitation? This action cannot be undone")) {
+      return;
     }
+
+    this.isLoading = true;
+    
+    this.solicitacaoService.finalizar(this.id).subscribe({
+      next: () => {
+        alert("Solicitation finalized");
+      },
+      error: (error) => {
+        console.error('Error finalizing:', error);
+        this.errorMessage = 'Failed to finalize solicitation';
+        this.isLoading = false;
+      }
+    });
   }
 
   abrirModalOrcar() {
-    this.currentModalTitle = "Realizar Orçamento";
+    this.currentModalTitle = "Create Budget";
     this.currentContentTemplate = this.orcarTemplate;
     this.currentFormData = { valor: 0 };
     this.confirmada = this.orcar.bind(this);
@@ -186,7 +226,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
   }
 
   abrirModalRedirecionar() {
-    this.currentModalTitle = "Redirecionar Solicitação";
+    this.currentModalTitle = "Redirect Solicitation";
     this.currentContentTemplate = this.redirecionarTemplate;
     this.currentFormData = { idEmpregado: null };
     this.confirmada = this.redirecionar.bind(this);
@@ -194,9 +234,9 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
   }
 
   abrirModalConsertar() {
-    this.currentModalTitle = "Realizar Manutenção";
+    this.currentModalTitle = "Perform Maintenance";
     this.currentContentTemplate = this.consertarTemplate;
-    this.currentFormData = { mensagem: "", manutencao: "" };
+    this.currentFormData = { mensagem: "", servico: "" };
     this.confirmada = this.consertar.bind(this);
     this.modal.open();
   }

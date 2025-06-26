@@ -5,16 +5,17 @@ export class Solicitacao extends EntidadeBase {
   constructor(
     public override id: number = 0,
     public idCliente: number = 0,
-    public idEmpregado: number = 0,
-    public data: Date = new Date(),
+    public idFuncionario: number = 0,
+    public dataAberta: Date = new Date(),
+    public dataAtualizacao: Date | null = null,
     public estado: EstadosSolicitacao = EstadosSolicitacao.Aberta,
-    public equipamento: number = 0,
-    public defeito: string = "",
+    public idEquipamento: number = 0,
     public descricao: string = "",
-    public manutencao: string = "",
+    public defeito: string = "",
+    public servico: string = "",
+    public valor: number | null = null,
     public mensagem: string = "",
-    public historico: string = "",
   ) {
     super(id);
   }
-}
+} 

@@ -1,8 +1,10 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
-import { SolicitacaoService,ClienteService,FuncionarioService,LoginService } from "../../../../services";
-import { Cliente, Solicitacao,EstadosSolicitacao, EstadoCorPipe, EstadoAmigavelPipe,HistoricoUtils } from "../../../../shared";
+import { SolicitacaoService, ClienteService, FuncionarioService, LoginService } from "../../../../services";
+import { Cliente, Solicitacao, EstadosSolicitacao, EstadoCorPipe, EstadoAmigavelPipe } from "../../../../shared";
+import { catchError, finalize } from "rxjs/operators";
+import { of } from "rxjs";
 
 @Component({
   selector: "app-listar-atribuicao",
@@ -11,12 +13,14 @@ import { Cliente, Solicitacao,EstadosSolicitacao, EstadoCorPipe, EstadoAmigavelP
   templateUrl: "./listar-atribuicao.component.html",
   styleUrl: "./listar-atribuicao.component.css",
 })
-export class ListarAtribuicaoComponent {
+export class ListarAtribuicaoComponent implements OnInit {
   EstadosSolicitacao = EstadosSolicitacao;
   solicitacoes: Solicitacao[] = [];
   clientes: Cliente[] = [];
   usuario: number = 0;
   nomeFuncionario: string = "";
+  isLoading = false;
+  errorMessage: string | null = null;
 
   constructor(
     private solicitacaoService: SolicitacaoService,
@@ -26,46 +30,77 @@ export class ListarAtribuicaoComponent {
   ) {}
 
   ngOnInit(): void {
-    this.clientes = this.clienteService.listarTodos();
+    this.loadData();
+  }
+
+  loadData(): void {
+    this.isLoading = true;
+    this.errorMessage = null;
 
     const sessao = this.loginService.obterDadosDaSessao();
-    if (sessao && sessao.usuarioId) {
-      this.usuario = sessao.usuarioId;
-
-      this.solicitacoes = this.solicitacaoService
-        .listarTodos()
-        .filter((item) => +item.idEmpregado === +this.usuario);
-
-      this.nomeFuncionario = this.buscarNomeFuncionario();
+    if (!sessao?.usuarioId) {
+      this.isLoading = false;
+      return;
     }
+
+    this.usuario = sessao.usuarioId;
+
+
+    this.clienteService.listarTodos().pipe(
+      catchError(error => {
+        console.error('Erro:', error);
+        this.errorMessage = 'Erro ao carregar clientes';
+        return of([]);
+      })
+    ).subscribe(clientes => {
+      this.clientes = clientes;
+    });
+
+
+    this.solicitacaoService.getAll().pipe(
+      catchError(error => {
+        console.error('Erro:', error);
+        this.errorMessage = 'Erro ao carregar solicitações';
+        return of([]);
+      })
+    ).subscribe(solicitacoes => {
+      this.solicitacoes = solicitacoes.filter(item => item.idFuncionario === this.usuario);
+      this.isLoading = false;
+    });
+
+
+    this.funcionarioService.buscarPorId(this.usuario).subscribe({
+      next: (funcionario) => {
+        this.nomeFuncionario = funcionario?.nome ?? "Empregado não encontrado";
+      },
+      error: (error) => {
+        console.error('Erro carregando empregado:', error);
+      }
+    });
   }
 
   buscarNomeCliente(id: number): string {
-    const cliente = this.clientes.find((c) => c.id === id);
+    const cliente = this.clientes.find(c => c.id === id);
     return cliente?.nome ?? "Cliente não encontrado";
   }
 
-  buscarNomeFuncionario() {
-    const funcionario = this.funcionarioService.buscarPorId(this.usuario);
-    return funcionario?.nome ?? "Funcionário não encontrado";
-  }
-  
-  atualizar(solicitacao: Solicitacao): void {
-    this.solicitacaoService.atualizar(solicitacao);
-  }
-
   finalizar(solicitacao: Solicitacao) {
-    if (
-      confirm(
-        "Deseja finalizar a solicitação? Essa ação não pode ser revertida",
-      )
-    ) {
-      // TODO: Preenchimento de histórico será centralizado e/ou movido para o backend
-      solicitacao.estado = EstadosSolicitacao.Finalizada;
-      HistoricoUtils.atualizarHistoricoComResponsavel(solicitacao, this.nomeFuncionario);
-      
-      this.atualizar(solicitacao);
-      alert("Manutenção finalizada");
+    if (!confirm("Deseja finalizar a solicitação? Essa ação não pode ser revertida")) {
+      return;
     }
+
+    this.isLoading = true;
+    
+    this.solicitacaoService.finalizar(solicitacao.id).subscribe({
+      next: () => {
+        this.loadData();
+        alert("Solicitação Finalizada");
+      },
+      error: (error) => {
+        console.error('Erro ao finalizar solicitação:', error);
+        this.errorMessage = 'Erro ao finalizar solicitação';
+        this.isLoading = false;
+      }
+    });
   }
 }

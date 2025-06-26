@@ -4,8 +4,10 @@ import { CommonModule } from "@angular/common";
 import { Component, ViewChild } from "@angular/core";
 import { FormsModule, NgForm } from "@angular/forms";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
-import { SolicitacaoService, OrcamentoService } from "../../../../services";
+import { SolicitacaoService } from "../../../../services";
 import { EstadosSolicitacao } from "../../../../shared";
+import { catchError, finalize } from "rxjs/operators";
+import { of } from "rxjs";
 
 @Component({
   selector: "app-receitas-relatorio",
@@ -18,148 +20,149 @@ export class ReceitasComponent {
   @ViewChild("formRelatorio") formRelatorio!: NgForm;
   dataInicial: string = '';
   dataFinal: string = '';
+  isLoading = false;
 
   constructor(
     public activeModal: NgbActiveModal,
-    private orcamentoService: OrcamentoService,
     private solicitacaoService: SolicitacaoService
   ) {}
 
-  //todo: checar datas
   async gerarRelatorio() {
-  try {
-    if (this.formRelatorio.invalid) {
-      alert('Por favor, preencha os dados corretamente.');
-      return;
-    }
-    const parseDate = (dateInput: any): Date | null => {
-      if (!dateInput) return null;
-      if (dateInput instanceof Date) return dateInput;
-      
-      const isoDate = new Date(dateInput);
-      if (!isNaN(isoDate.getTime())) return isoDate;
-      
-      if (typeof dateInput === 'string' && dateInput.includes('/')) {
-        const parts = dateInput.split('/');
-        if (parts.length === 3) {
-          const day = parseInt(parts[0], 10);
-          const month = parseInt(parts[1], 10) - 1;
-          const year = parseInt(parts[2], 10);
-          return new Date(year, month, day);
-        }
+    try {
+      if (this.formRelatorio.invalid) {
+        alert('Por favor, preencha os dados corretamente.');
+        return;
       }
+
+      this.isLoading = true;
       
-      console.warn('Formato de data não reconhecido:', dateInput);
-      return null;
-    };
+      // Date parsing utility
+      const parseDate = (dateInput: string): Date | null => {
+        if (!dateInput) return null;
+        const date = new Date(dateInput);
+        return isNaN(date.getTime()) ? null : date;
+      };
 
-    const dataIni = this.dataInicial ? parseDate(this.dataInicial) : null;
-    const dataFim = this.dataFinal ? parseDate(this.dataFinal) : null;
+      const dataIni = parseDate(this.dataInicial);
+      const dataFim = parseDate(this.dataFinal);
 
-    if (dataIni && dataFim && dataIni > dataFim) {
-      alert('A data inicial não pode ser maior que a data final');
+      if (dataIni && dataFim && dataIni > dataFim) {
+        alert('A data inicial não pode ser maior que a data final');
+        return;
+      }
+
+      const solicitacoes = await this.solicitacaoService.getAll()
+        .pipe(
+          catchError(error => {
+            console.error('Erro ao carregar solicitações:', error);
+            alert('Falha ao carregar dados das solicitações');
+            return of([]);
+          }),
+          finalize(() => this.isLoading = false)
+        )
+
+      if (!solicitacoes || !Array.isArray(solicitacoes)) {
+      alert('Nenhuma solicitação encontrada');
       return;
     }
 
-    const orcamentos = this.orcamentoService.listarTodos();
-    const solicitacoes = this.solicitacaoService.listarTodos();
     const estadosValidos = [EstadosSolicitacao.Paga, EstadosSolicitacao.Finalizada];
-    const solicitacoesValidas = solicitacoes.filter(s => estadosValidos.includes(s.estado));
+    const solicitacoesValidas = solicitacoes.filter(s => 
+      s && 
+      estadosValidos.includes(s.estado) && 
+      s.valor && 
+      s.valor > 0
+    );
 
-    const orcamentosFiltrados = orcamentos.filter(o => {
-      const solicitacao = solicitacoesValidas.find(s => s.id === o.idSolicitacao);
-      if (!solicitacao) return false;
+      const solicitacoesFiltradas = solicitacoesValidas.filter(s => {
+        const dataSolicitacao = parseDate(s.dataAberta.toString());
+        if (!dataSolicitacao) return false;
+        
+        if (dataIni && dataSolicitacao < dataIni) return false;
+        if (dataFim && dataSolicitacao > dataFim) return false;
+        
+        return true;
+      });
 
-      const dataOrcamento = parseDate(o.data);
-      if (!dataOrcamento || isNaN(dataOrcamento.getTime())) {
-        console.warn('Data inválida no orçamento:', o.data);
-        return false;
+      if (solicitacoesFiltradas.length === 0) {
+        alert('Nenhuma solicitação válida encontrada para o período selecionado');
+        return;
       }
 
-      if (dataIni && dataOrcamento < dataIni) return false;
-      if (dataFim && dataOrcamento > dataFim) return false;
+      const receitasPorData: { [dataIso: string]: number } = {};
+      let totalPeriodo = 0;
 
-      return true;
-    });
+      solicitacoesFiltradas.forEach(s => {
+        const dataSolicitacao = new Date(s.dataAberta);
+        const dataIso = dataSolicitacao.toISOString().split('T')[0];
+        receitasPorData[dataIso] = (receitasPorData[dataIso] || 0) + (s.valor || 0);
+        totalPeriodo += (s.valor || 0);
+      });
 
-    if (orcamentosFiltrados.length === 0) {
-      alert('Nenhum orçamento válido encontrado para o período selecionado');
-      return;
-    }
 
-    const receitasPorData: { [dataIso: string]: number } = {};
-    let totalPeriodo = 0;
+      const formatarDataBR = (isoDate: string): string => {
+        const [ano, mes, dia] = isoDate.split('-');
+        return `${dia.padStart(2, '0')}/${mes.padStart(2, '0')}/${ano}`;
+      };
 
-    orcamentosFiltrados.forEach(orc => {
-      const dataOrcamento = parseDate(orc.data);
-      if (!dataOrcamento) return;
+      const linhasTabela = Object.entries(receitasPorData)
+        .sort(([dataA], [dataB]) => dataA.localeCompare(dataB))
+        .map(([dataIso, valor]) => [formatarDataBR(dataIso), `R$ ${valor.toFixed(2)}`]);
+
+
+      const doc = new jsPDF();
       
-      const dataIso = dataOrcamento.toISOString().split('T')[0];
-      receitasPorData[dataIso] = (receitasPorData[dataIso] || 0) + orc.valor;
-      totalPeriodo += orc.valor;
-    });
+      doc.setFontSize(16);
+      doc.text('Relatório de Receitas por Data', 14, 15);
 
-    const formatarDataBR = (isoDate: string): string => {
-      const [ano, mes, dia] = isoDate.split('-');
-      return `${dia.padStart(2, '0')}/${mes.padStart(2, '0')}/${ano}`;
-    };
+      const formatarPeriodo = (date: Date | null) => date ? formatarDataBR(date.toISOString().split('T')[0]) : '';
+      const periodoTexto = [
+        dataIni ? `De: ${formatarPeriodo(dataIni)}` : '',
+        dataFim ? `Até: ${formatarPeriodo(dataFim)}` : ''
+      ].filter(Boolean).join(' ');
 
-    const linhasTabela = Object.entries(receitasPorData)
-      .sort(([dataA], [dataB]) => dataA.localeCompare(dataB))
-      .map(([dataIso, valor]) => [formatarDataBR(dataIso), `R$ ${valor.toFixed(2)}`]);
+      doc.setFontSize(12);
+      doc.text(periodoTexto, 14, 25);
+      doc.text(`Total de receitas no período: R$ ${totalPeriodo.toFixed(2)}`, 14, 35);
 
-    const doc = new jsPDF();
-    
-    doc.setFontSize(16);
-    doc.text('Relatório de Receitas por Data', 14, 15);
+      autoTable(doc, {
+        startY: 45,
+        head: [['Data', 'Valor (R$)']],
+        body: linhasTabela,
+        headStyles: {
+          fillColor: [41, 128, 185],
+          textColor: 255,
+          fontStyle: 'bold'
+        },
+        styles: {
+          cellPadding: 5,
+          fontSize: 10,
+          halign: 'right'
+        },
+        columnStyles: {
+          0: { halign: 'left' } 
+        },
+        didDrawPage: () => {
+          const pageCount = doc.getNumberOfPages();
+          doc.setFontSize(10);
+          doc.text(
+            `Página ${pageCount}`,
+            doc.internal.pageSize.width - 20,
+            doc.internal.pageSize.height - 10
+          );
+        }
+      });
 
-    const formatarPeriodo = (date: Date | null) => date ? formatarDataBR(date.toISOString().split('T')[0]) : '';
-    const periodoTexto = [
-      dataIni ? `De: ${formatarPeriodo(dataIni)}` : '',
-      dataFim ? `Até: ${formatarPeriodo(dataFim)}` : ''
-    ].filter(Boolean).join(' ');
+      const hoje = new Date();
+      const fileName = `relatorio-receitas-${hoje.getFullYear()}-${(hoje.getMonth()+1).toString().padStart(2, '0')}-${hoje.getDate().toString().padStart(2, '0')}.pdf`;
+      doc.save(fileName);
+      
+      this.activeModal.close();
 
-    doc.setFontSize(12);
-    doc.text(periodoTexto, 14, 25);
-    doc.text(`Total de receitas no período: R$ ${totalPeriodo.toFixed(2)}`, 14, 35);
-
-    autoTable(doc, {
-      startY: 45,
-      head: [['Data', 'Valor (R$)']],
-      body: linhasTabela,
-      headStyles: {
-        fillColor: [41, 128, 185],
-        textColor: 255,
-        fontStyle: 'bold'
-      },
-      styles: {
-        cellPadding: 5,
-        fontSize: 10,
-        halign: 'right'
-      },
-      columnStyles: {
-        0: { halign: 'left' } 
-      },
-      didDrawPage: () => {
-        const pageCount = doc.getNumberOfPages();
-        doc.setFontSize(10);
-        doc.text(
-          `Página ${pageCount}`,
-          doc.internal.pageSize.width - 20,
-          doc.internal.pageSize.height - 10
-        );
-      }
-    });
-
-    const hoje = new Date();
-    const fileName = `relatorio-receitas-${hoje.getFullYear()}-${(hoje.getMonth()+1).toString().padStart(2, '0')}-${hoje.getDate().toString().padStart(2, '0')}.pdf`;
-    doc.save(fileName);
-    
-    this.activeModal.close();
-
-  } catch (error) {
-    console.error('Erro detalhado:', error);
-    alert('Ocorreu um erro ao gerar o relatório. Verifique o console para mais detalhes.');
+    } catch (error) {
+      console.error('Erro detalhado:', error);
+      alert('Ocorreu um erro ao gerar o relatório. Verifique o console para mais detalhes.');
+      this.isLoading = false;
+    }
   }
-}
 }

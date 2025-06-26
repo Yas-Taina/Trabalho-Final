@@ -1,7 +1,7 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
-import { FuncionarioService,LoginService } from "../../../../services";
+import { FuncionarioService, LoginService } from "../../../../services";
 import { Funcionario } from "../../../../shared";
 
 @Component({
@@ -11,37 +11,62 @@ import { Funcionario } from "../../../../shared";
   templateUrl: "./listar-funcionario.component.html",
   styleUrl: "./listar-funcionario.component.css",
 })
-export class ListarFuncionarioComponent {
+export class ListarFuncionarioComponent implements OnInit {
   funcionarios: Funcionario[] = [];
   usuario: number = 0;
+  isLoading = false;
+  errorMessage: string | null = null;
 
   constructor(
     private funcionarioService: FuncionarioService,
-    private loginService: LoginService) {}
+    private loginService: LoginService
+  ) {}
 
   ngOnInit(): void {
-    this.funcionarios = this.listarTodos();
     this.getId();
+    this.carregarFuncionarios();
   }
 
-  getId() {
+  carregarFuncionarios(): void {
+    this.isLoading = true;
+    this.errorMessage = null;
+    
+    this.funcionarioService.listarTodos().subscribe({
+      next: (funcionarios) => {
+        this.funcionarios = funcionarios;
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('Erro ao carregar funcionários:', err);
+        this.errorMessage = 'Erro ao carregar lista de funcionários. Tente novamente.';
+        this.isLoading = false;
+      }
+    });
+  }
+
+  getId(): void {
     const sessao = this.loginService.obterDadosDaSessao();
-    this.usuario = sessao!.usuarioId;
+    if (sessao) {
+      this.usuario = sessao.usuarioId;
+    }
   }
 
-  listarTodos(): Funcionario[] {
-    return this.funcionarioService.listarTodos();
-  }
-
-  remover($event: any, funcionario: Funcionario): void {
+  remover($event: Event, funcionario: Funcionario): void {
     $event.preventDefault();
-    if (
-      confirm(
-        "Deseja deletar este funcionario? Esta ação não pode ser revertida",
-      )
-    ) {
-      this.funcionarioService.remover(funcionario.id!);
-      this.funcionarios = this.listarTodos();
+    
+    if (confirm("Deseja deletar este funcionário? Esta ação não pode ser revertida")) {
+      this.isLoading = true;
+      
+      this.funcionarioService.remover(funcionario.id!).subscribe({
+        next: () => {
+          this.carregarFuncionarios(); 
+        },
+        error: (err) => {
+          console.error('Erro ao remover funcionário:', err);
+          this.errorMessage = 'Erro ao remover funcionário. Tente novamente.';
+          this.isLoading = false;
+        }
+      });
     }
   }
 }

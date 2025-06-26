@@ -16,6 +16,8 @@ export class InserirFuncionarioComponent {
   @ViewChild("formFuncionario") formFuncionario!: NgForm;
   funcionario: Funcionario = new Funcionario();
   confirmarsenhamodel = "";
+  isLoading = false;
+  errorMessage: string | null = null;
 
   constructor(
     private funcionarioService: FuncionarioService,
@@ -23,9 +25,25 @@ export class InserirFuncionarioComponent {
   ) {}
 
   inserir(): void {
-    if (this.formFuncionario.form.valid) {
-      this.funcionarioService.inserir(this.funcionario);
-      this.router.navigate(["/adm/funcionarios"]);
+    if (!this.formFuncionario.form.valid) {
+      return;
     }
+
+    this.isLoading = true;
+    this.errorMessage = null;
+
+    this.funcionarioService.inserir(this.funcionario).subscribe({
+      next: () => {
+        this.router.navigate(["/adm/funcionarios"]);
+      },
+      error: (err) => {
+        console.error("Erro ao inserir funcionário:", err);
+        this.errorMessage = "Erro ao cadastrar funcionário. Tente novamente.";
+        this.isLoading = false;
+      },
+      complete: () => {
+        this.isLoading = false;
+      }
+    });
   }
 }

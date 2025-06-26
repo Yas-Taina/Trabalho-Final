@@ -1,37 +1,52 @@
 import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { map, catchError } from "rxjs/operators"; 
 import { Cliente } from "../shared/models";
-import { ServiceCrudBase } from "./service-crud-base/service-crud-base";
-
-const LS_CHAVE = "clientes";
 
 @Injectable({
   providedIn: "root",
 })
-export class ClienteService extends ServiceCrudBase<Cliente> {
-  constructor() {
-    super(LS_CHAVE);
-    this.inserirClientePadrao();
+export class ClienteService {
+  private apiUrl = 'http://localhost:8080/cliente'; 
+
+  constructor(private http: HttpClient) {
+
   }
 
-  // Função temporária, para permitir acesso agora que as rotas estão protegidas
-  private inserirClientePadrao(): void {
-    const clientePadrao: Cliente = {
-      id: 1000,
-      cpf: "000.000.000-00",
-      nome: "Cliente Padrão",
-      email: "cli@cli",
-      telefone: "(00) 90000-0000",
-      endereco: "Endereço Padrão",
-      senha: "1234",
-    };
-
-    if (!this.getClienteByEmail(clientePadrao.email)) {
-      this.inserirDefaultCompleto(clientePadrao);
-    }
+  listarTodos(): Observable<Cliente[]> {
+    return this.http.get<Cliente[]>(this.apiUrl);
   }
 
-  getClienteByEmail(email: string): Cliente | undefined {
-    const clientes = this.listarTodos();
-    return clientes.find((cliente) => cliente.email === email);
+  buscarPorId(id: number): Observable<Cliente> {
+    return this.http.get<Cliente>(`${this.apiUrl}/${id}`);
   }
+
+  inserir(cliente: Cliente): Observable<Cliente> {
+    return this.http.post<Cliente>(this.apiUrl, cliente);
+  }
+
+  atualizar(cliente: Cliente): Observable<Cliente> {
+    return this.http.put<Cliente>(`${this.apiUrl}/${cliente.id}`, cliente);
+  }
+
+  remover(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  getClienteByEmail(email: string): Observable<Cliente | undefined> {
+    return this.listarTodos().pipe(
+      map((clientes: Cliente[]) => {
+        const clienteEncontrado = clientes.find(cliente => cliente.email === email);
+        console.log(`Filtragem local: ${email} ->`, clienteEncontrado || 'Não encontrado');
+        return clienteEncontrado;
+      }),
+      catchError(error => {
+        console.error('Erro ao buscar clientes:', error);
+        throw new Error('Falha ao carregar clientes para filtragem por email');
+      })
+    );
+  }
+
+  
 }

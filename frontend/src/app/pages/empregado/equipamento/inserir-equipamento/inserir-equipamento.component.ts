@@ -15,6 +15,7 @@ import { Equipamento } from "../../../../shared";
 export class InserirEquipamentoComponent {
   @ViewChild("formEquipamento") formEquipamento!: NgForm;
   equipamento: Equipamento = new Equipamento();
+  isLoading = false;
 
   constructor(
     private equipamentoService: EquipamentoService,
@@ -23,8 +24,20 @@ export class InserirEquipamentoComponent {
 
   inserir(): void {
     if (this.formEquipamento.form.valid) {
-      this.equipamentoService.inserir(this.equipamento);
-      this.router.navigate(["/adm/equipamentos"]);
+      this.isLoading = true; 
+      
+      this.equipamentoService.inserir(this.equipamento).subscribe({
+        next: () => {
+          this.router.navigate(["/adm/equipamentos"]);
+        },
+        error: (err) => {
+          console.error("Erro ao inserir equipamento:", err);
+          this.isLoading = false; 
+        },
+        complete: () => {
+          this.isLoading = false;
+        }
+      });
     }
   }
 }

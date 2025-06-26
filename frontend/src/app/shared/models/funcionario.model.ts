@@ -1,13 +1,22 @@
-import { EntidadeBase } from "./entidade-base.model";
+// funcionario.model.ts
+import { Pessoa } from "./pessoa.model";
 
-export class Funcionario extends EntidadeBase {
+export class Funcionario {
   constructor(
-    public override id: number = 0,
-    public nome: string = "",
-    public data: Date = new Date(),
-    public email: string = "",
-    public senha: string = "",
-  ) {
-    super(id);
+    public id: number = 0,
+    public pessoa: Pessoa = new Pessoa(),
+    public dataNascimento: Date = new Date()
+  ) {}
+
+  get nome(): string {
+    return this.pessoa.nome;
+  }
+
+  get email(): string {
+    return this.pessoa.email;
+  }
+
+  get senha(): string {
+    return this.pessoa.senha;
   }
 }

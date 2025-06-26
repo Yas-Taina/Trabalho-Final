@@ -1,15 +1,25 @@
-import { EntidadeBase } from "./entidade-base.model";
+// cliente.model.ts
+import { Pessoa } from "./pessoa.model";
+import { Endereco } from "./endereco.model";
 
-export class Cliente extends EntidadeBase {
+export class Cliente {
   constructor(
-    public override id: number = 0,
+    public id: number = 0,
+    public pessoa: Pessoa = new Pessoa(),
     public cpf: string = "",
-    public nome: string = "",
-    public email: string = "",
-    public telefone: string = "",
-    public endereco: string = "",
-    public senha: string = "",
-  ) {
-    super(id);
+    public endereco: Endereco | null = null,
+    public telefone: string = ""
+  ) {}
+
+  get nome(): string {
+    return this.pessoa.nome;
+  }
+
+  get email(): string {
+    return this.pessoa.email;
+  }
+
+  get senha(): string {
+    return this.pessoa.senha;
   }
 }

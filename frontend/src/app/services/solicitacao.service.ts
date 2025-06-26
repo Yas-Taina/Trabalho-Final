@@ -1,14 +1,55 @@
-import { Injectable } from "@angular/core";
-import { Solicitacao } from "../shared/models";
-import { ServiceCrudBase } from "./service-crud-base/service-crud-base";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Solicitacao } from '../shared/models';
 
-const LS_CHAVE = "solicitacoes";
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root'
 })
-export class SolicitacaoService extends ServiceCrudBase<Solicitacao> {
-  constructor() {
-    super(LS_CHAVE);
+export class SolicitacaoService {
+  private apiUrl = 'http://localhost:8080/solicitacoes';
+
+  constructor(private http: HttpClient) { }
+
+  getAll(): Observable<Solicitacao[]> {
+    return this.http.get<Solicitacao[]>(this.apiUrl);
+  }
+
+  getById(id: number): Observable<Solicitacao> {
+    return this.http.get<Solicitacao>(`${this.apiUrl}/${id}`);
+  }
+
+  create(solicitacao: Solicitacao): Observable<Solicitacao> {
+    return this.http.post<Solicitacao>(this.apiUrl, solicitacao);
+  }
+
+  orcar(id: number): Observable<Solicitacao> {
+    return this.http.put<Solicitacao>(`${this.apiUrl}/orcar/${id}`, {});
+  }
+
+  rejeitar(id: number, motivo: string): Observable<Solicitacao> {
+    const rejeicaoDTO = { motivo: motivo };
+    return this.http.put<Solicitacao>(`${this.apiUrl}/rejeitar/${id}`, rejeicaoDTO);
+  }
+
+  resgatar(id: number): Observable<Solicitacao> {
+    return this.http.put<Solicitacao>(`${this.apiUrl}/resgatar/${id}`, {});
+  }
+
+  redirecionar(id: number): Observable<Solicitacao> {
+    return this.http.put<Solicitacao>(`${this.apiUrl}/redirecionar/${id}`, {});
+  }
+
+  arrumar(id: number): Observable<Solicitacao> {
+    return this.http.put<Solicitacao>(`${this.apiUrl}/arrumar/${id}`, {});
+  }
+
+  pagar(id: number): Observable<Solicitacao> {
+    return this.http.put<Solicitacao>(`${this.apiUrl}/pagar/${id}`, {});
+  }
+
+  finalizar(id: number): Observable<Solicitacao> {
+    return this.http.put<Solicitacao>(`${this.apiUrl}/finalizar/${id}`, {});
   }
 }
