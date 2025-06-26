@@ -22,12 +22,14 @@ public class FuncionarioController {
     private FuncionarioRepository funcionarioRepository;
 
     @GetMapping
-    public ResponseEntity<List<FuncionarioDTO>> getAllFuncionarios() {
-        List<FuncionarioDTO> funcionarios = funcionarioRepository.findAll().stream()
-            .map(this::toDTO)
-            .collect(Collectors.toList());
-        return ResponseEntity.ok(funcionarios);
-    }
+public ResponseEntity<List<FuncionarioDTO>> getAllFuncionarios() {
+    List<FuncionarioDTO> funcionarios = funcionarioRepository.findAll().stream()
+        .filter(Func -> Func.getAtivo()) // considera apenas os que têm ativo = true
+        .map(this::toDTO)
+        .collect(Collectors.toList());
+    return ResponseEntity.ok(funcionarios);
+}
+
 
     @GetMapping("/{id}")
     public ResponseEntity<FuncionarioDTO> getFuncionarioById(@PathVariable("id") Long id) {
@@ -64,7 +66,9 @@ public class FuncionarioController {
     public ResponseEntity<FuncionarioDTO> deleteFuncionario(@PathVariable("id") Long id) {
         Optional<Funcionario> op = funcionarioRepository.findById(id);
         if (op.isPresent()) {
-            funcionarioRepository.delete(op.get());
+            Funcionario funcionario = op.get(); // Marca como inativo
+            funcionario.setAtivo(false); // Define o campo 'ativo' como false
+            funcionarioRepository.save(funcionario); // Salva a alteração
             return ResponseEntity.ok(toDTO(op.get()));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

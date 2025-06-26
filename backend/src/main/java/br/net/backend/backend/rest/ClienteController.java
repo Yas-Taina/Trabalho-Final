@@ -23,6 +23,7 @@ public class ClienteController {
     @GetMapping
     public ResponseEntity<List<ClienteDTO>> getAllClientes() {
         List<ClienteDTO> clientes = clienteRepository.findAll().stream()
+            .filter(cliente -> cliente.getAtivo()) // Considera apenas os que têm ativo = true
             .map(this::toDTO)
             .collect(Collectors.toList());
         return ResponseEntity.ok(clientes);
@@ -63,7 +64,9 @@ public class ClienteController {
     public ResponseEntity<ClienteDTO> deleteCliente(@PathVariable("id") Long id) {
         Optional<Cliente> op = clienteRepository.findById(id);
         if (op.isPresent()) {
-            clienteRepository.delete(op.get());
+            Cliente cliente = op.get(); // Marca como inativo
+            cliente.setAtivo(false); // Define o campo 'ativo' como false
+            clienteRepository.save(cliente);
             return ResponseEntity.ok(toDTO(op.get()));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
