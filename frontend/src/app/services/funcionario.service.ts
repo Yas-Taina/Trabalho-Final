@@ -8,7 +8,7 @@ import { Funcionario } from "../shared/models";
   providedIn: "root",
 })
 export class FuncionarioService {
-  private API_URL = 'http://localhost:8080/funcionario';
+  private API_URL = 'http://localhost:8080/funcionarios';
 
   constructor(private http: HttpClient) {}
 
