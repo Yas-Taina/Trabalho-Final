@@ -45,6 +45,12 @@ export class LoginService {
     }
   }
 
+  obterDadosDaSessaoObservable(): Observable<Sessao | null> {
+    return this.http.get<Sessao>('http://localhost:8080/login/sessao', { withCredentials: true }).pipe(
+      catchError(() => of(null))
+    );
+  }
+
   estaLogado(): boolean {
     return !!localStorage.getItem(LS_JWT);
   }

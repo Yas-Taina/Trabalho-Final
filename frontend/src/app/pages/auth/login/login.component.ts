@@ -34,6 +34,7 @@ export class LoginComponent {
     }
 
     const sessao = await this.loginService.obterDadosDaSessao();
+    console.log("Sessão obtida:", sessao);
     if (!sessao) {
       alert("Erro ao obter dados da sessão!");
       return;
