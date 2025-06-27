@@ -6,18 +6,13 @@
       <h6 class="tituloPequeno">VALOR</h6>
       <h2>{{ solicitacao.valor | currency: "BRL" }}</h2>
       <p class="subtitulo">
-        <i
-          >Orçamento feito por funcionario
+        <i>Orçamento feito por funcionario
           <strong>Funcionario que fez o orçamento vai aqui</strong> em
-          <strong>Data em que orçamento foi feito vai aqui</strong></i
-        >
+          <strong>Data em que orçamento foi feito vai aqui</strong></i>
       </p>
     </div>
     <!--Exibe detalhes da manutenção, caso exista-->
-    <div
-      *ngIf="solicitacao.servico && solicitacao.servico.trim() !== ''"
-      class="box"
-    >
+    <div *ngIf="solicitacao.servico && solicitacao.servico.trim() !== ''" class="box">
       <h6 class="subtituloRosa">SERVIÇOS REALIZADOS</h6>
       <p>{{ solicitacao.servico }}</p>
     </div>
@@ -25,62 +20,40 @@
     <!--Botões de Ação-->
     <div>
       <!--Fazer orçamento-->
-      <a
-        *ngIf="solicitacao.estado === EstadosSolicitacao.Aberta"
-        class="btn btnRosaSalmao btnAcao"
-        title="Orçar"
-        (click)="abrirModalOrcar()"
-      >
+      <a *ngIf="solicitacao.estado === EstadosSolicitacao.Aberta" class="btn btnRosaSalmao btnAcao" title="Orçar"
+        (click)="abrirModalOrcar()">
         <i class="fa-solid fa-hand-holding-dollar"></i>&nbsp;&nbsp;Realizar
         Orçamento
       </a>
 
       <!--Configurações da modal box-->
-      <app-modal
-        #Modal
-        [modalTitle]="currentModalTitle"
-        [contentTemplate]="currentContentTemplate"
-        [templateContext]="{ formData: currentFormData }"
-        (confirmed)="confirmar($event)"
-      >
+      <app-modal #Modal [modalTitle]="currentModalTitle" [contentTemplate]="currentContentTemplate"
+        [templateContext]="{ formData: currentFormData }" (confirmed)="confirmar($event)">
       </app-modal>
 
       <!--Modal box de orçamento-->
       <ng-template #orcarTemplate let-formData="formData">
         <div class="d-flex flex-column align-items-center">
-        <form #form="ngForm">
-          <div>
-            <label>Valor do Serviço</label>
-            <input
-              type="text"
-              class="form-control"
-              [(ngModel)]="formData.valor"
-              name="valor"
-              maxlength="10"
-              currencyMask
-              [options]="{
+          <form #form="ngForm">
+            <div>
+              <label>Valor do Serviço</label>
+              <input type="text" class="form-control" [(ngModel)]="formData.valor" name="valor" maxlength="10"
+                currencyMask [options]="{
                 prefix: 'R$ ',
                 thousands: '.',
                 decimal: ',',
                 precision: 2
-              }"
-              required
-            />
-          </div>
-        </form>
-      </div>
+              }" required />
+            </div>
+          </form>
+        </div>
       </ng-template>
 
       <!--Fazer manutenção-->
-      <a
-        *ngIf="
+      <a *ngIf="
           solicitacao.estado === EstadosSolicitacao.Aprovada ||
           solicitacao.estado === EstadosSolicitacao.Redirecionada
-        "
-        class="btn btnRosaSalmao btnAcao"
-        title="Consertar"
-        (click)="abrirModalConsertar()"
-      >
+        " class="btn btnRosaSalmao btnAcao" title="Consertar" (click)="abrirModalConsertar()">
         <i class="fa-solid fa-gears"></i>&nbsp;&nbsp;Efetuar Manutenção
       </a>
 
@@ -89,35 +62,20 @@
         <form #form="ngForm">
           <div>
             <label>Serviços Realizados</label>
-            <textarea
-              class="form-control"
-              [(ngModel)]="formData.servico"
-              name="servico"
-              required
-            ></textarea>
+            <textarea class="form-control" [(ngModel)]="formData.servico" name="servico" required></textarea>
           </div>
           <div>
             <label>Orientações para o cliente</label>
-            <textarea
-              class="form-control"
-              [(ngModel)]="formData.mensagem"
-              name="mensagem"
-              required
-            ></textarea>
+            <textarea class="form-control" [(ngModel)]="formData.mensagem" name="mensagem" required></textarea>
           </div>
         </form>
       </ng-template>
 
       <!--Redirecionamento de solicitação-->
-      <a
-        *ngIf="
+      <a *ngIf="
           solicitacao.estado === EstadosSolicitacao.Aprovada ||
           solicitacao.estado === EstadosSolicitacao.Redirecionada
-        "
-        class="btn btnTransparenteSalmao btnAcao"
-        title="Redirecionar"
-        (click)="abrirModalRedirecionar()"
-      >
+        " class="btn btnTransparenteSalmao btnAcao" title="Redirecionar" (click)="abrirModalRedirecionar()">
         <i class="fa-solid fa-user-gear"></i>&nbsp;&nbsp;Redirecionar
         Solicitação
       </a>
@@ -125,49 +83,54 @@
       <!--Modal box de redirecionamento-->
       <ng-template #redirecionarTemplate let-formData="formData">
         <div class="d-flex flex-column align-items-center">
-        <form #form="ngForm">
-          <div>
-            <label>Selecione o Funcionário</label>
-            <select
-              class="form-control"
-              [(ngModel)]="formData.idEmpregado"
-              name="idEmpregado"
-              required
-            >
-            <ng-container *ngFor="let f of funcionarios">
-              <option *ngIf="f.id !== usuario" [value]="f.id">
-                {{ f.nome }}
-              </option>
-            </ng-container>
-            </select>
-          </div>
-        </form>
-      </div>
+          <form #form="ngForm">
+            <div>
+              <label>Selecione o Funcionário</label>
+              <select class="form-control" [(ngModel)]="formData.idEmpregado" name="idEmpregado" required>
+                <ng-container *ngFor="let f of funcionarios">
+                  <option *ngIf="f.id !== usuario" [value]="f.id">
+                    {{ f.nome }}
+                  </option>
+                </ng-container>
+              </select>
+            </div>
+          </form>
+        </div>
       </ng-template>
 
       <!--Finalização dos serviços-->
-      <a
-        *ngIf="solicitacao.estado === EstadosSolicitacao.Paga"
-        class="btn btnRosaSalmao btnAcao"
-        title="Finalizar"
-        (click)="finalizar()"
-      >
+      <a *ngIf="solicitacao.estado === EstadosSolicitacao.Paga" class="btn btnRosaSalmao btnAcao" title="Finalizar"
+        (click)="finalizar()">
         <i class="fa-solid fa-check-to-slot"></i>&nbsp;&nbsp;Finalizar
         Solicitação
       </a>
 
       <!--Exibe o histórico-->
-        <a
-          class="btn btnRosaSalmao btnAcao"
-          title="Histórico"
-          (click)="toggleHist()"
-        >
-          <i class="fa-solid fa-book-open"></i>&nbsp;&nbsp;Histórico
-        </a>
-        <div *ngIf="isHistOpen" class="box" style="background-color: #e4a18f20;">
-          <p style="white-space: pre-line">Histórico vai aqui</p>
-        </div>
+      <!-- botão de histórico -->
+      <a class="btn btnRosaSalmao btnAcao" title="Histórico" (click)="toggleHist()">
+        <i class="fa-solid fa-book-open"></i>&nbsp;&nbsp;Histórico
+      </a>
+
+      <!-- painel de histórico -->
+      <div *ngIf="isHistOpen" class="box" style="background-color: #e4a18f20;">
+        <ng-container *ngIf="historico.length; else semHistorico">
+          <div *ngFor="let h of historico" class="mb-3">
+            <!-- acessamos com $any() para bater certinho com o JSON -->
+            <strong>{{ $any(h).data | date:'dd/MM/yyyy HH:mm' }}</strong>
+            — {{ $any(h).estado | estadoAmigavel }}
+            <span *ngIf="$any(h).nomeFuncionario">
+              ({{ $any(h).nomeFuncionario }})
+            </span>
+            <div>{{ $any(h).mensagem }}</div>
+          </div>
+        </ng-container>
+
+        <ng-template #semHistorico>
+          <p>Nenhum registro de histórico encontrado.</p>
+        </ng-template>
       </div>
+
+    </div>
   </div>
 
   <!--Caixa direita (detalhes)-->
@@ -184,11 +147,8 @@
         <h6 class="subtituloRosa">CLIENTE</h6>
         <p>{{ cliente?.nome }}</p>
       </div>
-      <button
-        class="btnIcon position-absolute end-0 top-50 translate-middle-y"
-        (click)="toggleClientView()"
-        title="Visualizar"
-      >
+      <button class="btnIcon position-absolute end-0 top-50 translate-middle-y" (click)="toggleClientView()"
+        title="Visualizar">
         <i class="fa-solid fa-eye"></i>
       </button>
     </div>
@@ -212,11 +172,8 @@
         <h6 class="subtituloRosa">EQUIPAMENTO</h6>
         <p>{{ equipamento?.nome }}</p>
       </div>
-      <button
-        class="btnIcon position-absolute end-0 top-50 translate-middle-y"
-        (click)="toggleEquipView()"
-        title="Visualizar"
-      >
+      <button class="btnIcon position-absolute end-0 top-50 translate-middle-y" (click)="toggleEquipView()"
+        title="Visualizar">
         <i class="fa-solid fa-eye"></i>
       </button>
     </div>

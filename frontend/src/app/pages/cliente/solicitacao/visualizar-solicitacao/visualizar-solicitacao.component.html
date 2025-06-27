@@ -10,10 +10,7 @@
     </div>
 
     <!--Exibe detalhes da manutenção, caso exista-->
-    <div
-      *ngIf="solicitacao.servico && solicitacao.servico.trim() !== ''"
-      class="box"
-    >
+    <div *ngIf="solicitacao.servico && solicitacao.servico.trim() !== ''" class="box">
       <h6 class="subtituloRosa">SERVIÇOS REALIZADOS</h6>
       <p>{{ solicitacao.servico }}</p>
       <h6 class="subtituloRosa">ORIENTAÇÕES</h6>
@@ -21,141 +18,127 @@
     </div>
 
     <!--Botões de ação-->
-      <!--Aprovação do serviço-->
-      <a
-        *ngIf="solicitacao.estado === EstadosSolicitacao.Orcada"
-        class="btn btnRosaSalmao btnAcao"
-        title="Aprovar"
-        (click)="aprovar()"
-      >
-        <i class="fa-solid fa-circle-check"></i>&nbsp;&nbsp;Aprovar Serviço
-      </a>
+    <!--Aprovação do serviço-->
+    <a *ngIf="solicitacao.estado === EstadosSolicitacao.Orcada" class="btn btnRosaSalmao btnAcao" title="Aprovar"
+      (click)="aprovar()">
+      <i class="fa-solid fa-circle-check"></i>&nbsp;&nbsp;Aprovar Serviço
+    </a>
 
-      <!--Recusa de serviço-->
-      <a
-        *ngIf="solicitacao.estado === EstadosSolicitacao.Orcada"
-        class="btn btnTransparenteSalmao btnAcao"
-        title="Recusar"
-        (click)="abrirModal()"
-      >
-        <i class="fa-solid fa-circle-xmark"></i>&nbsp;&nbsp;Recusar Serviço
-      </a>
+    <!--Recusa de serviço-->
+    <a *ngIf="solicitacao.estado === EstadosSolicitacao.Orcada" class="btn btnTransparenteSalmao btnAcao"
+      title="Recusar" (click)="abrirModal()">
+      <i class="fa-solid fa-circle-xmark"></i>&nbsp;&nbsp;Recusar Serviço
+    </a>
 
-      <!--Modal box para motivo da recusa-->
-      <app-modal
-        #Modal
-        [modalTitle]="currentModalTitle"
-        [contentTemplate]="currentContentTemplate"
-        [templateContext]="{ formData: currentFormData }"
-        (confirmed)="handleConfirmation($event)"
-      >
-      </app-modal>
+    <!--Modal box para motivo da recusa-->
+    <app-modal #Modal [modalTitle]="currentModalTitle" [contentTemplate]="currentContentTemplate"
+      [templateContext]="{ formData: currentFormData }" (confirmed)="handleConfirmation($event)">
+    </app-modal>
 
-      <ng-template #rejectTemplate let-formData="formData">
-        <div class="row d-flex flex-column align-items-center">
-          <form #form="ngForm">
-            <div>
-              <label>Motivo da Recusa</label>
-              <textarea
-                class="form-control"
-                [(ngModel)]="formData.reason"
-                name="reason"
-                maxlength="500"
-                placeholder="Por que está recusando o serviço?"
-                required
-              >
+    <ng-template #rejectTemplate let-formData="formData">
+      <div class="row d-flex flex-column align-items-center">
+        <form #form="ngForm">
+          <div>
+            <label>Motivo da Recusa</label>
+            <textarea class="form-control" [(ngModel)]="formData.reason" name="reason" maxlength="500"
+              placeholder="Por que está recusando o serviço?" required>
               </textarea>
-            </div>
-          </form>
+          </div>
+        </form>
+      </div>
+    </ng-template>
+
+    <!--Resgatar Serviço-->
+    <a *ngIf="solicitacao.estado === EstadosSolicitacao.Rejeitada" class="btn btnRosaSalmao btnAcao" title="Resgatar"
+      (click)="resgatar($event)">
+      <i class="fa-solid fa-trash-arrow-up"></i>&nbsp;&nbsp;Resgatar Serviço
+    </a>
+
+    <!--Pagamento do serviço-->
+    <a *ngIf="solicitacao.estado === EstadosSolicitacao.Arrumada" class="btn btnRosaSalmao btnAcao" title="Pagar"
+      (click)="pagar($event)">
+      <i class="fa-solid fa-money-check-dollar"></i>&nbsp;&nbsp;Pagar Serviço
+    </a>
+
+    <!--Exibe o histórico da solicitação-->
+    <!-- botão já existente -->
+    <a class="btn btnRosaSalmao btnAcao" title="Histórico" (click)="toggleHist()">
+      <i class="fa-solid fa-book-open"></i>&nbsp;&nbsp;Histórico
+    </a>
+
+    <div *ngIf="isHistOpen" class="box" style="background-color: #e4a18f20;">
+      <ng-container *ngIf="historico.length; else semHistorico">
+        <div *ngFor="let h of historico" class="mb-2">
+          <!-- força o casting para any pra poder acessar “data” mesmo sem estar declarado na classe -->
+          <strong>{{ $any(h).data | date:'dd/MM/yyyy HH:mm' }}</strong>
+          <!-- mostra o estado usando seu pipe, passando o ordinal vindo do JSON -->
+          — {{ $any(h).estado | estadoAmigavel }}
+          <!-- nome do funcionário, se existir -->
+          <span *ngIf="$any(h).nomeFuncionario">
+            ({{ $any(h).nomeFuncionario }})
+          </span>
+          <!-- e a mensagem completa -->
+          <div>{{ $any(h).mensagem }}</div>
         </div>
+      </ng-container>
+      <ng-template #semHistorico>
+        <p>Nenhum registro de histórico encontrado para esta solicitação.</p>
       </ng-template>
-
-      <!--Resgatar Serviço-->
-      <a
-        *ngIf="solicitacao.estado === EstadosSolicitacao.Rejeitada"
-        class="btn btnRosaSalmao btnAcao"
-        title="Resgatar"
-        (click)="resgatar($event)"
-      >
-        <i class="fa-solid fa-trash-arrow-up"></i>&nbsp;&nbsp;Resgatar Serviço
-      </a>
-
-      <!--Pagamento do serviço-->
-      <a
-        *ngIf="solicitacao.estado === EstadosSolicitacao.Arrumada"
-        class="btn btnRosaSalmao btnAcao"
-        title="Pagar"
-        (click)="pagar($event)"
-      >
-        <i class="fa-solid fa-money-check-dollar"></i>&nbsp;&nbsp;Pagar Serviço
-      </a>
-
-      <!--Exibe o histórico da solicitação-->
-      <a
-        class="btn btnRosaSalmao btnAcao"
-        title="Histórico"
-        (click)="toggleHist()"
-      >
-        <i class="fa-solid fa-book-open"></i>&nbsp;&nbsp;Histórico
-      </a>
-      <div *ngIf="isHistOpen" class="box" style="background-color: #e4a18f20;">
-        <p style="white-space: pre-line">O histórico deve ser exibido aqui</p>
-      </div>
     </div>
 
-  <!--Caixa Direita (Detalhes)-->
-  <div class="col-md-4">
-    <h1 class="tituloGrande">DETALHES DA<br />SOLICITAÇÃO</h1>
-    <hr />
 
-    <div>
-      <h6 class="subtituloRosa">ESTADO</h6>
-      <p>{{ solicitacao.estado | estadoAmigavel }}</p>
-    </div>
-    <hr />
 
-    <div>
-      <h6 class="subtituloRosa">DATA E HORA</h6>
-      <p>{{ solicitacao.dataAberta | date: 'dd/MM/yyyy - HH:mm' }}</p>
-    </div>
-    <hr />
 
-    <div class="position-relative">
+    <!--Caixa Direita (Detalhes)-->
+    <div class="col-md-4">
+      <h1 class="tituloGrande">DETALHES DA<br />SOLICITAÇÃO</h1>
+      <hr />
+
       <div>
-        <h6 class="subtituloRosa">EQUIPAMENTO</h6>
-        <p>{{ equipamento?.nome }}</p>
+        <h6 class="subtituloRosa">ESTADO</h6>
+        <p>{{ solicitacao.estado | estadoAmigavel }}</p>
       </div>
-      <button
-        class="btnIcon position-absolute end-0 top-50 translate-middle-y"
-        (click)="toggleEquip()"
-        title="Visualizar"
-      >
-        <i class="fa-solid fa-eye"></i>
-      </button>
-    </div>
+      <hr />
 
-    <div *ngIf="isEquipOpen" class="text-start">
-      <p>
-        <strong>Descrição da categoria do equipamento:</strong>
-        {{ equipamento?.descricao }}
-      </p>
-      <p>
-        <strong>Descrição deste equipamento:</strong>
-        {{ solicitacao.descricao }}
-      </p>
-    </div>
-    <hr />
+      <div>
+        <h6 class="subtituloRosa">DATA E HORA</h6>
+        <p>{{ solicitacao.dataAberta | date: 'dd/MM/yyyy - HH:mm' }}</p>
+      </div>
+      <hr />
 
-    <div>
-      <h6 class="subtituloRosa">DEFEITO</h6>
-      <p>{{ solicitacao.defeito }}</p>
-    </div>
-    <hr />
+      <div class="position-relative">
+        <div>
+          <h6 class="subtituloRosa">EQUIPAMENTO</h6>
+          <p>{{ equipamento?.nome }}</p>
+        </div>
+        <button class="btnIcon position-absolute end-0 top-50 translate-middle-y" (click)="toggleEquip()"
+          title="Visualizar">
+          <i class="fa-solid fa-eye"></i>
+        </button>
+      </div>
 
-    <div class="d-flex justify-content-end">
-      <a class="btn btnRosaSalmao" routerLink="/client/home">
-        <i class="fa-solid fa-location-arrow btnVoltar"></i>
-      </a>
+      <div *ngIf="isEquipOpen" class="text-start">
+        <p>
+          <strong>Descrição da categoria do equipamento:</strong>
+          {{ equipamento?.descricao }}
+        </p>
+        <p>
+          <strong>Descrição deste equipamento:</strong>
+          {{ solicitacao.descricao }}
+        </p>
+      </div>
+      <hr />
+
+      <div>
+        <h6 class="subtituloRosa">DEFEITO</h6>
+        <p>{{ solicitacao.defeito }}</p>
+      </div>
+      <hr />
+
+      <div class="d-flex justify-content-end">
+        <a class="btn btnRosaSalmao" routerLink="/client/home">
+          <i class="fa-solid fa-location-arrow btnVoltar"></i>
+        </a>
+      </div>
     </div>
   </div>
-</div>

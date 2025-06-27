@@ -38,6 +38,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
   isLoading = false;
   errorMessage: string | null = null;
   confirmada!: (formData: any) => void;
+  historico: any[] = []; // Assuming historico is an array of objects
 
   currentModalTitle: string = "";
   currentContentTemplate!: TemplateRef<any>;
@@ -58,6 +59,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     this.loadSolicitacao();
     this.getId();
     this.loadFuncionarios();
+
   }
 
   loadSolicitacao(): void {
@@ -139,7 +141,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     this.isLoading = true;
     this.solicitacao.valor = valorForm;
     this.solicitacao.estado = EstadosSolicitacao.Orcada;
-    
+
     this.solicitacaoService.orcar(this.id, valorForm, this.usuario).subscribe({
       next: () => {
         this.modal.close();
@@ -161,7 +163,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     this.isLoading = true;
     this.solicitacao.idFuncionario = formData.idFuncionario;
     this.solicitacao.estado = EstadosSolicitacao.Redirecionada;
-    
+
     this.solicitacaoService.redirecionar(this.id).subscribe({
       next: () => {
         this.modal.close();
@@ -184,7 +186,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     this.isLoading = true;
     this.solicitacao.mensagem = formData.mensagem;
     this.solicitacao.servico = formData.servico;
-    
+
     this.solicitacaoService.arrumar(this.id).subscribe({
       next: () => {
         this.modal.close();
@@ -204,7 +206,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     }
 
     this.isLoading = true;
-    
+
     this.solicitacaoService.finalizar(this.id).subscribe({
       next: () => {
         alert("Solicitation finalized");
@@ -276,6 +278,25 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
   }
 
   toggleHist() {
-    this.isHistOpen = !this.isHistOpen;
-  }
-}
+        this.isHistOpen = !this.isHistOpen;
+        if (this.isHistOpen) {
+            this.loadHistorico();
+          }
+      }
+
+ /** Busca o histórico no backend */
+   loadHistorico(): void {
+ this.isLoading = true;
+   this.errorMessage = null;
+   this.solicitacaoService.getHistorico(this.id)
+       .pipe(
+           finalize(() => this.isLoading = false),
+           catchError(err => {
+               console.error('Erro ao carregar histórico', err);
+               this.errorMessage = 'Falha ao carregar histórico';
+               return of([]);
+             })
+         )
+       .subscribe(hist => this.historico = hist);
+ }
+ }

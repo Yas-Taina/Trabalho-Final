@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Solicitacao } from '../shared/models';
+import { Historico } from '../shared/models/historico.model';
 
 
 @Injectable({
@@ -62,5 +63,10 @@ export class SolicitacaoService {
 
   finalizar(id: number): Observable<Solicitacao> {
     return this.http.put<Solicitacao>(`${this.apiUrl}/finalizar/${id}`, {});
+  }
+
+   // GET /solicitacao/{id}/historico
+  getHistorico(id: number): Observable<Historico[]> {
+    return this.http.get<Historico[]>(`${this.apiUrl}/${id}/historico`);
   }
 }
