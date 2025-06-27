@@ -1,15 +1,15 @@
 <div class="row d-flex justify-content-center mainCreme gap-5">
 
-  <!--Caixa Esquerda-->
+  <!-- Caixa Esquerda -->
   <div class="col-md-4 d-flex flex-column align-items-center">
 
-    <!--Exibe o orçamento, caso exista-->
+    <!-- Exibe o orçamento, caso exista -->
     <div *ngIf="solicitacao.estado !== EstadosSolicitacao.Aberta" class="box">
       <h3 class="tituloPequeno">Valor</h3>
       <h2>{{ solicitacao.valor | currency: "BRL" }}</h2>
     </div>
 
-    <!--Exibe detalhes da manutenção, caso exista-->
+    <!-- Exibe detalhes da manutenção, caso exista -->
     <div *ngIf="solicitacao.servico && solicitacao.servico.trim() !== ''" class="box">
       <h6 class="subtituloRosa">SERVIÇOS REALIZADOS</h6>
       <p>{{ solicitacao.servico }}</p>
@@ -17,20 +17,19 @@
       <p>{{ solicitacao.mensagem }}</p>
     </div>
 
-    <!--Botões de ação-->
-    <!--Aprovação do serviço-->
+    <!-- Aprovação do serviço -->
     <a *ngIf="solicitacao.estado === EstadosSolicitacao.Orcada" class="btn btnRosaSalmao btnAcao" title="Aprovar"
       (click)="aprovar()">
       <i class="fa-solid fa-circle-check"></i>&nbsp;&nbsp;Aprovar Serviço
     </a>
 
-    <!--Recusa de serviço-->
+    <!-- Recusa de serviço -->
     <a *ngIf="solicitacao.estado === EstadosSolicitacao.Orcada" class="btn btnTransparenteSalmao btnAcao"
       title="Recusar" (click)="abrirModal()">
       <i class="fa-solid fa-circle-xmark"></i>&nbsp;&nbsp;Recusar Serviço
     </a>
 
-    <!--Modal box para motivo da recusa-->
+    <!-- Modal de recusa -->
     <app-modal #Modal [modalTitle]="currentModalTitle" [contentTemplate]="currentContentTemplate"
       [templateContext]="{ formData: currentFormData }" (confirmed)="handleConfirmation($event)">
     </app-modal>
@@ -41,27 +40,25 @@
           <div>
             <label>Motivo da Recusa</label>
             <textarea class="form-control" [(ngModel)]="formData.reason" name="reason" maxlength="500"
-              placeholder="Por que está recusando o serviço?" required>
-              </textarea>
+              placeholder="Por que está recusando o serviço?" required></textarea>
           </div>
         </form>
       </div>
     </ng-template>
 
-    <!--Resgatar Serviço-->
+    <!-- Resgatar Serviço -->
     <a *ngIf="solicitacao.estado === EstadosSolicitacao.Rejeitada" class="btn btnRosaSalmao btnAcao" title="Resgatar"
       (click)="resgatar($event)">
       <i class="fa-solid fa-trash-arrow-up"></i>&nbsp;&nbsp;Resgatar Serviço
     </a>
 
-    <!--Pagamento do serviço-->
+    <!-- Pagamento do serviço -->
     <a *ngIf="solicitacao.estado === EstadosSolicitacao.Arrumada" class="btn btnRosaSalmao btnAcao" title="Pagar"
       (click)="pagar($event)">
       <i class="fa-solid fa-money-check-dollar"></i>&nbsp;&nbsp;Pagar Serviço
     </a>
 
-    <!--Exibe o histórico da solicitação-->
-    <!-- botão já existente -->
+    <!-- Histórico -->
     <a class="btn btnRosaSalmao btnAcao" title="Histórico" (click)="toggleHist()">
       <i class="fa-solid fa-book-open"></i>&nbsp;&nbsp;Histórico
     </a>
@@ -69,15 +66,9 @@
     <div *ngIf="isHistOpen" class="box" style="background-color: #e4a18f20;">
       <ng-container *ngIf="historico.length; else semHistorico">
         <div *ngFor="let h of historico" class="mb-2">
-          <!-- força o casting para any pra poder acessar “data” mesmo sem estar declarado na classe -->
           <strong>{{ $any(h).data | date:'dd/MM/yyyy HH:mm' }}</strong>
-          <!-- mostra o estado usando seu pipe, passando o ordinal vindo do JSON -->
           — {{ $any(h).estado | estadoAmigavel }}
-          <!-- nome do funcionário, se existir -->
-          <span *ngIf="$any(h).nomeFuncionario">
-            ({{ $any(h).nomeFuncionario }})
-          </span>
-          <!-- e a mensagem completa -->
+          <span *ngIf="$any(h).nomeFuncionario">({{ $any(h).nomeFuncionario }})</span>
           <div>{{ $any(h).mensagem }}</div>
         </div>
       </ng-container>
@@ -85,60 +76,55 @@
         <p>Nenhum registro de histórico encontrado para esta solicitação.</p>
       </ng-template>
     </div>
-
-
-
-
-    <!--Caixa Direita (Detalhes)-->
-    <div class="col-md-4">
-      <h1 class="tituloGrande">DETALHES DA<br />SOLICITAÇÃO</h1>
-      <hr />
-
-      <div>
-        <h6 class="subtituloRosa">ESTADO</h6>
-        <p>{{ solicitacao.estado | estadoAmigavel }}</p>
-      </div>
-      <hr />
-
-      <div>
-        <h6 class="subtituloRosa">DATA E HORA</h6>
-        <p>{{ solicitacao.dataAberta | date: 'dd/MM/yyyy - HH:mm' }}</p>
-      </div>
-      <hr />
-
-      <div class="position-relative">
-        <div>
-          <h6 class="subtituloRosa">EQUIPAMENTO</h6>
-          <p>{{ equipamento?.nome }}</p>
-        </div>
-        <button class="btnIcon position-absolute end-0 top-50 translate-middle-y" (click)="toggleEquip()"
-          title="Visualizar">
-          <i class="fa-solid fa-eye"></i>
-        </button>
-      </div>
-
-      <div *ngIf="isEquipOpen" class="text-start">
-        <p>
-          <strong>Descrição da categoria do equipamento:</strong>
-          {{ equipamento?.descricao }}
-        </p>
-        <p>
-          <strong>Descrição deste equipamento:</strong>
-          {{ solicitacao.descricao }}
-        </p>
-      </div>
-      <hr />
-
-      <div>
-        <h6 class="subtituloRosa">DEFEITO</h6>
-        <p>{{ solicitacao.defeito }}</p>
-      </div>
-      <hr />
-
-      <div class="d-flex justify-content-end">
-        <a class="btn btnRosaSalmao" routerLink="/client/home">
-          <i class="fa-solid fa-location-arrow btnVoltar"></i>
-        </a>
-      </div>
-    </div>
   </div>
+
+  <!-- Caixa Direita -->
+  <div class="col-md-4 d-flex flex-column">
+
+    <h1 class="tituloGrande">DETALHES DA<br />SOLICITAÇÃO</h1>
+    <hr />
+
+    <div>
+      <h6 class="subtituloRosa">ESTADO</h6>
+      <p>{{ solicitacao.estado | estadoAmigavel }}</p>
+    </div>
+    <hr />
+
+    <div>
+      <h6 class="subtituloRosa">DATA E HORA</h6>
+      <p>{{ solicitacao.dataAberta | date: 'dd/MM/yyyy - HH:mm' }}</p>
+    </div>
+    <hr />
+
+    <div class="position-relative">
+      <div>
+        <h6 class="subtituloRosa">EQUIPAMENTO</h6>
+        <p>{{ equipamento?.nome }}</p>
+      </div>
+      <button class="btnIcon position-absolute end-0 top-50 translate-middle-y" (click)="toggleEquip()"
+        title="Visualizar">
+        <i class="fa-solid fa-eye"></i>
+      </button>
+    </div>
+
+    <div *ngIf="isEquipOpen" class="text-start">
+      <p><strong>Descrição da categoria do equipamento:</strong> {{ equipamento?.descricao }}</p>
+      <p><strong>Descrição deste equipamento:</strong> {{ solicitacao.descricao }}</p>
+    </div>
+    <hr />
+
+    <div>
+      <h6 class="subtituloRosa">DEFEITO</h6>
+      <p>{{ solicitacao.defeito }}</p>
+    </div>
+    <hr />
+
+    <div class="d-flex justify-content-end">
+      <a class="btn btnRosaSalmao" routerLink="/client/home">
+        <i class="fa-solid fa-location-arrow btnVoltar"></i>
+      </a>
+    </div>
+
+  </div>
+
+</div>

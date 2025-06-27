@@ -71,7 +71,7 @@ export class SolicitacaoService {
 
    // GET /solicitacao/{id}/historico
   getHistorico(id: number): Observable<Historico[]> {
-    return this.http.get<Historico[]>(`${this.apiUrl}/${id}/historico`);
+    return this.http.get<Historico[]>(`${this.apiUrl}/historico/${id}`);
   }
 
   getReceitasPorData(

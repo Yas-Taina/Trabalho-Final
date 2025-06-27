@@ -5,6 +5,7 @@
     <div *ngIf="solicitacao.estado !== EstadosSolicitacao.Aberta" class="box">
       <h6 class="tituloPequeno">VALOR</h6>
       <h2>{{ solicitacao.valor | currency: "BRL" }}</h2>
+
     </div>
     <!--Exibe detalhes da manutenção, caso exista-->
     <div *ngIf="solicitacao.servico && solicitacao.servico.trim() !== ''" class="box">
@@ -129,7 +130,7 @@
   </div>
 
   <!--Caixa direita (detalhes)-->
-  <div class="col-md-4">
+  <div class="col-md-4 d-flex flex-column ">
     <h1 class="tituloGrande">DETALHES DA<br />SOLICITAÇÃO</h1>
     <hr />
     <div>
