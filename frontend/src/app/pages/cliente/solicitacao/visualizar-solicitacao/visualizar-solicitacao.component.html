@@ -22,14 +22,14 @@
 
     <!--Botões de ação-->
       <!--Aprovação do serviço-->
-      <!--<a
-      *ngIf="solicitacao.estado === EstadosSolicitacao.Orcada"
+      <a
+        *ngIf="solicitacao.estado === EstadosSolicitacao.Orcada"
         class="btn btnRosaSalmao btnAcao"
         title="Aprovar"
-        (click)="aprovar($event)"
+        (click)="aprovar()"
       >
         <i class="fa-solid fa-circle-check"></i>&nbsp;&nbsp;Aprovar Serviço
-      </a> -->
+      </a>
 
       <!--Recusa de serviço-->
       <a

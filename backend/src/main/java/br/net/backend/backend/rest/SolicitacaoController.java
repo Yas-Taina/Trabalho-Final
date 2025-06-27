@@ -113,6 +113,29 @@ public class SolicitacaoController {
 
         return ResponseEntity.ok(toDTO(solicitacao));
     }
+    // ...existing code...
+
+@PutMapping("/aprovar/{id}")
+public ResponseEntity<SolicitacaoDTO> aprovarSolicitacao(@PathVariable Long id) {
+    Optional<Solicitacao> optionalSolicitacao = solicitacaoRepository.findById(id);
+    if (optionalSolicitacao.isEmpty()) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+    Solicitacao solicitacao = optionalSolicitacao.get();
+    if (solicitacao.getEstado() != EstadoEnum.Orçada) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(null); // ou retornar uma mensagem mais clara via DTO
+    }
+    LocalDateTime dataAtual = LocalDateTime.now();
+    solicitacao.setEstado(EstadoEnum.Aprovada);
+    solicitacao.setDataAtualizacao(dataAtual);
+    String mensagem = "Aprovada em " + dataAtual.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+    solicitacao.setMensagem(mensagem);
+    solicitacaoRepository.save(solicitacao);
+    registrarHistorico(solicitacao, dataAtual, mensagem);
+    return ResponseEntity.ok(toDTO(solicitacao));
+}
+
 
     @PutMapping("/rejeitar/{id}")
     public ResponseEntity<SolicitacaoDTO> rejeitarSolicitacao(@PathVariable Long id, @RequestBody RejeicaoDTO dto) {

@@ -35,6 +35,10 @@ export class SolicitacaoService {
     return this.http.put<Solicitacao>(`${this.apiUrl}/orcar/${id}`, {valor: valor, idFuncionario: idFuncionario});
   }
 
+    aprovar(id: number): Observable<Solicitacao> {
+    return this.http.put<Solicitacao>(`${this.apiUrl}/aprovar/${id}`, {});
+  } 
+
   rejeitar(id: number, motivo: string): Observable<Solicitacao> {
     const rejeicaoDTO = { motivo: motivo };
     return this.http.put<Solicitacao>(`${this.apiUrl}/rejeitar/${id}`, rejeicaoDTO);

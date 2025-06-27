@@ -217,6 +217,26 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     });
   }
 
+  aprovar() {
+    if (!confirm("Deseja aprovar esta solicitação?")) {
+      return;
+    }
+
+    this.isLoading = true;
+    this.solicitacaoService.aprovar(this.id).subscribe({
+      next: () => {
+        this.modal.close();
+        this.loadSolicitacao();
+        alert("Solicitação aprovada com sucesso!");
+      },
+      error: (error) => {
+        console.error('Erro ao aprovar solicitação:', error);
+        this.errorMessage = 'Falha ao aprovar solicitação';
+        this.isLoading = false;
+      }
+    });
+  }
+
   abrirModalOrcar() {
     this.currentModalTitle = "Create Budget";
     this.currentContentTemplate = this.orcarTemplate;

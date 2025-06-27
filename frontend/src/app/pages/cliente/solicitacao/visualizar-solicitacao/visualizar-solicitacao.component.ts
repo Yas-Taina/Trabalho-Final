@@ -1,4 +1,4 @@
-  import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
+import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
   import { FormsModule, NgForm } from "@angular/forms";
   import { ActivatedRoute, RouterModule } from "@angular/router";
   import { CommonModule } from "@angular/common";
@@ -148,6 +148,26 @@
         this.errorMessage = error.status === 404 
           ? 'Solicitação não encontrada'
           : 'Falha ao recusar solicitação. Tente novamente mais tarde.';
+        this.isLoading = false;
+      }
+    });
+  }
+
+  aprovar(): void {
+    if (!confirm("Deseja aprovar o serviço?")) {
+      return;
+    }
+    this.isLoading = true;
+    this.errorMessage = null;
+    this.solicitacaoService.aprovar(this.id).subscribe({
+      next: (solicitacaoAtualizada: Solicitacao) => {
+        this.solicitacao = solicitacaoAtualizada;
+        this.isLoading = false;
+        alert("Serviço aprovado com sucesso!");
+      },
+      error: (error) => {
+        console.error('Erro ao aprovar serviço:', error);
+        this.errorMessage = 'Falha ao aprovar serviço';
         this.isLoading = false;
       }
     });
