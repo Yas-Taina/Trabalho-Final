@@ -11,4 +11,6 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class OrcamentoDTO {
     private BigDecimal valor;
+    private long idFuncionario;
 }
+

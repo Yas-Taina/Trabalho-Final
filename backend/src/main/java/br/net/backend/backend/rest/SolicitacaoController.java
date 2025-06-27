@@ -97,6 +97,10 @@ public class SolicitacaoController {
         solicitacao.setValor(dto.getValor());
         solicitacao.setEstado(EstadoEnum.Orçada);
         solicitacao.setDataAtualizacao(dataAtual);
+        solicitacao.setFuncionario(
+                funcionarioRepository.findById(dto.getIdFuncionario())
+                        .orElseThrow(() -> new IllegalArgumentException("Funcionário não encontrado"))
+        );
 
         String nomeResponsavel = solicitacao.getFuncionario().getNome();
         String mensagem = "Orçada em " + dataAtual.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))

@@ -140,7 +140,7 @@ export class VisualizarSolicitacaoComponentAdm implements OnInit {
     this.solicitacao.valor = valorForm;
     this.solicitacao.estado = EstadosSolicitacao.Orcada;
     
-    this.solicitacaoService.orcar(this.id, valorForm).subscribe({
+    this.solicitacaoService.orcar(this.id, valorForm, this.usuario).subscribe({
       next: () => {
         this.modal.close();
       },
