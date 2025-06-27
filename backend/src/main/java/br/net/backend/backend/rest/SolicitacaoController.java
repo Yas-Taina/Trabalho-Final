@@ -261,7 +261,7 @@ public class SolicitacaoController {
                 solicitacao.getCliente().getId(),
                 funcionarioDTO != null ? funcionarioDTO.getId() : null,
                 solicitacao.getDataAberta() != null ? solicitacao.getDataAberta().toString() : null,
-                solicitacao.getEstado(),
+                solicitacao.getEstado() != null ? solicitacao.getEstado().ordinal() : null, // Estado como número
                 solicitacao.getEquipamento().getId(),
                 solicitacao.getDefeito(), // Usando defeito como descricao
                 solicitacao.getValor() != null ? solicitacao.getValor().doubleValue() : null,

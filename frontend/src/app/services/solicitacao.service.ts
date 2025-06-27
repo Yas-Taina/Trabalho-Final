@@ -31,8 +31,8 @@ export class SolicitacaoService {
     return this.http.post<Solicitacao>(this.apiUrl+'/criar', payload);
   }
 
-  orcar(id: number): Observable<Solicitacao> {
-    return this.http.put<Solicitacao>(`${this.apiUrl}/orcar/${id}`, {});
+  orcar(id: number, valor: number): Observable<Solicitacao> {
+    return this.http.put<Solicitacao>(`${this.apiUrl}/orcar/${id}`, {valor: valor});
   }
 
   rejeitar(id: number, motivo: string): Observable<Solicitacao> {

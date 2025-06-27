@@ -13,7 +13,7 @@ public class SolicitacaoDTO {
     private Long idCliente ;
     private Long idempregado;
     private String dataAberta ;
-    private EstadoEnum estado;
+    private int estado;
     private Long equipamento;
     private String descricao ;
     private Double valor;
