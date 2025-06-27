@@ -7,3 +7,6 @@ export * from './orcamento.model';
 export * from './sessao.model';
 export * from './solicitacao.model';
 export * from './enums';
+export * from './historico.model';
+export * from './receita-categoria.model';
+export * from './receita-data.model';

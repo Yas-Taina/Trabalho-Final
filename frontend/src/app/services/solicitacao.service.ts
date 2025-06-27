@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Solicitacao } from '../shared/models';
+import { ReceitaCategoria, ReceitaData, Solicitacao } from '../shared/models';
+import { Historico } from '../shared/models/historico.model';
 
 
 @Injectable({
@@ -11,6 +12,10 @@ export class SolicitacaoService {
   private apiUrl = 'http://localhost:8080/solicitacao';
 
   constructor(private http: HttpClient) { }
+
+   getReceitasPorCategoria(): Observable<ReceitaCategoria[]> {
+    return this.http.get<ReceitaCategoria[]>(`${this.apiUrl}/receitas-por-categoria`);
+  }
 
   getAll(): Observable<Solicitacao[]> {
     return this.http.get<Solicitacao[]>(this.apiUrl);
@@ -62,5 +67,20 @@ export class SolicitacaoService {
 
   finalizar(id: number): Observable<Solicitacao> {
     return this.http.put<Solicitacao>(`${this.apiUrl}/finalizar/${id}`, {});
+  }
+
+   // GET /solicitacao/{id}/historico
+  getHistorico(id: number): Observable<Historico[]> {
+    return this.http.get<Historico[]>(`${this.apiUrl}/${id}/historico`);
+  }
+
+  getReceitasPorData(
+    dataInicial?: string,
+    dataFinal?: string
+  ): Observable<ReceitaData[]> {
+    let params = new HttpParams();
+    if (dataInicial) params = params.set('dataInicial', dataInicial);
+    if (dataFinal)   params = params.set('dataFinal',   dataFinal);
+    return this.http.get<ReceitaData[]>(`${this.apiUrl}/receitas-por-data`, { params });
   }
 }
