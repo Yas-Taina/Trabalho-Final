@@ -2,6 +2,7 @@ package br.net.backend.backend.rest;
 
 import br.net.backend.backend.dto.CriaSolicitacaoDTO;
 import br.net.backend.backend.dto.FuncionarioDTO;
+import br.net.backend.backend.dto.HistoricoDTO;
 import br.net.backend.backend.dto.ManutencaoDTO;
 import br.net.backend.backend.dto.OrcamentoDTO;
 import br.net.backend.backend.dto.RedirecionamentoDTO;
@@ -99,8 +100,7 @@ public class SolicitacaoController {
         solicitacao.setDataAtualizacao(dataAtual);
         solicitacao.setFuncionario(
                 funcionarioRepository.findById(dto.getIdFuncionario())
-                        .orElseThrow(() -> new IllegalArgumentException("Funcionário não encontrado"))
-        );
+                        .orElseThrow(() -> new IllegalArgumentException("Funcionário não encontrado")));
 
         String nomeResponsavel = solicitacao.getFuncionario().getNome();
         String mensagem = "Orçada em " + dataAtual.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))
@@ -115,27 +115,26 @@ public class SolicitacaoController {
     }
     // ...existing code...
 
-@PutMapping("/aprovar/{id}")
-public ResponseEntity<SolicitacaoDTO> aprovarSolicitacao(@PathVariable Long id) {
-    Optional<Solicitacao> optionalSolicitacao = solicitacaoRepository.findById(id);
-    if (optionalSolicitacao.isEmpty()) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    @PutMapping("/aprovar/{id}")
+    public ResponseEntity<SolicitacaoDTO> aprovarSolicitacao(@PathVariable Long id) {
+        Optional<Solicitacao> optionalSolicitacao = solicitacaoRepository.findById(id);
+        if (optionalSolicitacao.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        Solicitacao solicitacao = optionalSolicitacao.get();
+        if (solicitacao.getEstado() != EstadoEnum.Orçada) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(null); // ou retornar uma mensagem mais clara via DTO
+        }
+        LocalDateTime dataAtual = LocalDateTime.now();
+        solicitacao.setEstado(EstadoEnum.Aprovada);
+        solicitacao.setDataAtualizacao(dataAtual);
+        String mensagem = "Aprovada em " + dataAtual.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        solicitacao.setMensagem(mensagem);
+        solicitacaoRepository.save(solicitacao);
+        registrarHistorico(solicitacao, dataAtual, mensagem);
+        return ResponseEntity.ok(toDTO(solicitacao));
     }
-    Solicitacao solicitacao = optionalSolicitacao.get();
-    if (solicitacao.getEstado() != EstadoEnum.Orçada) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(null); // ou retornar uma mensagem mais clara via DTO
-    }
-    LocalDateTime dataAtual = LocalDateTime.now();
-    solicitacao.setEstado(EstadoEnum.Aprovada);
-    solicitacao.setDataAtualizacao(dataAtual);
-    String mensagem = "Aprovada em " + dataAtual.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
-    solicitacao.setMensagem(mensagem);
-    solicitacaoRepository.save(solicitacao);
-    registrarHistorico(solicitacao, dataAtual, mensagem);
-    return ResponseEntity.ok(toDTO(solicitacao));
-}
-
 
     @PutMapping("/rejeitar/{id}")
     public ResponseEntity<SolicitacaoDTO> rejeitarSolicitacao(@PathVariable Long id, @RequestBody RejeicaoDTO dto) {
@@ -280,6 +279,35 @@ public ResponseEntity<SolicitacaoDTO> aprovarSolicitacao(@PathVariable Long id) 
         return ResponseEntity.ok(toDTO(solicitacao));
     }
 
+    @GetMapping("/historico/{id}")
+    public ResponseEntity<List<HistoricoDTO>> getHistoricoDaSolicitacao(@PathVariable Long id) {
+        // 1) Verifica se a solicitação existe
+        if (!solicitacaoRepository.existsById(id)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        // 2) Busca históricos ordenados por id decrescente
+        List<Historico> listaHistoricos = historicoRepository
+                .findBySolicitacao_IdOrderByIdDesc(id);
+        // 3) Converte para DTOs
+        List<HistoricoDTO> dtos = listaHistoricos.stream()
+                .map(this::toHistoricoDTO)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(dtos);
+    }
+
+    // Conversor de entidade Historico para DTO
+    private HistoricoDTO toHistoricoDTO(Historico h) {
+        Long funcId = h.getFuncionario() != null ? h.getFuncionario().getId() : null;
+        String funcNome = h.getFuncionario() != null ? h.getFuncionario().getNome() : null;
+        return new HistoricoDTO(
+                h.getId(),
+                h.getEstado().ordinal(),
+                h.getData().toString(),
+                funcId,
+                funcNome,
+                h.getMensagem());
+    }
+
     private SolicitacaoDTO toDTO(Solicitacao solicitacao) {
         Funcionario func = solicitacao.getFuncionario();
         FuncionarioDTO funcionarioDTO = func != null ? toDTO(func) : null;
@@ -294,8 +322,7 @@ public ResponseEntity<SolicitacaoDTO> aprovarSolicitacao(@PathVariable Long id) 
                 solicitacao.getValor() != null ? solicitacao.getValor().doubleValue() : null,
                 solicitacao.getServico(),
                 solicitacao.getRecomendacao(),
-                solicitacao.getMensagem()
-        );
+                solicitacao.getMensagem());
     }
 
     private FuncionarioDTO toDTO(Funcionario funcionario) {
