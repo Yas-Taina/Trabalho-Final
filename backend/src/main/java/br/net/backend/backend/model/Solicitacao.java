@@ -41,7 +41,7 @@ public class Solicitacao extends EntidadeBase {
     @Column(name = "data_atualizacao")
     private LocalDateTime dataAtualizacao;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "estado", nullable = false)
     private EstadoEnum estado; // = EstadoEnum.Aberta;
 
