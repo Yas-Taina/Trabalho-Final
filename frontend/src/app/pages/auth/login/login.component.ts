@@ -23,6 +23,7 @@ export class LoginComponent {
   ) {}
 
   // torne o método async
+  // torne o método async
   async login(): Promise<void> {
     if (!this.formLogin.form.valid) {
       return;
