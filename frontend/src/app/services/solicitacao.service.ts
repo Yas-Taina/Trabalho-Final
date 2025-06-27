@@ -8,7 +8,7 @@ import { Solicitacao } from '../shared/models';
   providedIn: 'root'
 })
 export class SolicitacaoService {
-  private apiUrl = 'http://localhost:8080/solicitacoes';
+  private apiUrl = 'http://localhost:8080/solicitacao';
 
   constructor(private http: HttpClient) { }
 
@@ -21,7 +21,7 @@ export class SolicitacaoService {
   }
 
   create(solicitacao: Solicitacao): Observable<Solicitacao> {
-    return this.http.post<Solicitacao>(this.apiUrl, solicitacao);
+    return this.http.post<Solicitacao>(this.apiUrl+'/criar', solicitacao);
   }
 
   orcar(id: number): Observable<Solicitacao> {
