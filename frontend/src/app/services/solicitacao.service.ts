@@ -20,8 +20,15 @@ export class SolicitacaoService {
     return this.http.get<Solicitacao>(`${this.apiUrl}/${id}`);
   }
 
+  
   create(solicitacao: Solicitacao): Observable<Solicitacao> {
-    return this.http.post<Solicitacao>(this.apiUrl+'/criar', solicitacao);
+    const payload = {
+    idcliente:   solicitacao.idCliente,    // ajuste para o campo correto
+    equipamento: solicitacao.idEquipamento,
+    descricao:   solicitacao.descricao,
+    defeito:     solicitacao.defeito
+  };
+    return this.http.post<Solicitacao>(this.apiUrl+'/criar', payload);
   }
 
   orcar(id: number): Observable<Solicitacao> {

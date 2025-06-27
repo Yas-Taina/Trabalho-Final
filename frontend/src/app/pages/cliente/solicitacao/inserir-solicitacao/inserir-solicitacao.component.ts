@@ -46,29 +46,31 @@ export class InserirSolicitacaoComponent {
   }
 
   inserir(): void {
-    if (!this.formSolicitacao.form.valid) {
-      return;
-    }
-
-    this.isLoading = true;
-    this.errorMessage = null;
-
-    const sessao = this.loginService.obterDadosDaSessao();
-    if (!sessao) {
-      this.errorMessage = "Usuário não está logado";
-      this.isLoading = false;
-      return;
-    }
-
-    this.solicitacaoService.create(this.solicitacao).subscribe({
-      next: () => {
-        this.router.navigate(["/client/home"]);
-      },
-      error: (error) => {
-        console.error('Erro ao criar solicitação:', error);
-        this.errorMessage = 'Falha ao criar solicitação. Tente novamente.';
-        this.isLoading = false;
-      }
-    });
+  if (!this.formSolicitacao.form.valid) {
+    return;
   }
+
+  this.isLoading = true;
+  this.errorMessage = null;
+
+  const sessao = this.loginService.obterDadosDaSessao();
+  if (!sessao) {
+    this.errorMessage = "Usuário não está logado";
+    this.isLoading = false;
+    return;
+  }
+
+  // ← Aqui: linka o cliente logado ao DTO
+  this.solicitacao.idCliente = sessao.usuarioId;
+
+  this.solicitacaoService.create(this.solicitacao).subscribe({
+    next: () => this.router.navigate(["/client/home"]),
+    error: (error) => {
+      console.error('Erro ao criar solicitação:', error);
+      this.errorMessage = 'Falha ao criar solicitação. Tente novamente.';
+      this.isLoading = false;
+    }
+  });
+}
+
 }

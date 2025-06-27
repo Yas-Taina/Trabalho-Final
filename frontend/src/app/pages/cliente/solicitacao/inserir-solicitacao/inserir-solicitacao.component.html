@@ -12,27 +12,24 @@
       <div class="form-group">
         <label for="equipamento">Categoria do Equipamento</label>
         <select
-          class="form-control"
-          id="equipamento"
-          name="equipamento"
-          [(ngModel)]="equipamento"
-          #equipamento="ngModel"
-          required
-        >
-          <option *ngFor="let e of equipamentos" [ngValue]="e.id">
-            {{ e?.nome }}
-          </option>
-        </select>
-        <div
-          *ngIf="
-            equipamento.errors && (equipamento.dirty || equipamento.touched)
-          "
-          class="alert alert-danger"
-        >
-          <div [hidden]="!equipamento.errors['required']">
-            Selecione uma categoria de equipamento para a solicitação.
-          </div>
-        </div>
+  class="form-control"
+  id="idEquipamento"
+  name="idEquipamento"
+  [(ngModel)]="solicitacao.idEquipamento"
+  #equipamentoCtrl="ngModel"
+  required
+>
+  <option *ngFor="let e of equipamentos" [ngValue]="e.id">
+    {{ e.nome }}
+  </option>
+</select>
+<div *ngIf="equipamentoCtrl.invalid && (equipamentoCtrl.dirty || equipamentoCtrl.touched)"
+     class="alert alert-danger">
+  <div *ngIf="equipamentoCtrl.errors?.['required']">
+    Selecione uma categoria de equipamento.
+  </div>
+</div>
+
       </div>
 
       <div class="form-group">
