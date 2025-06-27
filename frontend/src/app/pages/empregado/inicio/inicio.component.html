@@ -1,10 +1,9 @@
 <div class="row mainAzul">
   <div class="col-md-4 containerTituloPagina">
-    <img
-      src="../../../../assets/images/backgroundTitle.png"
-      class="imgFundoTitulo"
-    />
-    <div class="tituloPagina"><h1>Início</h1></div>
+    <img src="../../../../assets/images/backgroundTitle.png" class="imgFundoTitulo" />
+    <div class="tituloPagina">
+      <h1>Início</h1>
+    </div>
   </div>
 
   <div class="col-md-8">
@@ -26,19 +25,11 @@
               <td>{{ buscarNomeCliente(solicitacao.idCliente) }}</td>
               <td>{{ solicitacao.estado | estadoAmigavel }}</td>
               <td style="border-right: 0">
-                <a
-                  class="btn btnRosaCha btnTabela"
-                  [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
-                  title="Orçar"
-                  >Efetuar<br />Orçamento</a
-                >
+                <a class="btn btnRosaCha btnTabela" [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
+                  title="Orçar">Efetuar<br />Orçamento</a>
               </td>
               <td style="border-left: 0">
-                <a
-                  class="btnIcon"
-                  [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]"
-                  title="Visualizar"
-                >
+                <a class="btnIcon" [routerLink]="['/adm/solicitacao/visualizar', solicitacao.id]" title="Visualizar">
                   <i class="fa-solid fa-eye" aria aria-hidden="true"></i>
                 </a>
               </td>
@@ -55,27 +46,17 @@
 
   <!--Geração de relatórios-->
   <div class="row row-gap-2" id="relatorio">
-    <div
-      class="col-md-4 d-flex flex-column justify-content-center align-items-center"
-    >
+    <div class="col-md-4 d-flex flex-column justify-content-center align-items-center">
       <h2 class="tituloGrande">EMITIR<br />RELATÓRIO<br />FINANCEIRO</h2>
     </div>
     <div class="col-md-4 d-flex justify-content-center align-items-center">
-      <a
-        class="btn btnCreme btnAcao"
-        title="Data"
-        (click)="abrirModalRelatorioReceitas()"
-      >
+      <a class="btn btnCreme btnAcao" title="Data" (click)="abrirModalRelatorioReceitas()">
         Receitas por Data
       </a>
     </div>
     <div class="col-md-4 d-flex justify-content-center align-items-center">
-      <a
-        class="btn btnTransparenteCreme btnAcao"
-        title="Categoria"
-        (click)="gerarRelatorioReceitasPorCategoria()"
-      >
-        Receitas por Categoria
+      <a class="btn btnCreme btnAcao" title="Data" (click)="gerarRelatorioReceitasPorCategoria()" >
+        {{ isLoading ? 'Gerando...' : 'Gerar Relatório de Receitas' }}
       </a>
     </div>
   </div>
@@ -85,54 +66,30 @@
     <div class="col-md-4 d-flex flex-column align-items-center">
       <h2 class="tituloPequeno">Solicitações</h2>
       <i class="fa-solid fa-screwdriver-wrench" id="iconHome"></i>
-      <a
-        class="btn btnCreme btnAcao"
-        [routerLink]="['/adm/atribuicoes']"
-        title="Categoria"
-      >
+      <a class="btn btnCreme btnAcao" [routerLink]="['/adm/atribuicoes']" title="Categoria">
         Minhas Atribuições
       </a>
-      <a
-        class="btn btnTransparenteCreme btnAcao"
-        [routerLink]="['/adm/solicitacoes']"
-        title="Categoria"
-      >
+      <a class="btn btnTransparenteCreme btnAcao" [routerLink]="['/adm/solicitacoes']" title="Categoria">
         Visualizar Todas
       </a>
     </div>
     <div class="col-md-4 d-flex flex-column align-items-center">
       <h2 class="tituloPequeno">Equipamentos</h2>
       <i class="fa-solid fa-computer" id="iconHome"></i>
-      <a
-        class="btn btnCreme btnAcao"
-        [routerLink]="['/adm/equipamentos']"
-        title="Visualizar Equipamentos"
-      >
+      <a class="btn btnCreme btnAcao" [routerLink]="['/adm/equipamentos']" title="Visualizar Equipamentos">
         Visualizar
       </a>
-      <a
-        class="btn btnTransparenteCreme btnAcao"
-        [routerLink]="['/adm/equipamentos/novo']"
-        title="Novo Equipamento"
-      >
+      <a class="btn btnTransparenteCreme btnAcao" [routerLink]="['/adm/equipamentos/novo']" title="Novo Equipamento">
         Cadastrar Novo
       </a>
     </div>
     <div class="col-md-4 d-flex flex-column align-items-center">
       <h2 class="tituloPequeno">Funcionários</h2>
       <i class="fa-solid fa-users" id="iconHome"></i>
-      <a
-        class="btn btnCreme btnAcao"
-        [routerLink]="['/adm/funcionarios']"
-        title="Visualizar Funcionários"
-      >
+      <a class="btn btnCreme btnAcao" [routerLink]="['/adm/funcionarios']" title="Visualizar Funcionários">
         Visualizar
       </a>
-      <a
-        class="btn btnTransparenteCreme btnAcao"
-        [routerLink]="['/adm/funcionarios/novo']"
-        title="Novo Funcionário"
-      >
+      <a class="btn btnTransparenteCreme btnAcao" [routerLink]="['/adm/funcionarios/novo']" title="Novo Funcionário">
         Cadastrar Novo
       </a>
     </div>

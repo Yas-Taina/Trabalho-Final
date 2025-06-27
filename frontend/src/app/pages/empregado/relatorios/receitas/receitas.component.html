@@ -1,45 +1,29 @@
-<div id="receitas" class="modal-header">
-  <h4 class="modal-title" id="modal-basic-title">
-    Gerar Relatório de Receitas
-  </h4>
-  <button
-    type="button"
-    class="btn-close"
-    aria-label="Close"
-    (click)="activeModal.close()"
-  ></button>
+<div class="modal-header">
+  <h4 class="modal-title">Gerar Relatório de Receitas</h4>
+  <button type="button" class="btn-close" aria-label="Close"
+          (click)="activeModal.close()"></button>
 </div>
-
 <div class="modal-body">
   <form #formRelatorio="ngForm">
-    <div class="form-group">
-      <label for="dataInicial">Data de Início (opcional):</label>
-      <input
-        type="date"
-        id="dataInicial"
-        class="form-control"
-        name = "dataInicial"
-        [(ngModel)]="dataInicial"
-      />
-    </div>
-    <div class="form-group">
-      <label for="dataFinal">Data Final (opcional):</label>
-      <input
-        type="date"
-        id="dataFinal"
-        class="form-control"
-        name="dataFinal"
-        [(ngModel)]="dataFinal"
-      />
-    </div>
-  </form>
+  <div class="mb-3">
+    <label>Data Início (opcional)</label>
+    <input type="date"
+           class="form-control"
+           name="dataInicial"
+           [(ngModel)]="dataInicial" />
+  </div>
+  <div class="mb-3">
+    <label>Data Final (opcional)</label>
+    <input type="date"
+           class="form-control"
+           name="dataFinal"
+           [(ngModel)]="dataFinal" />
+  </div>
+</form>
 </div>
-
 <div class="modal-footer">
-  <button type="button" class="btn btnAzul" (click)="gerarRelatorio()">
-    Gerar Relatório
+  <button class="btn btn-primary" (click)="gerarRelatorio()" [disabled]="isLoading">
+    {{ isLoading ? 'Gerando...' : 'Gerar' }}
   </button>
-  <button type="button" class="btn btnRosaCha" (click)="activeModal.close()">
-    Fechar
-  </button>
+  <button class="btn btn-secondary" (click)="activeModal.close()">Fechar</button>
 </div>

@@ -4,7 +4,7 @@ import { RouterModule } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ReceitasComponent } from "../relatorios/receitas/receitas.component";
 import { SolicitacaoService, ClienteService, EquipamentoService } from "../../../services";
-import { Cliente, Solicitacao, EstadosSolicitacao, EstadoAmigavelPipe, Equipamento } from "../../../shared";
+import { Cliente, Solicitacao, EstadosSolicitacao, EstadoAmigavelPipe, Equipamento, ReceitaCategoria } from "../../../shared";
 import { catchError, finalize } from "rxjs/operators";
 import { of } from "rxjs";
 import jsPDF from 'jspdf';
@@ -23,6 +23,8 @@ export class EmpregadoInicioComponent implements OnInit {
   equipamentos: Equipamento[] = [];
   isLoading = false;
   errorMessage: string | null = null;
+  receitaPorCategoria: ReceitaCategoria[] = [];
+  totalReceita = 0;
 
   constructor(
     private solicitacaoService: SolicitacaoService,
@@ -82,40 +84,39 @@ export class EmpregadoInicioComponent implements OnInit {
 
   gerarRelatorioReceitasPorCategoria() {
     this.isLoading = true;
-    
-    // Combine all necessary data
-    const estadosValidos = [EstadosSolicitacao.Paga, EstadosSolicitacao.Finalizada];
-    const solicitacoesValidas = this.solicitacoes.filter(s => estadosValidos.includes(s.estado));
-    
-    const totalReceita = solicitacoesValidas.reduce((soma, s) => soma + (s.valor || 0), 0);
-    const receitaPorCategoria: { nomeCategoria: string, valor: number }[] = [];
+    this.solicitacaoService.getReceitasPorCategoria()
+      .pipe(finalize(() => this.isLoading = false))
+      .subscribe({
+        next: data => {
+          this.receitaPorCategoria = data;
+          this.totalReceita = data
+            .map(c => c.total)
+            .reduce((sum, v) => sum + v, 0);
+          this.buildPdf();
+        },
+        error: err => {
+          console.error('Erro ao buscar receitas:', err);
+          this.errorMessage = 'Falha ao gerar relatório';
+        }
+      });
+  }
 
-    for (const equipamento of this.equipamentos) {
-      const solicitacoesEquipamento = solicitacoesValidas.filter(s => s.idEquipamento === equipamento.id);
-      const total = solicitacoesEquipamento.reduce((soma, s) => soma + (s.valor || 0), 0);
-
-      if (total > 0) {
-        receitaPorCategoria.push({
-          nomeCategoria: equipamento.nome,
-          valor: total
-        });
-      }
-    }
-
-    // Generate PDF
+  private buildPdf() {
     const doc = new jsPDF();
     doc.setFontSize(18);
     doc.text('Relatório de Receitas por Categoria', 14, 15);
     doc.setFontSize(12);
-    doc.text(`Total de receitas: R$ ${totalReceita.toFixed(2)}`, 14, 30);
-    
+    doc.text(`Total de receitas: R$ ${this.totalReceita.toFixed(2)}`, 14, 30);
+
     autoTable(doc, {
       startY: 40,
       head: [['Categoria', 'Valor Total (R$)']],
-      body: receitaPorCategoria.map(c => [c.nomeCategoria, c.valor.toFixed(2)])
+      body: this.receitaPorCategoria.map(c => [
+        c.nomeCategoria,
+        c.total.toFixed(2)
+      ])
     });
 
     doc.save('relatorio-receitas.pdf');
-    this.isLoading = false;
   }
 }

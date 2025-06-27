@@ -5,17 +5,23 @@ import br.net.backend.backend.dto.FuncionarioDTO;
 import br.net.backend.backend.dto.HistoricoDTO;
 import br.net.backend.backend.dto.ManutencaoDTO;
 import br.net.backend.backend.dto.OrcamentoDTO;
+import br.net.backend.backend.dto.ReceitaCategoriaDTO;
 import br.net.backend.backend.dto.RedirecionamentoDTO;
 import br.net.backend.backend.dto.RejeicaoDTO;
 import br.net.backend.backend.dto.SolicitacaoDTO;
 import br.net.backend.backend.model.*;
 import br.net.backend.backend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -39,6 +45,12 @@ public class SolicitacaoController {
 
     @Autowired
     private HistoricoRepository historicoRepository;
+
+    private final SolicitacaoRepository repo;
+
+    public SolicitacaoController(SolicitacaoRepository repo) {
+        this.repo = repo;
+    }
 
     @GetMapping
     public ResponseEntity<List<SolicitacaoDTO>> getAllSolicitacoes() {
@@ -278,6 +290,14 @@ public class SolicitacaoController {
         registrarHistorico(solicitacao, dataAtual, mensagem);
         return ResponseEntity.ok(toDTO(solicitacao));
     }
+
+    @GetMapping("/receitas-por-categoria")
+    public ResponseEntity<List<ReceitaCategoriaDTO>> receitasPorCategoria() {
+        List<EstadoEnum> estadosValidos = Arrays.asList(EstadoEnum.Paga, EstadoEnum.Finalizada);
+        List<ReceitaCategoriaDTO> dto = solicitacaoRepository.findReceitaPorCategoria(estadosValidos);
+        return ResponseEntity.ok(dto);
+    }
+
 
     @GetMapping("/historico/{id}")
     public ResponseEntity<List<HistoricoDTO>> getHistoricoDaSolicitacao(@PathVariable Long id) {
