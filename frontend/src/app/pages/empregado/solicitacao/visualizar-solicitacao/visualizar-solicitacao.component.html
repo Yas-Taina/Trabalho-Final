@@ -5,11 +5,6 @@
     <div *ngIf="solicitacao.estado !== EstadosSolicitacao.Aberta" class="box">
       <h6 class="tituloPequeno">VALOR</h6>
       <h2>{{ solicitacao.valor | currency: "BRL" }}</h2>
-      <p class="subtitulo">
-        <i>Orçamento feito por funcionario
-          <strong>Funcionario que fez o orçamento vai aqui</strong> em
-          <strong>Data em que orçamento foi feito vai aqui</strong></i>
-      </p>
     </div>
     <!--Exibe detalhes da manutenção, caso exista-->
     <div *ngIf="solicitacao.servico && solicitacao.servico.trim() !== ''" class="box">
