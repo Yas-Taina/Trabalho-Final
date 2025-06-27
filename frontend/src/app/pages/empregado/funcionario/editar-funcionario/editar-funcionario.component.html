@@ -67,8 +67,8 @@
             class="form-control"
             id="data"
             name="data"
-            [ngModel]="funcionario.dataNascimento | date: 'yyyy-MM-dd'"
-            (ngModelChange)="funcionario.dataNascimento = $event"
+            [ngModel]="funcionario.dataNasc | date: 'yyyy-MM-dd'"
+            (ngModelChange)="funcionario.dataNasc = $event"
             #data="ngModel"
             required
           />

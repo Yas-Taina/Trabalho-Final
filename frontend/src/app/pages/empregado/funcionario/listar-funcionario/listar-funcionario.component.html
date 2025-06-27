@@ -33,7 +33,7 @@
             <tr *ngFor="let funcionario of funcionarios">
               <td>{{ funcionario.nome.substring(0, 30) }}{{ funcionario.nome.length > 30 ? '...' : '' }}</td>
               <td>{{ funcionario.email.substring(0, 30) }}{{ funcionario.email.length > 30 ? '...' : '' }}</td>
-              <td>{{ funcionario.dataNascimento | date: 'dd/MM/yyyy' }}</td>
+              <td>{{ funcionario.dataNasc | date: 'dd/MM/yyyy' }}</td>
               <td>
                 <a
                   class="btnIcon"

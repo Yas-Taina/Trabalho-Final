@@ -6,7 +6,7 @@ export class Funcionario extends EntidadeBase{
     public nome: string = "",
     public email: string = "",
     public senha: string = "",
-    public dataNascimento: Date = new Date()
+    public dataNasc: Date = new Date()
   )  {
     super(id);
   }
