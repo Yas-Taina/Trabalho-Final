@@ -10,12 +10,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SolicitacaoDTO {
     private Long id;
-    private Long idcliente;
+    private Long idCliente ;
     private Long idempregado;
-    private String data;
+    private String dataAberta ;
     private EstadoEnum estado;
     private Long equipamento;
-    private String defeito;
+    private String descricao ;
     private Double valor;
     // private String descricao;
     private String manutencao;

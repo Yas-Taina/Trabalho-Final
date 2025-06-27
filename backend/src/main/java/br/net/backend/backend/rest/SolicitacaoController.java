@@ -263,12 +263,11 @@ public class SolicitacaoController {
                 solicitacao.getDataAberta() != null ? solicitacao.getDataAberta().toString() : null,
                 solicitacao.getEstado(),
                 solicitacao.getEquipamento().getId(),
-                solicitacao.getDefeito(),
+                solicitacao.getDefeito(), // Usando defeito como descricao
                 solicitacao.getValor() != null ? solicitacao.getValor().doubleValue() : null,
                 solicitacao.getServico(),
                 solicitacao.getRecomendacao(),
                 solicitacao.getMensagem()
-
         );
     }
 

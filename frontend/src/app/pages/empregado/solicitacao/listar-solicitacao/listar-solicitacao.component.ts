@@ -64,7 +64,8 @@ export class ListarSolicitacaoComponent implements OnInit {
       }),
       finalize(() => this.isLoading = false)
     ).subscribe(solicitacoes => {
-      this.solicitacoes = solicitacoes.filter(item => item.idFuncionario === 0);
+      // Exibe solicitações sem funcionário atribuído (idFuncionario null ou 0)
+      this.solicitacoes = solicitacoes.filter(item => !item.idFuncionario);
     });
   }
 
@@ -128,14 +129,12 @@ export class ListarSolicitacaoComponent implements OnInit {
       }),
       finalize(() => this.isLoading = false)
     ).subscribe(solicitacoes => {
-      let filtered = solicitacoes.filter(item => item.idFuncionario === 0);
-      
+      let filtered = solicitacoes.filter(item => !item.idFuncionario);
       if (this.dataMinima) {
         filtered = filtered.filter(item => 
           new Date(item.dataAberta) >= new Date(this.dataMinima!)
         );
       }
-      
       this.solicitacoes = filtered;
     });
   }
